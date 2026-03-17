@@ -1,16 +1,63 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useConfig } from '@/hooks/useConfig';
+import { useQuiz } from '@/hooks/useQuiz';
+import StartScreen from '@/components/quiz/StartScreen';
+import QuestionScreen from '@/components/quiz/QuestionScreen';
+import EmailGate from '@/components/quiz/EmailGate';
+import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
+import { fireWebhook } from '@/utils/webhook';
+import { sendResultEmail } from '@/utils/email';
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
-};
+export default function Index() {
+  const { config } = useConfig();
+  const quiz = useQuiz();
 
-const Index = PlaceholderIndex;
+  const handleEmailSubmit = async (firstName: string, email: string) => {
+    quiz.submitEmail(firstName, email);
 
-export default Index;
+    const resultType = quiz.result!;
+    const resultCopy = config.resultTexts[resultType];
+
+    // Fire webhook (silent)
+    fireWebhook(config, {
+      first_name: firstName,
+      email,
+      result_type: resultType,
+      answers: quiz.answers,
+      quiz_name: "What's Really Holding Your Business Back?",
+      client_name: config.businessName,
+      timestamp: new Date().toISOString(),
+    });
+
+    // Send email (silent)
+    sendResultEmail(config, {
+      to_email: email,
+      to_name: firstName,
+      result_type: resultType,
+      result_copy: resultCopy,
+      cta_text: config.ctaText,
+      cta_url: config.ctaUrl,
+      business_name: config.businessName,
+      coach_tagline: config.ctaTagline,
+    });
+  };
+
+  switch (quiz.screen) {
+    case 'start':
+      return <StartScreen config={config} onStart={quiz.startQuiz} />;
+    case 'question':
+      return (
+        <QuestionScreen
+          questionIndex={quiz.currentQuestion}
+          answers={quiz.answers}
+          brandColour={config.brandColour}
+          direction={quiz.direction}
+          onAnswer={quiz.answerQuestion}
+          onBack={quiz.goBack}
+        />
+      );
+    case 'email':
+      return <EmailGate brandColour={config.brandColour} onSubmit={handleEmailSubmit} />;
+    case 'confirmation':
+      return <ConfirmationScreen config={config} email={quiz.userData.email} />;
+  }
+}
