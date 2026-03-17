@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 interface EmailGateProps {
   brandColour: string;
-  onSubmit: (firstName: string, email: string) => void;
+  onSubmit: (firstName: string, email: string, lastName: string) => void;
 }
 
 export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
