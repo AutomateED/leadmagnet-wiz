@@ -11,8 +11,8 @@ export default function Index() {
   const { config } = useConfig();
   const quiz = useQuiz();
 
-  const handleEmailSubmit = async (firstName: string, email: string) => {
-    quiz.submitEmail(firstName, email);
+  const handleEmailSubmit = async (firstName: string, email: string, lastName: string) => {
+    quiz.submitEmail(firstName, email, lastName);
 
     const resultType = quiz.result!;
     const resultCopy = config.resultTexts[resultType];
