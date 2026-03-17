@@ -9,7 +9,7 @@ export function useQuiz() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<ResultType | null>(null);
   const [direction, setDirection] = useState(1);
-  const [userData, setUserData] = useState({ firstName: '', email: '' });
+  const [userData, setUserData] = useState({ firstName: '', lastName: '', email: '' });
 
   const startQuiz = useCallback(() => {
     setScreen('question');
@@ -43,8 +43,8 @@ export function useQuiz() {
     }
   }, [currentQuestion]);
 
-  const submitEmail = useCallback((firstName: string, email: string) => {
-    setUserData({ firstName, email });
+  const submitEmail = useCallback((firstName: string, email: string, lastName?: string) => {
+    setUserData({ firstName, lastName: lastName || '', email });
     setScreen('confirmation');
   }, []);
 
@@ -53,7 +53,7 @@ export function useQuiz() {
     setCurrentQuestion(0);
     setAnswers({});
     setResult(null);
-    setUserData({ firstName: '', email: '' });
+    setUserData({ firstName: '', lastName: '', email: '' });
   }, []);
 
   return {
