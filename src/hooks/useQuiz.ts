@@ -43,8 +43,8 @@ export function useQuiz() {
     }
   }, [currentQuestion]);
 
-  const submitEmail = useCallback((firstName: string, email: string) => {
-    setUserData({ firstName, email });
+  const submitEmail = useCallback((firstName: string, email: string, lastName?: string) => {
+    setUserData({ firstName, lastName: lastName || '', email });
     setScreen('confirmation');
   }, []);
 
