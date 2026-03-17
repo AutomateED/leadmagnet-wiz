@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, ExternalLink } from 'lucide-react';
+import { Check, ExternalLink, Copy, Globe, Code2 } from 'lucide-react';
 import type { QuizConfig } from '@/hooks/useConfig';
 
 interface StepProps {
@@ -7,6 +8,24 @@ interface StepProps {
   updateDraft: (partial: Partial<QuizConfig>) => void;
   onSave?: () => void;
   saved?: boolean;
+}
+
+function CopyButton({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+    >
+      <Copy className="h-3.5 w-3.5" />
+      {copied ? 'Copied!' : 'Copy'}
+    </button>
+  );
 }
 
 export default function StepReview({ draft, onSave, saved }: StepProps) {
@@ -20,6 +39,9 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
     { label: 'Webhook', value: draft.webhookUrl || '—' },
     { label: 'EmailJS', value: draft.emailjsServiceId ? 'Configured' : 'Not set' },
   ];
+
+  const embedCode = `<iframe src="${window.location.origin}" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"></iframe>`;
+  const directLink = window.location.origin;
 
   return (
     <div>
@@ -67,19 +89,47 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
             Quiz saved successfully!
           </div>
 
-          {/* Embed code */}
-          <div className="mt-6 rounded-xl border border-border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Embed code</p>
-            <code className="block rounded-lg bg-muted p-4 text-xs font-mono text-foreground break-all leading-relaxed">
-              {`<iframe src="${window.location.origin}" width="100%" height="700" frameborder="0"></iframe>`}
-            </code>
+          {/* How to add to your website */}
+          <div className="mt-8">
+            <h3 className="font-display text-xl font-semibold text-foreground">Add to your website</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Choose one of the two options below to share your quiz.</p>
           </div>
 
+          {/* Option 1: Direct Link */}
+          <div className="mt-5 rounded-xl border border-border bg-card p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <Globe className="h-4 w-4 text-primary" />
+              <p className="text-sm font-semibold text-foreground">Option 1 — Direct link</p>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              Share this link directly with your audience via email, social media, or a button on your website.
+            </p>
+            <div className="flex items-center justify-between gap-3 rounded-lg bg-muted p-3">
+              <code className="text-xs font-mono text-foreground break-all">
+                {directLink}
+              </code>
+              <CopyButton text={directLink} />
+            </div>
+          </div>
+
+          {/* Option 2: Embed */}
           <div className="mt-4 rounded-xl border border-border bg-card p-5">
-            <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-3">Direct link</p>
-            <code className="block rounded-lg bg-muted p-4 text-xs font-mono text-foreground break-all">
-              {window.location.origin}
-            </code>
+            <div className="flex items-center gap-2 mb-2">
+              <Code2 className="h-4 w-4 text-primary" />
+              <p className="text-sm font-semibold text-foreground">Option 2 — Embed on your website</p>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">
+              Paste this code into any page on your website (WordPress, Squarespace, Wix, Kajabi, etc.) where you want the quiz to appear. Look for an "HTML block" or "Custom code" section in your page builder.
+            </p>
+            <div className="flex items-start justify-between gap-3 rounded-lg bg-muted p-3">
+              <code className="text-xs font-mono text-foreground break-all leading-relaxed">
+                {embedCode}
+              </code>
+              <CopyButton text={embedCode} />
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+              💡 <strong>Tip:</strong> You can adjust the <code className="text-xs font-mono bg-muted px-1 rounded">height="700"</code> value if the quiz needs more or less space on your page.
+            </p>
           </div>
 
           <a
