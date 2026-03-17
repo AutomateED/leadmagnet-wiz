@@ -9,7 +9,7 @@ export function useQuiz() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<ResultType | null>(null);
   const [direction, setDirection] = useState(1);
-  const [userData, setUserData] = useState({ firstName: '', email: '' });
+  const [userData, setUserData] = useState({ firstName: '', lastName: '', email: '' });
 
   const startQuiz = useCallback(() => {
     setScreen('question');
