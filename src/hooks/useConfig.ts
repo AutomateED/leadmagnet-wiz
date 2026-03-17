@@ -80,7 +80,14 @@ export function useConfig() {
   const updateConfig = useCallback((partial: Partial<QuizConfig>) => {
     setConfigState((prev) => {
       const updated = { ...prev, ...partial };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch { /* give up silently */ }
+      }
       return updated;
     });
   }, []);

@@ -14,9 +14,26 @@ export default function StepBranding({ draft, updateDraft }: StepProps) {
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const img = new Image();
     const reader = new FileReader();
     reader.onload = () => {
-      updateDraft({ logo: reader.result as string });
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX = 400;
+        let w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          const ratio = Math.min(MAX / w, MAX / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d')!.drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/webp', 0.8);
+        updateDraft({ logo: compressed });
+      };
+      img.src = reader.result as string;
     };
     reader.readAsDataURL(file);
   };
