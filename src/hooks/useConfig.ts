@@ -66,13 +66,28 @@ export function useConfig() {
 
   const setConfig = useCallback((newConfig: QuizConfig) => {
     setConfigState(newConfig);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+    } catch (e) {
+      console.warn('localStorage quota exceeded, clearing old data and retrying');
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+      } catch { /* give up silently */ }
+    }
   }, []);
 
   const updateConfig = useCallback((partial: Partial<QuizConfig>) => {
     setConfigState((prev) => {
       const updated = { ...prev, ...partial };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      } catch {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        } catch { /* give up silently */ }
+      }
       return updated;
     });
   }, []);
