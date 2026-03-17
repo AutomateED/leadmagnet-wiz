@@ -8,20 +8,21 @@ interface EmailGateProps {
 
 export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
   const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !email.trim()) {
-      setError('Please fill in both fields');
+    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
+      setError('Please fill in all fields');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
-    onSubmit(firstName.trim(), email.trim());
+    onSubmit(firstName.trim(), email.trim(), lastName.trim());
   };
 
   return (
