@@ -20,6 +20,7 @@ export default function Index() {
     // Fire webhook (silent)
     fireWebhook(config, {
       first_name: firstName,
+      last_name: lastName,
       email,
       result_type: resultType,
       answers: quiz.answers,

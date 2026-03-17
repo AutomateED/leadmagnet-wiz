@@ -47,7 +47,15 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
             onChange={(e) => { setFirstName(e.target.value); setError(''); }}
             placeholder="Your first name"
             className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
-            style={{ '--tw-border-opacity': 1, borderColor: firstName ? brandColour : undefined } as React.CSSProperties}
+            style={{ borderColor: firstName ? brandColour : undefined } as React.CSSProperties}
+          />
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => { setLastName(e.target.value); setError(''); }}
+            placeholder="Your last name"
+            className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
+            style={{ borderColor: lastName ? brandColour : undefined } as React.CSSProperties}
           />
           <input
             type="email"

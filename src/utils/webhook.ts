@@ -2,6 +2,7 @@ import type { QuizConfig } from '@/hooks/useConfig';
 
 interface WebhookPayload {
   first_name: string;
+  last_name: string;
   email: string;
   result_type: string;
   answers: Record<string, string>;

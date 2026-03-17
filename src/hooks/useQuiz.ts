@@ -53,7 +53,7 @@ export function useQuiz() {
     setCurrentQuestion(0);
     setAnswers({});
     setResult(null);
-    setUserData({ firstName: '', email: '' });
+    setUserData({ firstName: '', lastName: '', email: '' });
   }, []);
 
   return {
