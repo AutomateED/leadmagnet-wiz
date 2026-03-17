@@ -1,0 +1,94 @@
+import { useState, useCallback, useEffect } from 'react';
+
+export interface QuizConfig {
+  fullName: string;
+  businessName: string;
+  email: string;
+  logo: string;
+  brandColour: string;
+  resultTexts: {
+    'The Invisible Expert': string;
+    'The Overwhelmed Operator': string;
+    'The Confident Starter': string;
+    'The Plateau Breaker': string;
+  };
+  ctaText: string;
+  ctaUrl: string;
+  ctaTagline: string;
+  webhookUrl: string;
+  emailjsServiceId: string;
+  emailjsTemplateId: string;
+  emailjsPublicKey: string;
+}
+
+const DEFAULT_RESULTS = {
+  'The Invisible Expert':
+    "You have real skills, deep expertise, and a genuine desire to help your clients transform. The problem isn't your ability — it's your visibility. Your ideal clients don't know you exist yet. You're the best-kept secret in your niche, and that needs to change. The good news? This is the most fixable problem in business. With the right positioning, messaging, and a consistent way to get in front of the right people, everything shifts. You don't need to shout louder — you need to show up smarter.",
+  'The Overwhelmed Operator':
+    "You're busy — maybe too busy. You're working hard, serving clients, wearing every hat in the business, and somehow still not getting the results that match your effort. The issue isn't your work ethic — it's the lack of systems and structure underneath everything you do. When you're doing everything yourself, there's no room to grow. What you need isn't more hustle. You need a smarter way of working — clear processes, better boundaries, and a business that works even when you step back.",
+  'The Confident Starter':
+    "You're at the beginning of something exciting, and the energy you're bringing is everything. But right now, the path forward feels unclear — there are too many options, too much noise, and not enough certainty about which direction to go. That's completely normal at this stage. What you need is a solid foundation: clarity on who you serve, what you offer, and how to communicate it in a way that attracts the right people. With the right support, you can avoid years of trial and error and build something that works from day one.",
+  'The Plateau Breaker':
+    "You've done the hard work of building a business that works — and now you're frustrated that it's not growing the way you know it should. You've hit a ceiling, and the strategies that got you here aren't getting you to the next level. This is one of the most exciting (and most common) places to be, because it means you're ready. What you need isn't more tactics — it's a strategic shift. A fresh perspective, a bolder offer, and the courage to step into the bigger version of your business that's waiting for you.",
+};
+
+export const DEFAULT_CONFIG: QuizConfig = {
+  fullName: 'Sarah Mitchell',
+  businessName: 'Elevate Coaching Co.',
+  email: 'sarah@elevatecoaching.com',
+  logo: '',
+  brandColour: '#C9A96E',
+  resultTexts: DEFAULT_RESULTS,
+  ctaText: 'Book Your Free Discovery Call',
+  ctaUrl: 'https://calendly.com',
+  ctaTagline: "Ready to break through? Let's talk.",
+  webhookUrl: '',
+  emailjsServiceId: '',
+  emailjsTemplateId: '',
+  emailjsPublicKey: '',
+};
+
+const STORAGE_KEY = 'pretaquiz-config';
+
+export function useConfig() {
+  const [config, setConfigState] = useState<QuizConfig>(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return { ...DEFAULT_CONFIG, ...parsed, resultTexts: { ...DEFAULT_RESULTS, ...parsed.resultTexts } };
+      }
+    } catch {
+      // ignore
+    }
+    return DEFAULT_CONFIG;
+  });
+
+  const setConfig = useCallback((newConfig: QuizConfig) => {
+    setConfigState(newConfig);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newConfig));
+  }, []);
+
+  const updateConfig = useCallback((partial: Partial<QuizConfig>) => {
+    setConfigState((prev) => {
+      const updated = { ...prev, ...partial };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  }, []);
+
+  // Sync with storage changes from other tabs
+  useEffect(() => {
+    const handler = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          setConfigState({ ...DEFAULT_CONFIG, ...JSON.parse(e.newValue) });
+        } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
+  }, []);
+
+  return { config, setConfig, updateConfig };
+}
