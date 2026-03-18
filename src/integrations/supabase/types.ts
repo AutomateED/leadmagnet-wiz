@@ -105,7 +105,45 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_quiz_configs: {
+        Row: {
+          brand_colour: string | null
+          business_name: string | null
+          cta_tagline: string | null
+          cta_text: string | null
+          cta_url: string | null
+          full_name: string | null
+          logo_url: string | null
+          questions: Json | null
+          result_texts: Json | null
+          slug: string | null
+        }
+        Insert: {
+          brand_colour?: string | null
+          business_name?: string | null
+          cta_tagline?: string | null
+          cta_text?: string | null
+          cta_url?: string | null
+          full_name?: string | null
+          logo_url?: string | null
+          questions?: Json | null
+          result_texts?: Json | null
+          slug?: string | null
+        }
+        Update: {
+          brand_colour?: string | null
+          business_name?: string | null
+          cta_tagline?: string | null
+          cta_text?: string | null
+          cta_url?: string | null
+          full_name?: string | null
+          logo_url?: string | null
+          questions?: Json | null
+          result_texts?: Json | null
+          slug?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
