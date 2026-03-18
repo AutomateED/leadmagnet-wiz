@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useConfig, type QuizConfig, DEFAULT_CONFIG } from '@/hooks/useConfig';
+import { useToast } from '@/hooks/use-toast';
 import StepDetails from './StepDetails';
 import StepBranding from './StepBranding';
 import StepResults from './StepResults';
