@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useConfig, type QuizConfig, DEFAULT_CONFIG } from '@/hooks/useConfig';
+import { useToast } from '@/hooks/use-toast';
 import StepDetails from './StepDetails';
 import StepBranding from './StepBranding';
 import StepResults from './StepResults';
@@ -30,9 +31,12 @@ export default function SetupWizard() {
   const next = () => step < 5 && setStep(step + 1);
   const prev = () => step > 0 && setStep(step - 1);
 
+  const { toast } = useToast();
+
   const save = () => {
     setConfig(draft);
     setSaved(true);
+    toast({ title: 'Quiz saved!', description: 'Your quiz is ready to share.' });
   };
 
   const StepComponent = STEPS[step].component;
