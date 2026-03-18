@@ -12,16 +12,26 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
+  const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string }>({});
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-      setError('Please fill in all fields');
+    const newErrors: typeof errors = {};
+
+    if (!firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address');
-      return;
-    }
+
+    setErrors({});
     onSubmit(firstName.trim(), email.trim(), lastName.trim());
   };
 
