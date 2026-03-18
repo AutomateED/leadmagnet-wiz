@@ -19,6 +19,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/setup" element={<Setup />} />
+          <Route path="/quiz/:slug" element={<QuizPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
