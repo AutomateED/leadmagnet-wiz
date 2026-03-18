@@ -31,9 +31,12 @@ export default function SetupWizard() {
   const next = () => step < 5 && setStep(step + 1);
   const prev = () => step > 0 && setStep(step - 1);
 
+  const { toast } = useToast();
+
   const save = () => {
     setConfig(draft);
     setSaved(true);
+    toast({ title: 'Quiz saved!', description: 'Your quiz is ready to share.' });
   };
 
   const StepComponent = STEPS[step].component;
