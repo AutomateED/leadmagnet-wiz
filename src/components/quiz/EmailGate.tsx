@@ -51,34 +51,39 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
         </p>
 
         <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => { setFirstName(e.target.value); setError(''); }}
-            placeholder="Your first name"
-            className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
-            style={{ borderColor: firstName ? brandColour : undefined } as React.CSSProperties}
-          />
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => { setLastName(e.target.value); setError(''); }}
-            placeholder="Your last name"
-            className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
-            style={{ borderColor: lastName ? brandColour : undefined } as React.CSSProperties}
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); setError(''); }}
-            placeholder="Your best email"
-            className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
-            style={{ borderColor: email ? brandColour : undefined } as React.CSSProperties}
-          />
-
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
-          )}
+          <div>
+            <input
+              type="text"
+              value={firstName}
+              onChange={(e) => { setFirstName(e.target.value); setErrors((prev) => ({ ...prev, firstName: undefined })); }}
+              placeholder="Your first name"
+              className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
+              style={{ borderColor: errors.firstName ? 'hsl(var(--destructive))' : firstName ? brandColour : undefined } as React.CSSProperties}
+            />
+            {errors.firstName && <p className="text-sm text-destructive mt-1 text-left">{errors.firstName}</p>}
+          </div>
+          <div>
+            <input
+              type="text"
+              value={lastName}
+              onChange={(e) => { setLastName(e.target.value); setErrors((prev) => ({ ...prev, lastName: undefined })); }}
+              placeholder="Your last name"
+              className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
+              style={{ borderColor: errors.lastName ? 'hsl(var(--destructive))' : lastName ? brandColour : undefined } as React.CSSProperties}
+            />
+            {errors.lastName && <p className="text-sm text-destructive mt-1 text-left">{errors.lastName}</p>}
+          </div>
+          <div>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setErrors((prev) => ({ ...prev, email: undefined })); }}
+              placeholder="Your best email"
+              className="w-full bg-transparent border-b-2 border-border focus:border-primary outline-none text-xl py-4 transition-colors placeholder:text-muted-foreground/50"
+              style={{ borderColor: errors.email ? 'hsl(var(--destructive))' : email ? brandColour : undefined } as React.CSSProperties}
+            />
+            {errors.email && <p className="text-sm text-destructive mt-1 text-left">{errors.email}</p>}
+          </div>
 
           <motion.button
             type="submit"
