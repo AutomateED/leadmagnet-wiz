@@ -27,7 +27,7 @@ const App = () => (
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/*" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
