@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, Route, Navigate, useLocation, Link, Outlet, Routes } from 'react-router-dom';
+import { useNavigate, Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
 import {
-  LayoutDashboard,
-  Palette,
-  HelpCircle,
-  Trophy,
-  MousePointerClick,
-  Plug,
-  Eye,
-  Share2,
-  LogOut,
+  LayoutDashboard, Palette, HelpCircle, Trophy,
+  MousePointerClick, Plug, Eye, Share2, LogOut,
 } from 'lucide-react';
 
 import Overview from './dashboard/Overview';
@@ -23,12 +16,6 @@ import CtaSettings from './dashboard/CtaSettings';
 import Integrations from './dashboard/Integrations';
 import QuizPreview from './dashboard/QuizPreview';
 import ShareQuiz from './dashboard/ShareQuiz';
-
-export interface DashboardContext {
-  config: QuizConfig;
-  setConfig: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
-  userId: string;
-}
 
 const NAV_ITEMS = [
   { label: 'Overview', path: 'overview', icon: LayoutDashboard },
@@ -46,139 +33,44 @@ function generateSlug(email: string): string {
   return local.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
 }
 
-function DashboardLayout() {
-  const { user, signOut } = useAuth();
+export default function Dashboard() {
+  const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [config, setConfig] = useState<QuizConfig | null>(null);
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/login');
-  };
-
-  const businessName = config?.businessName || 'My Quiz';
-
-  if (!config || !user) return null;
-
-  const ctx: DashboardContext = { config, setConfig, userId: user.id };
-
-  return (
-    <div className="flex min-h-screen bg-background">
-      <aside className="w-60 shrink-0 bg-white border-r border-border flex flex-col">
-        <div className="px-5 py-6 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground truncate">{businessName}</h2>
-        </div>
-
-        <nav className="flex-1 py-4 px-3 space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const active = location.pathname === `/dashboard/${item.path}`;
-            return (
-              <Link
-                key={item.path}
-                to={`/dashboard/${item.path}`}
-                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  active
-                    ? 'text-white'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-                style={active ? { backgroundColor: '#C9A96E' } : undefined}
-              >
-                <item.icon className="h-4 w-4 shrink-0" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="px-3 py-4 border-t border-border">
-          <button
-            onClick={handleSignOut}
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted w-full transition-colors"
-          >
-            <LogOut className="h-4 w-4 shrink-0" />
-            Sign out
-          </button>
-        </div>
-      </aside>
-
-      <main className="flex-1 overflow-auto">
-        <Outlet context={ctx} />
-      </main>
-    </div>
-  );
-}
-
-export default function Dashboard() {
-  const { user, loading: authLoading } = useAuth();
-  const navigate = useNavigate();
   const [config, setConfig] = useState<QuizConfig | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/login');
-    }
+    if (!authLoading && !user) navigate('/login');
   }, [user, authLoading, navigate]);
 
   useEffect(() => {
     if (!user) return;
-
-    async function loadOrCreate() {
+    (async () => {
       setDataLoading(true);
-
       const { data: existing } = await supabase
-        .from('quiz_configs')
-        .select('*')
-        .eq('client_id', user!.id)
-        .maybeSingle();
+        .from('quiz_configs').select('*').eq('client_id', user.id).maybeSingle();
 
-      if (existing) {
-        setConfig(mapRowToConfig(existing));
-        setDataLoading(false);
-        return;
-      }
+      if (existing) { setConfig(mapRowToConfig(existing)); setDataLoading(false); return; }
 
-      const email = user!.email || '';
+      const email = user.email || '';
       const slug = generateSlug(email);
-
-      await supabase.from('clients').upsert({
-        id: user!.id,
-        email,
-        business_name: DEFAULT_CONFIG.businessName,
-        subscription_status: 'trial',
-      }, { onConflict: 'id' });
-
-      const { data: newRow } = await supabase
-        .from('quiz_configs')
-        .insert({
-          client_id: user!.id,
-          slug,
-          full_name: DEFAULT_CONFIG.fullName,
-          business_name: DEFAULT_CONFIG.businessName,
-          email: DEFAULT_CONFIG.email,
-          brand_colour: DEFAULT_CONFIG.brandColour,
-          result_texts: DEFAULT_CONFIG.resultTexts as any,
-          cta_text: DEFAULT_CONFIG.ctaText,
-          cta_url: DEFAULT_CONFIG.ctaUrl,
-          cta_tagline: DEFAULT_CONFIG.ctaTagline,
-          webhook_url: DEFAULT_CONFIG.webhookUrl || '',
-          email_config: {
-            serviceId: DEFAULT_CONFIG.emailjsServiceId,
-            templateId: DEFAULT_CONFIG.emailjsTemplateId,
-            publicKey: DEFAULT_CONFIG.emailjsPublicKey,
-          } as any,
-        })
-        .select()
-        .single();
-
-      if (newRow) {
-        setConfig(mapRowToConfig(newRow));
-      }
+      await supabase.from('clients').upsert(
+        { id: user.id, email, business_name: DEFAULT_CONFIG.businessName, subscription_status: 'trial' },
+        { onConflict: 'id' }
+      );
+      const { data: newRow } = await supabase.from('quiz_configs').insert({
+        client_id: user.id, slug,
+        full_name: DEFAULT_CONFIG.fullName, business_name: DEFAULT_CONFIG.businessName,
+        email: DEFAULT_CONFIG.email, brand_colour: DEFAULT_CONFIG.brandColour,
+        result_texts: DEFAULT_CONFIG.resultTexts as any,
+        cta_text: DEFAULT_CONFIG.ctaText, cta_url: DEFAULT_CONFIG.ctaUrl,
+        cta_tagline: DEFAULT_CONFIG.ctaTagline, webhook_url: DEFAULT_CONFIG.webhookUrl || '',
+        email_config: { serviceId: DEFAULT_CONFIG.emailjsServiceId, templateId: DEFAULT_CONFIG.emailjsTemplateId, publicKey: DEFAULT_CONFIG.emailjsPublicKey } as any,
+      }).select().single();
+      if (newRow) setConfig(mapRowToConfig(newRow));
       setDataLoading(false);
-    }
-
-    loadOrCreate();
+    })();
   }, [user]);
 
   if (authLoading || !user || dataLoading) {
@@ -189,7 +81,7 @@ export default function Dashboard() {
     );
   }
 
-  const ctx: DashboardContext = { config: config!, setConfig, userId: user.id };
+  const handleSignOut = async () => { await signOut(); navigate('/login'); };
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -199,14 +91,23 @@ export default function Dashboard() {
             {config?.businessName || 'My Quiz'}
           </h2>
         </div>
-
-        <SidebarNav />
-
+        <nav className="flex-1 py-4 px-3 space-y-1">
+          {NAV_ITEMS.map((item) => {
+            const active = location.pathname === `/dashboard/${item.path}`;
+            return (
+              <Link key={item.path} to={`/dashboard/${item.path}`}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${active ? 'text-white' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
+                style={active ? { backgroundColor: '#C9A96E' } : undefined}
+              >
+                <item.icon className="h-4 w-4 shrink-0" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
         <div className="px-3 py-4 border-t border-border">
-          <button
-            onClick={async () => { await useAuth().signOut; navigate('/login'); }}
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted w-full transition-colors"
-          >
+          <button onClick={handleSignOut}
+            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted w-full transition-colors">
             <LogOut className="h-4 w-4 shrink-0" />
             Sign out
           </button>
@@ -217,7 +118,7 @@ export default function Dashboard() {
         <Routes>
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<Overview />} />
-          <Route path="branding" element={<Branding config={config!} setConfig={setConfig} userId={user.id} />} />
+          <Route path="branding" element={<Branding config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="questions" element={<Questions />} />
           <Route path="results" element={<Results />} />
           <Route path="cta" element={<CtaSettings />} />
@@ -230,47 +131,16 @@ export default function Dashboard() {
   );
 }
 
-function SidebarNav() {
-  const location = useLocation();
-  return (
-    <nav className="flex-1 py-4 px-3 space-y-1">
-      {NAV_ITEMS.map((item) => {
-        const active = location.pathname === `/dashboard/${item.path}`;
-        return (
-          <Link
-            key={item.path}
-            to={`/dashboard/${item.path}`}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-              active
-                ? 'text-white'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-            style={active ? { backgroundColor: '#C9A96E' } : undefined}
-          >
-            <item.icon className="h-4 w-4 shrink-0" />
-            {item.label}
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
-
 function mapRowToConfig(row: any): QuizConfig {
   const ec = (row.email_config as any) || {};
   return {
-    fullName: row.full_name || '',
-    businessName: row.business_name || '',
-    email: row.email || '',
-    logo: row.logo_url || '',
+    fullName: row.full_name || '', businessName: row.business_name || '',
+    email: row.email || '', logo: row.logo_url || '',
     brandColour: row.brand_colour || '#C9A96E',
     resultTexts: (row.result_texts as any) || DEFAULT_CONFIG.resultTexts,
-    ctaText: row.cta_text || '',
-    ctaUrl: row.cta_url || '',
-    ctaTagline: row.cta_tagline || '',
-    webhookUrl: row.webhook_url || '',
-    emailjsServiceId: ec.serviceId || '',
-    emailjsTemplateId: ec.templateId || '',
+    ctaText: row.cta_text || '', ctaUrl: row.cta_url || '',
+    ctaTagline: row.cta_tagline || '', webhookUrl: row.webhook_url || '',
+    emailjsServiceId: ec.serviceId || '', emailjsTemplateId: ec.templateId || '',
     emailjsPublicKey: ec.publicKey || '',
   };
 }
