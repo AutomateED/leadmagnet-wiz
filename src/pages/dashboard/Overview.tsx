@@ -96,6 +96,28 @@ export default function Overview({ config, slug }: OverviewProps) {
         Setting up your quiz for{' '}
         <span className="font-medium text-foreground">{config.businessName || 'your business'}</span>.
       </p>
+      <p className="text-sm text-muted-foreground mt-3 max-w-[800px]">
+        You're just a few steps away from having your own lead-generation quiz. Work through the checklist below — most clients finish in under 30 minutes.
+      </p>
+
+      {/* Welcome video */}
+      <div
+        className="mt-6 max-w-[800px] rounded-xl overflow-hidden"
+        style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)' }}
+      >
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <div
+              className="flex h-14 w-14 items-center justify-center rounded-full"
+              style={{ backgroundColor: 'rgba(201, 169, 110, 0.2)' }}
+            >
+              <Play className="h-6 w-6 ml-0.5" style={{ color: '#C9A96E' }} />
+            </div>
+            <p className="text-sm font-semibold text-foreground">Watch: Set up your quiz in under 5 minutes</p>
+            <span className="text-xs text-muted-foreground">Video coming soon</span>
+          </div>
+        </div>
+      </div>
 
       {/* Progress */}
       <div className="mt-6 max-w-[800px]">
