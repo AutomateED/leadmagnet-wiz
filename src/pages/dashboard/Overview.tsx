@@ -187,6 +187,18 @@ export default function Overview({ config, slug }: OverviewProps) {
           </Button>
         </div>
       </div>
+
+      {/* Need help */}
+      <div className="mt-8 max-w-[800px] rounded-xl border border-border bg-card p-5">
+        <p className="text-sm font-semibold text-foreground">Need help setting up?</p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Email us at{' '}
+          <a href="mailto:team@virtualsupport.world" className="underline hover:text-foreground" style={{ color: '#C9A96E' }}>
+            team@virtualsupport.world
+          </a>{' '}
+          and we'll get you sorted.
+        </p>
+      </div>
     </div>
   );
 }
