@@ -127,7 +127,7 @@ function Hero() {
 
 /* ─── PROBLEM ─── */
 const PAINS = [
-  { icon: MessageSquareX, title: 'Generic contact forms don't tell you anything about the prospect' },
+  { icon: MessageSquareX, title: "Generic contact forms don\u2019t tell you anything about the prospect" },
   { icon: Users, title: 'Discovery calls with unqualified leads waste your time' },
   { icon: CircleOff, title: 'You have no way to segment or personalise your follow-up' },
 ];
