@@ -38,6 +38,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const [config, setConfig] = useState<QuizConfig | null>(null);
+  const [slug, setSlug] = useState('');
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
