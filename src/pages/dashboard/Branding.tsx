@@ -8,9 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, X } from 'lucide-react';
 
 const FONT_OPTIONS = [
-  { family: 'Playfair Display', label: 'Classic Serif', fallback: 'serif' },
-  { family: 'Inter', label: 'Modern Sans', fallback: 'sans-serif' },
-  { family: 'Caveat', label: 'Handwritten', fallback: 'cursive' },
+  { family: 'Playfair Display', label: 'Elegant Serif', fallback: 'serif' },
+  { family: 'Montserrat', label: 'Bold Modern', fallback: 'sans-serif' },
+  { family: 'Sacramento', label: 'Handwritten Script', fallback: 'cursive' },
 ] as const;
 
 interface BrandingProps {
@@ -39,7 +39,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&family=Caveat:wght@400;700&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;700&family=Sacramento&display=swap';
       document.head.appendChild(link);
     }
   }, []);
@@ -179,8 +179,8 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
               >
                 <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
                 <p
-                  className="text-sm leading-snug text-foreground"
-                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}` }}
+                  className="leading-snug text-foreground"
+                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}`, fontSize: 24 }}
                 >
                   What's Really Holding Your Business Back?
                 </p>
