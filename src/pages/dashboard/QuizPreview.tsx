@@ -1,10 +1,13 @@
 import { ExternalLink } from 'lucide-react';
+import StartScreen from '@/components/quiz/StartScreen';
+import type { QuizConfig } from '@/hooks/useConfig';
 
 interface QuizPreviewProps {
   slug: string;
+  config: QuizConfig;
 }
 
-export default function QuizPreview({ slug }: QuizPreviewProps) {
+export default function QuizPreview({ slug, config }: QuizPreviewProps) {
   const quizUrl = `${window.location.origin}/quiz/${slug}`;
 
   return (
@@ -13,8 +16,11 @@ export default function QuizPreview({ slug }: QuizPreviewProps) {
       <p className="text-muted-foreground mb-6">This is exactly what your prospects will see.</p>
 
       <div className="flex flex-col items-center">
-        <div className="w-full max-w-[500px] rounded-2xl border border-border shadow-lg overflow-hidden bg-background">
-          <iframe src={quizUrl} className="w-full border-0" style={{ height: 700 }} title="Quiz preview" sandbox="allow-scripts allow-same-origin" loading="lazy" />
+        <div
+          className="w-full max-w-[500px] rounded-2xl border border-border shadow-lg overflow-hidden bg-background"
+          style={{ height: 700, overflowY: 'auto', pointerEvents: 'none', opacity: 0.95 }}
+        >
+          <StartScreen config={config} onStart={() => {}} />
         </div>
 
         <a
