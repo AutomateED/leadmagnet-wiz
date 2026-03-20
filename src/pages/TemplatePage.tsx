@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Check, CircleOff, MessageSquareX, Users, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -466,6 +467,49 @@ function Footer() {
 
 /* ─── PAGE ─── */
 export default function TemplatePage() {
+  const SEO_TITLE = 'Business Breakthrough Quiz Template — PretaQuiz';
+  const SEO_DESC = 'A done-for-you quiz funnel for business coaches. Turn website visitors into qualified leads automatically with 7 research-backed questions.';
+  const SEO_IMG = 'https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45cd991d-87d0-43e3-84ef-767da62af006/id-preview-c18e55ad--f2697c19-1ce9-49a6-b5d0-459e19ee7557.lovable.app-1773989886043.png';
+  const SEO_URL = 'https://pretaquiz.com/templates/business-breakthrough';
+
+  useEffect(() => {
+    const prev = document.title;
+    document.title = SEO_TITLE;
+
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    };
+
+    setMeta('name', 'description', SEO_DESC);
+    setMeta('property', 'og:title', SEO_TITLE);
+    setMeta('property', 'og:description', SEO_DESC);
+    setMeta('property', 'og:image', SEO_IMG);
+    setMeta('property', 'og:url', SEO_URL);
+    setMeta('property', 'og:type', 'website');
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:title', SEO_TITLE);
+    setMeta('name', 'twitter:description', SEO_DESC);
+    setMeta('name', 'twitter:image', SEO_IMG);
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = SEO_URL;
+
+    return () => {
+      document.title = prev;
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ scrollBehavior: 'smooth' }}>
       <Nav />
