@@ -118,7 +118,7 @@ export default function Dashboard() {
       <main className="flex-1 overflow-auto">
         <Routes>
           <Route index element={<Navigate to="overview" replace />} />
-          <Route path="overview" element={<Overview />} />
+          <Route path="overview" element={<Overview config={config!} slug={slug} />} />
           <Route path="branding" element={<Branding config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="questions" element={<Questions config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="results" element={<Results config={config!} onConfigChange={setConfig} userId={user.id} />} />

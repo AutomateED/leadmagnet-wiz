@@ -1,8 +1,192 @@
-export default function Overview() {
+import { Link } from 'react-router-dom';
+import { Check, Circle, Copy, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+import type { QuizConfig } from '@/hooks/useConfig';
+
+interface OverviewProps {
+  config: QuizConfig;
+  slug: string;
+}
+
+const BASE_URL = 'https://preview--leadmagnet-wiz.lovable.app';
+
+const RESULT_KEYS = [
+  'The Invisible Expert',
+  'The Overwhelmed Operator',
+  'The Confident Starter',
+  'The Plateau Breaker',
+];
+
+interface Step {
+  name: string;
+  description: string;
+  path: string;
+  check: (c: QuizConfig) => boolean;
+  optional?: boolean;
+}
+
+const STEPS: Step[] = [
+  {
+    name: 'Add your branding',
+    description: 'Set your business name and brand colour so the quiz feels like yours.',
+    path: '/dashboard/branding',
+    check: (c) => c.businessName.trim() !== '' && c.brandColour.trim() !== '',
+  },
+  {
+    name: 'Upload your logo',
+    description: 'Add your logo to appear at the top of your quiz.',
+    path: '/dashboard/branding',
+    check: (c) => c.logo.trim() !== '',
+  },
+  {
+    name: 'Customise your questions',
+    description: 'Edit the quiz questions and answer options to match your audience.',
+    path: '/dashboard/questions',
+    check: (c) => Array.isArray(c.questions) && c.questions.length > 0,
+  },
+  {
+    name: 'Write your result texts',
+    description: 'Craft personalised result descriptions for each outcome type.',
+    path: '/dashboard/results',
+    check: (c) => {
+      const rt = c.resultTexts as Record<string, string> | undefined;
+      if (!rt) return false;
+      return RESULT_KEYS.every((k) => typeof rt[k] === 'string' && rt[k].trim() !== '');
+    },
+  },
+  {
+    name: 'Set your call to action',
+    description: 'Add the link where prospects can book a call or take the next step.',
+    path: '/dashboard/cta',
+    check: (c) => c.ctaUrl.trim() !== '',
+  },
+  {
+    name: 'Connect your CRM',
+    description: 'Send leads automatically to your CRM or email tool via webhook.',
+    path: '/dashboard/integrations',
+    check: (c) => (c.webhookUrl ?? '').trim() !== '',
+    optional: true,
+  },
+  {
+    name: 'Share your quiz',
+    description: 'Grab your link or embed code and start collecting leads.',
+    path: '/dashboard/share',
+    check: () => false,
+  },
+];
+
+export default function Overview({ config, slug }: OverviewProps) {
+  const { toast } = useToast();
+  const quizUrl = `${BASE_URL}/quiz/${slug}`;
+
+  const completed = STEPS.filter((s) => s.check(config)).length;
+  const total = STEPS.length;
+  const pct = Math.round((completed / total) * 100);
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(quizUrl);
+    toast({ title: 'Link copied!' });
+  };
+
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold text-foreground">Overview</h2>
-      <p className="text-muted-foreground mt-2">Overview — coming soon</p>
+      <h1 className="text-2xl font-bold text-foreground">Welcome to PretaQuiz</h1>
+      <p className="text-muted-foreground mt-1">
+        Setting up your quiz for{' '}
+        <span className="font-medium text-foreground">{config.businessName || 'your business'}</span>.
+      </p>
+
+      {/* Progress */}
+      <div className="mt-6 max-w-[800px]">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm font-medium text-foreground">
+            {completed} of {total} steps complete
+          </span>
+          <span className="text-sm text-muted-foreground">{pct}%</span>
+        </div>
+        <div className="h-2.5 rounded-full bg-muted overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{ width: `${pct}%`, backgroundColor: '#C9A96E' }}
+          />
+        </div>
+      </div>
+
+      {/* Checklist */}
+      <div className="mt-8 max-w-[800px] space-y-3">
+        {STEPS.map((step, i) => {
+          const done = step.check(config);
+          return (
+            <div
+              key={i}
+              className="flex items-start gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted/30"
+            >
+              {/* Icon */}
+              <div className="mt-0.5 shrink-0">
+                {done ? (
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100">
+                    <Check className="h-4 w-4 text-green-600" />
+                  </div>
+                ) : (
+                  <Circle className="h-6 w-6 text-muted-foreground/40" />
+                )}
+              </div>
+
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className={`text-sm font-semibold ${done ? 'text-foreground' : 'text-foreground'}`}>
+                    {step.name}
+                  </span>
+                  {step.optional && (
+                    <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+                      Optional
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground mt-0.5">{step.description}</p>
+              </div>
+
+              {/* Link */}
+              <Link
+                to={step.path}
+                className="shrink-0 flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted"
+                style={{ color: '#C9A96E' }}
+              >
+                Go to <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Quiz link box */}
+      <div
+        className="mt-8 max-w-[800px] rounded-xl p-5"
+        style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}
+      >
+        <p className="text-sm font-medium text-foreground mb-2">Your quiz is live at:</p>
+        <div className="flex items-center gap-3">
+          <a
+            href={quizUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-mono break-all hover:underline"
+            style={{ color: '#C9A96E' }}
+          >
+            {quizUrl}
+          </a>
+          <Button
+            variant="outline"
+            size="sm"
+            className="shrink-0 gap-1.5"
+            onClick={copyLink}
+          >
+            <Copy className="h-4 w-4" /> Copy link
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
