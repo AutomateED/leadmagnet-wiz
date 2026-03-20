@@ -10,7 +10,7 @@ import { Upload, X } from 'lucide-react';
 const FONT_OPTIONS = [
   { family: 'Playfair Display', label: 'Classic Serif' },
   { family: 'Inter', label: 'Modern Sans' },
-  { family: 'Nunito', label: 'Friendly Rounded' },
+  { family: 'Caveat', label: 'Handwritten' },
 ] as const;
 
 interface BrandingProps {
