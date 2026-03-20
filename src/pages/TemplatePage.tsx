@@ -466,6 +466,7 @@ function Footer() {
 }
 
 /* ─── PAGE ─── */
+export default function TemplatePage() {
   const SEO_TITLE = 'Business Breakthrough Quiz Template — PretaQuiz';
   const SEO_DESC = 'A done-for-you quiz funnel for business coaches. Turn website visitors into qualified leads automatically with 7 research-backed questions.';
   const SEO_IMG = 'https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45cd991d-87d0-43e3-84ef-767da62af006/id-preview-c18e55ad--f2697c19-1ce9-49a6-b5d0-459e19ee7557.lovable.app-1773989886043.png';
