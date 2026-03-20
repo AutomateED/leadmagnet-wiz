@@ -28,8 +28,22 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
   const [email, setEmail] = useState(config.email);
   const [brandColour, setBrandColour] = useState(config.brandColour);
   const [logoUrl, setLogoUrl] = useState(config.logo);
+  const [fontFamily, setFontFamily] = useState(config.fontFamily || 'Playfair Display');
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  // Load all three Google Fonts for preview cards
+  useEffect(() => {
+    const families = FONT_OPTIONS.map((f) => f.family.replace(/ /g, '+')).join('&family=');
+    const id = 'branding-fonts';
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${families}:wght@400;600;700&display=swap`;
+      document.head.appendChild(link);
+    }
+  }, []);
 
   const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
