@@ -4,7 +4,7 @@ import type { QuizConfig } from '@/hooks/useConfig';
 
 interface QuizPreviewProps {
   slug: string;
-  config: QuizConfig;
+  config?: QuizConfig | null;
 }
 
 export default function QuizPreview({ slug, config }: QuizPreviewProps) {
@@ -20,7 +20,11 @@ export default function QuizPreview({ slug, config }: QuizPreviewProps) {
           className="w-full max-w-[500px] rounded-2xl border border-border shadow-lg overflow-hidden bg-background"
           style={{ height: 700, overflowY: 'auto', pointerEvents: 'none', opacity: 0.95 }}
         >
-          <StartScreen config={config} onStart={() => {}} />
+          {config ? (
+            <StartScreen config={config} onStart={() => {}} />
+          ) : (
+            <div className="flex items-center justify-center h-full text-muted-foreground">Loading preview…</div>
+          )}
         </div>
 
         <a
