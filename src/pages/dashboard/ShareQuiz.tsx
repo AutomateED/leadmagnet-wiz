@@ -32,7 +32,7 @@ export default function ShareQuiz({ slug }: ShareQuizProps) {
               <Copy className="h-4 w-4" /> Copy link
             </Button>
           </div>
-          <div className="rounded-lg border border-border bg-muted/40 p-4">
+          <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
             <p className="text-sm text-foreground">Share this link anywhere — in emails, social media posts, your Instagram bio, or send it directly to prospects. Anyone who clicks it will land straight on your quiz.</p>
           </div>
         </section>
@@ -43,7 +43,7 @@ export default function ShareQuiz({ slug }: ShareQuizProps) {
           <Button variant="outline" size="sm" className="shrink-0 gap-1.5" onClick={() => copy(embedCode, 'Embed code copied!')}>
             <Copy className="h-4 w-4" /> Copy code
           </Button>
-          <div className="rounded-lg border border-border bg-muted/40 p-4">
+          <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
             <p className="text-sm text-foreground">To add your quiz to your website, copy the code above and paste it into your website builder. In most platforms (WordPress, Wix, Squarespace, Kajabi, GoHighLevel), look for an 'Embed' or 'Custom HTML' block, paste the code in, and save. Your quiz will appear right on your page.</p>
           </div>
         </section>
