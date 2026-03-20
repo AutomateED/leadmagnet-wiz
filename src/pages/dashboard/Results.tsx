@@ -22,26 +22,27 @@ const RESULT_TYPES = [
 export default function Results({ config, onConfigChange, userId }: ResultsProps) {
   const { toast } = useToast();
   const [texts, setTexts] = useState({ ...config.resultTexts });
-  const [saving, setSaving] = useState(false);
+  const [savingType, setSavingType] = useState<string | null>(null);
 
   const handleChange = (key: string, value: string) => {
     setTexts((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSave = async () => {
-    setSaving(true);
+  const handleSaveOne = async (type: string) => {
+    setSavingType(type);
+    const updated = { ...texts };
     const { error } = await supabase
       .from('quiz_configs')
-      .update({ result_texts: texts as any })
+      .update({ result_texts: updated as any })
       .eq('client_id', userId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
     } else {
-      onConfigChange((prev) => prev ? { ...prev, resultTexts: texts as QuizConfig['resultTexts'] } : prev);
-      toast({ title: 'Changes saved', description: 'Your result texts have been updated.' });
+      onConfigChange((prev) => prev ? { ...prev, resultTexts: updated as QuizConfig['resultTexts'] } : prev);
+      toast({ title: `Saved: ${type}` });
     }
-    setSaving(false);
+    setSavingType(null);
   };
 
   return (
@@ -58,13 +59,20 @@ export default function Results({ config, onConfigChange, userId }: ResultsProps
               value={(texts as any)[type] || ''}
               onChange={(e) => handleChange(type, e.target.value)}
             />
-            <p className="text-xs text-muted-foreground text-right">{((texts as any)[type] || '').length} characters</p>
+            <div className="flex items-center justify-between">
+              <Button
+                size="sm"
+                onClick={() => handleSaveOne(type)}
+                disabled={savingType === type}
+                className="text-white"
+                style={{ backgroundColor: '#C9A96E' }}
+              >
+                {savingType === type ? 'Saving…' : 'Save'}
+              </Button>
+              <p className="text-xs text-muted-foreground">{((texts as any)[type] || '').length} characters</p>
+            </div>
           </div>
         ))}
-
-        <Button onClick={handleSave} disabled={saving} className="text-white" style={{ backgroundColor: '#C9A96E' }}>
-          {saving ? 'Saving…' : 'Save changes'}
-        </Button>
       </div>
     </div>
   );
