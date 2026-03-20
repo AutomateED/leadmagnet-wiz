@@ -179,8 +179,8 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
               >
                 <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
                 <p
-                  className="text-sm leading-snug text-foreground"
-                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}` }}
+                  className="leading-snug text-foreground"
+                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}`, fontSize: 24 }}
                 >
                   What's Really Holding Your Business Back?
                 </p>
