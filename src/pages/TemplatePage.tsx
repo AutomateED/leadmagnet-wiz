@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Check, CircleOff, MessageSquareX, Users, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
