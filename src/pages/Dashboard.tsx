@@ -139,6 +139,7 @@ function mapRowToConfig(row: any): QuizConfig {
     email: row.email || '', logo: row.logo_url || '',
     brandColour: row.brand_colour || '#C9A96E',
     fontFamily: row.font_family || 'Playfair Display',
+    questions: Array.isArray(row.questions) ? row.questions : [],
     resultTexts: (row.result_texts as any) || DEFAULT_CONFIG.resultTexts,
     ctaText: row.cta_text || '', ctaUrl: row.cta_url || '',
     ctaTagline: row.cta_tagline || '', webhookUrl: row.webhook_url || '',
