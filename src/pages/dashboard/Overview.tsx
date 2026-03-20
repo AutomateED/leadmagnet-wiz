@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Check, Circle, Copy, ArrowRight } from 'lucide-react';
+import { Check, Circle, Copy, ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import type { QuizConfig } from '@/hooks/useConfig';
