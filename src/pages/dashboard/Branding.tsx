@@ -39,7 +39,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&family=Caveat:wght@400;700&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;700&family=Sacramento&display=swap';
       document.head.appendChild(link);
     }
   }, []);
