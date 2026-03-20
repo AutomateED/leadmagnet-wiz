@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { QuizConfig } from '@/hooks/useConfig';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, X } from 'lucide-react';
+
+const FONT_OPTIONS = [
+  { family: 'Playfair Display', label: 'Classic Serif' },
+  { family: 'Inter', label: 'Modern Sans' },
+  { family: 'Nunito', label: 'Friendly Rounded' },
+] as const;
 
 interface BrandingProps {
   config: QuizConfig;
