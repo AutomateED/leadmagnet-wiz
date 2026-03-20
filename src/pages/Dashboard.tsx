@@ -52,7 +52,7 @@ export default function Dashboard() {
       const { data: existing } = await supabase
         .from('quiz_configs').select('*').eq('client_id', user.id).maybeSingle();
 
-      if (existing) { setConfig(mapRowToConfig(existing)); setDataLoading(false); return; }
+      if (existing) { setConfig(mapRowToConfig(existing)); setSlug(existing.slug); setDataLoading(false); return; }
 
       const email = user.email || '';
       const slug = generateSlug(email);
