@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import StartScreen from '@/components/quiz/StartScreen';
 import type { QuizConfig } from '@/hooks/useConfig';
@@ -9,6 +10,20 @@ interface QuizPreviewProps {
 
 export default function QuizPreview({ slug, config }: QuizPreviewProps) {
   const quizUrl = `${window.location.origin}/quiz/${slug}`;
+
+  // Load the selected Google Font
+  useEffect(() => {
+    if (!config?.fontFamily) return;
+    const family = config.fontFamily.replace(/ /g, '+');
+    const id = `preview-font-${family}`;
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${family}:wght@400;600;700&display=swap`;
+      document.head.appendChild(link);
+    }
+  }, [config?.fontFamily]);
 
   return (
     <div className="p-8">
