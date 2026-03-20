@@ -50,6 +50,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         logo: data.logo_url || DEFAULT_CONFIG.logo,
         brandColour: data.brand_colour || DEFAULT_CONFIG.brandColour,
         fontFamily: (data as any).font_family || DEFAULT_CONFIG.fontFamily,
+        questions: Array.isArray(data.questions) ? data.questions as any : [],
         resultTexts: {
           ...DEFAULT_CONFIG.resultTexts,
           ...(data.result_texts as Record<string, string> || {}),

@@ -7,6 +7,7 @@ export interface QuizConfig {
   logo: string;
   brandColour: string;
   fontFamily: string;
+  questions: { id: number; text: string; options: { letter: string; text: string }[] }[];
   resultTexts: {
     'The Invisible Expert': string;
     'The Overwhelmed Operator': string;
@@ -40,6 +41,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   logo: '',
   brandColour: '#C9A96E',
   fontFamily: 'Playfair Display',
+  questions: [],
   resultTexts: DEFAULT_RESULTS,
   ctaText: 'Book Your Free Discovery Call',
   ctaUrl: 'https://calendly.com',
