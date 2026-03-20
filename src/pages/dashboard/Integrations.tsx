@@ -47,7 +47,7 @@ export default function Integrations({ config, onConfigChange, userId }: Integra
             <Input id="webhookUrl" value={webhookUrl} onChange={(e) => setWebhookUrl(e.target.value)} placeholder="Paste your webhook URL here" />
           </div>
 
-          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-3">
+          <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
             <p className="text-sm text-foreground">
               Not sure what this is? If you use a tool like Zapier, HubSpot, GoHighLevel, or Mailchimp, you can connect it here so every new lead gets added automatically. If you're not sure, skip this for now — you can always add it later.
             </p>

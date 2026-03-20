@@ -77,7 +77,7 @@ export default function Questions({ config, onConfigChange, userId }: QuestionsP
       </p>
 
       {/* Legend */}
-      <div className="rounded-lg border border-border bg-muted/40 p-4 mb-8 max-w-[800px]">
+      <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
         <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Answer → Result mapping</p>
         <div className="flex flex-wrap gap-x-6 gap-y-1">
           {Object.entries(LETTER_MAP).map(([letter, result]) => (
