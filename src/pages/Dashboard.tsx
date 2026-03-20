@@ -122,7 +122,7 @@ export default function Dashboard() {
           <Route path="questions" element={<Questions />} />
           <Route path="results" element={<Results />} />
           <Route path="cta" element={<CtaSettings config={config!} onConfigChange={setConfig} userId={user.id} />} />
-          <Route path="integrations" element={<Integrations />} />
+          <Route path="integrations" element={<Integrations config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="preview" element={<QuizPreview />} />
           <Route path="share" element={<ShareQuiz />} />
         </Routes>
