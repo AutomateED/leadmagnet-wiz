@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Check, Circle, Copy, ArrowRight } from 'lucide-react';
+import { Check, Circle, Copy, ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import type { QuizConfig } from '@/hooks/useConfig';
@@ -96,6 +96,28 @@ export default function Overview({ config, slug }: OverviewProps) {
         Setting up your quiz for{' '}
         <span className="font-medium text-foreground">{config.businessName || 'your business'}</span>.
       </p>
+      <p className="text-sm text-muted-foreground mt-3 max-w-[800px]">
+        You're just a few steps away from having your own lead-generation quiz. Work through the checklist below — most clients finish in under 30 minutes.
+      </p>
+
+      {/* Welcome video */}
+      <div
+        className="mt-6 max-w-[800px] rounded-xl overflow-hidden"
+        style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)' }}
+      >
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+            <div
+              className="flex h-14 w-14 items-center justify-center rounded-full"
+              style={{ backgroundColor: 'rgba(201, 169, 110, 0.2)' }}
+            >
+              <Play className="h-6 w-6 ml-0.5" style={{ color: '#C9A96E' }} />
+            </div>
+            <p className="text-sm font-semibold text-foreground">Watch: Set up your quiz in under 5 minutes</p>
+            <span className="text-xs text-muted-foreground">Video coming soon</span>
+          </div>
+        </div>
+      </div>
 
       {/* Progress */}
       <div className="mt-6 max-w-[800px]">
@@ -186,6 +208,18 @@ export default function Overview({ config, slug }: OverviewProps) {
             <Copy className="h-4 w-4" /> Copy link
           </Button>
         </div>
+      </div>
+
+      {/* Need help */}
+      <div className="mt-8 max-w-[800px] rounded-xl border border-border bg-card p-5">
+        <p className="text-sm font-semibold text-foreground">Need help setting up?</p>
+        <p className="text-sm text-muted-foreground mt-1">
+          Email us at{' '}
+          <a href="mailto:team@virtualsupport.world" className="underline hover:text-foreground" style={{ color: '#C9A96E' }}>
+            team@virtualsupport.world
+          </a>{' '}
+          and we'll get you sorted.
+        </p>
       </div>
     </div>
   );
