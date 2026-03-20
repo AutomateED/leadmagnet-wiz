@@ -84,7 +84,8 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
         email,
         brand_colour: brandColour,
         logo_url: logoUrl || '',
-      })
+        font_family: fontFamily,
+      } as any)
       .eq('client_id', userId);
 
     if (error) {
