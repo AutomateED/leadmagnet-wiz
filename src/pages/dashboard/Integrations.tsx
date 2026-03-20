@@ -15,57 +15,53 @@ interface IntegrationsProps {
 export default function Integrations({ config, onConfigChange, userId }: IntegrationsProps) {
   const { toast } = useToast();
   const [webhookUrl, setWebhookUrl] = useState(config.webhookUrl || '');
-  const [serviceId, setServiceId] = useState(config.emailjsServiceId || '');
-  const [templateId, setTemplateId] = useState(config.emailjsTemplateId || '');
-  const [publicKey, setPublicKey] = useState(config.emailjsPublicKey || '');
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     setSaving(true);
-    const emailConfig = { serviceId, templateId, publicKey };
     const { error } = await supabase
       .from('quiz_configs')
-      .update({ webhook_url: webhookUrl, email_config: emailConfig as any })
+      .update({ webhook_url: webhookUrl })
       .eq('client_id', userId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
     } else {
-      onConfigChange((prev) => prev ? { ...prev, webhookUrl, emailjsServiceId: serviceId, emailjsTemplateId: templateId, emailjsPublicKey: publicKey } : prev);
-      toast({ title: 'Changes saved', description: 'Your integration settings have been updated.' });
+      onConfigChange((prev) => prev ? { ...prev, webhookUrl } : prev);
+      toast({ title: 'Changes saved', description: 'Your lead delivery settings have been updated.' });
     }
     setSaving(false);
   };
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-8">Integrations</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-1">Lead Delivery</h1>
+      <p className="text-muted-foreground mb-8">Choose where your leads get sent when someone completes your quiz.</p>
 
-      <div className="max-w-[600px] space-y-10">
+      <div className="max-w-[600px] space-y-6">
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-foreground">Webhook (CRM Integration)</h2>
-          <div className="space-y-2">
-            <Label htmlFor="webhookUrl">Webhook URL</Label>
-            <Input id="webhookUrl" value={webhookUrl} onChange={(e) => setWebhookUrl(e.target.value)} placeholder="e.g. https://hooks.zapier.com/..." />
-            <p className="text-xs text-muted-foreground">When a prospect completes your quiz, their details will be sent to this URL automatically. Works with Zapier, Make, HubSpot, and most CRMs.</p>
-          </div>
-        </section>
+          <h2 className="text-lg font-semibold text-foreground">Send leads to your CRM</h2>
 
-        <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-foreground">Email Notifications</h2>
           <div className="space-y-2">
-            <Label htmlFor="serviceId">EmailJS Service ID</Label>
-            <Input id="serviceId" value={serviceId} onChange={(e) => setServiceId(e.target.value)} placeholder="e.g. service_abc123" />
+            <Label htmlFor="webhookUrl">Your Zapier or CRM webhook URL</Label>
+            <Input id="webhookUrl" value={webhookUrl} onChange={(e) => setWebhookUrl(e.target.value)} placeholder="Paste your webhook URL here" />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="templateId">EmailJS Template ID</Label>
-            <Input id="templateId" value={templateId} onChange={(e) => setTemplateId(e.target.value)} placeholder="e.g. template_xyz789" />
+
+          <div className="rounded-lg border border-border bg-muted/40 p-4 space-y-3">
+            <p className="text-sm text-foreground">
+              Not sure what this is? If you use a tool like Zapier, HubSpot, GoHighLevel, or Mailchimp, you can connect it here so every new lead gets added automatically. If you're not sure, skip this for now — you can always add it later.
+            </p>
+            <div>
+              <p className="text-sm font-medium text-foreground mb-1">Each lead includes:</p>
+              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-0.5">
+                <li>First name</li>
+                <li>Last name</li>
+                <li>Email</li>
+                <li>Quiz result</li>
+                <li>Timestamp</li>
+              </ul>
+            </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="publicKey">EmailJS Public Key</Label>
-            <Input id="publicKey" value={publicKey} onChange={(e) => setPublicKey(e.target.value)} placeholder="e.g. user_Ab1Cd2Ef3Gh4" />
-          </div>
-          <p className="text-xs text-muted-foreground">Used to send personalised result emails to prospects. Get these from your EmailJS dashboard at emailjs.com</p>
         </section>
 
         <Button onClick={handleSave} disabled={saving} className="text-white" style={{ backgroundColor: '#C9A96E' }}>
