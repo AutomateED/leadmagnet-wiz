@@ -8,9 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, X } from 'lucide-react';
 
 const FONT_OPTIONS = [
-  { family: 'Playfair Display', label: 'Classic Serif' },
-  { family: 'Inter', label: 'Modern Sans' },
-  { family: 'Caveat', label: 'Handwritten' },
+  { family: 'Playfair Display', label: 'Classic Serif', fallback: 'serif' },
+  { family: 'Inter', label: 'Modern Sans', fallback: 'sans-serif' },
+  { family: 'Caveat', label: 'Handwritten', fallback: 'cursive' },
 ] as const;
 
 interface BrandingProps {
