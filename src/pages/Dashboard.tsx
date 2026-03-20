@@ -38,6 +38,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const [config, setConfig] = useState<QuizConfig | null>(null);
+  const [slug, setSlug] = useState('');
   const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export default function Dashboard() {
       const { data: existing } = await supabase
         .from('quiz_configs').select('*').eq('client_id', user.id).maybeSingle();
 
-      if (existing) { setConfig(mapRowToConfig(existing)); setDataLoading(false); return; }
+      if (existing) { setConfig(mapRowToConfig(existing)); setSlug(existing.slug); setDataLoading(false); return; }
 
       const email = user.email || '';
       const slug = generateSlug(email);
@@ -68,7 +69,7 @@ export default function Dashboard() {
         cta_tagline: DEFAULT_CONFIG.ctaTagline, webhook_url: DEFAULT_CONFIG.webhookUrl || '',
         email_config: { serviceId: DEFAULT_CONFIG.emailjsServiceId, templateId: DEFAULT_CONFIG.emailjsTemplateId, publicKey: DEFAULT_CONFIG.emailjsPublicKey } as any,
       }).select().single();
-      if (newRow) setConfig(mapRowToConfig(newRow));
+      if (newRow) { setConfig(mapRowToConfig(newRow)); setSlug(newRow.slug); }
       setDataLoading(false);
     })();
   }, [user]);
@@ -124,7 +125,7 @@ export default function Dashboard() {
           <Route path="cta" element={<CtaSettings config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="integrations" element={<Integrations config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="preview" element={<QuizPreview />} />
-          <Route path="share" element={<ShareQuiz />} />
+          <Route path="share" element={<ShareQuiz slug={slug} />} />
         </Routes>
       </main>
     </div>
