@@ -408,7 +408,7 @@ const FAQS = [
   { q: 'How do leads get to my CRM?', a: 'You paste your webhook URL (from Zapier, GoHighLevel, HubSpot, etc.) into the dashboard. Leads are sent automatically the moment someone completes your quiz.' },
   { q: 'Can I embed the quiz on my website?', a: 'Yes. You get a direct link to share anywhere AND an embed code you can paste into any website builder — WordPress, Wix, Squarespace, Kajabi, and more.' },
   { q: 'What if I want to cancel?', a: 'Cancel anytime from your dashboard. No contracts, no hassle.' },
-  { q: 'Is there a free trial?', a: 'No — but you'll have your quiz live and generating leads within 30 minutes of signing up.' },
+  { q: "Is there a free trial?", a: "No \u2014 but you\u2019ll have your quiz live and generating leads within 30 minutes of signing up." },
 ];
 
 function Faq() {
