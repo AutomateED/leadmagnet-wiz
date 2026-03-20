@@ -34,13 +34,12 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
 
   // Load all three Google Fonts for preview cards
   useEffect(() => {
-    const families = FONT_OPTIONS.map((f) => f.family.replace(/ /g, '+')).join('&family=');
     const id = 'branding-fonts';
     if (!document.getElementById(id)) {
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = `https://fonts.googleapis.com/css2?family=${families}:wght@400;600;700&display=swap`;
+      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&family=Caveat:wght@400;700&display=swap';
       document.head.appendChild(link);
     }
   }, []);
