@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuizConfig } from '@/hooks/useQuizConfig';
+import { useQuiz } from '@/hooks/useQuiz';
 import StartScreen from '@/components/quiz/StartScreen';
 import QuestionScreen from '@/components/quiz/QuestionScreen';
 import EmailGate from '@/components/quiz/EmailGate';
