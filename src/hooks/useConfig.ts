@@ -7,6 +7,7 @@ export interface QuizConfig {
   logo: string;
   brandColour: string;
   fontFamily: string;
+  questions: { id: number; text: string; options: { letter: string; text: string }[] }[];
   resultTexts: {
     'The Invisible Expert': string;
     'The Overwhelmed Operator': string;
