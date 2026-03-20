@@ -7,11 +7,10 @@ interface ShareQuizProps {
   slug: string;
 }
 
-const BASE_URL = 'https://preview--leadmagnet-wiz.lovable.app';
-
 export default function ShareQuiz({ slug }: ShareQuizProps) {
   const { toast } = useToast();
-  const quizUrl = `${BASE_URL}/quiz/${slug}`;
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://pretaquiz.com';
+  const quizUrl = `${baseUrl}/quiz/${slug}`;
   const embedCode = `<iframe src="${quizUrl}" width="100%" height="800" frameborder="0"></iframe>`;
 
   const copy = async (text: string, label: string) => {
