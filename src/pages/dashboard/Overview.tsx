@@ -78,7 +78,7 @@ const STEPS: Step[] = [
 
 export default function Overview({ config, slug }: OverviewProps) {
   const { toast } = useToast();
-  const quizUrl = `${BASE_URL}/quiz/${slug}`;
+  const quizUrl = `${getBaseUrl()}/quiz/${slug}`;
 
   const completed = STEPS.filter((s) => s.check(config)).length;
   const total = STEPS.length;
