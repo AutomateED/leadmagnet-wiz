@@ -120,7 +120,7 @@ export default function Dashboard() {
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<Overview />} />
           <Route path="branding" element={<Branding config={config!} onConfigChange={setConfig} userId={user.id} />} />
-          <Route path="questions" element={<Questions />} />
+          <Route path="questions" element={<Questions config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="results" element={<Results config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="cta" element={<CtaSettings config={config!} onConfigChange={setConfig} userId={user.id} />} />
           <Route path="integrations" element={<Integrations config={config!} onConfigChange={setConfig} userId={user.id} />} />

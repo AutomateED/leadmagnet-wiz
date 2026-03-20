@@ -1,8 +1,154 @@
-export default function Questions() {
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import type { QuizConfig } from '@/hooks/useConfig';
+import { QUESTIONS, type Question } from '@/utils/questions';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+
+interface QuestionsProps {
+  config: QuizConfig;
+  onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
+  userId: string;
+}
+
+const LETTER_MAP: Record<string, string> = {
+  A: 'The Invisible Expert',
+  B: 'The Overwhelmed Operator',
+  C: 'The Confident Starter',
+  D: 'The Plateau Breaker',
+};
+
+const LETTER_COLOURS: Record<string, string> = {
+  A: '#6366f1',
+  B: '#f59e0b',
+  C: '#10b981',
+  D: '#ef4444',
+};
+
+export default function Questions({ config, onConfigChange, userId }: QuestionsProps) {
+  const { toast } = useToast();
+
+  // Load from config or fall back to defaults
+  const initial: Question[] = (() => {
+    const stored = (config as any).questions;
+    if (Array.isArray(stored) && stored.length > 0) return stored;
+    return QUESTIONS;
+  })();
+
+  const [questions, setQuestions] = useState<Question[]>(initial);
+  const [savingId, setSavingId] = useState<number | null>(null);
+
+  const updateQuestionText = (id: number, text: string) => {
+    setQuestions((prev) => prev.map((q) => (q.id === id ? { ...q, text } : q)));
+  };
+
+  const updateOptionText = (qId: number, letter: string, text: string) => {
+    setQuestions((prev) =>
+      prev.map((q) =>
+        q.id === qId
+          ? { ...q, options: q.options.map((o) => (o.letter === letter ? { ...o, text } : o)) }
+          : q
+      )
+    );
+  };
+
+  const handleSave = async (id: number) => {
+    setSavingId(id);
+    const { error } = await supabase
+      .from('quiz_configs')
+      .update({ questions: questions as any })
+      .eq('client_id', userId);
+
+    if (error) {
+      toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
+    } else {
+      onConfigChange((prev) => prev ? { ...prev, questions } : prev);
+      toast({ title: `Question ${id} saved` });
+    }
+    setSavingId(null);
+  };
+
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold text-foreground">Questions</h2>
-      <p className="text-muted-foreground mt-2">Questions editor coming soon</p>
+      <h1 className="text-2xl font-bold text-foreground mb-1">Questions</h1>
+      <p className="text-muted-foreground mb-6">
+        Edit your quiz questions and answer options. Each answer maps to a result type — the result a prospect gets most often becomes their final result.
+      </p>
+
+      {/* Legend */}
+      <div className="rounded-lg border border-border bg-muted/40 p-4 mb-8 max-w-[800px]">
+        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Answer → Result mapping</p>
+        <div className="flex flex-wrap gap-x-6 gap-y-1">
+          {Object.entries(LETTER_MAP).map(([letter, result]) => (
+            <div key={letter} className="flex items-center gap-2 text-sm">
+              <span
+                className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px] font-bold text-white"
+                style={{ backgroundColor: LETTER_COLOURS[letter] }}
+              >
+                {letter}
+              </span>
+              <span className="text-muted-foreground">{result}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-[800px] space-y-6">
+        {questions.map((q) => (
+          <div key={q.id} className="rounded-lg border border-border bg-background p-5 space-y-4">
+            {/* Question header */}
+            <div className="flex items-start gap-3">
+              <span
+                className="shrink-0 inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white"
+                style={{ backgroundColor: '#C9A96E' }}
+              >
+                Q{q.id}
+              </span>
+              <Input
+                value={q.text}
+                onChange={(e) => updateQuestionText(q.id, e.target.value)}
+                className="font-medium"
+              />
+            </div>
+
+            {/* Options */}
+            <div className="space-y-2 pl-11">
+              {q.options.map((opt) => (
+                <div key={opt.letter} className="flex items-center gap-2">
+                  <span
+                    className="shrink-0 inline-flex h-6 w-6 items-center justify-center rounded text-[11px] font-bold text-white"
+                    style={{ backgroundColor: LETTER_COLOURS[opt.letter] }}
+                  >
+                    {opt.letter}
+                  </span>
+                  <Input
+                    value={opt.text}
+                    onChange={(e) => updateOptionText(q.id, opt.letter, e.target.value)}
+                    className="text-sm"
+                  />
+                  <span className="shrink-0 text-xs text-muted-foreground whitespace-nowrap">
+                    → {LETTER_MAP[opt.letter]}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Save */}
+            <div className="pl-11">
+              <Button
+                size="sm"
+                onClick={() => handleSave(q.id)}
+                disabled={savingId === q.id}
+                className="text-white"
+                style={{ backgroundColor: '#C9A96E' }}
+              >
+                {savingId === q.id ? 'Saving…' : 'Save'}
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
