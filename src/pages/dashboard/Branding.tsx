@@ -8,9 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, X } from 'lucide-react';
 
 const FONT_OPTIONS = [
-  { family: 'Playfair Display', label: 'Classic Serif' },
-  { family: 'Inter', label: 'Modern Sans' },
-  { family: 'Caveat', label: 'Handwritten' },
+  { family: 'Playfair Display', label: 'Classic Serif', fallback: 'serif' },
+  { family: 'Inter', label: 'Modern Sans', fallback: 'sans-serif' },
+  { family: 'Caveat', label: 'Handwritten', fallback: 'cursive' },
 ] as const;
 
 interface BrandingProps {
@@ -34,13 +34,12 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
 
   // Load all three Google Fonts for preview cards
   useEffect(() => {
-    const families = FONT_OPTIONS.map((f) => f.family.replace(/ /g, '+')).join('&family=');
     const id = 'branding-fonts';
     if (!document.getElementById(id)) {
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = `https://fonts.googleapis.com/css2?family=${families}:wght@400;600;700&display=swap`;
+      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;700&family=Caveat:wght@400;700&display=swap';
       document.head.appendChild(link);
     }
   }, []);
@@ -181,7 +180,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
                 <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
                 <p
                   className="text-sm leading-snug text-foreground"
-                  style={{ fontFamily: `'${opt.family}', serif` }}
+                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}` }}
                 >
                   What's Really Holding Your Business Back?
                 </p>
