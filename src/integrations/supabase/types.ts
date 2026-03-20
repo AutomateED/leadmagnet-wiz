@@ -48,6 +48,7 @@ export type Database = {
           cta_url: string
           email: string
           email_config: Json | null
+          font_family: string
           full_name: string
           id: string
           logo_url: string | null
@@ -66,6 +67,7 @@ export type Database = {
           cta_url?: string
           email?: string
           email_config?: Json | null
+          font_family?: string
           full_name?: string
           id?: string
           logo_url?: string | null
@@ -84,6 +86,7 @@ export type Database = {
           cta_url?: string
           email?: string
           email_config?: Json | null
+          font_family?: string
           full_name?: string
           id?: string
           logo_url?: string | null

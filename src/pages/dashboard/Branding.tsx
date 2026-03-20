@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { QuizConfig } from '@/hooks/useConfig';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,12 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, X } from 'lucide-react';
+
+const FONT_OPTIONS = [
+  { family: 'Playfair Display', label: 'Classic Serif' },
+  { family: 'Inter', label: 'Modern Sans' },
+  { family: 'Nunito', label: 'Friendly Rounded' },
+] as const;
 
 interface BrandingProps {
   config: QuizConfig;
@@ -22,8 +28,22 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
   const [email, setEmail] = useState(config.email);
   const [brandColour, setBrandColour] = useState(config.brandColour);
   const [logoUrl, setLogoUrl] = useState(config.logo);
+  const [fontFamily, setFontFamily] = useState(config.fontFamily || 'Playfair Display');
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  // Load all three Google Fonts for preview cards
+  useEffect(() => {
+    const families = FONT_OPTIONS.map((f) => f.family.replace(/ /g, '+')).join('&family=');
+    const id = 'branding-fonts';
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${families}:wght@400;600;700&display=swap`;
+      document.head.appendChild(link);
+    }
+  }, []);
 
   const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -64,7 +84,8 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
         email,
         brand_colour: brandColour,
         logo_url: logoUrl || '',
-      })
+        font_family: fontFamily,
+      } as any)
       .eq('client_id', userId);
 
     if (error) {
@@ -74,7 +95,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
     }
 
     // Update parent state so sidebar reflects changes immediately
-    onConfigChange((prev) => prev ? { ...prev, businessName, fullName, email, brandColour, logo: logoUrl } : prev);
+    onConfigChange((prev) => prev ? { ...prev, businessName, fullName, email, brandColour, logo: logoUrl, fontFamily } : prev);
 
     toast({ title: 'Changes saved', description: 'Your branding settings have been updated.' });
     setSaving(false);
@@ -140,6 +161,32 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
               className="h-10 w-10 rounded-md border border-border shrink-0"
               style={{ backgroundColor: brandColour }}
             />
+          </div>
+        </div>
+
+        {/* Quiz Font */}
+        <div className="space-y-2">
+          <Label>Quiz Font</Label>
+          <div className="grid grid-cols-3 gap-3">
+            {FONT_OPTIONS.map((opt) => (
+              <button
+                key={opt.family}
+                type="button"
+                onClick={() => setFontFamily(opt.family)}
+                className="rounded-lg border-2 p-4 text-left transition-colors hover:bg-muted/30"
+                style={{
+                  borderColor: fontFamily === opt.family ? brandColour : 'var(--border)',
+                }}
+              >
+                <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
+                <p
+                  className="text-sm leading-snug text-foreground"
+                  style={{ fontFamily: `'${opt.family}', serif` }}
+                >
+                  What's Really Holding Your Business Back?
+                </p>
+              </button>
+            ))}
           </div>
         </div>
 

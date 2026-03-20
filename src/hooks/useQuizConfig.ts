@@ -49,6 +49,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         email: data.email || DEFAULT_CONFIG.email,
         logo: data.logo_url || DEFAULT_CONFIG.logo,
         brandColour: data.brand_colour || DEFAULT_CONFIG.brandColour,
+        fontFamily: (data as any).font_family || DEFAULT_CONFIG.fontFamily,
         resultTexts: {
           ...DEFAULT_CONFIG.resultTexts,
           ...(data.result_texts as Record<string, string> || {}),

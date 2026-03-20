@@ -51,7 +51,10 @@ export default function StartScreen({ config, onStart }: StartScreenProps) {
           </p>
         )}
 
-        <h1 className="text-4xl md:text-6xl font-display font-semibold leading-tight text-foreground">
+        <h1
+          className="text-4xl md:text-6xl font-semibold leading-tight text-foreground"
+          style={{ fontFamily: `'${config.fontFamily || 'Playfair Display'}', serif` }}
+        >
           What's Really Holding Your Business Back?
         </h1>
 

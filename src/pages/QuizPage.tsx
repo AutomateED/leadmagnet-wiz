@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuizConfig } from '@/hooks/useQuizConfig';
 import { useQuiz } from '@/hooks/useQuiz';
@@ -12,6 +13,20 @@ export default function QuizPage() {
   const { slug } = useParams<{ slug: string }>();
   const { config, loading, error } = useQuizConfig(slug);
   const quiz = useQuiz();
+
+  // Dynamically load selected Google Font
+  useEffect(() => {
+    if (!config?.fontFamily) return;
+    const family = config.fontFamily.replace(/ /g, '+');
+    const id = `quiz-font-${family}`;
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = `https://fonts.googleapis.com/css2?family=${family}:wght@400;600;700&display=swap`;
+      document.head.appendChild(link);
+    }
+  }, [config?.fontFamily]);
 
   if (loading) {
     return (

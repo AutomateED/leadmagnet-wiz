@@ -6,6 +6,7 @@ export interface QuizConfig {
   email: string;
   logo: string;
   brandColour: string;
+  fontFamily: string;
   resultTexts: {
     'The Invisible Expert': string;
     'The Overwhelmed Operator': string;
@@ -38,6 +39,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   email: 'sarah@elevatecoaching.com',
   logo: '',
   brandColour: '#C9A96E',
+  fontFamily: 'Playfair Display',
   resultTexts: DEFAULT_RESULTS,
   ctaText: 'Book Your Free Discovery Call',
   ctaUrl: 'https://calendly.com',

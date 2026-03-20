@@ -1,0 +1,1 @@
+ALTER TABLE public.quiz_configs ADD COLUMN IF NOT EXISTS font_family text NOT NULL DEFAULT 'Playfair Display';
