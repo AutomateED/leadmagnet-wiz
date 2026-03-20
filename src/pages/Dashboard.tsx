@@ -69,7 +69,7 @@ export default function Dashboard() {
         cta_tagline: DEFAULT_CONFIG.ctaTagline, webhook_url: DEFAULT_CONFIG.webhookUrl || '',
         email_config: { serviceId: DEFAULT_CONFIG.emailjsServiceId, templateId: DEFAULT_CONFIG.emailjsTemplateId, publicKey: DEFAULT_CONFIG.emailjsPublicKey } as any,
       }).select().single();
-      if (newRow) setConfig(mapRowToConfig(newRow));
+      if (newRow) { setConfig(mapRowToConfig(newRow)); setSlug(newRow.slug); }
       setDataLoading(false);
     })();
   }, [user]);
