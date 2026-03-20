@@ -9,7 +9,7 @@ interface OverviewProps {
   slug: string;
 }
 
-const BASE_URL = 'https://preview--leadmagnet-wiz.lovable.app';
+const getBaseUrl = () => typeof window !== 'undefined' ? window.location.origin : 'https://pretaquiz.com';
 
 const RESULT_KEYS = [
   'The Invisible Expert',
