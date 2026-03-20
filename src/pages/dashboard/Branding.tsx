@@ -95,7 +95,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
     }
 
     // Update parent state so sidebar reflects changes immediately
-    onConfigChange((prev) => prev ? { ...prev, businessName, fullName, email, brandColour, logo: logoUrl } : prev);
+    onConfigChange((prev) => prev ? { ...prev, businessName, fullName, email, brandColour, logo: logoUrl, fontFamily } : prev);
 
     toast({ title: 'Changes saved', description: 'Your branding settings have been updated.' });
     setSaving(false);
