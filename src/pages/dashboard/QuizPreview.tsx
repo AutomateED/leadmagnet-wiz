@@ -5,7 +5,7 @@ interface QuizPreviewProps {
 }
 
 export default function QuizPreview({ slug }: QuizPreviewProps) {
-  const quizUrl = `/quiz/${slug}`;
+  const quizUrl = `${window.location.origin}/quiz/${slug}`;
 
   return (
     <div className="p-8">
@@ -14,7 +14,7 @@ export default function QuizPreview({ slug }: QuizPreviewProps) {
 
       <div className="flex flex-col items-center">
         <div className="w-full max-w-[500px] rounded-2xl border border-border shadow-lg overflow-hidden bg-background">
-          <iframe src={quizUrl} className="w-full border-0" style={{ height: 700 }} title="Quiz preview" />
+          <iframe src={quizUrl} className="w-full border-0" style={{ height: 700 }} title="Quiz preview" sandbox="allow-scripts allow-same-origin" loading="lazy" />
         </div>
 
         <a
