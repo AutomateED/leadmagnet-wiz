@@ -164,6 +164,32 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
           </div>
         </div>
 
+        {/* Quiz Font */}
+        <div className="space-y-2">
+          <Label>Quiz Font</Label>
+          <div className="grid grid-cols-3 gap-3">
+            {FONT_OPTIONS.map((opt) => (
+              <button
+                key={opt.family}
+                type="button"
+                onClick={() => setFontFamily(opt.family)}
+                className="rounded-lg border-2 p-4 text-left transition-colors hover:bg-muted/30"
+                style={{
+                  borderColor: fontFamily === opt.family ? brandColour : 'var(--border)',
+                }}
+              >
+                <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
+                <p
+                  className="text-sm leading-snug text-foreground"
+                  style={{ fontFamily: `'${opt.family}', serif` }}
+                >
+                  What's Really Holding Your Business Back?
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Logo */}
         <div className="space-y-2">
           <Label>Logo</Label>
