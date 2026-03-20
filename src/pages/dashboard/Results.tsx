@@ -1,8 +1,71 @@
-export default function Results() {
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import type { QuizConfig } from '@/hooks/useConfig';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
+
+interface ResultsProps {
+  config: QuizConfig;
+  onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
+  userId: string;
+}
+
+const RESULT_TYPES = [
+  'The Invisible Expert',
+  'The Overwhelmed Operator',
+  'The Confident Starter',
+  'The Plateau Breaker',
+] as const;
+
+export default function Results({ config, onConfigChange, userId }: ResultsProps) {
+  const { toast } = useToast();
+  const [texts, setTexts] = useState({ ...config.resultTexts });
+  const [saving, setSaving] = useState(false);
+
+  const handleChange = (key: string, value: string) => {
+    setTexts((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    const { error } = await supabase
+      .from('quiz_configs')
+      .update({ result_texts: texts as any })
+      .eq('client_id', userId);
+
+    if (error) {
+      toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
+    } else {
+      onConfigChange((prev) => prev ? { ...prev, resultTexts: texts as QuizConfig['resultTexts'] } : prev);
+      toast({ title: 'Changes saved', description: 'Your result texts have been updated.' });
+    }
+    setSaving(false);
+  };
+
   return (
     <div className="p-8">
-      <h2 className="text-2xl font-bold text-foreground">Results</h2>
-      <p className="text-muted-foreground mt-2">Results configuration coming soon</p>
+      <h1 className="text-2xl font-bold text-foreground mb-1">Results</h1>
+      <p className="text-muted-foreground mb-8">Customise the text prospects see for each result type</p>
+
+      <div className="max-w-[700px] space-y-8">
+        {RESULT_TYPES.map((type) => (
+          <div key={type} className="space-y-2">
+            <Label>{type}</Label>
+            <Textarea
+              rows={6}
+              value={(texts as any)[type] || ''}
+              onChange={(e) => handleChange(type, e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground text-right">{((texts as any)[type] || '').length} characters</p>
+          </div>
+        ))}
+
+        <Button onClick={handleSave} disabled={saving} className="text-white" style={{ backgroundColor: '#C9A96E' }}>
+          {saving ? 'Saving…' : 'Save changes'}
+        </Button>
+      </div>
     </div>
   );
 }
