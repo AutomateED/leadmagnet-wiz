@@ -230,7 +230,7 @@ function HowItWorks() {
 const FEATURES = [
   { title: '7 Research-Backed Questions', desc: 'Written by marketing experts to qualify leads based on their biggest business challenge.' },
   { title: '4 Personalised Result Types', desc: 'Each prospect gets a tailored result: The Invisible Expert, The Overwhelmed Operator, The Confident Starter, or The Plateau Breaker.' },
-  { title: 'Your Branding, Your Colours', desc: 'Upload your logo, set your brand colour, choose your font. The quiz looks like it's yours.' },
+  { title: "Your Branding, Your Colours", desc: "Upload your logo, set your brand colour, choose your font. The quiz looks like it\u2019s yours." },
   { title: 'Direct Link + Embed Code', desc: 'Share anywhere — social media, email, your website. Works on every device.' },
   { title: 'Instant CRM Integration', desc: 'Connect Zapier, GoHighLevel, HubSpot, or any tool with a webhook URL.' },
   { title: 'Self-Serve Dashboard', desc: 'Change anything, anytime. No tech skills needed.' },
