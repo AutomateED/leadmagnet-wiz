@@ -31,14 +31,15 @@ export default function QuestionScreen({
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col">
+    <div className="flex min-h-[100dvh] flex-col" style={{ backgroundColor: '#FFFFFF' }}>
       <ProgressBar current={questionIndex} total={7} brandColour={brandColour} />
 
       {/* Back button */}
       {questionIndex > 0 && (
         <button
           onClick={onBack}
-          className="fixed top-6 left-4 z-40 flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="fixed top-6 left-4 z-40 flex items-center gap-1 text-sm transition-colors"
+          style={{ color: '#6B5F80' }}
         >
           <ChevronLeft className="h-4 w-4" />
           Back
@@ -58,14 +59,14 @@ export default function QuestionScreen({
             className="w-full max-w-lg"
           >
             {/* Question number */}
-            <p className="font-mono text-sm tracking-wider text-muted-foreground mb-4">
+            <p className="font-mono text-sm tracking-wider mb-4" style={{ color: '#9A8EAA' }}>
               <span className="tabular-nums">{String(questionIndex + 1).padStart(2, '0')}</span>
               <span className="mx-2">/</span>
               <span className="tabular-nums">07</span>
             </p>
 
             {/* Question text */}
-            <h2 className="font-display text-3xl md:text-5xl font-semibold leading-tight text-foreground mb-10">
+            <h2 className="text-3xl md:text-5xl font-semibold leading-tight mb-10" style={{ color: '#0F0A1E' }}>
               {question.text}
             </h2>
 
