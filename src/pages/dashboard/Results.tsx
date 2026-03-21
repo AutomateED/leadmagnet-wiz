@@ -10,6 +10,7 @@ interface ResultsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
 const RESULT_TYPES = [
@@ -19,7 +20,7 @@ const RESULT_TYPES = [
   'The Plateau Breaker',
 ] as const;
 
-export default function Results({ config, onConfigChange, userId }: ResultsProps) {
+export default function Results({ config, onConfigChange, userId, quizId }: ResultsProps) {
   const { toast } = useToast();
   const [texts, setTexts] = useState({ ...config.resultTexts });
   const [savingType, setSavingType] = useState<string | null>(null);
@@ -34,7 +35,7 @@ export default function Results({ config, onConfigChange, userId }: ResultsProps
     const { error } = await supabase
       .from('quiz_configs')
       .update({ result_texts: updated as any })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

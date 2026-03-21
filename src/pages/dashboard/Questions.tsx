@@ -10,6 +10,7 @@ interface QuestionsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
 const LETTER_MAP: Record<string, string> = {
@@ -26,7 +27,7 @@ const LETTER_COLOURS: Record<string, string> = {
   D: '#ef4444',
 };
 
-export default function Questions({ config, onConfigChange, userId }: QuestionsProps) {
+export default function Questions({ config, onConfigChange, userId, quizId }: QuestionsProps) {
   const { toast } = useToast();
 
   const initial: Question[] = (() => {
@@ -57,7 +58,7 @@ export default function Questions({ config, onConfigChange, userId }: QuestionsP
     const { error } = await supabase
       .from('quiz_configs')
       .update({ questions: questions as any })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

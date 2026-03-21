@@ -10,9 +10,10 @@ interface IntegrationsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function Integrations({ config, onConfigChange, userId }: IntegrationsProps) {
+export default function Integrations({ config, onConfigChange, userId, quizId }: IntegrationsProps) {
   const { toast } = useToast();
   const [webhookUrl, setWebhookUrl] = useState(config.webhookUrl || '');
   const [saving, setSaving] = useState(false);
@@ -22,7 +23,7 @@ export default function Integrations({ config, onConfigChange, userId }: Integra
     const { error } = await supabase
       .from('quiz_configs')
       .update({ webhook_url: webhookUrl })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

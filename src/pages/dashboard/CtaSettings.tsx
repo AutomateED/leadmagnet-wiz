@@ -10,9 +10,10 @@ interface CtaSettingsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function CtaSettings({ config, onConfigChange, userId }: CtaSettingsProps) {
+export default function CtaSettings({ config, onConfigChange, userId, quizId }: CtaSettingsProps) {
   const { toast } = useToast();
   const [ctaText, setCtaText] = useState(config.ctaText);
   const [ctaUrl, setCtaUrl] = useState(config.ctaUrl);
@@ -24,7 +25,7 @@ export default function CtaSettings({ config, onConfigChange, userId }: CtaSetti
     const { error } = await supabase
       .from('quiz_configs')
       .update({ cta_text: ctaText, cta_url: ctaUrl, cta_tagline: ctaTagline })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

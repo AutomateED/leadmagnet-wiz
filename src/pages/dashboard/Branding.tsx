@@ -17,9 +17,10 @@ interface BrandingProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function Branding({ config, onConfigChange, userId }: BrandingProps) {
+export default function Branding({ config, onConfigChange, userId, quizId }: BrandingProps) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -84,7 +85,7 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
         logo_url: logoUrl || '',
         font_family: fontFamily,
       } as any)
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
