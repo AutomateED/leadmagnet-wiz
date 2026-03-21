@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 
 /* ─── PALETTE ─── */
 const C = {
@@ -23,18 +23,58 @@ const fadeUp = {
 const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 const ease = [0.16, 1, 0.3, 1] as const;
 
+const FEATURES = [
+  { icon: '⚡', title: 'Live in under an hour', body: 'Pick your template, upload your logo, set your brand colour, add your questions. That\'s it. No developer, no designer, no complicated setup.' },
+  { icon: '🎨', title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business — because it was.' },
+  { icon: '🎯', title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
+  { icon: '📥', title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
+  { icon: '🔗', title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
+  { icon: '🔒', title: 'One payment, no surprises', body: '$97 once. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
+];
+
 const TEMPLATES = [
-  { name: 'Business Breakthrough Quiz', tagline: "What's Really Holding Your Business Back?", niche: 'For business coaches', href: '/templates/business-breakthrough' },
-  { name: 'Mindset Mastery Quiz', tagline: "What's Your Hidden Mindset Block?", niche: 'For life and mindset coaches', href: '/templates/mindset-mastery' },
-  { name: 'Leadership Style Quiz', tagline: 'What Kind of Leader Are You?', niche: 'For leadership and executive coaches', href: '/templates/leadership-style' },
-  { name: 'Wealth Readiness Quiz', tagline: 'How Ready Are You to Build Real Wealth?', niche: 'For financial coaches and wealth consultants', href: '/templates/wealth-readiness' },
+  { name: 'Business Breakthrough Quiz', tagline: "What's Really Holding Your Business Back?", benefit: 'Help clients identify the #1 thing holding their business back', niche: 'For business coaches', href: '/templates/business-breakthrough' },
+  { name: 'Mindset Mastery Quiz', tagline: "What's Your Hidden Mindset Block?", benefit: 'Reveal the thinking patterns shaping your clients\' results', niche: 'For life and mindset coaches', href: '/templates/mindset-mastery' },
+  { name: 'Leadership Style Quiz', tagline: 'What Kind of Leader Are You?', benefit: 'Show leaders how their style affects their team and outcomes', niche: 'For leadership and executive coaches', href: '/templates/leadership-style' },
+  { name: 'Wealth Readiness Quiz', tagline: 'How Ready Are You to Build Real Wealth?', benefit: 'Help clients understand their relationship with money and growth', niche: 'For financial coaches and wealth consultants', href: '/templates/wealth-readiness' },
 ];
 
 const STEPS = [
-  { num: '1', title: 'Pick your quiz template', desc: 'Choose from our library of niche-specific quiz funnels designed for coaches.' },
-  { num: '2', title: 'Customise it with your branding', desc: 'Add your logo, colours, questions, and personalised results.' },
-  { num: '3', title: 'Share your link and start capturing leads', desc: 'Go live in under an hour and watch qualified leads roll in.' },
+  { num: '1', title: 'Pay once, get instant access', desc: 'Complete your $97 purchase and receive your dashboard login immediately. No waiting, no onboarding call.' },
+  { num: '2', title: 'Pick your template', desc: 'Choose from four ready-made quiz templates built for coaches and consultants. Each one is fully customisable.' },
+  { num: '3', title: 'Brand it in minutes', desc: 'Upload your logo, set your brand colour, and update your copy. Your quiz looks like yours — not ours.' },
+  { num: '4', title: 'Share your link and watch leads come in', desc: 'Paste your unique quiz link anywhere. Every completion sends a warm, qualified lead straight to your inbox and CRM.' },
 ];
+
+const FAQS = [
+  { q: 'Can I change the questions?', a: 'Yes — all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
+  { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website — Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
+  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in, pick your template, and follow the setup steps. Most clients are live within the hour.' },
+  { q: 'Do I need a developer?', a: 'No. Everything is point-and-click. If you can update a Google Doc, you can set up your quiz.' },
+  { q: 'Is there a monthly fee?', a: 'No. $97 one-time payment. No subscription, no renewal, no surprises.' },
+  { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook — including Zapier, which means it connects to almost every CRM and email tool on the market.' },
+];
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: `1px solid ${C.cardBorder}` }}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between py-5 text-left text-base font-semibold transition-colors"
+        style={{ color: '#fff', fontFamily: FONT }}
+      >
+        {q}
+        <ChevronDown className={`h-5 w-5 shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} style={{ color: C.textMuted }} />
+      </button>
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed" style={{ color: C.textBody, fontFamily: FONT }}>
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
 
 function Nav() {
   return (
@@ -82,28 +122,88 @@ export default function HomePage() {
       <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+            <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
+              <span className="inline-block rounded-full px-4 py-1.5 text-xs font-medium tracking-wide" style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber, border: '1px solid rgba(232,145,42,0.3)' }}>
+                The fastest way to qualify leads online
+              </span>
+            </motion.div>
             <motion.h1
               variants={fadeUp} transition={{ duration: 0.6, ease }}
-              className="text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
+              className="mt-6 text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
             >
-              Turn Website Visitors Into{' '}
-              <span style={{ color: C.amber }}>Qualified Leads</span>{' '}
-              — Automatically
+              Turn website visitors into{' '}
+              <span style={{ color: C.amber }}>qualified leads</span>{' '}
+              while you sleep
             </motion.h1>
             <motion.p
               variants={fadeUp} transition={{ duration: 0.6, ease }}
               className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed font-light"
               style={{ color: C.textBody }}
             >
-              Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.
+              A branded quiz on your site qualifies prospects, grows your list, and sends you warm leads 24/7 — without a discovery call, a tech team, or an hour of your morning gone.
             </motion.p>
+            <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() => document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })}
+                className="rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+                style={{ backgroundColor: C.amber, color: C.ink }}
+              >
+                Browse quiz templates →
+              </button>
+              <a
+                href="/quiz/business-breakthrough"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg px-8 py-3.5 text-sm font-medium transition-all hover:bg-white/5"
+                style={{ border: '1px solid rgba(255,255,255,0.2)', color: '#fff' }}
+              >
+                See it in action
+              </a>
+            </motion.div>
           </motion.div>
         </div>
+      </section>
+
+      {/* ─── WHY PRETAQUIZ ─── */}
+      <section className="py-20 md:py-28">
+        <motion.div className="mx-auto max-w-6xl px-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Everything you need. <span style={{ color: C.amber }}>Nothing you don't.</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.textBody }}>
+              Built for coaches and consultants who want results — not a tech project.
+            </p>
+          </motion.div>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map((f) => (
+              <motion.div
+                key={f.title}
+                variants={fadeUp}
+                transition={{ duration: 0.6, ease }}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
+              >
+                <span className="text-2xl">{f.icon}</span>
+                <h3 className="mt-3 text-lg font-bold" style={{ color: '#fff' }}>{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{f.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* ─── TEMPLATE GRID ─── */}
       <section id="templates" className="pb-20 md:pb-28">
         <motion.div className="mx-auto max-w-5xl px-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center mb-12">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Choose your <span style={{ color: C.amber }}>quiz template</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.textBody }}>
+              Each template is ready to brand and launch. Pick the one that fits your audience.
+            </p>
+          </motion.div>
           <div className="grid gap-6 sm:grid-cols-2">
             {TEMPLATES.map((t) => (
               <motion.div key={t.href} variants={fadeUp} transition={{ duration: 0.6, ease }}>
@@ -118,7 +218,7 @@ export default function HomePage() {
                   <h3 className="mt-4 text-xl font-bold" style={{ color: '#fff' }}>
                     {t.name}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{t.tagline}</p>
+                  <p className="mt-1 text-sm" style={{ color: C.textBody }}>{t.benefit}</p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors" style={{ color: C.amber }}>
                     View Template <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </span>
@@ -130,14 +230,16 @@ export default function HomePage() {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28">
         <motion.div className="mx-auto max-w-4xl px-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
-          <motion.h2
-            variants={fadeUp} transition={{ duration: 0.6, ease }}
-            className="text-center text-3xl font-bold md:text-4xl"
-          >
-            How It <span style={{ color: C.amber }}>Works</span>
-          </motion.h2>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              From purchase to live quiz <span style={{ color: C.amber }}>in under an hour</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.textBody }}>
+              No tech skills required. No setup calls. Just follow these four steps.
+            </p>
+          </motion.div>
 
           <div className="mt-14 space-y-10">
             {STEPS.map((s) => (
@@ -155,23 +257,18 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ─── FINAL CTA ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
-        <motion.div className="mx-auto max-w-3xl px-6 text-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
-          <motion.h2
-            variants={fadeUp} transition={{ duration: 0.6, ease }}
-            className="text-3xl font-bold md:text-4xl"
-          >
-            Ready to turn your website into a <span style={{ color: C.amber }}>lead machine</span>?
-          </motion.h2>
-          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-            <button
-              onClick={() => document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })}
-              className="mt-8 rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ backgroundColor: C.amber, color: C.ink }}
-            >
-              Browse Templates
-            </button>
+      {/* ─── FAQ ─── */}
+      <section className="py-20 md:py-28">
+        <motion.div className="mx-auto max-w-3xl px-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center mb-12">
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Questions you <span style={{ color: C.amber }}>probably have</span>
+            </h2>
+          </motion.div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} style={{ borderTop: `1px solid ${C.cardBorder}` }}>
+            {FAQS.map((faq) => (
+              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
           </motion.div>
         </motion.div>
       </section>
