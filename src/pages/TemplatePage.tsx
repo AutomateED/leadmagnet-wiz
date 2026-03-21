@@ -81,13 +81,15 @@ function Hero() {
               >
                 See It In Action
               </button>
-              <button
-                onClick={() => scrollTo('pricing')}
-                className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97]"
+              <a
+                href="https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97] inline-block"
                 style={{ backgroundColor: BRAND }}
               >
                 Activate Your Quiz — $97
-              </button>
+              </a>
             </motion.div>
           </motion.div>
 
@@ -386,7 +388,9 @@ function Pricing() {
 
           <div className="px-8 pb-8">
             <a
-              href="#"
+              href="https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97]"
               style={{ backgroundColor: BRAND }}
             >
