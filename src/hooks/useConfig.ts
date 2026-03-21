@@ -1,6 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export interface QuizConfig {
+  quizId: string;
+  quizName: string;
+  templateType: string;
   fullName: string;
   businessName: string;
   email: string;
@@ -35,6 +38,9 @@ const DEFAULT_RESULTS = {
 };
 
 export const DEFAULT_CONFIG: QuizConfig = {
+  quizId: '',
+  quizName: 'My Quiz',
+  templateType: 'business-breakthrough',
   fullName: 'Sarah Mitchell',
   businessName: 'Your Business Name',
   email: 'sarah@elevatecoaching.com',

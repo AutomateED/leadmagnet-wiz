@@ -44,6 +44,9 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
       const emailConfig = (data as any).email_config as Record<string, string> | null;
 
       const quizConfig: QuizConfig = {
+        quizId: (data as any).id || '',
+        quizName: (data as any).quiz_name || DEFAULT_CONFIG.quizName,
+        templateType: (data as any).template_type || DEFAULT_CONFIG.templateType,
         fullName: data.full_name || DEFAULT_CONFIG.fullName,
         businessName: data.business_name || DEFAULT_CONFIG.businessName,
         email: data.email || DEFAULT_CONFIG.email,
