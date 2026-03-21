@@ -35,7 +35,7 @@ export default function Results({ config, onConfigChange, userId, quizId }: Resu
     const { error } = await supabase
       .from('quiz_configs')
       .update({ result_texts: updated as any })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

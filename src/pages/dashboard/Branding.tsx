@@ -85,7 +85,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
         logo_url: logoUrl || '',
         font_family: fontFamily,
       } as any)
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

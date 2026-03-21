@@ -23,7 +23,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
     const { error } = await supabase
       .from('quiz_configs')
       .update({ webhook_url: webhookUrl })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });

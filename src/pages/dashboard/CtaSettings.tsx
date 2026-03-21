@@ -25,7 +25,7 @@ export default function CtaSettings({ config, onConfigChange, userId, quizId }: 
     const { error } = await supabase
       .from('quiz_configs')
       .update({ cta_text: ctaText, cta_url: ctaUrl, cta_tagline: ctaTagline })
-      .eq('client_id', userId);
+      .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
