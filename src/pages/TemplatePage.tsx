@@ -388,7 +388,9 @@ function Pricing() {
 
           <div className="px-8 pb-8">
             <a
-              href="#"
+              href="https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97]"
               style={{ backgroundColor: BRAND }}
             >
