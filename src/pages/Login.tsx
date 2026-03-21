@@ -29,7 +29,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background px-4">
+      <Link to="/" className="mb-6 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        ← Back to home
+      </Link>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Sign in</CardTitle>
