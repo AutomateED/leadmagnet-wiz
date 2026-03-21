@@ -20,7 +20,7 @@ const RESULT_TYPES = [
   'The Plateau Breaker',
 ] as const;
 
-export default function Results({ config, onConfigChange, userId }: ResultsProps) {
+export default function Results({ config, onConfigChange, userId, quizId }: ResultsProps) {
   const { toast } = useToast();
   const [texts, setTexts] = useState({ ...config.resultTexts });
   const [savingType, setSavingType] = useState<string | null>(null);
