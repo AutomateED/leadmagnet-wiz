@@ -53,7 +53,8 @@ export default function Index() {
           answers={quiz.answers}
           brandColour={config.brandColour}
           direction={quiz.direction}
-          onAnswer={quiz.answerQuestion}
+          questions={config.questions && config.questions.length > 0 ? config.questions : QUESTIONS}
+          onAnswer={(qi, letter) => quiz.answerQuestion(qi, letter, (config.questions && config.questions.length > 0 ? config.questions : QUESTIONS).length)}
           onBack={quiz.goBack}
         />
       );
