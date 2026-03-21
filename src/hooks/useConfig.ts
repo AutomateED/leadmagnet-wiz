@@ -1,6 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export interface QuizConfig {
+  quizId: string;
+  quizName: string;
+  templateType: string;
   fullName: string;
   businessName: string;
   email: string;
