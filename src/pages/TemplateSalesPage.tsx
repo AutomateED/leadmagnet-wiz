@@ -339,13 +339,13 @@ export default function TemplateSalesPage() {
               </motion.p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <button
-                  onClick={() => document.getElementById('quiz-preview')?.scrollIntoView({ behavior: 'smooth' })}
+                <Link
+                  to={`/quiz/demo-${slug}`}
                   className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:bg-white/5 active:scale-[0.97]"
                   style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.90)' }}
                 >
                   See It In Action
-                </button>
+                </Link>
                 <a
                   href={stripeUrl}
                   target="_blank"
