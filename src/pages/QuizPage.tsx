@@ -79,6 +79,8 @@ export default function QuizPage() {
     });
   };
 
+  const questions = config.questions && config.questions.length > 0 ? config.questions : QUESTIONS;
+
   switch (quiz.screen) {
     case 'start':
       return <StartScreen config={config} onStart={quiz.startQuiz} />;
@@ -89,7 +91,8 @@ export default function QuizPage() {
           answers={quiz.answers}
           brandColour={config.brandColour}
           direction={quiz.direction}
-          onAnswer={quiz.answerQuestion}
+          questions={questions}
+          onAnswer={(qi, letter) => quiz.answerQuestion(qi, letter, questions.length)}
           onBack={quiz.goBack}
         />
       );

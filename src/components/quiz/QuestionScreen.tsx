@@ -63,7 +63,7 @@ export default function QuestionScreen({
             <p className="font-mono text-sm tracking-wider mb-4" style={{ color: '#9A8EAA' }}>
               <span className="tabular-nums">{String(questionIndex + 1).padStart(2, '0')}</span>
               <span className="mx-2">/</span>
-              <span className="tabular-nums">07</span>
+              <span className="tabular-nums">{String(questions.length).padStart(2, '0')}</span>
             </p>
 
             {/* Question text */}

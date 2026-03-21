@@ -17,12 +17,11 @@ export function useQuiz() {
     setDirection(1);
   }, []);
 
-  const answerQuestion = useCallback((questionIndex: number, letter: string) => {
+  const answerQuestion = useCallback((questionIndex: number, letter: string, totalQuestions: number = 7) => {
     setAnswers((prev) => ({ ...prev, [`q${questionIndex + 1}`]: letter }));
     setDirection(1);
 
-    if (questionIndex >= 6) {
-      // Last question — go to email gate
+    if (questionIndex >= totalQuestions - 1) {
       setTimeout(() => {
         const allAnswers = { ...answers, [`q${questionIndex + 1}`]: letter };
         const resultType = calculateResult(allAnswers);
