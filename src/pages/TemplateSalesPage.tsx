@@ -11,24 +11,18 @@ import {
 
 /* ─── PALETTE ─── */
 const C = {
-  amber: '#E8912A',
-  amberLight: '#FDF3E7',
-  amberDark: '#C4721A',
-  coral: '#D85A30',
-  ink: '#1A1714',
-  inkMid: '#4A443D',
-  inkLight: '#8A8078',
-  cream: '#FDFAF6',
-  creamMid: '#F5EFE6',
-  border: 'rgba(26,23,20,0.1)',
-  cardBg: 'rgba(255,255,255,0.05)',
-  cardBorder: 'rgba(255,255,255,0.1)',
-  textMuted: 'rgba(255,255,255,0.55)',
-  textBody: 'rgba(255,255,255,0.65)',
-  textBright: 'rgba(255,255,255,0.85)',
+  pageBg: '#0F0A1E',
+  sectionBg: '#160E28',
+  cardBg: '#201538',
+  cardBorder: '#2D1A4A',
+  accent: '#D946EF',
+  cta: '#F020B0',
+  headline: '#FFFFFF',
+  subheading: 'rgba(255,255,255,0.92)',
+  body: 'rgba(255,255,255,0.85)',
+  supporting: 'rgba(255,255,255,0.75)',
+  footnote: 'rgba(255,255,255,0.70)',
 };
-
-const FONT = "'Outfit', sans-serif";
 
 const STRIPE_URLS: Record<string, string> = {
   'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
@@ -160,13 +154,13 @@ function ScarcityBar() {
   return (
     <div ref={ref} className="mt-6 w-full max-w-xs mx-auto">
       <div className="flex justify-between text-xs font-medium mb-1.5">
-        <span style={{ color: C.textMuted }}>Spots claimed</span>
-        <span style={{ color: C.coral }}>14 of 20 taken</span>
+        <span style={{ color: C.footnote }}>Spots claimed</span>
+        <span style={{ color: C.cta }}>14 of 20 taken</span>
       </div>
       <div className="h-1.5 w-full rounded-full overflow-hidden" style={{ backgroundColor: C.cardBorder }}>
         <motion.div
           className="h-full rounded-full"
-          style={{ backgroundColor: C.coral }}
+          style={{ backgroundColor: C.cta }}
           initial={{ width: 0 }}
           animate={inView ? { width: '68%' } : { width: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -179,19 +173,19 @@ function ScarcityBar() {
 /* ─── NAV ─── */
 function Nav({ stripeUrl }: { stripeUrl: string }) {
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(26,23,20,0.85)', borderColor: C.cardBorder, fontFamily: FONT }}>
+    <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="text-[22px] font-bold tracking-tight" style={{ fontFamily: FONT }}>
-          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.amber }}>Quiz</span>
+        <Link to="/" className="text-[22px] font-bold tracking-tight">
+          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.accent }}>Quiz</span>
         </Link>
         <div className="flex items-center gap-4">
           <span
             className="hidden sm:inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide"
-            style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber, border: '1px solid rgba(232,145,42,0.3)' }}
+            style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}
           >
             Founding Member Offer
           </span>
-          <Link to="/login" className="text-sm font-medium transition-colors" style={{ color: C.textMuted }}>
+          <Link to="/login" className="text-sm font-medium transition-colors" style={{ color: C.footnote }}>
             Login
           </Link>
           <a
@@ -199,9 +193,9 @@ function Nav({ stripeUrl }: { stripeUrl: string }) {
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-block rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-            style={{ backgroundColor: C.amber, color: C.ink }}
+            style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
           >
-            Activate my quiz — $97 →
+            Activate my quiz — $97 &rarr;
           </a>
         </div>
       </div>
@@ -276,11 +270,10 @@ const FAQS = [
 function Footer() {
   return (
     <footer className="border-t py-8" style={{ borderColor: C.cardBorder }}>
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.textMuted, fontFamily: FONT }}>
-        <p>© 2026 Pretaquiz</p>
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.footnote }}>
+        <p>&copy; 2026 Pretaquiz</p>
         <div className="flex gap-5">
           <Link to="/login" className="hover:opacity-80 transition-opacity">Login</Link>
-          {/* TODO: add contact email */}
         </div>
       </div>
     </footer>
@@ -302,7 +295,7 @@ export default function TemplateSalesPage() {
   const howSteps = getHowSteps(content.howStep2Desc);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: C.ink, color: '#fff', scrollBehavior: 'smooth', fontFamily: FONT }}>
+    <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
       <Nav stripeUrl={stripeUrl} />
 
       {/* ─── HERO ─── */}
@@ -311,7 +304,7 @@ export default function TemplateSalesPage() {
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
               <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber, border: '1px solid rgba(232,145,42,0.3)' }}>
+                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}>
                   {content.eyebrow}
                 </span>
               </motion.div>
@@ -320,9 +313,10 @@ export default function TemplateSalesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 className="mt-5 text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
+                style={{ color: C.headline }}
               >
                 {content.heroHeadline}
-                <span style={{ color: C.amber }}>{content.heroHighlight}</span>
+                <span style={{ color: C.accent }}>{content.heroHighlight}</span>
                 {content.heroAfter}
               </motion.h1>
 
@@ -330,7 +324,7 @@ export default function TemplateSalesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 className="mt-6 max-w-lg text-lg leading-relaxed font-light"
-                style={{ color: C.textBody }}
+                style={{ color: C.body }}
               >
                 {content.heroSub}
               </motion.p>
@@ -339,16 +333,16 @@ export default function TemplateSalesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 className="mt-4 text-sm font-medium"
-                style={{ color: C.textMuted }}
+                style={{ color: C.footnote }}
               >
-                Join 12+ coaches already on the founding member list · Spots close when we hit 20
+                Join 12+ coaches already on the founding member list
               </motion.p>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
                   onClick={() => document.getElementById('quiz-preview')?.scrollIntoView({ behavior: 'smooth' })}
                   className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:bg-white/5 active:scale-[0.97]"
-                  style={{ border: '1px solid rgba(255,255,255,0.2)', color: '#fff' }}
+                  style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.90)' }}
                 >
                   See It In Action
                 </button>
@@ -357,9 +351,9 @@ export default function TemplateSalesPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] inline-block"
-                  style={{ backgroundColor: C.amber, color: C.ink }}
+                  style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
                 >
-                  Activate this quiz — $97 →
+                  Activate this quiz — $97 &rarr;
                 </a>
               </div>
             </motion.div>
@@ -374,16 +368,16 @@ export default function TemplateSalesPage() {
             >
               <div className="relative w-[280px] rounded-[2rem] border-[6px] p-5 shadow-lg" style={{ borderColor: C.cardBorder, backgroundColor: C.cardBg }}>
                 <div className="mx-auto mb-6 h-1 w-16 rounded-full" style={{ backgroundColor: C.cardBorder }} />
-                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.textMuted }}>Your Coaching Co.</p>
-                <h3 className="mt-4 text-lg font-bold leading-snug" style={{ color: '#fff' }}>
+                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.footnote }}>Your Coaching Co.</p>
+                <h3 className="mt-4 text-lg font-bold leading-snug" style={{ color: C.headline }}>
                   {content.quizStartTitle}
                 </h3>
-                <p className="mt-3 text-xs leading-relaxed" style={{ color: C.textBody }}>
+                <p className="mt-3 text-xs leading-relaxed" style={{ color: C.body }}>
                   {content.quizStartDesc}
                 </p>
-                <p className="mt-2 text-[10px]" style={{ color: C.textMuted }}>⏱ Takes about 2 minutes</p>
-                <div className="mt-5 rounded-lg py-2.5 text-center text-xs font-semibold" style={{ backgroundColor: C.amber, color: C.ink }}>
-                  Find Out Now →
+                <p className="mt-2 text-[10px]" style={{ color: C.footnote }}>Takes about 2 minutes</p>
+                <div className="mt-5 rounded-lg py-2.5 text-center text-xs font-semibold" style={{ backgroundColor: C.cta, color: '#FFFFFF' }}>
+                  Find Out Now &rarr;
                 </div>
               </div>
             </motion.div>
@@ -392,7 +386,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── PROBLEM ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.sectionBg }}>
         <motion.div
           className="mx-auto max-w-4xl px-6 text-center"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -400,8 +394,9 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            You're leaving <span style={{ color: C.amber }}>warm leads</span> on the table every single day
+            You're leaving <span style={{ color: C.accent }}>warm leads</span> on the table every single day
           </motion.h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -414,11 +409,11 @@ export default function TemplateSalesPage() {
                   className="rounded-xl p-6 text-left"
                   style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: 'rgba(232,145,42,0.15)' }}>
-                    <Icon className="h-5 w-5" style={{ color: C.amber }} />
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: 'rgba(217,70,239,0.15)' }}>
+                    <Icon className="h-5 w-5" style={{ color: C.accent }} />
                   </div>
-                  <h3 className="text-sm font-semibold mb-2" style={{ color: '#fff' }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: C.textBody }}>{p.body}</p>
+                  <h3 className="text-sm font-semibold mb-2" style={{ color: C.headline }}>{p.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: C.supporting }}>{p.body}</p>
                 </motion.div>
               );
             })}
@@ -427,16 +422,16 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── QUIZ PREVIEW ─── */}
-      <section id="quiz-preview" className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section id="quiz-preview" className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
         <motion.div
           className="mx-auto max-w-5xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}
         >
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center">
-            <h2 className="text-3xl font-bold md:text-4xl">
-              See exactly what your leads <span style={{ color: C.amber }}>will experience</span>
+            <h2 className="text-3xl font-bold md:text-4xl" style={{ color: C.headline }}>
+              See exactly what your leads <span style={{ color: C.accent }}>will experience</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.textBody }}>
+            <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.body }}>
               This is a live preview of the quiz your prospects will take. Every question, result, and email is fully customisable.
             </p>
           </motion.div>
@@ -444,21 +439,21 @@ export default function TemplateSalesPage() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {/* Screen 1 — Start */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
-              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.textMuted }}>Start Screen</p>
-              <h3 className="text-base font-bold" style={{ color: '#fff' }}>{content.quizStartTitle}</h3>
-              <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{content.quizStartDesc}</p>
-              <div className="mt-4 rounded-lg py-2 text-center text-xs font-semibold" style={{ backgroundColor: C.amber, color: C.ink }}>
-                Start the quiz →
+              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Start Screen</p>
+              <h3 className="text-base font-bold" style={{ color: C.headline }}>{content.quizStartTitle}</h3>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: C.body }}>{content.quizStartDesc}</p>
+              <div className="mt-4 rounded-lg py-2 text-center text-xs font-semibold" style={{ backgroundColor: C.cta, color: '#FFFFFF' }}>
+                Start the quiz &rarr;
               </div>
             </motion.div>
 
             {/* Screen 2 — Question */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
-              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.textMuted }}>Sample Question</p>
-              <p className="text-sm font-semibold mb-3" style={{ color: '#fff' }}>{content.sampleQuestion}</p>
+              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Sample Question</p>
+              <p className="text-sm font-semibold mb-3" style={{ color: C.headline }}>{content.sampleQuestion}</p>
               <div className="space-y-2">
                 {content.sampleOptions.map((opt, i) => (
-                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? 'rgba(232,145,42,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(232,145,42,0.3)' : C.cardBorder}`, color: i === 0 ? C.amber : C.textBright }}>
+                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? 'rgba(217,70,239,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(217,70,239,0.3)' : C.cardBorder}`, color: i === 0 ? C.accent : C.supporting }}>
                     {opt}
                   </div>
                 ))}
@@ -467,11 +462,11 @@ export default function TemplateSalesPage() {
 
             {/* Screen 3 — Result */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
-              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.textMuted }}>Result Preview</p>
-              <h3 className="text-base font-bold" style={{ color: C.amber }}>{content.resultTitle}</h3>
-              <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{content.resultDesc}</p>
-              <div className="mt-4 rounded-lg py-2 text-center text-xs font-semibold" style={{ backgroundColor: C.amber, color: C.ink }}>
-                Book your call →
+              <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Result Preview</p>
+              <h3 className="text-base font-bold" style={{ color: C.accent }}>{content.resultTitle}</h3>
+              <p className="mt-2 text-sm leading-relaxed" style={{ color: C.body }}>{content.resultDesc}</p>
+              <div className="mt-4 rounded-lg py-2 text-center text-xs font-semibold" style={{ backgroundColor: C.cta, color: '#FFFFFF' }}>
+                Book your call &rarr;
               </div>
             </motion.div>
           </div>
@@ -482,16 +477,16 @@ export default function TemplateSalesPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm font-medium transition-colors hover:opacity-80"
-              style={{ color: C.amber }}
+              style={{ color: C.accent }}
             >
-              Take the full quiz → <ArrowRight className="h-4 w-4" />
+              Take the full quiz &rarr; <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </motion.div>
       </section>
 
       {/* ─── WHAT YOU'LL GET ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.sectionBg }}>
         <motion.div
           className="mx-auto max-w-4xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -499,8 +494,9 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            What happens when this quiz is <span style={{ color: C.amber }}>live on your site</span>
+            What happens when this quiz is <span style={{ color: C.accent }}>live on your site</span>
           </motion.h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -511,8 +507,8 @@ export default function TemplateSalesPage() {
                 className="rounded-xl p-6"
                 style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
               >
-                <h3 className="text-sm font-semibold mb-2" style={{ color: '#fff' }}>{card.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: C.textBody }}>{card.body}</p>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: C.headline }}>{card.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: C.supporting }}>{card.body}</p>
               </motion.div>
             ))}
           </div>
@@ -520,7 +516,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
         <motion.div
           className="mx-auto max-w-4xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -528,8 +524,9 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            Here's How It <span style={{ color: C.amber }}>Works</span>
+            Here's How It <span style={{ color: C.accent }}>Works</span>
           </motion.h2>
 
           <div className="mt-14 space-y-8">
@@ -539,15 +536,15 @@ export default function TemplateSalesPage() {
                 variants={fadeUp} transition={{ duration: 0.6, ease }}
                 className="flex gap-5"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ backgroundColor: C.amber, color: C.ink }}>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ backgroundColor: C.cta, color: '#FFFFFF' }}>
                   {i + 1}
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg font-semibold" style={{ color: '#fff' }}>{s.title}</h3>
-                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber }}>{s.badge}</span>
+                    <h3 className="text-lg font-semibold" style={{ color: C.headline }}>{s.title}</h3>
+                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent }}>{s.badge}</span>
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed" style={{ color: C.textBody }}>{s.desc}</p>
+                  <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -556,7 +553,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── TESTIMONIALS ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.sectionBg }}>
         <motion.div
           className="mx-auto max-w-4xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -564,8 +561,9 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            What Coaches Are <span style={{ color: C.amber }}>Saying</span>
+            What Coaches Are <span style={{ color: C.accent }}>Saying</span>
           </motion.h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -576,11 +574,11 @@ export default function TemplateSalesPage() {
                 className="rounded-xl p-6"
                 style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
               >
-                <p className="text-sm leading-relaxed italic" style={{ color: C.textBright }}>
+                <p className="text-sm leading-relaxed italic" style={{ color: C.supporting }}>
                   "{t.quote}"
                 </p>
-                <p className="mt-4 text-sm font-semibold" style={{ color: C.amber }}>{t.name}</p>
-                <p className="text-xs" style={{ color: C.textMuted }}>{t.role}</p>
+                <p className="mt-4 text-sm font-semibold" style={{ color: C.accent }}>{t.name}</p>
+                <p className="text-xs" style={{ color: C.footnote }}>{t.role}</p>
               </motion.div>
             ))}
           </div>
@@ -588,7 +586,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
         <motion.div
           className="mx-auto max-w-2xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -596,8 +594,9 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            Questions you <span style={{ color: C.amber }}>probably have</span>
+            Questions you <span style={{ color: C.accent }}>probably have</span>
           </motion.h2>
 
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-10">
@@ -608,10 +607,10 @@ export default function TemplateSalesPage() {
                   className="rounded-xl px-5"
                   style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <AccordionTrigger className="text-left text-sm font-medium hover:no-underline" style={{ color: '#fff' }}>
+                  <AccordionTrigger className="text-left text-sm font-medium hover:no-underline" style={{ color: C.headline }}>
                     {f.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-sm leading-relaxed" style={{ color: C.textBody }}>
+                  <AccordionContent className="text-sm leading-relaxed" style={{ color: C.body }}>
                     {f.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -622,7 +621,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── PRICING ─── */}
-      <section id="pricing" className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section id="pricing" className="py-20 md:py-28" style={{ backgroundColor: C.sectionBg }}>
         <motion.div
           className="mx-auto max-w-xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -635,28 +634,28 @@ export default function TemplateSalesPage() {
             <div className="p-8 text-center">
               <span
                 className="inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
-                style={{ backgroundColor: C.amber, color: C.ink }}
+                style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
               >
                 Founding Member
               </span>
 
-              <h3 className="mt-4 text-xl font-bold" style={{ color: '#fff' }}>
+              <h3 className="mt-4 text-xl font-bold" style={{ color: C.headline }}>
                 {content.pricingHeadline}
               </h3>
-              <p className="mt-1 text-sm" style={{ color: C.textBody }}>
+              <p className="mt-1 text-sm" style={{ color: C.body }}>
                 {content.pricingSubtext}
               </p>
 
-              <p className="mt-4 text-base line-through" style={{ color: C.textMuted }}>$197</p>
-              <p className="mt-1 text-[52px] font-bold tracking-tight" style={{ color: '#fff' }}>$97</p>
-              <p className="mt-1 text-sm" style={{ color: C.textBody }}>one-time payment — yours forever</p>
+              <p className="mt-4 text-base line-through" style={{ color: C.footnote }}>$197</p>
+              <p className="mt-1 text-[52px] font-bold tracking-tight" style={{ color: C.headline }}>$97</p>
+              <p className="mt-1 text-sm" style={{ color: C.body }}>one-time payment — yours forever</p>
             </div>
 
             <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.cardBorder}` }}>
               <ul className="space-y-3">
                 {PRICING_FEATURES.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: C.textBright }}>
-                    <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: C.amber }} />
+                  <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: C.supporting }}>
+                    <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: C.accent }} />
                     {f}
                   </li>
                 ))}
@@ -669,15 +668,15 @@ export default function TemplateSalesPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-                style={{ backgroundColor: C.amber, color: C.ink }}
+                style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
               >
-                Activate my quiz — $97 →
+                Activate my quiz — $97 &rarr;
               </a>
 
               <ScarcityBar />
 
-              <p className="mt-4 text-center text-xs" style={{ color: C.textMuted }}>
-                Secure checkout · One-time payment · No subscription
+              <p className="mt-4 text-center text-xs" style={{ color: C.footnote }}>
+                Secure checkout &middot; One-time payment &middot; No subscription
               </p>
             </div>
           </motion.div>
@@ -685,21 +684,22 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
         <motion.div
           className="mx-auto max-w-3xl px-6 text-center"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
         >
-          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-sm font-semibold tracking-wide" style={{ color: C.coral }}>
+          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-sm font-semibold tracking-wide" style={{ color: C.cta }}>
             Only 6 spots left
           </motion.p>
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="mt-3 text-3xl font-bold md:text-4xl"
+            style={{ color: C.headline }}
           >
-            Ready to stop losing leads to a <span style={{ color: C.amber }}>silent website</span>?
+            Ready to stop losing leads to a <span style={{ color: C.accent }}>silent website</span>?
           </motion.h2>
-          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed font-light" style={{ color: C.textBody }}>
+          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed font-light" style={{ color: C.body }}>
             Pay once. Get your quiz live today. No subscription, no hidden fees — just a quiz that works for you 24/7.
           </motion.p>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
@@ -708,12 +708,12 @@ export default function TemplateSalesPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ backgroundColor: C.amber, color: C.ink }}
+              style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate my quiz — $97 →
+              Activate my quiz — $97 &rarr;
             </a>
-            <p className="mt-3 text-xs" style={{ color: C.textMuted }}>
-              $97 one-time · Secure checkout · No subscription
+            <p className="mt-3 text-xs" style={{ color: C.footnote }}>
+              $97 one-time &middot; Secure checkout &middot; No subscription
             </p>
           </motion.div>
         </motion.div>
