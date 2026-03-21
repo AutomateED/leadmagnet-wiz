@@ -10,7 +10,7 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
   const brandColour = config.brandColour;
 
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center px-6 py-12">
+    <div className="flex min-h-[100dvh] items-center justify-center px-6 py-12" style={{ backgroundColor: '#FFFFFF' }}>
       <motion.div
         className="w-full max-w-md text-center"
         initial={{ opacity: 0, y: 20 }}
@@ -41,16 +41,16 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
           </svg>
         </div>
 
-        <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground">
+        <h2 className="text-4xl md:text-5xl font-semibold" style={{ color: '#0F0A1E' }}>
           It's on its way!
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+        <p className="mt-4 text-lg leading-relaxed" style={{ color: '#4A4060' }}>
           Check your inbox — your personalised results are heading to{' '}
-          <span className="font-medium text-foreground">{email}</span> right now.
+          <span className="font-medium" style={{ color: '#0F0A1E' }}>{email}</span> right now.
         </p>
 
         {/* Divider */}
-        <div className="my-10 h-px bg-border" />
+        <div className="my-10 h-px" style={{ backgroundColor: 'rgba(217,70,239,0.15)' }} />
 
         {/* CTA section */}
         <div className="flex flex-col items-center gap-4">
@@ -63,7 +63,7 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
           )}
 
           {config.ctaTagline && (
-            <p className="text-lg text-muted-foreground italic">
+            <p className="text-lg italic" style={{ color: '#6B5F80' }}>
               {config.ctaTagline}
             </p>
           )}
@@ -74,7 +74,7 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 inline-block rounded-full px-10 py-4 text-lg font-semibold tracking-wide transition-all duration-300 hover:shadow-lift active:scale-95"
-              style={{ backgroundColor: brandColour, color: '#FFFFFF' }}
+              style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.96 }}
             >
@@ -83,8 +83,8 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
           )}
         </div>
 
-        <p className="mt-12 text-xs text-muted-foreground/60">
-          Powered by <span className="font-display font-semibold">PretaQuiz</span>
+        <p className="mt-12 text-xs" style={{ color: '#9A8EAA' }}>
+          Powered by <span className="font-semibold">PretaQuiz</span>
         </p>
       </motion.div>
     </div>

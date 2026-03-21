@@ -76,8 +76,8 @@ export default function Dashboard() {
 
   if (authLoading || !user || dataLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent" />
+      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#D946EF', borderTopColor: 'transparent' }} />
       </div>
     );
   }
@@ -85,20 +85,28 @@ export default function Dashboard() {
   const handleSignOut = async () => { await signOut(); navigate('/login'); };
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <aside className="w-60 shrink-0 bg-white border-r border-border flex flex-col">
-        <div className="px-5 py-6 border-b border-border">
-          <h2 className="text-sm font-semibold text-foreground truncate">
+    <div className="flex min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
+      <aside className="w-60 shrink-0 flex flex-col" style={{ backgroundColor: '#F8F7FF', borderRight: '1px solid rgba(217,70,239,0.15)' }}>
+        <div className="px-5 py-6" style={{ borderBottom: '1px solid rgba(217,70,239,0.15)' }}>
+          <Link to="/" className="text-[20px] font-bold tracking-tight">
+            <span style={{ color: '#0F0A1E' }}>Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
+          </Link>
+          <p className="text-sm font-medium truncate mt-1" style={{ color: '#0F0A1E' }}>
             {config?.businessName || 'My Quiz'}
-          </h2>
+          </p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-1">
           {NAV_ITEMS.map((item) => {
             const active = location.pathname === `/dashboard/${item.path}`;
             return (
               <Link key={item.path} to={`/dashboard/${item.path}`}
-                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${active ? 'text-white' : 'text-muted-foreground hover:text-foreground hover:bg-muted'}`}
-                style={active ? { backgroundColor: '#C9A96E' } : undefined}
+                className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                style={active
+                  ? { backgroundColor: '#F020B0', color: '#FFFFFF' }
+                  : { color: '#6B5F80' }
+                }
+                onMouseEnter={(e) => { if (!active) (e.currentTarget.style.backgroundColor = 'rgba(217,70,239,0.08)'); }}
+                onMouseLeave={(e) => { if (!active) (e.currentTarget.style.backgroundColor = 'transparent'); }}
               >
                 <item.icon className="h-4 w-4 shrink-0" />
                 {item.label}
@@ -106,9 +114,11 @@ export default function Dashboard() {
             );
           })}
         </nav>
-        <div className="px-3 py-4 border-t border-border">
+        <div className="px-3 py-4" style={{ borderTop: '1px solid rgba(217,70,239,0.15)' }}>
           <button onClick={handleSignOut}
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted w-full transition-colors">
+            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium w-full transition-colors"
+            style={{ color: '#6B5F80' }}
+          >
             <LogOut className="h-4 w-4 shrink-0" />
             Sign out
           </button>
@@ -137,8 +147,8 @@ function mapRowToConfig(row: any): QuizConfig {
   return {
     fullName: row.full_name || '', businessName: row.business_name || '',
     email: row.email || '', logo: row.logo_url || '',
-    brandColour: row.brand_colour || '#C9A96E',
-    fontFamily: row.font_family || 'Playfair Display',
+    brandColour: row.brand_colour || '#D946EF',
+    fontFamily: row.font_family || 'Plus Jakarta Sans',
     questions: Array.isArray(row.questions) ? row.questions : [],
     resultTexts: (row.result_texts as any) || DEFAULT_CONFIG.resultTexts,
     ctaText: row.cta_text || '', ctaUrl: row.cta_url || '',

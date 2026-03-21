@@ -97,30 +97,30 @@ export default function Overview({ config, slug }: OverviewProps) {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground">Welcome to PretaQuiz</h1>
-      <p className="text-muted-foreground mt-1">
+      <h1 className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>Welcome to PretaQuiz</h1>
+      <p className="mt-1" style={{ color: '#6B5F80' }}>
         Setting up your quiz for{' '}
-        <span className="font-medium text-foreground">{config.businessName || 'your business'}</span>.
+        <span className="font-medium" style={{ color: '#0F0A1E' }}>{config.businessName || 'your business'}</span>.
       </p>
-      <p className="text-sm text-muted-foreground mt-3 max-w-[800px]">
+      <p className="text-sm mt-3 max-w-[800px]" style={{ color: '#6B5F80' }}>
         You're just a few steps away from having your own lead-generation quiz. Work through the checklist below — most clients finish in under 30 minutes.
       </p>
 
       {/* Welcome video */}
       <div
         className="mt-6 max-w-[800px] rounded-xl overflow-hidden"
-        style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)' }}
+        style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}
       >
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
             <div
               className="flex h-14 w-14 items-center justify-center rounded-full"
-              style={{ backgroundColor: 'rgba(201, 169, 110, 0.2)' }}
+              style={{ backgroundColor: 'rgba(217,70,239,0.15)' }}
             >
-              <Play className="h-6 w-6 ml-0.5" style={{ color: '#C9A96E' }} />
+              <Play className="h-6 w-6 ml-0.5" style={{ color: '#D946EF' }} />
             </div>
-            <p className="text-sm font-semibold text-foreground">Watch: Set up your quiz in under 5 minutes</p>
-            <span className="text-xs text-muted-foreground">Video coming soon</span>
+            <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>Watch: Set up your quiz in under 5 minutes</p>
+            <span className="text-xs" style={{ color: '#9A8EAA' }}>Video coming soon</span>
           </div>
         </div>
       </div>
@@ -128,15 +128,15 @@ export default function Overview({ config, slug }: OverviewProps) {
       {/* Progress */}
       <div className="mt-6 max-w-[800px]">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-foreground">
+          <span className="text-sm font-medium" style={{ color: '#0F0A1E' }}>
             {completed} of {total} steps complete
           </span>
-          <span className="text-sm text-muted-foreground">{pct}%</span>
+          <span className="text-sm" style={{ color: '#9A8EAA' }}>{pct}%</span>
         </div>
-        <div className="h-2.5 rounded-full bg-muted overflow-hidden">
+        <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(217,70,239,0.1)' }}>
           <div
             className="h-full rounded-full transition-all duration-500"
-            style={{ width: `${pct}%`, backgroundColor: '#C9A96E' }}
+            style={{ width: `${pct}%`, backgroundColor: '#D946EF' }}
           />
         </div>
       </div>
@@ -148,39 +148,37 @@ export default function Overview({ config, slug }: OverviewProps) {
           return (
             <div
               key={i}
-              className="flex items-start gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:bg-muted/30"
+              className="flex items-start gap-4 rounded-xl p-4 transition-colors"
+              style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}
             >
-              {/* Icon */}
               <div className="mt-0.5 shrink-0">
                 {done ? (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-100">
-                    <Check className="h-4 w-4 text-green-600" />
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full" style={{ backgroundColor: 'rgba(217,70,239,0.15)' }}>
+                    <Check className="h-4 w-4" style={{ color: '#D946EF' }} />
                   </div>
                 ) : (
-                  <Circle className="h-6 w-6 text-muted-foreground/40" />
+                  <Circle className="h-6 w-6" style={{ color: '#9A8EAA' }} />
                 )}
               </div>
 
-              {/* Text */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className={`text-sm font-semibold ${done ? 'text-foreground' : 'text-foreground'}`}>
+                  <span className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>
                     {step.name}
                   </span>
                   {step.optional && (
-                    <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+                    <span className="rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.08)', color: '#9A8EAA' }}>
                       Optional
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground mt-0.5">{step.description}</p>
+                <p className="text-sm mt-0.5" style={{ color: '#6B5F80' }}>{step.description}</p>
               </div>
 
-              {/* Link */}
               <Link
                 to={step.path}
-                className="shrink-0 flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:bg-muted"
-                style={{ color: '#C9A96E' }}
+                className="shrink-0 flex items-center gap-1 rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:opacity-80"
+                style={{ color: '#D946EF' }}
               >
                 Go to <ArrowRight className="h-3 w-3" />
               </Link>
@@ -192,16 +190,16 @@ export default function Overview({ config, slug }: OverviewProps) {
       {/* Quiz link box */}
       <div
         className="mt-8 max-w-[800px] rounded-xl p-5"
-        style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}
+        style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}
       >
-        <p className="text-sm font-medium text-foreground mb-2">Your quiz is live at:</p>
+        <p className="text-sm font-medium mb-2" style={{ color: '#0F0A1E' }}>Your quiz is live at:</p>
         <div className="flex items-center gap-3">
           <a
             href={quizUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-mono break-all hover:underline"
-            style={{ color: '#C9A96E' }}
+            style={{ color: '#D946EF' }}
           >
             {quizUrl}
           </a>
@@ -210,6 +208,7 @@ export default function Overview({ config, slug }: OverviewProps) {
             size="sm"
             className="shrink-0 gap-1.5"
             onClick={copyLink}
+            style={{ borderColor: 'rgba(217,70,239,0.30)', color: '#D946EF' }}
           >
             <Copy className="h-4 w-4" /> Copy link
           </Button>
@@ -217,11 +216,11 @@ export default function Overview({ config, slug }: OverviewProps) {
       </div>
 
       {/* Need help */}
-      <div className="mt-8 max-w-[800px] rounded-xl border border-border bg-card p-5">
-        <p className="text-sm font-semibold text-foreground">Need help setting up?</p>
-        <p className="text-sm text-muted-foreground mt-1">
+      <div className="mt-8 max-w-[800px] rounded-xl p-5" style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}>
+        <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>Need help setting up?</p>
+        <p className="text-sm mt-1" style={{ color: '#6B5F80' }}>
           Email us at{' '}
-          <a href="mailto:team@virtualsupport.world" className="underline hover:text-foreground" style={{ color: '#C9A96E' }}>
+          <a href="mailto:team@virtualsupport.world" className="underline hover:opacity-80" style={{ color: '#D946EF' }}>
             team@virtualsupport.world
           </a>{' '}
           and we'll get you sorted.

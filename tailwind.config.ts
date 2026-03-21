@@ -12,9 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
         display: ['"Playfair Display"', 'serif'],
-        sans: ['"DM Sans"', 'sans-serif'],
-        mono: ['"DM Mono"', 'monospace'],
+        mono: ['monospace'],
       },
       colors: {
         border: "hsl(var(--border))",

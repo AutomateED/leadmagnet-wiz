@@ -37,7 +37,7 @@ export default function CtaSettings({ config, onConfigChange, userId }: CtaSetti
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-8">Call to Action</h1>
+      <h1 className="text-2xl font-bold mb-8" style={{ color: '#0F0A1E' }}>Call to Action</h1>
 
       <div className="max-w-[600px] space-y-6">
         <div className="space-y-2">
@@ -55,22 +55,18 @@ export default function CtaSettings({ config, onConfigChange, userId }: CtaSetti
           <Input id="ctaTagline" value={ctaTagline} onChange={(e) => setCtaTagline(e.target.value)} placeholder="e.g. Ready to break through? Let's talk." />
         </div>
 
-        {/* Preview */}
         <div className="space-y-2">
           <Label>Preview</Label>
-          <div className="rounded-lg border border-border bg-muted/30 p-6 flex flex-col items-center gap-3">
-            {ctaTagline && <p className="text-sm text-muted-foreground text-center">{ctaTagline}</p>}
-            <button
-              className="px-6 py-2.5 rounded-md text-white text-sm font-medium"
-              style={{ backgroundColor: config.brandColour || '#C9A96E' }}
-            >
+          <div className="rounded-lg p-6 flex flex-col items-center gap-3" style={{ backgroundColor: '#F8F7FF', border: '1px solid rgba(217,70,239,0.15)' }}>
+            {ctaTagline && <p className="text-sm text-center" style={{ color: '#6B5F80' }}>{ctaTagline}</p>}
+            <button className="px-6 py-2.5 rounded-md text-sm font-semibold" style={{ backgroundColor: config.brandColour || '#F020B0', color: '#FFFFFF' }}>
               {ctaText || 'Book Your Free Discovery Call'}
             </button>
           </div>
         </div>
 
-        <Button onClick={handleSave} disabled={saving} className="text-white" style={{ backgroundColor: '#C9A96E' }}>
-          {saving ? 'Saving…' : 'Save changes'}
+        <Button onClick={handleSave} disabled={saving} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+          {saving ? 'Saving...' : 'Save changes'}
         </Button>
       </div>
     </div>

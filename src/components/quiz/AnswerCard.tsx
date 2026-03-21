@@ -19,19 +19,19 @@ export default function AnswerCard({ letter, text, selected, brandColour, index,
       onClick={onSelect}
       className="group relative w-full text-left rounded-xl border p-5 md:p-6 transition-all duration-300 ease-out"
       style={{
-        backgroundColor: selected ? brandColour : 'hsl(var(--card))',
-        borderColor: selected ? brandColour : 'hsl(var(--border))',
-        color: selected ? '#FFFFFF' : 'hsl(var(--foreground))',
+        backgroundColor: selected ? '#F020B0' : '#F8F7FF',
+        borderColor: selected ? '#F020B0' : 'rgba(217,70,239,0.15)',
+        color: selected ? '#FFFFFF' : '#0F0A1E',
       }}
-      whileHover={!selected ? { y: -2, boxShadow: `0 8px 30px -4px ${brandColour}22`, borderColor: `${brandColour}80` } : {}}
+      whileHover={!selected ? { y: -2, boxShadow: `0 8px 30px -4px rgba(240,32,176,0.15)`, borderColor: 'rgba(217,70,239,0.4)' } : {}}
       whileTap={{ scale: 0.98 }}
     >
       <div className="flex items-center gap-4">
         <span
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-mono font-medium transition-colors duration-300"
           style={{
-            backgroundColor: selected ? 'rgba(255,255,255,0.2)' : `${brandColour}15`,
-            color: selected ? '#FFFFFF' : brandColour,
+            backgroundColor: selected ? 'rgba(255,255,255,0.2)' : 'rgba(217,70,239,0.1)',
+            color: selected ? '#FFFFFF' : '#D946EF',
           }}
         >
           {selected ? <Check className="h-4 w-4" /> : letter}

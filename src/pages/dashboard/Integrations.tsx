@@ -35,25 +35,25 @@ export default function Integrations({ config, onConfigChange, userId }: Integra
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-1">Lead Delivery</h1>
-      <p className="text-muted-foreground mb-8">Choose where your leads get sent when someone completes your quiz.</p>
+      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Lead Delivery</h1>
+      <p className="mb-8" style={{ color: '#6B5F80' }}>Choose where your leads get sent when someone completes your quiz.</p>
 
       <div className="max-w-[600px] space-y-6">
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-foreground">Send leads to your CRM</h2>
+          <h2 className="text-lg font-semibold" style={{ color: '#0F0A1E' }}>Send leads to your CRM</h2>
 
           <div className="space-y-2">
             <Label htmlFor="webhookUrl">Your Zapier or CRM webhook URL</Label>
             <Input id="webhookUrl" value={webhookUrl} onChange={(e) => setWebhookUrl(e.target.value)} placeholder="Paste your webhook URL here" />
           </div>
 
-          <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
-            <p className="text-sm text-foreground">
+          <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>
+            <p className="text-sm" style={{ color: '#4A4060' }}>
               Not sure what this is? If you use a tool like Zapier, HubSpot, GoHighLevel, or Mailchimp, you can connect it here so every new lead gets added automatically. If you're not sure, skip this for now — you can always add it later.
             </p>
             <div>
-              <p className="text-sm font-medium text-foreground mb-1">Each lead includes:</p>
-              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-0.5">
+              <p className="text-sm font-medium mb-1" style={{ color: '#0F0A1E' }}>Each lead includes:</p>
+              <ul className="text-sm list-disc list-inside space-y-0.5" style={{ color: '#6B5F80' }}>
                 <li>First name</li>
                 <li>Last name</li>
                 <li>Email</li>
@@ -64,8 +64,8 @@ export default function Integrations({ config, onConfigChange, userId }: Integra
           </div>
         </section>
 
-        <Button onClick={handleSave} disabled={saving} className="text-white" style={{ backgroundColor: '#C9A96E' }}>
-          {saving ? 'Saving…' : 'Save changes'}
+        <Button onClick={handleSave} disabled={saving} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+          {saving ? 'Saving...' : 'Save changes'}
         </Button>
       </div>
     </div>
