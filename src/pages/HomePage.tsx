@@ -184,7 +184,7 @@ export default function HomePage() {
                 className="rounded-xl p-6"
                 style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
               >
-                <span className="text-2xl">{f.icon}</span>
+                <f.icon className="h-6 w-6" style={{ color: C.amber }} />
                 <h3 className="mt-3 text-lg font-bold" style={{ color: '#fff' }}>{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{f.body}</p>
               </motion.div>
