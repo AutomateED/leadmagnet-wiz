@@ -473,7 +473,7 @@ export default function TemplateSalesPage() {
 
           <div className="mt-8 text-center">
             <a
-              href={`/quiz/${slug}`}
+              href={`/quiz/demo-${slug}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm font-medium transition-colors hover:opacity-80"
