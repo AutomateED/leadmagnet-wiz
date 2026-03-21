@@ -387,12 +387,11 @@ export default function TemplateSalesPage() {
                 Lock in your price before it goes up
               </h3>
               <p className="mt-1 text-sm" style={{ color: C.inkMid }}>
-                This rate never increases — yours for as long as you stay.
+                One-time activation. No monthly fees. No subscriptions.
               </p>
 
-              <p className="mt-6 text-sm line-through" style={{ color: C.inkLight }}>£499 setup</p>
-              <p className="text-5xl font-bold tracking-tight" style={{ color: C.ink }}>£297</p>
-              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>one-time setup + £29/mo hosting (locked forever)</p>
+              <p className="mt-6 text-5xl font-bold tracking-tight" style={{ color: C.ink }}>$97</p>
+              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>one-time activation fee</p>
             </div>
 
             <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.border}` }}>
