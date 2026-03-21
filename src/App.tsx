@@ -4,7 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
-import TemplatePage from "./pages/TemplatePage";
+import HomePage from "./pages/HomePage";
+import TemplateSalesPage from "./pages/TemplateSalesPage";
 import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
@@ -24,8 +25,8 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<TemplatePage />} />
-            <Route path="/templates/business-breakthrough" element={<TemplatePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/templates/:slug" element={<TemplateSalesPage />} />
             <Route path="/setup" element={<Setup />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
