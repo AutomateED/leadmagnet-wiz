@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
-import Index from "./pages/Index";
+import TemplatePage from "./pages/TemplatePage";
 import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
