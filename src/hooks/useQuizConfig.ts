@@ -27,7 +27,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
       setError(null);
 
       const { data, error: dbError } = await supabase
-        .from('quiz_configs')
+        .from('public_quiz_configs')
         .select('*')
         .eq('slug', slug)
         .single();
