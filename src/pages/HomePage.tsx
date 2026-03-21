@@ -41,7 +41,7 @@ const TEMPLATES = [
 
 const STEPS = [
   { num: '1', title: 'Pay once, get instant access', desc: 'Complete your $97 purchase and receive your dashboard login immediately. No waiting, no onboarding call.' },
-  { num: '2', title: 'Pick your template', desc: 'Choose from four ready-made quiz templates built for coaches and consultants. Each one is fully customisable.' },
+  { num: '2', title: 'Pick your template', desc: 'Choose from our ready-made quiz templates built for coaches and consultants. Each one is fully customisable.' },
   { num: '3', title: 'Brand it in minutes', desc: 'Upload your logo, set your brand colour, and update your copy. Your quiz looks like yours — not ours.' },
   { num: '4', title: 'Share your link and watch leads come in', desc: 'Paste your unique quiz link anywhere. Every completion sends a warm, qualified lead straight to your inbox and CRM.' },
 ];
