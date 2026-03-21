@@ -10,9 +10,10 @@ interface IntegrationsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function Integrations({ config, onConfigChange, userId }: IntegrationsProps) {
+export default function Integrations({ config, onConfigChange, userId, quizId }: IntegrationsProps) {
   const { toast } = useToast();
   const [webhookUrl, setWebhookUrl] = useState(config.webhookUrl || '');
   const [saving, setSaving] = useState(false);
