@@ -491,7 +491,7 @@ export default function TemplateSalesPage() {
               Claim my founding member spot →
             </a>
             <p className="mt-3 text-xs" style={{ color: C.inkLight }}>
-              £297 setup + £29/mo · Secure checkout · Cancel any time
+              $97 one-time · Secure checkout · No subscriptions
             </p>
           </motion.div>
         </motion.div>
