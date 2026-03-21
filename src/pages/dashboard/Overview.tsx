@@ -32,7 +32,11 @@ const STEPS: Step[] = [
     name: 'Add your branding',
     description: 'Set your business name and brand colour so the quiz feels like yours.',
     path: '/dashboard/branding',
-    check: (c) => c.businessName.trim() !== '' && c.brandColour.trim() !== '',
+    check: (c) => {
+      const nameChanged = c.businessName.trim() !== '' && c.businessName.trim() !== DEFAULT_CONFIG.businessName;
+      const colourChanged = c.brandColour.trim() !== '' && c.brandColour.trim() !== DEFAULT_CONFIG.brandColour;
+      return nameChanged || colourChanged;
+    },
   },
   {
     name: 'Upload your logo',
@@ -53,14 +57,15 @@ const STEPS: Step[] = [
     check: (c) => {
       const rt = c.resultTexts as Record<string, string> | undefined;
       if (!rt) return false;
-      return RESULT_KEYS.every((k) => typeof rt[k] === 'string' && rt[k].trim() !== '');
+      const defaults = DEFAULT_CONFIG.resultTexts as Record<string, string>;
+      return RESULT_KEYS.some((k) => typeof rt[k] === 'string' && rt[k].trim() !== '' && rt[k] !== defaults[k]);
     },
   },
   {
     name: 'Set your call to action',
     description: 'Add the link where prospects can book a call or take the next step.',
     path: '/dashboard/cta',
-    check: (c) => c.ctaUrl.trim() !== '',
+    check: (c) => c.ctaUrl.trim() !== '' && c.ctaUrl.trim() !== DEFAULT_CONFIG.ctaUrl,
   },
   {
     name: 'Connect your CRM',
