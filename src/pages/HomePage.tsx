@@ -29,7 +29,7 @@ const FEATURES = [
   { icon: '🎯', title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
   { icon: '📥', title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
   { icon: '🔗', title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
-  { icon: '🔒', title: 'One payment, no surprises', body: '$97 once. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
+  { icon: '🔒', title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
 ];
 
 const TEMPLATES = [
