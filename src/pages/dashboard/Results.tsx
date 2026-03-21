@@ -10,6 +10,7 @@ interface ResultsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
 const RESULT_TYPES = [
