@@ -62,7 +62,7 @@ export default function QuizPage() {
       email,
       result_type: resultType,
       answers: quiz.answers,
-      quiz_name: "What's Really Holding Your Business Back?",
+      quiz_name: config.quizName || config.businessName,
       client_name: config.businessName,
       timestamp: new Date().toISOString(),
     });
