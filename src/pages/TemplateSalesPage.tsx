@@ -10,7 +10,12 @@ import {
 } from '@/components/ui/accordion';
 
 const BRAND = '#C9A96E';
-const STRIPE_URL = 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00';
+const STRIPE_URLS: Record<string, string> = {
+  'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
+  'mindset-mastery': 'https://buy.stripe.com/9B68wO6iDfrYdcDgOv0gw02',
+  'leadership-style': 'https://buy.stripe.com/3cIcN4gXhfrYc8zeGn0gw03',
+  'wealth-readiness': 'https://buy.stripe.com/00wdR8cH1gw26Of8hZ0gw01',
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
