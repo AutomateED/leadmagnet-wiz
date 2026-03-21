@@ -41,18 +41,16 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         return;
       }
 
-      const emailConfig = (data as any).email_config as Record<string, string> | null;
-
       const quizConfig: QuizConfig = {
-        quizId: (data as any).id || '',
-        quizName: (data as any).quiz_name || DEFAULT_CONFIG.quizName,
-        templateType: (data as any).template_type || DEFAULT_CONFIG.templateType,
+        quizId: '',
+        quizName: data.quiz_name || DEFAULT_CONFIG.quizName,
+        templateType: data.template_type || DEFAULT_CONFIG.templateType,
         fullName: data.full_name || DEFAULT_CONFIG.fullName,
         businessName: data.business_name || DEFAULT_CONFIG.businessName,
         email: data.email || DEFAULT_CONFIG.email,
         logo: data.logo_url || DEFAULT_CONFIG.logo,
         brandColour: data.brand_colour || DEFAULT_CONFIG.brandColour,
-        fontFamily: (data as any).font_family || DEFAULT_CONFIG.fontFamily,
+        fontFamily: data.font_family || DEFAULT_CONFIG.fontFamily,
         questions: Array.isArray(data.questions) ? data.questions as any : [],
         resultTexts: {
           ...DEFAULT_CONFIG.resultTexts,
@@ -61,10 +59,10 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         ctaText: data.cta_text || DEFAULT_CONFIG.ctaText,
         ctaUrl: data.cta_url || DEFAULT_CONFIG.ctaUrl,
         ctaTagline: data.cta_tagline || DEFAULT_CONFIG.ctaTagline,
-        webhookUrl: (data as any).webhook_url || DEFAULT_CONFIG.webhookUrl,
-        emailjsServiceId: emailConfig?.serviceId || '',
-        emailjsTemplateId: emailConfig?.templateId || '',
-        emailjsPublicKey: emailConfig?.publicKey || '',
+        webhookUrl: '',
+        emailjsServiceId: '',
+        emailjsTemplateId: '',
+        emailjsPublicKey: '',
       };
 
       setConfig(quizConfig);
