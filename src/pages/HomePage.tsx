@@ -28,7 +28,7 @@ const FEATURES = [
   { icon: Palette, title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business — because it was.' },
   { icon: Target, title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
   { icon: Inbox, title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
-  { icon: Link2, title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
+  { icon: Link2, title: 'Share it anywhere', body: 'Grab your unique quiz link or copy the embed code and paste it onto your website. Two options, both ready to go.' },
   { icon: Lock, title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
 ];
 
