@@ -27,7 +27,7 @@ const LETTER_COLOURS: Record<string, string> = {
   D: '#ef4444',
 };
 
-export default function Questions({ config, onConfigChange, userId }: QuestionsProps) {
+export default function Questions({ config, onConfigChange, userId, quizId }: QuestionsProps) {
   const { toast } = useToast();
 
   const initial: Question[] = (() => {
