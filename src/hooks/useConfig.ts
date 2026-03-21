@@ -38,6 +38,9 @@ const DEFAULT_RESULTS = {
 };
 
 export const DEFAULT_CONFIG: QuizConfig = {
+  quizId: '',
+  quizName: 'My Quiz',
+  templateType: 'business-breakthrough',
   fullName: 'Sarah Mitchell',
   businessName: 'Your Business Name',
   email: 'sarah@elevatecoaching.com',
