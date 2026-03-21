@@ -33,7 +33,7 @@ export default function QuestionScreen({
 
   return (
     <div className="flex min-h-[100dvh] flex-col" style={{ backgroundColor: '#FFFFFF' }}>
-      <ProgressBar current={questionIndex} total={7} brandColour={brandColour} />
+      <ProgressBar current={questionIndex} total={questions.length} brandColour={brandColour} />
 
       {/* Back button */}
       {questionIndex > 0 && (
