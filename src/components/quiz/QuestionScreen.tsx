@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import ProgressBar from './ProgressBar';
 import AnswerCard from './AnswerCard';
-import { QUESTIONS } from '@/utils/questions';
 import { ChevronLeft } from 'lucide-react';
 
 interface QuestionScreenProps {
@@ -9,6 +8,7 @@ interface QuestionScreenProps {
   answers: Record<string, string>;
   brandColour: string;
   direction: number;
+  questions: { id: number; text: string; options: { letter: string; text: string }[] }[];
   onAnswer: (questionIndex: number, letter: string) => void;
   onBack: () => void;
 }
