@@ -73,7 +73,7 @@ function Hero() {
               A done-for-you quiz funnel that helps your prospects self-identify their biggest challenge — so you can follow up with the right message, every time.
             </motion.p>
 
-            <motion.div variants={fadeUp} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo('demo')}
                 className="rounded-full border-2 px-6 py-3 text-sm font-semibold transition-all hover:shadow-soft active:scale-[0.97]"
@@ -90,7 +90,7 @@ function Hero() {
               >
                 Activate Your Quiz — $97
               </a>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Phone mockup */}
