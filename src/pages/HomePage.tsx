@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, Zap, Palette, Target, Inbox, Link2, Lock } from 'lucide-react';
 
 /* ─── PALETTE ─── */
 const C = {
@@ -24,12 +24,12 @@ const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const FEATURES = [
-  { icon: '⚡', title: 'Live in under an hour', body: 'Pick your template, upload your logo, set your brand colour, add your questions. That\'s it. No developer, no designer, no complicated setup.' },
-  { icon: '🎨', title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business — because it was.' },
-  { icon: '🎯', title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
-  { icon: '📥', title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
-  { icon: '🔗', title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
-  { icon: '🔒', title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
+  { icon: Zap, title: 'Live in under an hour', body: 'Pick your template, upload your logo, set your brand colour, add your questions. That\'s it. No developer, no designer, no complicated setup.' },
+  { icon: Palette, title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business — because it was.' },
+  { icon: Target, title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
+  { icon: Inbox, title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
+  { icon: Link2, title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
+  { icon: Lock, title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
 ];
 
 const TEMPLATES = [
@@ -184,7 +184,7 @@ export default function HomePage() {
                 className="rounded-xl p-6"
                 style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
               >
-                <span className="text-2xl">{f.icon}</span>
+                <f.icon className="h-6 w-6" style={{ color: C.amber }} />
                 <h3 className="mt-3 text-lg font-bold" style={{ color: '#fff' }}>{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed" style={{ color: C.textBody }}>{f.body}</p>
               </motion.div>
