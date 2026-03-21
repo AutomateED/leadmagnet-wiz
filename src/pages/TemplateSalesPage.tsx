@@ -419,7 +419,7 @@ export default function TemplateSalesPage() {
               <ScarcityBar />
 
               <p className="mt-4 text-center text-xs" style={{ color: C.inkLight }}>
-                Secure checkout · Cancel hosting any time
+                Secure checkout · One-time payment, no subscriptions
               </p>
             </div>
           </motion.div>
