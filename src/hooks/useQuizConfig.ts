@@ -41,7 +41,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         return;
       }
 
-      const emailConfig = data.email_config as Record<string, string> | null;
+      const emailConfig = (data as any).email_config as Record<string, string> | null;
 
       const quizConfig: QuizConfig = {
         fullName: data.full_name || DEFAULT_CONFIG.fullName,
@@ -58,7 +58,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         ctaText: data.cta_text || DEFAULT_CONFIG.ctaText,
         ctaUrl: data.cta_url || DEFAULT_CONFIG.ctaUrl,
         ctaTagline: data.cta_tagline || DEFAULT_CONFIG.ctaTagline,
-        webhookUrl: data.webhook_url || DEFAULT_CONFIG.webhookUrl,
+        webhookUrl: (data as any).webhook_url || DEFAULT_CONFIG.webhookUrl,
         emailjsServiceId: emailConfig?.serviceId || '',
         emailjsTemplateId: emailConfig?.templateId || '',
         emailjsPublicKey: emailConfig?.publicKey || '',
