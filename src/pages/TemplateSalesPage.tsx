@@ -21,7 +21,15 @@ const C = {
   cream: '#FDFAF6',
   creamMid: '#F5EFE6',
   border: 'rgba(26,23,20,0.1)',
+  /* dark-mode surface tokens */
+  cardBg: 'rgba(255,255,255,0.05)',
+  cardBorder: 'rgba(255,255,255,0.1)',
+  textMuted: 'rgba(255,255,255,0.55)',
+  textBody: 'rgba(255,255,255,0.65)',
+  textBright: 'rgba(255,255,255,0.85)',
 };
+
+const FONT = "'Outfit', sans-serif";
 
 const STRIPE_URLS: Record<string, string> = {
   'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
@@ -46,11 +54,11 @@ function ScarcityBar() {
 
   return (
     <div ref={ref} className="mt-6 w-full max-w-xs mx-auto">
-      <div className="flex justify-between text-xs font-medium mb-1.5" style={{ color: C.inkMid }}>
-        <span>Spots claimed</span>
+      <div className="flex justify-between text-xs font-medium mb-1.5">
+        <span style={{ color: C.textMuted }}>Spots claimed</span>
         <span style={{ color: C.coral }}>14 of 20 taken</span>
       </div>
-      <div className="h-2.5 w-full rounded-full overflow-hidden" style={{ backgroundColor: C.creamMid }}>
+      <div className="h-1.5 w-full rounded-full overflow-hidden" style={{ backgroundColor: C.cardBorder }}>
         <motion.div
           className="h-full rounded-full"
           style={{ backgroundColor: C.coral }}
@@ -66,19 +74,19 @@ function ScarcityBar() {
 /* ─── NAV ─── */
 function Nav() {
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(253,250,246,0.85)', borderColor: C.border }}>
+    <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(26,23,20,0.85)', borderColor: C.cardBorder, fontFamily: FONT }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="text-[22px] font-bold tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-          <span style={{ color: C.ink }}>Preta</span><span style={{ color: C.amber }}>quiz</span>
+        <Link to="/" className="text-[22px] font-bold tracking-tight" style={{ fontFamily: FONT }}>
+          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.amber }}>Quiz</span>
         </Link>
         <div className="flex items-center gap-4">
           <span
             className="hidden sm:inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide"
-            style={{ backgroundColor: C.amberLight, color: C.amber }}
+            style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber, border: '1px solid rgba(232,145,42,0.3)' }}
           >
             Founding Member Offer
           </span>
-          <Link to="/login" className="text-sm font-medium transition-colors" style={{ color: C.inkLight }}>
+          <Link to="/login" className="text-sm font-medium transition-colors" style={{ color: C.textMuted }}>
             Login
           </Link>
         </div>
@@ -118,16 +126,16 @@ const PAIN_CARDS = [
 
 /* ─── HOW IT WORKS STEPS ─── */
 const HOW_STEPS = [
-  { title: 'Purchase and get instant access', desc: "You'll receive your login credentials immediately after checkout. No waiting, no setup calls, no onboarding meeting.", badge: 'Takes 2 minutes' },
-  { title: 'Build your quiz in the dashboard', desc: 'Upload your logo, set your brand colour, write your questions and result descriptions. No code, no designer, no guesswork.', badge: 'Takes ~45 minutes' },
-  { title: 'Share your unique quiz link', desc: 'Drop it in your email signature, your Instagram bio, your next LinkedIn post, or embed it directly on your website.', badge: 'Takes 5 minutes' },
-  { title: 'Leads land in your inbox and CRM', desc: 'Every person who completes the quiz gets a personalised result email from you. You get their details, their result, and a warm lead — automatically.', badge: 'Happens automatically' },
+  { title: 'Activate your quiz in one click', desc: 'Pay once and get instant access to your dashboard. No waiting, no setup calls.', badge: 'Takes 2 minutes' },
+  { title: 'Build your quiz in the dashboard', desc: 'Upload your logo, set your brand colour, write your questions and results. No code, no designer.', badge: 'Takes ~45 minutes' },
+  { title: 'Share your unique quiz link', desc: 'Drop it in your email signature, Instagram bio, LinkedIn, or embed it on your website.', badge: 'Takes 5 minutes' },
+  { title: 'Leads land in your inbox and CRM', desc: 'Every prospect gets a personalised result email. You get their details and a warm lead — automatically.', badge: 'Happens automatically' },
 ];
 
 /* ─── TESTIMONIALS ─── */
 const TESTIMONIALS = [
   {
-    quote: "I set it up in an afternoon and had my first lead come through the same evening. The quality of leads is so much better — they already know their result before we even speak.",
+    quote: "I set it up in an afternoon and had my first lead come through the same evening. The quality is so much better — they already know their result before we even speak.",
     name: 'Sarah C.',
     role: 'Business Growth Coach',
   },
@@ -149,8 +157,8 @@ const FAQS = [
 /* ─── FOOTER ─── */
 function Footer() {
   return (
-    <footer className="border-t py-8" style={{ borderColor: C.border }}>
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.inkLight }}>
+    <footer className="border-t py-8" style={{ borderColor: C.cardBorder }}>
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.textMuted, fontFamily: FONT }}>
         <p>© 2026 Pretaquiz</p>
         <div className="flex gap-5">
           <Link to="/login" className="hover:opacity-80 transition-opacity">Login</Link>
@@ -174,7 +182,7 @@ export default function TemplateSalesPage() {
   const stripeUrl = STRIPE_URLS[slug];
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: C.cream, color: C.ink, scrollBehavior: 'smooth', fontFamily: "'DM Sans', sans-serif" }}>
+    <div className="min-h-screen" style={{ backgroundColor: C.ink, color: '#fff', scrollBehavior: 'smooth', fontFamily: FONT }}>
       <Nav />
 
       {/* ─── HERO ─── */}
@@ -186,18 +194,17 @@ export default function TemplateSalesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 className="text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
-                style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}
               >
                 Turn website visitors into{' '}
-                <em style={{ color: C.amber, fontStyle: 'italic' }}>qualified leads</em>{' '}
+                <span style={{ color: C.amber }}>qualified leads</span>{' '}
                 while you sleep
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
-                className="mt-6 max-w-lg text-lg leading-relaxed"
-                style={{ color: C.inkMid }}
+                className="mt-6 max-w-lg text-lg leading-relaxed font-light"
+                style={{ color: C.textBody }}
               >
                 A branded quiz on your site qualifies prospects, grows your list, and sends you warm leads 24/7 — without a discovery call, a tech team, or a morning routine interrupted by cold outreach.
               </motion.p>
@@ -206,7 +213,7 @@ export default function TemplateSalesPage() {
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease }}
                 className="mt-4 text-sm font-medium"
-                style={{ color: C.inkLight }}
+                style={{ color: C.textMuted }}
               >
                 Join 12+ coaches already on the founding member list · Spots close when we hit 20
               </motion.p>
@@ -214,8 +221,8 @@ export default function TemplateSalesPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <button
                   onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="rounded-full border-2 px-6 py-3 text-sm font-semibold transition-all hover:shadow-sm active:scale-[0.97]"
-                  style={{ borderColor: C.amber, color: C.amber }}
+                  className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:bg-white/5 active:scale-[0.97]"
+                  style={{ border: '1px solid rgba(255,255,255,0.2)', color: '#fff' }}
                 >
                   See It In Action
                 </button>
@@ -223,10 +230,10 @@ export default function TemplateSalesPage() {
                   href={stripeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.97] inline-block"
-                  style={{ backgroundColor: C.amber }}
+                  className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] inline-block"
+                  style={{ backgroundColor: C.amber, color: C.ink }}
                 >
-                  Claim my founding member spot →
+                  Activate my quiz — $97 →
                 </a>
               </div>
             </motion.div>
@@ -239,17 +246,17 @@ export default function TemplateSalesPage() {
               transition={{ duration: 0.7, ease, delay: 0.15 }}
               className="flex justify-center"
             >
-              <div className="relative w-[280px] rounded-[2rem] border-[6px] p-5 shadow-lg" style={{ borderColor: C.border, backgroundColor: '#fff' }}>
-                <div className="mx-auto mb-6 h-1 w-16 rounded-full" style={{ backgroundColor: C.creamMid }} />
-                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.inkLight }}>Your Coaching Co.</p>
-                <h3 className="mt-4 text-lg font-bold leading-snug" style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}>
+              <div className="relative w-[280px] rounded-[2rem] border-[6px] p-5 shadow-lg" style={{ borderColor: C.cardBorder, backgroundColor: C.cardBg }}>
+                <div className="mx-auto mb-6 h-1 w-16 rounded-full" style={{ backgroundColor: C.cardBorder }} />
+                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.textMuted }}>Your Coaching Co.</p>
+                <h3 className="mt-4 text-lg font-bold leading-snug" style={{ color: '#fff' }}>
                   What's Really Holding Your Business Back?
                 </h3>
-                <p className="mt-3 text-xs leading-relaxed" style={{ color: C.inkMid }}>
+                <p className="mt-3 text-xs leading-relaxed" style={{ color: C.textBody }}>
                   Answer 7 quick questions and discover your result.
                 </p>
-                <p className="mt-2 text-[10px]" style={{ color: C.inkLight }}>⏱ Takes about 2 minutes</p>
-                <div className="mt-5 rounded-full py-2.5 text-center text-xs font-semibold text-white" style={{ backgroundColor: C.amber }}>
+                <p className="mt-2 text-[10px]" style={{ color: C.textMuted }}>⏱ Takes about 2 minutes</p>
+                <div className="mt-5 rounded-lg py-2.5 text-center text-xs font-semibold" style={{ backgroundColor: C.amber, color: C.ink }}>
                   Find Out Now →
                 </div>
               </div>
@@ -259,7 +266,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── PROBLEM ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: '#fff' }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
         <motion.div
           className="mx-auto max-w-4xl px-6 text-center"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -267,9 +274,8 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-3xl font-bold md:text-4xl"
-            style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}
           >
-            You're leaving warm leads on the table every single day
+            You're leaving <span style={{ color: C.amber }}>warm leads</span> on the table every single day
           </motion.h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -279,14 +285,14 @@ export default function TemplateSalesPage() {
                 <motion.div
                   key={i}
                   variants={fadeUp} transition={{ duration: 0.6, ease }}
-                  className="rounded-xl p-6 text-left shadow-sm"
-                  style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
+                  className="rounded-xl p-6 text-left"
+                  style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: C.amberLight }}>
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: 'rgba(232,145,42,0.15)' }}>
                     <Icon className="h-5 w-5" style={{ color: C.amber }} />
                   </div>
-                  <h3 className="text-sm font-semibold mb-2" style={{ color: C.ink }}>{p.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: C.inkMid }}>{p.body}</p>
+                  <h3 className="text-sm font-semibold mb-2" style={{ color: '#fff' }}>{p.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: C.textBody }}>{p.body}</p>
                 </motion.div>
               );
             })}
@@ -295,7 +301,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── HOW IT WORKS ─── */}
-      <section id="demo" className="py-20 md:py-28" style={{ backgroundColor: C.cream }}>
+      <section id="demo" className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
         <motion.div
           className="mx-auto max-w-4xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -303,9 +309,8 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
-            style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}
           >
-            Here's How It Works
+            Here's How It <span style={{ color: C.amber }}>Works</span>
           </motion.h2>
 
           <div className="mt-14 space-y-8">
@@ -315,15 +320,15 @@ export default function TemplateSalesPage() {
                 variants={fadeUp} transition={{ duration: 0.6, ease }}
                 className="flex gap-5"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white" style={{ backgroundColor: C.amber }}>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold" style={{ backgroundColor: C.amber, color: C.ink }}>
                   {i + 1}
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg font-semibold" style={{ color: C.ink }}>{s.title}</h3>
-                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: C.amberLight, color: C.amberDark }}>{s.badge}</span>
+                    <h3 className="text-lg font-semibold" style={{ color: '#fff' }}>{s.title}</h3>
+                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: 'rgba(232,145,42,0.15)', color: C.amber }}>{s.badge}</span>
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed" style={{ color: C.inkMid }}>{s.desc}</p>
+                  <p className="mt-1 text-sm leading-relaxed" style={{ color: C.textBody }}>{s.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -340,9 +345,8 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
-            style={{ fontFamily: "'Playfair Display', serif", color: '#fff' }}
           >
-            What Coaches Are Saying
+            What Coaches Are <span style={{ color: C.amber }}>Saying</span>
           </motion.h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -351,13 +355,13 @@ export default function TemplateSalesPage() {
                 key={i}
                 variants={fadeUp} transition={{ duration: 0.6, ease }}
                 className="rounded-xl p-6"
-                style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
+                style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
               >
-                <p className="text-sm leading-relaxed italic" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                <p className="text-sm leading-relaxed italic" style={{ color: C.textBright }}>
                   "{t.quote}"
                 </p>
                 <p className="mt-4 text-sm font-semibold" style={{ color: C.amber }}>{t.name}</p>
-                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>{t.role}</p>
+                <p className="text-xs" style={{ color: C.textMuted }}>{t.role}</p>
               </motion.div>
             ))}
           </div>
@@ -365,7 +369,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── PRICING ─── */}
-      <section id="pricing" className="py-20 md:py-28" style={{ backgroundColor: C.cream }}>
+      <section id="pricing" className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
         <motion.div
           className="mx-auto max-w-xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -373,31 +377,32 @@ export default function TemplateSalesPage() {
           <motion.div
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="overflow-hidden rounded-2xl shadow-lg"
-            style={{ backgroundColor: '#fff', border: `1px solid ${C.border}` }}
+            style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
           >
             <div className="p-8 text-center">
               <span
                 className="inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
-                style={{ backgroundColor: C.amberLight, color: C.amber }}
+                style={{ backgroundColor: C.amber, color: C.ink }}
               >
                 Founding Member
               </span>
 
-              <h3 className="mt-4 text-xl font-bold" style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}>
-                Lock in your price before it goes up
+              <h3 className="mt-4 text-xl font-bold" style={{ color: '#fff' }}>
+                Lock in your spot at the <span style={{ color: C.amber }}>lowest price</span> it will ever be
               </h3>
-              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>
-                One-time activation. No monthly fees. No subscriptions.
+              <p className="mt-1 text-sm" style={{ color: C.textBody }}>
+                One payment. No subscription. No monthly fees. Ever.
               </p>
 
-              <p className="mt-6 text-5xl font-bold tracking-tight" style={{ color: C.ink }}>$97</p>
-              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>one-time activation fee</p>
+              <p className="mt-4 text-base line-through" style={{ color: C.textMuted }}>$197</p>
+              <p className="mt-1 text-[52px] font-bold tracking-tight" style={{ color: '#fff' }}>$97</p>
+              <p className="mt-1 text-sm" style={{ color: C.textBody }}>one-time payment — yours forever</p>
             </div>
 
-            <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.border}` }}>
+            <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.cardBorder}` }}>
               <ul className="space-y-3">
                 {PRICING_FEATURES.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: C.ink }}>
+                  <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: C.textBright }}>
                     <Check className="mt-0.5 h-4 w-4 shrink-0" style={{ color: C.amber }} />
                     {f}
                   </li>
@@ -410,16 +415,16 @@ export default function TemplateSalesPage() {
                 href={stripeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.97]"
-                style={{ backgroundColor: C.amber }}
+                className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+                style={{ backgroundColor: C.amber, color: C.ink }}
               >
-                Claim my founding member spot →
+                Activate my quiz — $97 →
               </a>
 
               <ScarcityBar />
 
-              <p className="mt-4 text-center text-xs" style={{ color: C.inkLight }}>
-                Secure checkout · One-time payment, no subscriptions
+              <p className="mt-4 text-center text-xs" style={{ color: C.textMuted }}>
+                Secure checkout · One-time payment · No subscription
               </p>
             </div>
           </motion.div>
@@ -427,7 +432,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: '#fff' }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
         <motion.div
           className="mx-auto max-w-2xl px-6"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -435,7 +440,6 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="text-center text-3xl font-bold md:text-4xl"
-            style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}
           >
             Questions?
           </motion.h2>
@@ -445,13 +449,13 @@ export default function TemplateSalesPage() {
               {FAQS.map((f, i) => (
                 <AccordionItem
                   key={i} value={`faq-${i}`}
-                  className="rounded-xl px-5 shadow-sm"
-                  style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}
+                  className="rounded-xl px-5"
+                  style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <AccordionTrigger className="text-left text-sm font-medium hover:no-underline" style={{ color: C.ink }}>
+                  <AccordionTrigger className="text-left text-sm font-medium hover:no-underline" style={{ color: '#fff' }}>
                     {f.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-sm leading-relaxed" style={{ color: C.inkMid }}>
+                  <AccordionContent className="text-sm leading-relaxed" style={{ color: C.textBody }}>
                     {f.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -462,7 +466,7 @@ export default function TemplateSalesPage() {
       </section>
 
       {/* ─── FINAL CTA ─── */}
-      <section className="py-20 md:py-28" style={{ backgroundColor: C.cream }}>
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.ink }}>
         <motion.div
           className="mx-auto max-w-3xl px-6 text-center"
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}
@@ -473,25 +477,24 @@ export default function TemplateSalesPage() {
           <motion.h2
             variants={fadeUp} transition={{ duration: 0.6, ease }}
             className="mt-3 text-3xl font-bold md:text-4xl"
-            style={{ fontFamily: "'Playfair Display', serif", color: C.ink }}
           >
-            Ready to stop losing leads to a silent website?
+            Ready to stop losing leads to a <span style={{ color: C.amber }}>silent website</span>?
           </motion.h2>
-          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed" style={{ color: C.inkMid }}>
-            Get your quiz live today — at the lowest price it will ever be. This founding member rate is gone when the last spot goes.
+          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed font-light" style={{ color: C.textBody }}>
+            Pay once. Get your quiz live today. No subscription, no hidden fees — just a quiz that works for you 24/7.
           </motion.p>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
             <a
               href={stripeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-full px-8 py-3.5 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-[0.97]"
-              style={{ backgroundColor: C.amber }}
+              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ backgroundColor: C.amber, color: C.ink }}
             >
-              Claim my founding member spot →
+              Activate my quiz — $97 →
             </a>
-            <p className="mt-3 text-xs" style={{ color: C.inkLight }}>
-              $97 one-time · Secure checkout · No subscriptions
+            <p className="mt-3 text-xs" style={{ color: C.textMuted }}>
+              $97 one-time · Secure checkout · No subscription
             </p>
           </motion.div>
         </motion.div>
