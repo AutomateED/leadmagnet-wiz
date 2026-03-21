@@ -368,8 +368,7 @@ function Pricing() {
             </span>
 
             <p className="mt-6 text-5xl font-bold tracking-tight text-foreground">$97</p>
-            <p className="mt-1 text-sm text-muted-foreground">one-time activation</p>
-            <p className="mt-3 text-lg font-semibold text-foreground">+ $27<span className="text-sm font-normal text-muted-foreground">/month</span></p>
+            <p className="mt-1 text-sm text-muted-foreground">one-time payment</p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Everything you need to turn your website into a lead-generation machine.
             </p>
@@ -397,7 +396,7 @@ function Pricing() {
               Activate Your Quiz
             </a>
             <p className="mt-3 text-center text-xs text-muted-foreground">
-              No tech skills required. Cancel the monthly plan anytime.
+              No tech skills required. One-time payment, no subscriptions.
             </p>
           </div>
         </motion.div>
