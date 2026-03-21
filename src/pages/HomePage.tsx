@@ -49,9 +49,9 @@ const STEPS = [
 const FAQS = [
   { q: 'Can I change the questions?', a: 'Yes — all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
   { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website — Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
-  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in, pick your template, and follow the setup steps. Most clients are live within the hour.' },
+  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in and follow the setup steps. Most clients are live within the hour.' },
   { q: 'Do I need a developer?', a: 'No. Everything is point-and-click. If you can update a Google Doc, you can set up your quiz.' },
-  { q: 'Is there a monthly fee?', a: 'No. $97 one-time payment. No subscription, no renewal, no surprises.' },
+  { q: 'Is there a monthly fee?', a: 'No. Each quiz is a $97 one-time payment. No subscription, no renewal, no surprises.' },
   { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook — including Zapier, which means it connects to almost every CRM and email tool on the market.' },
 ];
 
