@@ -3,6 +3,7 @@ import { Check, Circle, Copy, ArrowRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import type { QuizConfig } from '@/hooks/useConfig';
+import { DEFAULT_CONFIG } from '@/hooks/useConfig';
 
 interface OverviewProps {
   config: QuizConfig;
