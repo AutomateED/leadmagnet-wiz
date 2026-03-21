@@ -396,7 +396,7 @@ function Pricing() {
               Activate Your Quiz
             </a>
             <p className="mt-3 text-center text-xs text-muted-foreground">
-              No tech skills required. Cancel the monthly plan anytime.
+              No tech skills required. One-time payment, no subscriptions.
             </p>
           </div>
         </motion.div>
