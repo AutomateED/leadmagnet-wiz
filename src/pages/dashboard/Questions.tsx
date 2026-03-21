@@ -29,7 +29,6 @@ const LETTER_COLOURS: Record<string, string> = {
 export default function Questions({ config, onConfigChange, userId }: QuestionsProps) {
   const { toast } = useToast();
 
-  // Load from config or fall back to defaults
   const initial: Question[] = (() => {
     const stored = (config as any).questions;
     if (Array.isArray(stored) && stored.length > 0) return stored;
@@ -71,24 +70,20 @@ export default function Questions({ config, onConfigChange, userId }: QuestionsP
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-1">Questions</h1>
-      <p className="text-muted-foreground mb-6">
+      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Questions</h1>
+      <p className="mb-6" style={{ color: '#6B5F80' }}>
         Edit your quiz questions and answer options. Each answer maps to a result type — the result a prospect gets most often becomes their final result.
       </p>
 
-      {/* Legend */}
-      <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(201, 169, 110, 0.1)', borderLeft: '3px solid rgba(201, 169, 110, 0.3)' }}>
-        <p className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Answer → Result mapping</p>
+      <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>
+        <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#9A8EAA' }}>Answer &rarr; Result mapping</p>
         <div className="flex flex-wrap gap-x-6 gap-y-1">
           {Object.entries(LETTER_MAP).map(([letter, result]) => (
             <div key={letter} className="flex items-center gap-2 text-sm">
-              <span
-                className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px] font-bold text-white"
-                style={{ backgroundColor: LETTER_COLOURS[letter] }}
-              >
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px] font-bold text-white" style={{ backgroundColor: LETTER_COLOURS[letter] }}>
                 {letter}
               </span>
-              <span className="text-muted-foreground">{result}</span>
+              <span style={{ color: '#6B5F80' }}>{result}</span>
             </div>
           ))}
         </div>
@@ -96,54 +91,31 @@ export default function Questions({ config, onConfigChange, userId }: QuestionsP
 
       <div className="max-w-[800px] space-y-6">
         {questions.map((q) => (
-          <div key={q.id} className="rounded-lg border border-border bg-background p-5 space-y-4">
-            {/* Question header */}
+          <div key={q.id} className="rounded-lg p-5 space-y-4" style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}>
             <div className="flex items-start gap-3">
-              <span
-                className="shrink-0 inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white"
-                style={{ backgroundColor: '#C9A96E' }}
-              >
+              <span className="shrink-0 inline-flex h-8 w-8 items-center justify-center rounded-md text-xs font-bold text-white" style={{ backgroundColor: '#D946EF' }}>
                 Q{q.id}
               </span>
-              <Input
-                value={q.text}
-                onChange={(e) => updateQuestionText(q.id, e.target.value)}
-                className="font-medium"
-              />
+              <Input value={q.text} onChange={(e) => updateQuestionText(q.id, e.target.value)} className="font-medium" />
             </div>
 
-            {/* Options */}
             <div className="space-y-2 pl-11">
               {q.options.map((opt) => (
                 <div key={opt.letter} className="flex items-center gap-2">
-                  <span
-                    className="shrink-0 inline-flex h-6 w-6 items-center justify-center rounded text-[11px] font-bold text-white"
-                    style={{ backgroundColor: LETTER_COLOURS[opt.letter] }}
-                  >
+                  <span className="shrink-0 inline-flex h-6 w-6 items-center justify-center rounded text-[11px] font-bold text-white" style={{ backgroundColor: LETTER_COLOURS[opt.letter] }}>
                     {opt.letter}
                   </span>
-                  <Input
-                    value={opt.text}
-                    onChange={(e) => updateOptionText(q.id, opt.letter, e.target.value)}
-                    className="text-sm"
-                  />
-                  <span className="shrink-0 text-xs text-muted-foreground whitespace-nowrap">
-                    → {LETTER_MAP[opt.letter]}
+                  <Input value={opt.text} onChange={(e) => updateOptionText(q.id, opt.letter, e.target.value)} className="text-sm" />
+                  <span className="shrink-0 text-xs whitespace-nowrap" style={{ color: '#9A8EAA' }}>
+                    &rarr; {LETTER_MAP[opt.letter]}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* Save */}
             <div className="pl-11">
-              <Button
-                size="sm"
-                onClick={() => handleSave(q.id)}
-                disabled={savingId === q.id}
-                className="text-white"
-                style={{ backgroundColor: '#C9A96E' }}
-              >
-                {savingId === q.id ? 'Saving…' : 'Save'}
+              <Button size="sm" onClick={() => handleSave(q.id)} disabled={savingId === q.id} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+                {savingId === q.id ? 'Saving...' : 'Save'}
               </Button>
             </div>
           </div>

@@ -32,7 +32,6 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  // Load all three Google Fonts for preview cards
   useEffect(() => {
     const id = 'branding-fonts';
     if (!document.getElementById(id)) {
@@ -93,7 +92,6 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
       return;
     }
 
-    // Update parent state so sidebar reflects changes immediately
     onConfigChange((prev) => prev ? { ...prev, businessName, fullName, email, brandColour, logo: logoUrl, fontFamily } : prev);
 
     toast({ title: 'Changes saved', description: 'Your branding settings have been updated.' });
@@ -102,68 +100,33 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-8">Branding</h1>
+      <h1 className="text-2xl font-bold mb-8" style={{ color: '#0F0A1E' }}>Branding</h1>
 
       <div className="max-w-[600px] space-y-6">
-        {/* Business Name */}
         <div className="space-y-2">
           <Label htmlFor="businessName">Business Name</Label>
-          <Input
-            id="businessName"
-            value={businessName}
-            onChange={(e) => setBusinessName(e.target.value)}
-            placeholder="e.g. Elevate Coaching Co."
-          />
+          <Input id="businessName" value={businessName} onChange={(e) => setBusinessName(e.target.value)} placeholder="e.g. Elevate Coaching Co." />
         </div>
 
-        {/* Full Name */}
         <div className="space-y-2">
           <Label htmlFor="fullName">Your Full Name</Label>
-          <Input
-            id="fullName"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder="e.g. Sarah Mitchell"
-          />
+          <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Sarah Mitchell" />
         </div>
 
-        {/* Email */}
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="e.g. sarah@elevatecoaching.com"
-          />
+          <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g. sarah@elevatecoaching.com" />
         </div>
 
-        {/* Brand Colour */}
         <div className="space-y-2">
           <Label htmlFor="brandColour">Brand Colour</Label>
           <div className="flex items-center gap-3">
-            <input
-              id="brandColour"
-              type="color"
-              value={brandColour}
-              onChange={(e) => setBrandColour(e.target.value)}
-              className="h-10 w-14 rounded border border-border cursor-pointer p-0.5"
-            />
-            <Input
-              value={brandColour}
-              onChange={(e) => setBrandColour(e.target.value)}
-              className="max-w-[140px] font-mono text-sm"
-              placeholder="#C9A96E"
-            />
-            <div
-              className="h-10 w-10 rounded-md border border-border shrink-0"
-              style={{ backgroundColor: brandColour }}
-            />
+            <input id="brandColour" type="color" value={brandColour} onChange={(e) => setBrandColour(e.target.value)} className="h-10 w-14 rounded border cursor-pointer p-0.5" style={{ borderColor: 'rgba(217,70,239,0.15)' }} />
+            <Input value={brandColour} onChange={(e) => setBrandColour(e.target.value)} className="max-w-[140px] font-mono text-sm" placeholder="#D946EF" />
+            <div className="h-10 w-10 rounded-md shrink-0" style={{ backgroundColor: brandColour, border: '1px solid rgba(217,70,239,0.15)' }} />
           </div>
         </div>
 
-        {/* Quiz Font */}
         <div className="space-y-2">
           <Label>Quiz Font</Label>
           <div className="grid grid-cols-3 gap-3">
@@ -172,16 +135,14 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
                 key={opt.family}
                 type="button"
                 onClick={() => setFontFamily(opt.family)}
-                className="rounded-lg border-2 p-4 text-left transition-colors hover:bg-muted/30"
+                className="rounded-lg border-2 p-4 text-left transition-colors"
                 style={{
-                  borderColor: fontFamily === opt.family ? brandColour : 'var(--border)',
+                  borderColor: fontFamily === opt.family ? '#D946EF' : 'rgba(217,70,239,0.15)',
+                  backgroundColor: fontFamily === opt.family ? 'rgba(217,70,239,0.05)' : 'transparent',
                 }}
               >
-                <p className="text-xs font-medium text-muted-foreground mb-2">{opt.label}</p>
-                <p
-                  className="leading-snug text-foreground"
-                  style={{ fontFamily: `'${opt.family}', ${opt.fallback}`, fontSize: 24 }}
-                >
+                <p className="text-xs font-medium mb-2" style={{ color: '#9A8EAA' }}>{opt.label}</p>
+                <p className="leading-snug" style={{ fontFamily: `'${opt.family}', ${opt.fallback}`, fontSize: 24, color: '#0F0A1E' }}>
                   What's Really Holding Your Business Back?
                 </p>
               </button>
@@ -189,55 +150,28 @@ export default function Branding({ config, onConfigChange, userId }: BrandingPro
           </div>
         </div>
 
-        {/* Logo */}
         <div className="space-y-2">
           <Label>Logo</Label>
           {logoUrl && (
             <div className="relative inline-block">
-              <img
-                src={logoUrl}
-                alt="Logo preview"
-                className="h-20 w-auto rounded-md border border-border object-contain bg-white p-2"
-              />
-              <button
-                type="button"
-                onClick={() => setLogoUrl('')}
-                className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center"
-              >
+              <img src={logoUrl} alt="Logo preview" className="h-20 w-auto rounded-md object-contain bg-white p-2" style={{ border: '1px solid rgba(217,70,239,0.15)' }} />
+              <button type="button" onClick={() => setLogoUrl('')} className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center">
                 <X className="h-3 w-3" />
               </button>
             </div>
           )}
           <div>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/png,image/jpeg,image/svg+xml"
-              onChange={handleLogoUpload}
-              className="hidden"
-            />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
-              className="gap-2"
-            >
+            <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/svg+xml" onChange={handleLogoUpload} className="hidden" />
+            <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()} disabled={uploading} className="gap-2" style={{ borderColor: 'rgba(217,70,239,0.30)', color: '#D946EF' }}>
               <Upload className="h-4 w-4" />
-              {uploading ? 'Uploading…' : 'Upload logo'}
+              {uploading ? 'Uploading...' : 'Upload logo'}
             </Button>
-            <p className="text-xs text-muted-foreground mt-1">PNG, JPG, or SVG. Displayed in your quiz.</p>
+            <p className="text-xs mt-1" style={{ color: '#9A8EAA' }}>PNG, JPG, or SVG. Displayed in your quiz.</p>
           </div>
         </div>
 
-        {/* Save */}
-        <Button
-          onClick={handleSave}
-          disabled={saving}
-          className="text-white"
-          style={{ backgroundColor: '#C9A96E' }}
-        >
-          {saving ? 'Saving…' : 'Save changes'}
+        <Button onClick={handleSave} disabled={saving} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+          {saving ? 'Saving...' : 'Save changes'}
         </Button>
       </div>
     </div>

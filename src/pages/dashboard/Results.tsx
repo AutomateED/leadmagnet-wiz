@@ -47,8 +47,8 @@ export default function Results({ config, onConfigChange, userId }: ResultsProps
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-foreground mb-1">Results</h1>
-      <p className="text-muted-foreground mb-8">Customise the text prospects see for each result type</p>
+      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Results</h1>
+      <p className="mb-8" style={{ color: '#6B5F80' }}>Customise the text prospects see for each result type</p>
 
       <div className="max-w-[700px] space-y-8">
         {RESULT_TYPES.map((type) => (
@@ -60,16 +60,10 @@ export default function Results({ config, onConfigChange, userId }: ResultsProps
               onChange={(e) => handleChange(type, e.target.value)}
             />
             <div className="flex items-center justify-between">
-              <Button
-                size="sm"
-                onClick={() => handleSaveOne(type)}
-                disabled={savingType === type}
-                className="text-white"
-                style={{ backgroundColor: '#C9A96E' }}
-              >
-                {savingType === type ? 'Saving…' : 'Save'}
+              <Button size="sm" onClick={() => handleSaveOne(type)} disabled={savingType === type} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+                {savingType === type ? 'Saving...' : 'Save'}
               </Button>
-              <p className="text-xs text-muted-foreground">{((texts as any)[type] || '').length} characters</p>
+              <p className="text-xs" style={{ color: '#9A8EAA' }}>{((texts as any)[type] || '').length} characters</p>
             </div>
           </div>
         ))}
