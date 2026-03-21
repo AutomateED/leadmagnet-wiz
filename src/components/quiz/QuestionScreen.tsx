@@ -18,10 +18,11 @@ export default function QuestionScreen({
   answers,
   brandColour,
   direction,
+  questions,
   onAnswer,
   onBack,
 }: QuestionScreenProps) {
-  const question = QUESTIONS[questionIndex];
+  const question = questions[questionIndex];
   const selectedAnswer = answers[`q${questionIndex + 1}`];
 
   const variants = {
