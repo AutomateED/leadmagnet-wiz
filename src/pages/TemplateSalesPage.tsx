@@ -387,12 +387,11 @@ export default function TemplateSalesPage() {
                 Lock in your price before it goes up
               </h3>
               <p className="mt-1 text-sm" style={{ color: C.inkMid }}>
-                This rate never increases — yours for as long as you stay.
+                One-time activation. No monthly fees. No subscriptions.
               </p>
 
-              <p className="mt-6 text-sm line-through" style={{ color: C.inkLight }}>£499 setup</p>
-              <p className="text-5xl font-bold tracking-tight" style={{ color: C.ink }}>£297</p>
-              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>one-time setup + £29/mo hosting (locked forever)</p>
+              <p className="mt-6 text-5xl font-bold tracking-tight" style={{ color: C.ink }}>$97</p>
+              <p className="mt-1 text-sm" style={{ color: C.inkMid }}>one-time activation fee</p>
             </div>
 
             <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.border}` }}>
@@ -420,7 +419,7 @@ export default function TemplateSalesPage() {
               <ScarcityBar />
 
               <p className="mt-4 text-center text-xs" style={{ color: C.inkLight }}>
-                Secure checkout · Cancel hosting any time
+                Secure checkout · One-time payment, no subscriptions
               </p>
             </div>
           </motion.div>
@@ -492,7 +491,7 @@ export default function TemplateSalesPage() {
               Claim my founding member spot →
             </a>
             <p className="mt-3 text-xs" style={{ color: C.inkLight }}>
-              £297 setup + £29/mo · Secure checkout · Cancel any time
+              $97 one-time · Secure checkout · No subscriptions
             </p>
           </motion.div>
         </motion.div>
