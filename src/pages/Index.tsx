@@ -6,6 +6,7 @@ import EmailGate from '@/components/quiz/EmailGate';
 import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
 import { sendResultEmail } from '@/utils/email';
+import { QUESTIONS } from '@/utils/questions';
 
 export default function Index() {
   const { config } = useConfig();
