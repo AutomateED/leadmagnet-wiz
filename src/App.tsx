@@ -9,6 +9,8 @@ import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import TemplatePage from "./pages/TemplatePage";
 import NotFound from "./pages/NotFound";
