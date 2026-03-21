@@ -10,7 +10,12 @@ import {
 } from '@/components/ui/accordion';
 
 const BRAND = '#C9A96E';
-const STRIPE_URL = 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00';
+const STRIPE_URLS: Record<string, string> = {
+  'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
+  'mindset-mastery': 'https://buy.stripe.com/9B68wO6iDfrYdcDgOv0gw02',
+  'leadership-style': 'https://buy.stripe.com/3cIcN4gXhfrYc8zeGn0gw03',
+  'wealth-readiness': 'https://buy.stripe.com/00wdR8cH1gw26Of8hZ0gw01',
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
@@ -221,7 +226,7 @@ export default function TemplateSalesPage() {
                   See It In Action
                 </button>
                 <a
-                  href={STRIPE_URL}
+                  href={STRIPE_URLS[slug!]}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97] inline-block"
@@ -431,7 +436,7 @@ export default function TemplateSalesPage() {
 
             <div className="px-8 pb-8">
               <a
-                href={STRIPE_URL}
+                href={STRIPE_URLS[slug!]}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97]"
