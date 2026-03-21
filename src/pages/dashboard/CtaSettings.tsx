@@ -10,9 +10,10 @@ interface CtaSettingsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function CtaSettings({ config, onConfigChange, userId }: CtaSettingsProps) {
+export default function CtaSettings({ config, onConfigChange, userId, quizId }: CtaSettingsProps) {
   const { toast } = useToast();
   const [ctaText, setCtaText] = useState(config.ctaText);
   const [ctaUrl, setCtaUrl] = useState(config.ctaUrl);
