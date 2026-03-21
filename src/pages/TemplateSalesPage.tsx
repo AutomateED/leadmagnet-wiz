@@ -436,7 +436,7 @@ export default function TemplateSalesPage() {
 
             <div className="px-8 pb-8">
               <a
-                href={STRIPE_URL}
+                href={STRIPE_URLS[slug!]}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full rounded-full py-3.5 text-center text-sm font-semibold text-white transition-all hover:shadow-lift active:scale-[0.97]"
