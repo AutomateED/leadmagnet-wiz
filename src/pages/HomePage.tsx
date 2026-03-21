@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, Zap, Palette, Target, Inbox, Link2, Lock } from 'lucide-react';
 
 /* ─── PALETTE ─── */
 const C = {
