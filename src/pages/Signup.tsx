@@ -99,7 +99,7 @@ export default function Signup() {
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder=""
                 required
               />
             </div>
