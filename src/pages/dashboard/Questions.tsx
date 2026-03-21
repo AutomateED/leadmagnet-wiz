@@ -10,6 +10,7 @@ interface QuestionsProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
 const LETTER_MAP: Record<string, string> = {
