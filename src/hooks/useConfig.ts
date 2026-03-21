@@ -36,7 +36,7 @@ const DEFAULT_RESULTS = {
 
 export const DEFAULT_CONFIG: QuizConfig = {
   fullName: 'Sarah Mitchell',
-  businessName: 'Elevate Coaching Co.',
+  businessName: 'My Business',
   email: 'sarah@elevatecoaching.com',
   logo: '',
   brandColour: '#C9A96E',
