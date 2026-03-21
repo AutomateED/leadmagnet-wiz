@@ -55,7 +55,7 @@ export default function StartScreen({ config, onStart }: StartScreenProps) {
           className="text-4xl md:text-6xl font-semibold leading-tight"
           style={{ fontFamily: `'${config.fontFamily || 'Plus Jakarta Sans'}', sans-serif`, color: '#0F0A1E' }}
         >
-          What's Really Holding Your Business Back?
+          {config.quizName || "What's Really Holding Your Business Back?"}
         </h1>
 
         <p className="mt-6 text-lg md:text-xl leading-relaxed max-w-md" style={{ color: '#4A4060' }}>
