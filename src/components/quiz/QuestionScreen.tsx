@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import ProgressBar from './ProgressBar';
 import AnswerCard from './AnswerCard';
-import { QUESTIONS } from '@/utils/questions';
 import { ChevronLeft } from 'lucide-react';
 
 interface QuestionScreenProps {
@@ -9,6 +8,7 @@ interface QuestionScreenProps {
   answers: Record<string, string>;
   brandColour: string;
   direction: number;
+  questions: { id: number; text: string; options: { letter: string; text: string }[] }[];
   onAnswer: (questionIndex: number, letter: string) => void;
   onBack: () => void;
 }
@@ -18,10 +18,11 @@ export default function QuestionScreen({
   answers,
   brandColour,
   direction,
+  questions,
   onAnswer,
   onBack,
 }: QuestionScreenProps) {
-  const question = QUESTIONS[questionIndex];
+  const question = questions[questionIndex];
   const selectedAnswer = answers[`q${questionIndex + 1}`];
 
   const variants = {
@@ -32,7 +33,7 @@ export default function QuestionScreen({
 
   return (
     <div className="flex min-h-[100dvh] flex-col" style={{ backgroundColor: '#FFFFFF' }}>
-      <ProgressBar current={questionIndex} total={7} brandColour={brandColour} />
+      <ProgressBar current={questionIndex} total={questions.length} brandColour={brandColour} />
 
       {/* Back button */}
       {questionIndex > 0 && (
@@ -62,7 +63,7 @@ export default function QuestionScreen({
             <p className="font-mono text-sm tracking-wider mb-4" style={{ color: '#9A8EAA' }}>
               <span className="tabular-nums">{String(questionIndex + 1).padStart(2, '0')}</span>
               <span className="mx-2">/</span>
-              <span className="tabular-nums">07</span>
+              <span className="tabular-nums">{String(questions.length).padStart(2, '0')}</span>
             </p>
 
             {/* Question text */}

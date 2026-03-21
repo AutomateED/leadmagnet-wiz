@@ -6,6 +6,7 @@ import EmailGate from '@/components/quiz/EmailGate';
 import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
 import { sendResultEmail } from '@/utils/email';
+import { QUESTIONS } from '@/utils/questions';
 
 export default function Index() {
   const { config } = useConfig();
@@ -52,7 +53,8 @@ export default function Index() {
           answers={quiz.answers}
           brandColour={config.brandColour}
           direction={quiz.direction}
-          onAnswer={quiz.answerQuestion}
+          questions={config.questions && config.questions.length > 0 ? config.questions : QUESTIONS}
+          onAnswer={(qi, letter) => quiz.answerQuestion(qi, letter, (config.questions && config.questions.length > 0 ? config.questions : QUESTIONS).length)}
           onBack={quiz.goBack}
         />
       );

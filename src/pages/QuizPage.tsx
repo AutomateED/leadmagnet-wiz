@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuizConfig } from '@/hooks/useQuizConfig';
 import { useQuiz } from '@/hooks/useQuiz';
@@ -7,6 +7,7 @@ import QuestionScreen from '@/components/quiz/QuestionScreen';
 import EmailGate from '@/components/quiz/EmailGate';
 import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
+import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
 
 export default function QuizPage() {
@@ -78,6 +79,8 @@ export default function QuizPage() {
     });
   };
 
+  const questions = config.questions && config.questions.length > 0 ? config.questions : QUESTIONS;
+
   switch (quiz.screen) {
     case 'start':
       return <StartScreen config={config} onStart={quiz.startQuiz} />;
@@ -88,7 +91,8 @@ export default function QuizPage() {
           answers={quiz.answers}
           brandColour={config.brandColour}
           direction={quiz.direction}
-          onAnswer={quiz.answerQuestion}
+          questions={questions}
+          onAnswer={(qi, letter) => quiz.answerQuestion(qi, letter, questions.length)}
           onBack={quiz.goBack}
         />
       );
