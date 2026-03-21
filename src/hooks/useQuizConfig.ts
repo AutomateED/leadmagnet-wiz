@@ -58,7 +58,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
         ctaText: data.cta_text || DEFAULT_CONFIG.ctaText,
         ctaUrl: data.cta_url || DEFAULT_CONFIG.ctaUrl,
         ctaTagline: data.cta_tagline || DEFAULT_CONFIG.ctaTagline,
-        webhookUrl: data.webhook_url || DEFAULT_CONFIG.webhookUrl,
+        webhookUrl: (data as any).webhook_url || DEFAULT_CONFIG.webhookUrl,
         emailjsServiceId: emailConfig?.serviceId || '',
         emailjsTemplateId: emailConfig?.templateId || '',
         emailjsPublicKey: emailConfig?.publicKey || '',
