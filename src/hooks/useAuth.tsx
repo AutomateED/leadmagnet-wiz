@@ -30,8 +30,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
 
       if (event === 'SIGNED_IN' && session) {
-        const isPublicOrAuth = PUBLIC_ROUTES.includes(location.pathname) || location.pathname.startsWith('/quiz/');
-        if (isPublicOrAuth) {
+        const shouldRedirect = AUTH_ROUTES.includes(location.pathname);
+        if (shouldRedirect) {
           navigate('/dashboard/overview', { replace: true });
         }
       }
