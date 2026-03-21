@@ -191,11 +191,11 @@ export default function Dashboard() {
           {config && (
             <>
               <Route path="overview" element={<Overview config={config} slug={slug} />} />
-              <Route path="branding" element={<Branding config={config} onConfigChange={setConfig} userId={user.id} />} />
-              <Route path="questions" element={<Questions config={config} onConfigChange={setConfig} userId={user.id} />} />
-              <Route path="results" element={<Results config={config} onConfigChange={setConfig} userId={user.id} />} />
-              <Route path="cta" element={<CtaSettings config={config} onConfigChange={setConfig} userId={user.id} />} />
-              <Route path="integrations" element={<Integrations config={config} onConfigChange={setConfig} userId={user.id} />} />
+              <Route path="branding" element={<Branding config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
+              <Route path="questions" element={<Questions config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
+              <Route path="results" element={<Results config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
+              <Route path="cta" element={<CtaSettings config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
+              <Route path="integrations" element={<Integrations config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
               <Route path="preview" element={<QuizPreview slug={slug} config={config} />} />
               <Route path="share" element={<ShareQuiz slug={slug} />} />
             </>
