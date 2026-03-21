@@ -29,7 +29,7 @@ const FEATURES = [
   { icon: '🎯', title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
   { icon: '📥', title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
   { icon: '🔗', title: 'Share it anywhere', body: 'Embed it on your website homepage, drop the link in your Instagram bio, email signature, or LinkedIn profile. One link, works everywhere.' },
-  { icon: '🔒', title: 'One payment, no surprises', body: '$97 once. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
+  { icon: '🔒', title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
 ];
 
 const TEMPLATES = [
@@ -40,8 +40,8 @@ const TEMPLATES = [
 ];
 
 const STEPS = [
-  { num: '1', title: 'Pay once, get instant access', desc: 'Complete your $97 purchase and receive your dashboard login immediately. No waiting, no onboarding call.' },
-  { num: '2', title: 'Pick your template', desc: 'Choose from our ready-made quiz templates built for coaches and consultants. Each one is fully customisable.' },
+  { num: '1', title: 'Choose your quiz template', desc: 'Browse our ready-made templates built for coaches and consultants. Pick the one that fits your niche and audience.' },
+  { num: '2', title: 'Pay once — $97 per quiz', desc: 'Complete your one-time $97 payment for the quiz you want. No subscription, no onboarding call. Instant dashboard access.' },
   { num: '3', title: 'Brand it in minutes', desc: 'Upload your logo, set your brand colour, and update your copy. Your quiz looks like yours — not ours.' },
   { num: '4', title: 'Share your link and watch leads come in', desc: 'Paste your unique quiz link anywhere. Every completion sends a warm, qualified lead straight to your inbox and CRM.' },
 ];
@@ -49,9 +49,9 @@ const STEPS = [
 const FAQS = [
   { q: 'Can I change the questions?', a: 'Yes — all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
   { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website — Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
-  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in, pick your template, and follow the setup steps. Most clients are live within the hour.' },
+  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in and follow the setup steps. Most clients are live within the hour.' },
   { q: 'Do I need a developer?', a: 'No. Everything is point-and-click. If you can update a Google Doc, you can set up your quiz.' },
-  { q: 'Is there a monthly fee?', a: 'No. $97 one-time payment. No subscription, no renewal, no surprises.' },
+  { q: 'Is there a monthly fee?', a: 'No. Each quiz is a $97 one-time payment. No subscription, no renewal, no surprises.' },
   { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook — including Zapier, which means it connects to almost every CRM and email tool on the market.' },
 ];
 
