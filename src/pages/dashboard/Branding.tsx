@@ -17,9 +17,10 @@ interface BrandingProps {
   config: QuizConfig;
   onConfigChange: React.Dispatch<React.SetStateAction<QuizConfig | null>>;
   userId: string;
+  quizId: string;
 }
 
-export default function Branding({ config, onConfigChange, userId }: BrandingProps) {
+export default function Branding({ config, onConfigChange, userId, quizId }: BrandingProps) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
