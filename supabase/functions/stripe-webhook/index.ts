@@ -118,6 +118,31 @@ Deno.serve(async (req) => {
       console.error("Failed to insert client:", insertError);
     }
 
+    // Generate slug from email
+    const slug = email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-quiz";
+
+    // Insert quiz_configs row
+    const { error: quizError } = await supabaseAdmin.from("quiz_configs").insert({
+      client_id: userId,
+      slug,
+      quiz_name: "My Quiz",
+      template_type: "business-breakthrough",
+      brand_colour: "#D946EF",
+      business_name: "",
+      questions: [],
+      result_texts: {},
+      cta_text: "Book Your Free Discovery Call",
+      cta_url: "",
+      cta_tagline: "",
+      font_family: "Plus Jakarta Sans",
+      full_name: name,
+      email,
+    });
+
+    if (quizError) {
+      console.error("Failed to insert quiz_configs:", quizError);
+    }
+
     console.log(`Created user ${email} with id ${userId}`);
     return new Response(JSON.stringify({ received: true }), {
       status: 200,
