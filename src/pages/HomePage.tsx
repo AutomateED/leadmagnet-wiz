@@ -117,6 +117,13 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
+      <style>{`
+        @keyframes pulseGlow {
+          0% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
+          50% { box-shadow: 0 0 9px 3px rgba(240,32,176,0.25), 0 0 20px 6px rgba(217,70,239,0.10); }
+          100% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
+        }
+      `}</style>
       <Nav />
 
       {/* ─── HERO ─── */}
