@@ -221,7 +221,7 @@ export default function HomePage() {
                   className="group block rounded-xl p-6 transition-all hover:-translate-y-0.5"
                   style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}`, animation: 'pulseGlow 3s ease-in-out infinite' }}
                 >
-                  <span className="inline-block rounded-full px-3 py-1 text-[11px] font-medium tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent }}>
+                  <span className="inline-block rounded-full px-3 py-1 text-[11px] font-medium tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700' }}>
                     {t.niche}
                   </span>
                   <h3 className="mt-4 text-xl font-bold" style={{ color: C.headline }}>
