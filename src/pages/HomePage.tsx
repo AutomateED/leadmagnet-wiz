@@ -140,9 +140,9 @@ export default function HomePage() {
               className="mt-6 text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
               style={{ color: C.headline }}
             >
-              Turn website visitors into{' '}
-              <span style={{ color: C.accent }}>qualified leads</span>{' '}
-              while you sleep
+              Your website gets visitors.
+              <br />
+              <span style={{ color: '#F020B0' }}>Are any of them becoming leads?</span>
             </motion.h1>
             <motion.p
               variants={fadeUp} transition={{ duration: 0.6, ease }}
