@@ -140,16 +140,16 @@ export default function HomePage() {
               className="mt-6 text-4xl font-bold leading-[1.08] md:text-5xl lg:text-[3.25rem]"
               style={{ color: C.headline }}
             >
-              Turn website visitors into{' '}
-              <span style={{ color: C.accent }}>qualified leads</span>{' '}
-              while you sleep
+              Your website gets visitors.
+              <br />
+              <span style={{ color: '#F020B0' }}>Are any of them becoming leads?</span>
             </motion.h1>
             <motion.p
               variants={fadeUp} transition={{ duration: 0.6, ease }}
               className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed font-light"
               style={{ color: C.body }}
             >
-              A branded quiz on your site qualifies prospects, grows your list, and sends you warm leads 24/7 — without a discovery call, a tech team, or an hour of your morning gone.
+              A PretaQuiz turns visitors into qualified leads, automatically. They get a personalised result. You get their name, email, and exactly what they need. No tech skills. No monthly fees. Live in under an hour.
             </motion.p>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
