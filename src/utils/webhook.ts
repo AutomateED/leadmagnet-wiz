@@ -5,6 +5,7 @@ interface WebhookPayload {
   last_name: string;
   email: string;
   result_type: string;
+  result_copy: string;
   answers: Record<string, string>;
   quiz_name: string;
   client_name: string;

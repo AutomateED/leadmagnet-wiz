@@ -24,6 +24,7 @@ export default function Index() {
       last_name: lastName,
       email,
       result_type: resultType,
+      result_copy: resultCopy,
       answers: quiz.answers,
       quiz_name: "What's Really Holding Your Business Back?",
       client_name: config.businessName,
