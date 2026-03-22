@@ -117,6 +117,13 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
+      <style>{`
+        @keyframes pulseGlow {
+          0% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
+          50% { box-shadow: 0 0 9px 3px rgba(240,32,176,0.25), 0 0 20px 6px rgba(217,70,239,0.10); }
+          100% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
+        }
+      `}</style>
       <Nav />
 
       {/* ─── HERO ─── */}
@@ -212,7 +219,7 @@ export default function HomePage() {
                 <Link
                   to={t.href}
                   className="group block rounded-xl p-6 transition-all hover:-translate-y-0.5"
-                  style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
+                  style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}`, animation: 'pulseGlow 3s ease-in-out infinite' }}
                 >
                   <span className="inline-block rounded-full px-3 py-1 text-[11px] font-medium tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent }}>
                     {t.niche}
