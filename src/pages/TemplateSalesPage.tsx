@@ -376,6 +376,9 @@ export default function TemplateSalesPage() {
                 </div>
               </div>
             </motion.div>
+            <p className="mt-4 text-center text-xs font-medium" style={{ color: 'rgba(217,70,239,0.8)' }}>
+              Your logo. Your colours. Your name. ✦
+            </p>
           </div>
         </div>
       </section>
