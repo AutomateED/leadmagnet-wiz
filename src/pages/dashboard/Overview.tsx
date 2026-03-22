@@ -257,8 +257,8 @@ export default function Overview({ config, slug }: OverviewProps) {
         <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>Need help setting up?</p>
         <p className="text-sm mt-1" style={{ color: '#6B5F80' }}>
           Email us at{' '}
-          <a href="mailto:team@virtualsupport.world" className="underline hover:opacity-80" style={{ color: '#D946EF' }}>
-            team@virtualsupport.world
+          <a href="mailto:hello@pretaquiz.com" className="underline hover:opacity-80" style={{ color: '#D946EF' }}>
+            hello@pretaquiz.com
           </a>{' '}
           and we'll get you sorted.
         </p>
