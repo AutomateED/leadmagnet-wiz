@@ -87,7 +87,21 @@ const STEPS: Step[] = [
 
 export default function Overview({ config, slug }: OverviewProps) {
   const { toast } = useToast();
+  const { user } = useAuth();
   const quizUrl = `${getBaseUrl()}/quiz/${slug}`;
+
+  const [leadCount, setLeadCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from('leads')
+      .select('id', { count: 'exact', head: true })
+      .eq('client_id', user.id)
+      .then(({ count, error }) => {
+        if (!error) setLeadCount(count ?? 0);
+      });
+  }, [user]);
 
   const completed = STEPS.filter((s) => s.check(config)).length;
   const total = STEPS.length;
