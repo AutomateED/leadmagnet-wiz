@@ -151,23 +151,23 @@ export default function HomePage() {
             >
               A branded quiz on your site qualifies prospects, grows your list, and sends you warm leads 24/7 — without a discovery call, a tech team, or an hour of your morning gone.
             </motion.p>
-            <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() => document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })}
-                className="rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-                style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
-              >
-                Browse quiz templates &rarr;
-              </button>
+            <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
                 href="/quiz/demo-business-breakthrough"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg px-8 py-3.5 text-sm font-medium transition-all hover:bg-white/5"
-                style={{ border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.90)' }}
+                className="rounded-lg transition-all hover:opacity-90 active:scale-[0.97]"
+                style={{ backgroundColor: '#F020B0', color: '#FFFFFF', padding: '16px 48px', fontSize: '16px', fontWeight: '700', letterSpacing: '0.1em' }}
               >
-                See it in action
+                SEE IT IN ACTION
               </a>
+              <button
+                onClick={() => document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })}
+                className="rounded-lg transition-all hover:bg-white/5 active:scale-[0.97]"
+                style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.90)', padding: '12px 32px', fontSize: '14px' }}
+              >
+                Browse quiz templates &rarr;
+              </button>
             </motion.div>
           </motion.div>
         </div>
