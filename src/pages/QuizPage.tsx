@@ -77,6 +77,7 @@ export default function QuizPage() {
       last_name: lastName,
       email,
       result_type: resultType,
+      result_copy: resultCopy,
       answers: quiz.answers,
       quiz_name: config.quizName || config.businessName,
       client_name: config.businessName,
