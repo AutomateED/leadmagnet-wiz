@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Circle, Copy, ArrowRight, Play } from 'lucide-react';
+import { Check, Circle, Copy, ArrowRight, Play, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 import type { QuizConfig } from '@/hooks/useConfig';
 import { DEFAULT_CONFIG } from '@/hooks/useConfig';
 
