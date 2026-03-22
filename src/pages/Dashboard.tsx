@@ -27,6 +27,7 @@ const NAV_ITEMS = [
   { label: 'Results', path: 'results', icon: Trophy },
   { label: 'CTA Settings', path: 'cta', icon: MousePointerClick },
   { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'Leads', path: 'leads', icon: Users },
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
 ];
