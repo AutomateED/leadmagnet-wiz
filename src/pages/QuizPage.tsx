@@ -57,6 +57,21 @@ export default function QuizPage() {
     const resultType = quiz.result!;
     const resultCopy = config.resultTexts[resultType];
 
+    // Insert lead into Supabase (fire-and-forget)
+    supabase
+      .from('leads')
+      .insert({
+        client_id: config.clientId || null,
+        quiz_slug: slug!,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        result_type: resultType,
+      })
+      .then(({ error: insertError }) => {
+        if (insertError) console.error('Lead insert failed:', insertError);
+      });
+
     fireWebhook(config, {
       first_name: firstName,
       last_name: lastName,

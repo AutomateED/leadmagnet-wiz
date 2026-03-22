@@ -40,6 +40,7 @@ const DEFAULT_RESULTS = {
 
 export const DEFAULT_CONFIG: QuizConfig = {
   quizId: '',
+  clientId: '',
   quizName: 'My Quiz',
   templateType: 'business-breakthrough',
   fullName: 'Sarah Mitchell',

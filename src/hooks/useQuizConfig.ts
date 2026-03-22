@@ -43,6 +43,7 @@ export function useQuizConfig(slug: string | undefined): UseQuizConfigReturn {
 
       const quizConfig: QuizConfig = {
         quizId: '',
+        clientId: data.client_id || '',
         quizName: data.quiz_name || DEFAULT_CONFIG.quizName,
         templateType: data.template_type || DEFAULT_CONFIG.templateType,
         fullName: data.full_name || DEFAULT_CONFIG.fullName,
