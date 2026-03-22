@@ -123,6 +123,26 @@ export default function Overview({ config, slug }: OverviewProps) {
         You're just a few steps away from having your own lead-generation quiz. Work through the checklist below — most clients finish in under 30 minutes.
       </p>
 
+      {/* Total Leads stat */}
+      {leadCount !== null && (
+        <Link
+          to="/dashboard/leads"
+          className="mt-6 max-w-[800px] rounded-xl p-5 flex items-center gap-4 transition-colors hover:shadow-sm"
+          style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}
+        >
+          <div
+            className="flex h-11 w-11 items-center justify-center rounded-full shrink-0"
+            style={{ backgroundColor: 'rgba(217,70,239,0.12)' }}
+          >
+            <Users className="h-5 w-5" style={{ color: '#D946EF' }} />
+          </div>
+          <div>
+            <p className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>{leadCount}</p>
+            <p className="text-sm" style={{ color: '#6B5F80' }}>Total Leads</p>
+          </div>
+        </Link>
+      )}
+
       {/* Welcome video */}
       <div
         className="mt-6 max-w-[800px] rounded-xl overflow-hidden"
