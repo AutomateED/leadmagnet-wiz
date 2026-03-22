@@ -6,6 +6,7 @@ import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
 import {
   LayoutDashboard, Palette, HelpCircle, Trophy,
   MousePointerClick, Plug, Eye, Share2, LogOut, ArrowLeft,
+  Users,
 } from 'lucide-react';
 
 import MyQuizzes from './dashboard/MyQuizzes';
@@ -17,6 +18,7 @@ import CtaSettings from './dashboard/CtaSettings';
 import Integrations from './dashboard/Integrations';
 import QuizPreview from './dashboard/QuizPreview';
 import ShareQuiz from './dashboard/ShareQuiz';
+import Leads from './dashboard/Leads';
 
 const NAV_ITEMS = [
   { label: 'Overview', path: 'overview', icon: LayoutDashboard },
@@ -25,6 +27,7 @@ const NAV_ITEMS = [
   { label: 'Results', path: 'results', icon: Trophy },
   { label: 'CTA Settings', path: 'cta', icon: MousePointerClick },
   { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'Leads', path: 'leads', icon: Users },
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
 ];
@@ -197,6 +200,7 @@ export default function Dashboard() {
               <Route path="cta" element={<CtaSettings config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
               <Route path="integrations" element={<Integrations config={config} onConfigChange={setConfig} userId={user.id} quizId={config.quizId} />} />
               <Route path="preview" element={<QuizPreview slug={slug} config={config} />} />
+              <Route path="leads" element={<Leads />} />
               <Route path="share" element={<ShareQuiz slug={slug} />} />
             </>
           )}

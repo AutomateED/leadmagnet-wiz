@@ -1,0 +1,121 @@
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+
+interface Lead {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  email: string;
+  result_type: string | null;
+  created_at: string | null;
+}
+
+export default function Leads() {
+  const { user } = useAuth();
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) return;
+    (async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('client_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load leads:', error);
+        setLeads([]);
+      } else {
+        setLeads((data as Lead[]) || []);
+      }
+      setLoading(false);
+    })();
+  }, [user]);
+
+  const formatDate = (iso: string | null) => {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-16">
+        <div
+          className="animate-spin rounded-full h-10 w-10 border-4 border-t-transparent"
+          style={{ borderColor: '#D946EF', borderTopColor: 'transparent' }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-8">
+      <div className="flex items-center gap-3 mb-6">
+        <h1 className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>Your Leads</h1>
+        <span
+          className="rounded-full px-3 py-0.5 text-xs font-semibold"
+          style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: '#D946EF' }}
+        >
+          {leads.length} lead{leads.length !== 1 ? 's' : ''}
+        </span>
+      </div>
+
+      {leads.length === 0 ? (
+        <div
+          className="rounded-xl p-12 text-center"
+          style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}
+        >
+          <p style={{ color: '#6B5F80' }}>No leads yet — share your quiz link to get started.</p>
+        </div>
+      ) : (
+        <div
+          className="rounded-xl overflow-hidden"
+          style={{ border: '1px solid rgba(217,70,239,0.15)' }}
+        >
+          <table className="w-full text-sm" style={{ backgroundColor: '#FFFFFF' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid rgba(217,70,239,0.15)' }}>
+                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Name</th>
+                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Email</th>
+                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Result Type</th>
+                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((lead) => (
+                <tr
+                  key={lead.id}
+                  className="transition-colors hover:bg-[rgba(217,70,239,0.04)]"
+                  style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
+                >
+                  <td className="px-5 py-3" style={{ color: '#0F0A1E' }}>
+                    {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
+                  </td>
+                  <td className="px-5 py-3" style={{ color: '#6B5F80' }}>{lead.email}</td>
+                  <td className="px-5 py-3">
+                    {lead.result_type ? (
+                      <span
+                        className="rounded-full px-2.5 py-0.5 text-xs font-medium"
+                        style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
+                      >
+                        {lead.result_type}
+                      </span>
+                    ) : (
+                      <span style={{ color: '#9A8EAA' }}>—</span>
+                    )}
+                  </td>
+                  <td className="px-5 py-3" style={{ color: '#6B5F80' }}>{formatDate(lead.created_at)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
