@@ -38,6 +38,47 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          client_id: string | null
+          created_at: string | null
+          email: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          quiz_slug: string
+          result_type: string | null
+        }
+        Insert: {
+          client_id?: string | null
+          created_at?: string | null
+          email: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          quiz_slug: string
+          result_type?: string | null
+        }
+        Update: {
+          client_id?: string | null
+          created_at?: string | null
+          email?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          quiz_slug?: string
+          result_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quiz_configs: {
         Row: {
           brand_colour: string
@@ -118,6 +159,7 @@ export type Database = {
         Row: {
           brand_colour: string | null
           business_name: string | null
+          client_id: string | null
           cta_tagline: string | null
           cta_text: string | null
           cta_url: string | null
@@ -134,6 +176,7 @@ export type Database = {
         Insert: {
           brand_colour?: string | null
           business_name?: string | null
+          client_id?: string | null
           cta_tagline?: string | null
           cta_text?: string | null
           cta_url?: string | null
@@ -150,6 +193,7 @@ export type Database = {
         Update: {
           brand_colour?: string | null
           business_name?: string | null
+          client_id?: string | null
           cta_tagline?: string | null
           cta_text?: string | null
           cta_url?: string | null
@@ -163,7 +207,15 @@ export type Database = {
           slug?: string | null
           template_type?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "quiz_configs_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {

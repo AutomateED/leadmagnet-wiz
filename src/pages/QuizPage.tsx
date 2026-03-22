@@ -9,6 +9,7 @@ import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
 import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function QuizPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -55,6 +56,21 @@ export default function QuizPage() {
     quiz.submitEmail(firstName, email, lastName);
     const resultType = quiz.result!;
     const resultCopy = config.resultTexts[resultType];
+
+    // Insert lead into Supabase (fire-and-forget)
+    supabase
+      .from('leads')
+      .insert({
+        client_id: config.clientId || null,
+        quiz_slug: slug!,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        result_type: resultType,
+      })
+      .then(({ error: insertError }) => {
+        if (insertError) console.error('Lead insert failed:', insertError);
+      });
 
     fireWebhook(config, {
       first_name: firstName,
