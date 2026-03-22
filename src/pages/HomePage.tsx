@@ -149,7 +149,7 @@ export default function HomePage() {
               className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed font-light"
               style={{ color: C.body }}
             >
-              A branded quiz on your site qualifies prospects, grows your list, and sends you warm leads 24/7 — without a discovery call, a tech team, or an hour of your morning gone.
+              A PretaQuiz turns visitors into qualified leads, automatically. They get a personalised result. You get their name, email, and exactly what they need. No tech skills. No monthly fees. Live in under an hour.
             </motion.p>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
