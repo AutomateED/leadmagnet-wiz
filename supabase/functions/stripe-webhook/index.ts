@@ -119,7 +119,8 @@ Deno.serve(async (req) => {
     }
 
     // Generate slug from email
-    const slug = email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-quiz";
+    const randomSuffix = Math.random().toString(36).substring(2, 6);
+    const slug = email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-" + randomSuffix;
 
     // Insert quiz_configs row
     const { error: quizError } = await supabaseAdmin.from("quiz_configs").insert({
