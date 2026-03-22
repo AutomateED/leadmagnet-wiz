@@ -185,18 +185,13 @@ function Nav({ stripeUrl }: { stripeUrl: string }) {
           >
             Founding Member Offer
           </span>
-          <Link to="/login" className="text-sm font-medium transition-colors" style={{ color: C.footnote }}>
+          <Link
+            to="/login"
+            className="rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:opacity-90"
+            style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: '#FFFFFF', border: '1px solid rgba(217,70,239,0.3)' }}
+          >
             Login
           </Link>
-          <a
-            href={stripeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:inline-block rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
-            style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
-          >
-            Activate my quiz — $97 &rarr;
-          </a>
         </div>
       </div>
     </nav>
