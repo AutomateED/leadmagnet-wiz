@@ -160,7 +160,7 @@ export default function HomePage() {
                 Browse quiz templates &rarr;
               </button>
               <a
-                href="/quiz/business-breakthrough"
+                href="/quiz/demo-business-breakthrough"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-lg px-8 py-3.5 text-sm font-medium transition-all hover:bg-white/5"
