@@ -1,4 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="6" fill="#F020B0"/>
-  <text x="16" y="23" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="22" fill="#FFFFFF">Q</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Midnight background with slight rounding -->
+  <rect width="100" height="100" fill="#0F0A1E" rx="18"/>
+  <!-- PQ in two colours -->
+  <text
+    x="50"
+    y="72"
+    font-family="'Plus Jakarta Sans', 'DM Sans', sans-serif"
+    font-size="58"
+    font-weight="700"
+    text-anchor="middle"
+    letter-spacing="-2"
+  >
+    <tspan fill="#FFFFFF">P</tspan><tspan fill="#D946EF">Q</tspan>
+  </text>
 </svg>
