@@ -580,6 +580,17 @@ export default function TemplateSalesPage() {
               </motion.div>
             ))}
           </div>
+          <div className="mt-12 text-center">
+            <a
+              href={stripeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+              style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
+            >
+              Activate this quiz — $97 &rarr;
+            </a>
+          </div>
         </motion.div>
       </section>
 
