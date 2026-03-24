@@ -447,13 +447,25 @@ export default function Admin() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>Delete {c.email}?</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    This will permanently delete their account, quiz, and all associated leads. This cannot be undone.
+                                    This will archive the client and permanently delete their account, quiz, and all associated leads.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
+                                <div className="py-2">
+                                  <Label className="text-xs text-muted-foreground">Reason (optional)</Label>
+                                  <Input
+                                    value={deleteReasons[c.id] || ''}
+                                    onChange={(e) => setDeleteReasons((p) => ({ ...p, [c.id]: e.target.value }))}
+                                    placeholder="e.g. cancelled subscription, spam account…"
+                                    className="mt-1"
+                                  />
+                                </div>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                                   <AlertDialogAction
-                                    onClick={() => handleAction('delete_client', { client_id: c.id, email: c.email }, 'Client deleted')}
+                                    onClick={() => {
+                                      handleAction('delete_client', { client_id: c.id, email: c.email, reason: deleteReasons[c.id] || 'manual_delete' }, 'Client deleted & archived');
+                                      loadArchived();
+                                    }}
                                     style={{ backgroundColor: C.red }}
                                   >
                                     Delete
