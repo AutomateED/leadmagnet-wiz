@@ -99,7 +99,7 @@ function Footer() {
         <div className="flex gap-5">
           <Link to="/terms" className="hover:opacity-80 transition-opacity">Terms</Link>
           <Link to="/privacy" className="hover:opacity-80 transition-opacity">Privacy</Link>
-          <Link to="/login" className="hover:opacity-80 transition-opacity">Login</Link>
+          <Link to="/contact" className="hover:opacity-80 transition-opacity">Contact</Link>
         </div>
       </div>
     </footer>
