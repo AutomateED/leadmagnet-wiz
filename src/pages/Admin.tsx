@@ -149,13 +149,6 @@ export default function Admin() {
     }
   }, [getHeaders, toast]);
 
-  const loadArchived = useCallback(async () => {
-    try {
-      const res = await adminAction('list_archived', {});
-      if (res.archived) setArchived(res.archived);
-    } catch { /* silent */ }
-  }, [adminAction]);
-
   const adminAction = useCallback(async (action: string, payload: object) => {
     const headers = await getHeaders();
     const r = await fetch(`${SUPABASE_URL}/functions/v1/admin-actions`, {
@@ -178,6 +171,12 @@ export default function Admin() {
       loadData();
     }
   }, [user?.email]);
+
+  useEffect(() => {
+    if (user?.email === ADMIN_EMAIL && adminAction) {
+      loadArchived();
+    }
+  }, [user?.email, loadArchived]);
 
   const handleGrant = async (e: React.FormEvent) => {
     e.preventDefault();
