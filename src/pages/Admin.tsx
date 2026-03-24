@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   RefreshCw, Users, UserCheck, Target, AlertTriangle, DollarSign,
-  KeyRound, Mail, Trash2, ExternalLink, ChevronDown, Shield,
+  KeyRound, Mail, Trash2, ExternalLink, ChevronDown, Shield, ArchiveRestore, Archive,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
