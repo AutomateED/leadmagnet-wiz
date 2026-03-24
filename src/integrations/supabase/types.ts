@@ -58,7 +58,6 @@ export type Database = {
       }
       clients: {
         Row: {
-          admin_notes: string | null
           business_name: string
           created_at: string | null
           email: string
@@ -69,7 +68,6 @@ export type Database = {
           template_type: string | null
         }
         Insert: {
-          admin_notes?: string | null
           business_name?: string
           created_at?: string | null
           email: string
@@ -80,7 +78,6 @@ export type Database = {
           template_type?: string | null
         }
         Update: {
-          admin_notes?: string | null
           business_name?: string
           created_at?: string | null
           email?: string
