@@ -48,7 +48,7 @@ export default function Dashboard() {
   const [quizzes, setQuizzes] = useState<QuizRow[]>([]);
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [config, setConfig] = useState<QuizConfig | null>(null);
-  const [slug, setSlug] = useState('');
+  const [dataLoading, setDataLoading] = useState(true);
   const isOnSubPage = location.pathname !== '/dashboard' && location.pathname !== '/dashboard/';
 
   // Redirect if not authenticated
