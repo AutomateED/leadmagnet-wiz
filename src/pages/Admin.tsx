@@ -149,8 +149,17 @@ export default function Admin() {
     }
   }, [getHeaders, toast]);
 
+  const loadArchived = useCallback(async () => {
+    try {
+      const res = await adminAction('list_archived', {});
+      if (res.archived) setArchived(res.archived);
+    } catch { /* silent */ }
+  }, []);
+
   useEffect(() => {
-    if (user?.email === ADMIN_EMAIL) loadData();
+    if (user?.email === ADMIN_EMAIL) {
+      loadData();
+    }
   }, [user?.email]);
 
   const adminAction = useCallback(async (action: string, payload: object) => {
