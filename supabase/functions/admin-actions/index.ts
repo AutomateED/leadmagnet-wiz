@@ -166,6 +166,67 @@ Deno.serve(async (req) => {
         })
       }
 
+      case 'list_archived': {
+        const { data: archived, error: archErr } = await supabase
+          .from('archived_clients')
+          .select('*')
+          .order('archived_at', { ascending: false })
+        if (archErr) throw archErr
+        return new Response(JSON.stringify({ success: true, archived: archived || [] }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+
+      case 'restore_client': {
+        const { client_id } = payload
+        if (!client_id) return new Response(JSON.stringify({ error: 'client_id is required' }), { status: 400, headers: corsHeaders })
+
+        const { data: arch, error: archErr } = await supabase.from('archived_clients').select('*').eq('id', client_id).single()
+        if (archErr || !arch) return new Response(JSON.stringify({ error: 'Archived client not found' }), { status: 404, headers: corsHeaders })
+
+        // Re-create auth user
+        const tempPassword = crypto.randomUUID()
+        const { data: newUser, error: createErr } = await supabase.auth.admin.createUser({
+          email: arch.email,
+          password: tempPassword,
+          email_confirm: true,
+        })
+        if (createErr) throw createErr
+        const newUserId = newUser.user.id
+
+        // Re-create client row
+        await supabase.from('clients').insert({
+          id: newUserId,
+          email: arch.email,
+          business_name: arch.business_name || '',
+          subscription_status: arch.subscription_status || 'active',
+          notes: arch.admin_notes || '',
+          template_type: arch.template_type || '',
+        })
+
+        // Re-create quiz configs if we have them
+        const quizConfigs = arch.quiz_configs as any[]
+        if (Array.isArray(quizConfigs)) {
+          for (const qc of quizConfigs) {
+            const { id: _id, client_id: _cid, ...rest } = qc
+            await supabase.from('quiz_configs').insert({
+              ...rest,
+              client_id: newUserId,
+            })
+          }
+        }
+
+        // Send password reset
+        await supabase.auth.admin.generateLink({ type: 'recovery', email: arch.email })
+
+        // Remove from archive
+        await supabase.from('archived_clients').delete().eq('id', client_id)
+
+        return new Response(JSON.stringify({ success: true, message: `Client ${arch.email} restored` }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+
       default:
         return new Response(JSON.stringify({ error: `Unknown action: ${action}` }), {
           status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
