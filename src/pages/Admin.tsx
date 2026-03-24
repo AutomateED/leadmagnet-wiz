@@ -108,6 +108,7 @@ export default function Admin() {
   // Notes state
   const [notesMap, setNotesMap] = useState<Record<string, string>>({});
   const [savedNotes, setSavedNotes] = useState<Record<string, boolean>>({});
+  const [deleteReasons, setDeleteReasons] = useState<Record<string, string>>({});
 
   // Redirect non-admin
   useEffect(() => {
