@@ -97,6 +97,8 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.footnote }}>
         <p>&copy; 2026 Pretaquiz</p>
         <div className="flex gap-5">
+          <Link to="/terms" className="hover:opacity-80 transition-opacity">Terms</Link>
+          <Link to="/privacy" className="hover:opacity-80 transition-opacity">Privacy</Link>
           <Link to="/login" className="hover:opacity-80 transition-opacity">Login</Link>
         </div>
       </div>
