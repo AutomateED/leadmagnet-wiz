@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
 
 interface Lead {
   id: string;
@@ -8,6 +11,7 @@ interface Lead {
   last_name: string | null;
   email: string;
   result_type: string | null;
+  quiz_slug: string;
   created_at: string | null;
 }
 
@@ -15,6 +19,7 @@ export default function Leads() {
   const { user } = useAuth();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filterSlug, setFilterSlug] = useState<string>('all');
 
   useEffect(() => {
     if (!user) return;
@@ -36,6 +41,16 @@ export default function Leads() {
     })();
   }, [user]);
 
+  const slugs = useMemo(() => {
+    const set = new Set(leads.map((l) => l.quiz_slug).filter(Boolean));
+    return Array.from(set).sort();
+  }, [leads]);
+
+  const filtered = useMemo(
+    () => (filterSlug === 'all' ? leads : leads.filter((l) => l.quiz_slug === filterSlug)),
+    [leads, filterSlug],
+  );
+
   const formatDate = (iso: string | null) => {
     if (!iso) return '—';
     const d = new Date(iso);
@@ -55,22 +70,42 @@ export default function Leads() {
 
   return (
     <div className="p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <h1 className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>Your Leads</h1>
-        <span
-          className="rounded-full px-3 py-0.5 text-xs font-semibold"
-          style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: '#D946EF' }}
-        >
-          {leads.length} lead{leads.length !== 1 ? 's' : ''}
-        </span>
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>Your Leads</h1>
+          <span
+            className="rounded-full px-3 py-0.5 text-xs font-semibold"
+            style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: '#D946EF' }}
+          >
+            {filtered.length} lead{filtered.length !== 1 ? 's' : ''}
+          </span>
+        </div>
+
+        {slugs.length > 1 && (
+          <Select value={filterSlug} onValueChange={setFilterSlug}>
+            <SelectTrigger className="w-[220px]" style={{ borderColor: 'rgba(217,70,239,0.25)' }}>
+              <SelectValue placeholder="All quizzes" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All quizzes</SelectItem>
+              {slugs.map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
       </div>
 
-      {leads.length === 0 ? (
+      {filtered.length === 0 ? (
         <div
           className="rounded-xl p-12 text-center"
           style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}
         >
-          <p style={{ color: '#6B5F80' }}>No leads yet — share your quiz link to get started.</p>
+          <p style={{ color: '#6B5F80' }}>
+            {leads.length === 0
+              ? 'No leads yet — share your quiz link to get started.'
+              : 'No leads match this filter.'}
+          </p>
         </div>
       ) : (
         <div
@@ -83,11 +118,12 @@ export default function Leads() {
                 <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Name</th>
                 <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Email</th>
                 <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Result Type</th>
+                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Quiz</th>
                 <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Date</th>
               </tr>
             </thead>
             <tbody>
-              {leads.map((lead) => (
+              {filtered.map((lead) => (
                 <tr
                   key={lead.id}
                   className="transition-colors hover:bg-[rgba(217,70,239,0.04)]"
@@ -108,6 +144,9 @@ export default function Leads() {
                     ) : (
                       <span style={{ color: '#9A8EAA' }}>—</span>
                     )}
+                  </td>
+                  <td className="px-5 py-3">
+                    <span className="text-xs font-mono" style={{ color: '#6B5F80' }}>{lead.quiz_slug}</span>
                   </td>
                   <td className="px-5 py-3" style={{ color: '#6B5F80' }}>{formatDate(lead.created_at)}</td>
                 </tr>
