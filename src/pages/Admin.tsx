@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import {
   RefreshCw, Users, UserCheck, Target, AlertTriangle, DollarSign,
-  KeyRound, Mail, Trash2, ExternalLink, ChevronDown, Shield,
+  KeyRound, Mail, Trash2, ExternalLink, ChevronDown, Shield, ArchiveRestore, Archive,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -79,6 +79,15 @@ interface LeadRow {
   client_business: string | null;
 }
 
+interface ArchivedRow {
+  id: string;
+  email: string;
+  business_name: string | null;
+  subscription_status: string | null;
+  lead_count: number | null;
+  archived_at: string | null;
+  archived_reason: string | null;
+}
 export default function Admin() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -88,7 +97,7 @@ export default function Admin() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [clients, setClients] = useState<ClientRow[]>([]);
   const [leads, setLeads] = useState<LeadRow[]>([]);
-
+  const [archived, setArchived] = useState<ArchivedRow[]>([]);
   // Grant access form
   const [grantEmail, setGrantEmail] = useState('');
   const [grantName, setGrantName] = useState('');
@@ -99,6 +108,7 @@ export default function Admin() {
   // Notes state
   const [notesMap, setNotesMap] = useState<Record<string, string>>({});
   const [savedNotes, setSavedNotes] = useState<Record<string, boolean>>({});
+  const [deleteReasons, setDeleteReasons] = useState<Record<string, string>>({});
 
   // Redirect non-admin
   useEffect(() => {
@@ -139,10 +149,6 @@ export default function Admin() {
     }
   }, [getHeaders, toast]);
 
-  useEffect(() => {
-    if (user?.email === ADMIN_EMAIL) loadData();
-  }, [user?.email]);
-
   const adminAction = useCallback(async (action: string, payload: object) => {
     const headers = await getHeaders();
     const r = await fetch(`${SUPABASE_URL}/functions/v1/admin-actions`, {
@@ -152,6 +158,25 @@ export default function Admin() {
     });
     return r.json();
   }, [getHeaders]);
+
+  const loadArchived = useCallback(async () => {
+    try {
+      const res = await adminAction('list_archived', {});
+      if (res.archived) setArchived(res.archived);
+    } catch { /* silent */ }
+  }, [adminAction]);
+
+  useEffect(() => {
+    if (user?.email === ADMIN_EMAIL) {
+      loadData();
+    }
+  }, [user?.email]);
+
+  useEffect(() => {
+    if (user?.email === ADMIN_EMAIL && adminAction) {
+      loadArchived();
+    }
+  }, [user?.email, loadArchived]);
 
   const handleGrant = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -422,13 +447,25 @@ export default function Admin() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>Delete {c.email}?</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    This will permanently delete their account, quiz, and all associated leads. This cannot be undone.
+                                    This will archive the client and permanently delete their account, quiz, and all associated leads.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
+                                <div className="py-2">
+                                  <Label className="text-xs text-muted-foreground">Reason (optional)</Label>
+                                  <Input
+                                    value={deleteReasons[c.id] || ''}
+                                    onChange={(e) => setDeleteReasons((p) => ({ ...p, [c.id]: e.target.value }))}
+                                    placeholder="e.g. cancelled subscription, spam account…"
+                                    className="mt-1"
+                                  />
+                                </div>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                                   <AlertDialogAction
-                                    onClick={() => handleAction('delete_client', { client_id: c.id, email: c.email }, 'Client deleted')}
+                                    onClick={() => {
+                                      handleAction('delete_client', { client_id: c.id, email: c.email, reason: deleteReasons[c.id] || 'manual_delete' }, 'Client deleted & archived');
+                                      loadArchived();
+                                    }}
                                     style={{ backgroundColor: C.red }}
                                   >
                                     Delete
@@ -536,6 +573,71 @@ export default function Admin() {
                 </div>
               </div>
             )}
+
+            {/* Section 7 — Archived Clients */}
+            <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: C.card, borderColor: C.border }}>
+              <div className="px-6 py-4 border-b flex items-center gap-2" style={{ borderColor: C.border }}>
+                <Archive className="h-4 w-4" style={{ color: C.muted }} />
+                <h2 className="text-base font-bold" style={{ color: C.white }}>Archived Clients ({archived.length})</h2>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm" style={{ color: C.body }}>
+                  <thead>
+                    <tr style={{ borderBottom: `1px solid ${C.border}` }}>
+                      {['Email', 'Business', 'Status', 'Leads', 'Archived', 'Reason', 'Actions'].map((h) => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: C.muted }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {archived.map((a) => (
+                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}` }} className="hover:bg-white/5 transition-colors">
+                        <td className="px-4 py-3 font-medium" style={{ color: C.white }}>{a.email}</td>
+                        <td className="px-4 py-3">{a.business_name || '—'}</td>
+                        <td className="px-4 py-3">
+                          <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${statusColor(a.subscription_status || 'inactive')}20`, color: statusColor(a.subscription_status || 'inactive') }}>
+                            {a.subscription_status || '—'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">{a.lead_count ?? 0}</td>
+                        <td className="px-4 py-3 text-xs">{a.archived_at ? new Date(a.archived_at).toLocaleDateString() : '—'}</td>
+                        <td className="px-4 py-3 text-xs">{a.archived_reason || '—'}</td>
+                        <td className="px-4 py-3">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="gap-1.5 text-xs"
+                                style={{ color: C.green }}
+                                onClick={async () => {
+                                  try {
+                                    const res = await adminAction('restore_client', { client_id: a.id });
+                                    if (res.error) throw new Error(res.error);
+                                    toast({ title: 'Client restored', description: res.message });
+                                    loadData();
+                                    loadArchived();
+                                  } catch (err: any) {
+                                    toast({ title: 'Error', description: err.message, variant: 'destructive' });
+                                  }
+                                }}
+                              >
+                                <ArchiveRestore className="h-3.5 w-3.5" />
+                                Restore
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Restore this client</TooltipContent>
+                          </Tooltip>
+                        </td>
+                      </tr>
+                    ))}
+                    {archived.length === 0 && (
+                      <tr><td colSpan={7} className="px-4 py-8 text-center" style={{ color: C.muted }}>No archived clients</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </>
         )}
       </div>

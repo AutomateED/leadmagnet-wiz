@@ -123,19 +123,35 @@ Deno.serve(async (req) => {
       }
 
       case 'delete_client': {
-        const { client_id, email } = payload
+        const { client_id, email, reason } = payload
         if (!client_id) return new Response(JSON.stringify({ error: 'client_id is required' }), { status: 400, headers: corsHeaders })
 
-        // Delete quiz configs first (cascade should handle, but be explicit)
+        // Fetch client info for archiving
+        const { data: clientData } = await supabase.from('clients').select('*').eq('id', client_id).single()
+        const { data: quizData } = await supabase.from('quiz_configs').select('*').eq('client_id', client_id)
+        const { data: leadData } = await supabase.from('leads').select('id').eq('client_id', client_id)
+
+        // Archive client
+        await supabase.from('archived_clients').insert({
+          id: client_id,
+          email: email || clientData?.email || '',
+          business_name: clientData?.business_name || null,
+          subscription_status: clientData?.subscription_status || null,
+          admin_notes: clientData?.notes || clientData?.admin_notes || null,
+          template_type: clientData?.template_type || (quizData?.[0]?.template_type) || null,
+          lead_count: leadData?.length || 0,
+          quiz_configs: quizData as any,
+          archived_reason: reason || 'manual_delete',
+          created_at: clientData?.created_at || null,
+        })
+
+        // Delete quiz configs, leads, client row, auth user
         await supabase.from('quiz_configs').delete().eq('client_id', client_id)
-        // Delete leads
         await supabase.from('leads').delete().eq('client_id', client_id)
-        // Delete client row
         await supabase.from('clients').delete().eq('id', client_id)
-        // Delete auth user
         await supabase.auth.admin.deleteUser(client_id)
 
-        return new Response(JSON.stringify({ success: true, message: `Client ${email || client_id} deleted` }), {
+        return new Response(JSON.stringify({ success: true, message: `Client ${email || client_id} deleted & archived` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         })
       }
@@ -146,6 +162,67 @@ Deno.serve(async (req) => {
         const { error } = await supabase.from('clients').update({ notes: notes || '' }).eq('id', client_id)
         if (error) throw error
         return new Response(JSON.stringify({ success: true }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+
+      case 'list_archived': {
+        const { data: archived, error: archErr } = await supabase
+          .from('archived_clients')
+          .select('*')
+          .order('archived_at', { ascending: false })
+        if (archErr) throw archErr
+        return new Response(JSON.stringify({ success: true, archived: archived || [] }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        })
+      }
+
+      case 'restore_client': {
+        const { client_id } = payload
+        if (!client_id) return new Response(JSON.stringify({ error: 'client_id is required' }), { status: 400, headers: corsHeaders })
+
+        const { data: arch, error: archErr } = await supabase.from('archived_clients').select('*').eq('id', client_id).single()
+        if (archErr || !arch) return new Response(JSON.stringify({ error: 'Archived client not found' }), { status: 404, headers: corsHeaders })
+
+        // Re-create auth user
+        const tempPassword = crypto.randomUUID()
+        const { data: newUser, error: createErr } = await supabase.auth.admin.createUser({
+          email: arch.email,
+          password: tempPassword,
+          email_confirm: true,
+        })
+        if (createErr) throw createErr
+        const newUserId = newUser.user.id
+
+        // Re-create client row
+        await supabase.from('clients').insert({
+          id: newUserId,
+          email: arch.email,
+          business_name: arch.business_name || '',
+          subscription_status: arch.subscription_status || 'active',
+          notes: arch.admin_notes || '',
+          template_type: arch.template_type || '',
+        })
+
+        // Re-create quiz configs if we have them
+        const quizConfigs = arch.quiz_configs as any[]
+        if (Array.isArray(quizConfigs)) {
+          for (const qc of quizConfigs) {
+            const { id: _id, client_id: _cid, ...rest } = qc
+            await supabase.from('quiz_configs').insert({
+              ...rest,
+              client_id: newUserId,
+            })
+          }
+        }
+
+        // Send password reset
+        await supabase.auth.admin.generateLink({ type: 'recovery', email: arch.email })
+
+        // Remove from archive
+        await supabase.from('archived_clients').delete().eq('id', client_id)
+
+        return new Response(JSON.stringify({ success: true, message: `Client ${arch.email} restored` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         })
       }

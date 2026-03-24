@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      archived_clients: {
+        Row: {
+          admin_notes: string | null
+          archived_at: string | null
+          archived_reason: string | null
+          business_name: string | null
+          created_at: string | null
+          email: string
+          id: string
+          lead_count: number | null
+          quiz_configs: Json | null
+          subscription_status: string | null
+          template_type: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          archived_at?: string | null
+          archived_reason?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          email: string
+          id: string
+          lead_count?: number | null
+          quiz_configs?: Json | null
+          subscription_status?: string | null
+          template_type?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          archived_at?: string | null
+          archived_reason?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          lead_count?: number | null
+          quiz_configs?: Json | null
+          subscription_status?: string | null
+          template_type?: string | null
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           admin_notes: string | null
