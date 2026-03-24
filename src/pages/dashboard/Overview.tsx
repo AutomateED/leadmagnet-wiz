@@ -99,10 +99,10 @@ export default function Overview({ config, slug }: OverviewProps) {
       .select('id', { count: 'exact', head: true })
       .eq('client_id', user.id)
       .then(({ count, error }) => {
-        if (!error) setLeadCount(count && count > 0 ? count : 47);
-        else setLeadCount(47);
+        if (!error) setLeadCount(count ?? 0);
+        else setLeadCount(0);
       });
-  }, [user]);
+  }, [user?.id]);
 
   const completed = STEPS.filter((s) => s.check(config)).length;
   const total = STEPS.length;
