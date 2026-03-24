@@ -51,6 +51,8 @@ export default function Dashboard() {
   const [slug, setSlug] = useState('');
   const [dataLoading, setDataLoading] = useState(true);
 
+  const isOnSubPage = location.pathname !== '/dashboard' && location.pathname !== '/dashboard/';
+
   // Redirect if not authenticated
   useEffect(() => {
     if (!authLoading && !user) navigate('/login');
@@ -58,7 +60,8 @@ export default function Dashboard() {
 
   // Fetch all quizzes for this client
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
+    let cancelled = false;
     (async () => {
       setDataLoading(true);
       const { data, error } = await supabase
@@ -66,6 +69,7 @@ export default function Dashboard() {
         .select('*')
         .eq('client_id', user.id);
 
+      if (cancelled) return;
       if (error) {
         console.error('Failed to load quizzes:', error);
         setQuizzes([]);
@@ -74,7 +78,15 @@ export default function Dashboard() {
       }
       setDataLoading(false);
     })();
-  }, [user]);
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
+  // Auto-select first quiz when navigating to a sub-route with no selection
+  useEffect(() => {
+    if (!selectedQuizId && quizzes.length > 0 && isOnSubPage) {
+      setSelectedQuizId(quizzes[0].id);
+    }
+  }, [quizzes, selectedQuizId, isOnSubPage]);
 
   // When a quiz is selected, derive config & slug
   useEffect(() => {
@@ -109,8 +121,6 @@ export default function Dashboard() {
   }
 
   const handleSignOut = async () => { await signOut(); navigate('/login'); };
-
-  const isOnSubPage = location.pathname !== '/dashboard' && location.pathname !== '/dashboard/';
 
   return (
     <div className="flex min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
