@@ -123,19 +123,35 @@ Deno.serve(async (req) => {
       }
 
       case 'delete_client': {
-        const { client_id, email } = payload
+        const { client_id, email, reason } = payload
         if (!client_id) return new Response(JSON.stringify({ error: 'client_id is required' }), { status: 400, headers: corsHeaders })
 
-        // Delete quiz configs first (cascade should handle, but be explicit)
+        // Fetch client info for archiving
+        const { data: clientData } = await supabase.from('clients').select('*').eq('id', client_id).single()
+        const { data: quizData } = await supabase.from('quiz_configs').select('*').eq('client_id', client_id)
+        const { data: leadData } = await supabase.from('leads').select('id').eq('client_id', client_id)
+
+        // Archive client
+        await supabase.from('archived_clients').insert({
+          id: client_id,
+          email: email || clientData?.email || '',
+          business_name: clientData?.business_name || null,
+          subscription_status: clientData?.subscription_status || null,
+          admin_notes: clientData?.notes || clientData?.admin_notes || null,
+          template_type: clientData?.template_type || (quizData?.[0]?.template_type) || null,
+          lead_count: leadData?.length || 0,
+          quiz_configs: quizData as any,
+          archived_reason: reason || 'manual_delete',
+          created_at: clientData?.created_at || null,
+        })
+
+        // Delete quiz configs, leads, client row, auth user
         await supabase.from('quiz_configs').delete().eq('client_id', client_id)
-        // Delete leads
         await supabase.from('leads').delete().eq('client_id', client_id)
-        // Delete client row
         await supabase.from('clients').delete().eq('id', client_id)
-        // Delete auth user
         await supabase.auth.admin.deleteUser(client_id)
 
-        return new Response(JSON.stringify({ success: true, message: `Client ${email || client_id} deleted` }), {
+        return new Response(JSON.stringify({ success: true, message: `Client ${email || client_id} deleted & archived` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         })
       }
