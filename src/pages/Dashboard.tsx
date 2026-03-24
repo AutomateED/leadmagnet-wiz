@@ -117,7 +117,6 @@ export default function Dashboard() {
 
   const handleSignOut = async () => { await signOut(); navigate('/login'); };
 
-  const isOnSubPage = location.pathname !== '/dashboard' && location.pathname !== '/dashboard/';
 
   return (
     <div className="flex min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
