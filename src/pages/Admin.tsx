@@ -573,6 +573,71 @@ export default function Admin() {
                 </div>
               </div>
             )}
+
+            {/* Section 7 — Archived Clients */}
+            <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: C.card, borderColor: C.border }}>
+              <div className="px-6 py-4 border-b flex items-center gap-2" style={{ borderColor: C.border }}>
+                <Archive className="h-4 w-4" style={{ color: C.muted }} />
+                <h2 className="text-base font-bold" style={{ color: C.white }}>Archived Clients ({archived.length})</h2>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm" style={{ color: C.body }}>
+                  <thead>
+                    <tr style={{ borderBottom: `1px solid ${C.border}` }}>
+                      {['Email', 'Business', 'Status', 'Leads', 'Archived', 'Reason', 'Actions'].map((h) => (
+                        <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: C.muted }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {archived.map((a) => (
+                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}` }} className="hover:bg-white/5 transition-colors">
+                        <td className="px-4 py-3 font-medium" style={{ color: C.white }}>{a.email}</td>
+                        <td className="px-4 py-3">{a.business_name || '—'}</td>
+                        <td className="px-4 py-3">
+                          <span className="inline-block px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${statusColor(a.subscription_status || 'inactive')}20`, color: statusColor(a.subscription_status || 'inactive') }}>
+                            {a.subscription_status || '—'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3">{a.lead_count ?? 0}</td>
+                        <td className="px-4 py-3 text-xs">{a.archived_at ? new Date(a.archived_at).toLocaleDateString() : '—'}</td>
+                        <td className="px-4 py-3 text-xs">{a.archived_reason || '—'}</td>
+                        <td className="px-4 py-3">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="gap-1.5 text-xs"
+                                style={{ color: C.green }}
+                                onClick={async () => {
+                                  try {
+                                    const res = await adminAction('restore_client', { client_id: a.id });
+                                    if (res.error) throw new Error(res.error);
+                                    toast({ title: 'Client restored', description: res.message });
+                                    loadData();
+                                    loadArchived();
+                                  } catch (err: any) {
+                                    toast({ title: 'Error', description: err.message, variant: 'destructive' });
+                                  }
+                                }}
+                              >
+                                <ArchiveRestore className="h-3.5 w-3.5" />
+                                Restore
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>Restore this client</TooltipContent>
+                          </Tooltip>
+                        </td>
+                      </tr>
+                    ))}
+                    {archived.length === 0 && (
+                      <tr><td colSpan={7} className="px-4 py-8 text-center" style={{ color: C.muted }}>No archived clients</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </>
         )}
       </div>
