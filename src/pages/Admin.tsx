@@ -97,7 +97,7 @@ export default function Admin() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [clients, setClients] = useState<ClientRow[]>([]);
   const [leads, setLeads] = useState<LeadRow[]>([]);
-
+  const [archived, setArchived] = useState<ArchivedRow[]>([]);
   // Grant access form
   const [grantEmail, setGrantEmail] = useState('');
   const [grantName, setGrantName] = useState('');
