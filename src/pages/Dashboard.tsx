@@ -58,7 +58,7 @@ export default function Dashboard() {
 
   // Fetch all quizzes for this client
   useEffect(() => {
-    if (!user) return;
+    if (!user?.id) return;
     (async () => {
       setDataLoading(true);
       const { data, error } = await supabase
@@ -74,7 +74,14 @@ export default function Dashboard() {
       }
       setDataLoading(false);
     })();
-  }, [user]);
+  }, [user?.id]);
+
+  // Auto-select first quiz when navigating to a sub-route with no selection
+  useEffect(() => {
+    if (!selectedQuizId && quizzes.length > 0 && isOnSubPage) {
+      setSelectedQuizId(quizzes[0].id);
+    }
+  }, [quizzes, selectedQuizId, location.pathname]);
 
   // When a quiz is selected, derive config & slug
   useEffect(() => {
