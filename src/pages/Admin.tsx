@@ -79,6 +79,15 @@ interface LeadRow {
   client_business: string | null;
 }
 
+interface ArchivedRow {
+  id: string;
+  email: string;
+  business_name: string | null;
+  subscription_status: string | null;
+  lead_count: number | null;
+  archived_at: string | null;
+  archived_reason: string | null;
+}
 export default function Admin() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
