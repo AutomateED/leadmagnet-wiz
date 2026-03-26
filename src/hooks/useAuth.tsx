@@ -22,6 +22,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+  const locationRef = useRef(location.pathname);
+
+  useEffect(() => { locationRef.current = location.pathname; }, [location.pathname]);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
