@@ -151,7 +151,10 @@ export default function HomePage() {
               className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed font-light"
               style={{ color: C.body }}
             >
-              A PretaQuiz turns visitors into qualified leads, automatically. They get a personalised result. You get their name, email, and exactly what they need. No tech skills. No monthly fees. Live in under an hour.
+              A PretaQuiz turns visitors into qualified leads, automatically.
+              <br />They get a personalised result.
+              <br />You get their name, email, and exactly what they need.
+              <br />No tech skills. No monthly fees. Live in under an hour.
             </motion.p>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
