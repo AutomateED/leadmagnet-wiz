@@ -9,6 +9,7 @@ import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
 import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
+import { calculateResult } from '@/utils/scoring';
 import { supabase } from '@/integrations/supabase/client';
 
 export default function QuizPage() {
