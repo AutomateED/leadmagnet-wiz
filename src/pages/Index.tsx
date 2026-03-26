@@ -1,4 +1,5 @@
 import { useConfig } from '@/hooks/useConfig';
+import { calculateResult } from '@/utils/scoring';
 import { useQuiz } from '@/hooks/useQuiz';
 import StartScreen from '@/components/quiz/StartScreen';
 import QuestionScreen from '@/components/quiz/QuestionScreen';
@@ -62,6 +63,10 @@ export default function Index() {
     case 'email':
       return <EmailGate brandColour={config.brandColour} onSubmit={handleEmailSubmit} />;
     case 'confirmation':
-      return <ConfirmationScreen config={config} email={quiz.userData.email} />;
+    case 'confirmation': {
+      const confirmResult = calculateResult(quiz.answers);
+      const confirmCopy = config.resultTexts[confirmResult];
+      return <ConfirmationScreen config={config} email={quiz.userData.email} resultType={confirmResult} resultCopy={confirmCopy} />;
+    }
   }
 }
