@@ -289,7 +289,7 @@ const FAQS = [
 ];
 
 /* ─── FOOTER ─── */
-function Footer() {
+function Footer({ C }: { C: typeof BASE_PALETTE }) {
   return (
     <footer className="border-t py-8" style={{ borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.footnote }}>
