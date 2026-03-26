@@ -56,6 +56,7 @@ Deno.serve(async (req) => {
     const session = event.data.object as Stripe.Checkout.Session;
     const email = session.customer_details?.email;
     const name = session.customer_details?.name ?? "";
+    const templateType = (session.metadata?.template_type as string) || 'business-breakthrough';
 
     if (!email) {
       console.error("No email in checkout session");
