@@ -174,7 +174,7 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
 };
 
 /* ─── SCARCITY BAR ─── */
-function ScarcityBar() {
+function ScarcityBar({ C }: { C: typeof BASE_PALETTE }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
