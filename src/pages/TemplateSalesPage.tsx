@@ -282,7 +282,7 @@ export default function TemplateSalesPage() {
   const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
-    document.title = 'Pretaquiz — Turn Visitors Into Qualified Leads';
+    document.title = 'PretaQuiz — Turn Visitors Into Qualified Leads';
   }, []);
 
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
