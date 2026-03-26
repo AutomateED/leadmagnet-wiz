@@ -314,13 +314,23 @@ export default function TemplateSalesPage() {
 
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
+  const C = { ...BASE_PALETTE, ...TEMPLATE_PALETTES[slug] };
   const stripeUrl = STRIPE_URLS[slug];
   const content = TEMPLATE_CONTENT[slug];
   const howSteps = getHowSteps(content.howStep2Desc);
 
+  // Helper to create rgba from hex for accent-based transparency
+  const accentRgba = (opacity: number) => {
+    const hex = C.accent.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r},${g},${b},${opacity})`;
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
-      <Nav stripeUrl={stripeUrl} />
+      <Nav stripeUrl={stripeUrl} C={C} />
 
       {/* ─── HERO ─── */}
       <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
