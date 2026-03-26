@@ -1,0 +1,77 @@
+-- First create the demo client entry
+INSERT INTO clients (id, business_name, email, subscription_status, notes)
+VALUES ('00000000-0000-0000-0000-000000000000', 'PretaQuiz Demo', 'demo@pretaquiz.com', 'active', 'System demo account — do not delete')
+ON CONFLICT (id) DO NOTHING;
+
+-- Now insert all 4 demo quiz configs
+INSERT INTO quiz_configs (client_id, slug, quiz_name, template_type, full_name, business_name, email, brand_colour, font_family, logo_url, cta_text, cta_url, cta_tagline, questions, result_texts)
+VALUES
+(
+  '00000000-0000-0000-0000-000000000000',
+  'demo-business-breakthrough',
+  'Business Breakthrough Quiz',
+  'business-breakthrough',
+  'Sarah Mitchell',
+  'Sarah Mitchell Coaching',
+  'demo@pretaquiz.com',
+  '#C9A96E',
+  'Playfair Display',
+  '',
+  'Book Your Free Discovery Call',
+  'https://pretaquiz.com',
+  'Ready to break through? Let''s talk.',
+  '[{"id":1,"text":"Where are you in your business right now?","options":[{"letter":"A","text":"Just starting out — finding my feet"},{"letter":"B","text":"Growing, but results are inconsistent"},{"letter":"C","text":"Stuck — I have hit a ceiling"},{"letter":"D","text":"Ready to scale to the next level"}]},{"id":2,"text":"What is your biggest frustration right now?","options":[{"letter":"A","text":"I am not attracting enough clients"},{"letter":"B","text":"My income is unpredictable month to month"},{"letter":"C","text":"I have no time — I am doing everything myself"},{"letter":"D","text":"I know what I want but I am unclear on how to get there"}]},{"id":3,"text":"When you think about your business goals, you mostly feel...","options":[{"letter":"A","text":"Excited but completely overwhelmed"},{"letter":"B","text":"Confused about what to do next"},{"letter":"C","text":"Defeated — like I keep trying but nothing sticks"},{"letter":"D","text":"Quietly confident but ready for a push"}]},{"id":4,"text":"How are most of your clients finding you right now?","options":[{"letter":"A","text":"Word of mouth and referrals only"},{"letter":"B","text":"Social media — but it is hit and miss"},{"letter":"C","text":"My website (or I wish they were!)"},{"letter":"D","text":"Honestly, I am not getting enough clients from anywhere"}]},{"id":5,"text":"How clear are you on exactly who you help and how?","options":[{"letter":"A","text":"Crystal clear — I know my niche inside out"},{"letter":"B","text":"Mostly clear but I second-guess myself"},{"letter":"C","text":"A bit fuzzy — it changes depending on who I am talking to"},{"letter":"D","text":"Completely lost — I try to help everyone"}]},{"id":6,"text":"What have you already tried to grow your business?","options":[{"letter":"A","text":"Online courses and self-study"},{"letter":"B","text":"Previous coaching or mentoring"},{"letter":"C","text":"DIY — figuring it out as I go"},{"letter":"D","text":"I have not really tried anything structured yet"}]},{"id":7,"text":"If you had one breakthrough in the next 90 days, it would be...","options":[{"letter":"A","text":"A consistent flow of dream clients"},{"letter":"B","text":"Predictable, reliable income"},{"letter":"C","text":"Getting out of overwhelm and having a clear plan"},{"letter":"D","text":"The confidence to charge what I am worth and show up fully"}]}]'::jsonb,
+  '{"The Invisible Expert":"You have real skills, deep expertise, and a genuine desire to help your clients transform. The problem is not your ability — it is your visibility. Your ideal clients do not know you exist yet. You are the best-kept secret in your niche, and that needs to change. The good news? This is the most fixable problem in business. With the right positioning, messaging, and a consistent way to get in front of the right people, everything shifts.","The Overwhelmed Operator":"You are busy — maybe too busy. You are working hard, serving clients, wearing every hat in the business, and somehow still not getting the results that match your effort. The issue is not your work ethic — it is the lack of systems and structure underneath everything you do. When you are doing everything yourself, there is no room to grow. What you need is not more hustle. You need a smarter way of working.","The Confident Starter":"You are at the beginning of something exciting, and the energy you are bringing is everything. But right now, the path forward feels unclear — there are too many options, too much noise, and not enough certainty about which direction to go. What you need is a solid foundation: clarity on who you serve, what you offer, and how to communicate it.","The Plateau Breaker":"You have done the hard work of building a business that works — and now you are frustrated that it is not growing the way you know it should. You have hit a ceiling, and the strategies that got you here are not getting you to the next level. What you need is not more tactics — it is a strategic shift."}'::jsonb
+),
+(
+  '00000000-0000-0000-0000-000000000000',
+  'demo-mindset-mastery',
+  'Mindset Mastery Quiz',
+  'mindset-mastery',
+  'Sarah Mitchell',
+  'Sarah Mitchell Coaching',
+  'demo@pretaquiz.com',
+  '#7C3AED',
+  'Playfair Display',
+  '',
+  'Book Your Free Discovery Call',
+  'https://pretaquiz.com',
+  'Ready to shift your mindset? Let''s talk.',
+  '[{"id":1,"text":"When something does not go to plan, what is your first instinct?","options":[{"letter":"A","text":"Analyse what went wrong in detail"},{"letter":"B","text":"Push through and try harder"},{"letter":"C","text":"Feel frustrated and take a step back"},{"letter":"D","text":"Look for a new angle or approach"}]},{"id":2,"text":"How do you typically handle self-doubt?","options":[{"letter":"A","text":"I research more until I feel prepared"},{"letter":"B","text":"I ignore it and keep going"},{"letter":"C","text":"It stops me from taking action"},{"letter":"D","text":"I acknowledge it and move forward anyway"}]},{"id":3,"text":"When you compare yourself to others in your field, you usually feel...","options":[{"letter":"A","text":"Like I need more qualifications first"},{"letter":"B","text":"Frustrated that I am not further ahead"},{"letter":"C","text":"Overwhelmed by how much there is to learn"},{"letter":"D","text":"Motivated to carve my own path"}]},{"id":4,"text":"What is your relationship with failure?","options":[{"letter":"A","text":"I avoid situations where I might fail"},{"letter":"B","text":"I see it as a sign I need to work harder"},{"letter":"C","text":"It confirms my worst fears about myself"},{"letter":"D","text":"I see it as feedback and adjust"}]},{"id":5,"text":"How do you make important decisions?","options":[{"letter":"A","text":"I gather all possible information first"},{"letter":"B","text":"I go with my gut and act fast"},{"letter":"C","text":"I ask everyone else what they think"},{"letter":"D","text":"I weigh options then commit fully"}]},{"id":6,"text":"When you imagine your ideal life 12 months from now, what comes up?","options":[{"letter":"A","text":"Excitement mixed with but how?"},{"letter":"B","text":"Determination — I just need to push harder"},{"letter":"C","text":"Honestly, it feels unrealistic"},{"letter":"D","text":"Clarity — I can see the path forming"}]}]'::jsonb,
+  '{"The Invisible Expert":"You are The Analyser. You seek certainty before you act. This protects you — but it can also keep you in preparation mode indefinitely. Your pattern is to over-research, over-plan, and wait until you feel ready. The truth? You are already more ready than you think.","The Overwhelmed Operator":"You are The Striver. You believe the answer is always more effort. When things are not working, you double down. But hustle without alignment leads to burnout, not breakthroughs. What you need is not more grit — it is a smarter relationship with your own energy.","The Confident Starter":"You are The Protector. Your mind''s primary job is keeping you safe — and it is very good at it. But safety and growth rarely coexist. Your pattern is to avoid risk, seek external validation, and stay in your comfort zone. What you need is not fearlessness — it is the ability to feel fear and choose action anyway.","The Plateau Breaker":"You are The Expander. You have done significant inner work and you are ready for the next level. Your pattern is growth-oriented, adaptable, and self-aware. What you need is not a mindset overhaul — it is a bigger container for your ambition."}'::jsonb
+),
+(
+  '00000000-0000-0000-0000-000000000000',
+  'demo-leadership-style',
+  'Leadership Style Quiz',
+  'leadership-style',
+  'Sarah Mitchell',
+  'Sarah Mitchell Coaching',
+  'demo@pretaquiz.com',
+  '#0EA5E9',
+  'Playfair Display',
+  '',
+  'Book Your Free Discovery Call',
+  'https://pretaquiz.com',
+  'Ready to lead differently? Let''s talk.',
+  '[{"id":1,"text":"When your team faces a difficult decision, what do you typically do?","options":[{"letter":"A","text":"Make the call and move forward"},{"letter":"B","text":"Consult the team then decide"},{"letter":"C","text":"Hand it to the most capable person"},{"letter":"D","text":"Facilitate a group discussion to reach consensus"}]},{"id":2,"text":"How do you handle underperformance on your team?","options":[{"letter":"A","text":"Address it directly and immediately"},{"letter":"B","text":"Have a private conversation to understand the cause"},{"letter":"C","text":"Restructure their role to play to strengths"},{"letter":"D","text":"Give them space and hope it resolves itself"}]},{"id":3,"text":"In meetings, you are most likely to...","options":[{"letter":"A","text":"Set the agenda and drive the pace"},{"letter":"B","text":"Listen first, then share my perspective"},{"letter":"C","text":"Delegate the meeting to someone else"},{"letter":"D","text":"Ensure everyone has a chance to speak"}]},{"id":4,"text":"When conflict arises between team members, you...","options":[{"letter":"A","text":"Step in and resolve it quickly"},{"letter":"B","text":"Coach both sides to find common ground"},{"letter":"C","text":"Let them work it out themselves"},{"letter":"D","text":"Create a structured process for resolution"}]},{"id":5,"text":"How do you approach setting goals for your team?","options":[{"letter":"A","text":"I set ambitious targets and expect results"},{"letter":"B","text":"I collaborate with the team to set shared goals"},{"letter":"C","text":"I let each person set their own goals"},{"letter":"D","text":"I focus on team culture first, goals second"}]},{"id":6,"text":"What energises you most as a leader?","options":[{"letter":"A","text":"Hitting targets and seeing measurable progress"},{"letter":"B","text":"Watching team members grow and develop"},{"letter":"C","text":"Building a team that runs without me"},{"letter":"D","text":"Creating a culture people love being part of"}]},{"id":7,"text":"When you receive critical feedback, your instinct is to...","options":[{"letter":"A","text":"Challenge it — I trust my judgement"},{"letter":"B","text":"Reflect on it privately and adapt"},{"letter":"C","text":"Ask others if they agree"},{"letter":"D","text":"Thank them and look for the lesson"}]}]'::jsonb,
+  '{"The Invisible Expert":"You are The Decisive Driver. You move fast and set clear direction. Teams respect your confidence — but may hesitate to bring you problems early. Your strength is execution, but your growth edge is listening.","The Overwhelmed Operator":"You are The Empathetic Coach. You lead through relationships and personal investment in your people. Your team trusts you deeply — but you may be carrying too much of their weight. Your strength is connection, but your growth edge is boundaries.","The Confident Starter":"You are The Strategic Delegator. You build capable teams and trust them to deliver. Your instinct is to empower — but sometimes that looks like absence. Your strength is systems thinking, but your growth edge is presence.","The Plateau Breaker":"You are The Culture Builder. You lead by creating environments where people thrive. Your team loves working for you — but you may avoid hard decisions to protect harmony. Your strength is vision, but your growth edge is courage."}'::jsonb
+),
+(
+  '00000000-0000-0000-0000-000000000000',
+  'demo-wealth-readiness',
+  'Wealth Readiness Quiz',
+  'wealth-readiness',
+  'Sarah Mitchell',
+  'Sarah Mitchell Coaching',
+  'demo@pretaquiz.com',
+  '#10B981',
+  'Playfair Display',
+  '',
+  'Book Your Free Discovery Call',
+  'https://pretaquiz.com',
+  'Ready to build real wealth? Let''s talk.',
+  '[{"id":1,"text":"When an unexpected expense comes up, what is your honest reaction?","options":[{"letter":"A","text":"I have a plan for this"},{"letter":"B","text":"I manage but it sets me back"},{"letter":"C","text":"It causes real stress"},{"letter":"D","text":"I try not to think about it"}]},{"id":2,"text":"How would you describe your relationship with money right now?","options":[{"letter":"A","text":"Cautious — I save but rarely invest"},{"letter":"B","text":"Reactive — I deal with it when I have to"},{"letter":"C","text":"Avoidant — I do not look at my accounts often"},{"letter":"D","text":"Intentional — I have a system that works"}]},{"id":3,"text":"When you think about building wealth, you feel...","options":[{"letter":"A","text":"Interested but unsure where to start"},{"letter":"B","text":"Frustrated — I feel behind where I should be"},{"letter":"C","text":"Anxious — money feels complicated and risky"},{"letter":"D","text":"Confident — I just need to optimise what I have"}]},{"id":4,"text":"How do you typically make financial decisions?","options":[{"letter":"A","text":"Research thoroughly before committing"},{"letter":"B","text":"Go with what feels safe and familiar"},{"letter":"C","text":"Avoid the decision until I have to make it"},{"letter":"D","text":"Weigh risk vs reward and act decisively"}]},{"id":5,"text":"What is the biggest thing holding you back financially?","options":[{"letter":"A","text":"Not knowing the right strategy"},{"letter":"B","text":"Inconsistent income or cash flow"},{"letter":"C","text":"Fear of making the wrong move"},{"letter":"D","text":"Nothing major — I am ready for the next level"}]},{"id":6,"text":"If you had £10,000 spare right now, what would you do?","options":[{"letter":"A","text":"Save it — you never know what is coming"},{"letter":"B","text":"Pay off debt or cover expenses"},{"letter":"C","text":"I honestly do not know"},{"letter":"D","text":"Invest it in something with growth potential"}]}]'::jsonb,
+  '{"The Invisible Expert":"You are The Cautious Saver. You are disciplined and risk-aware. But your caution may be costing you the growth you are actually capable of. You protect what you have — which is smart — but wealth is not built by saving alone. What you need is a framework for intelligent risk.","The Overwhelmed Operator":"You are The Reactive Manager. You handle money as it comes — bills, expenses, the occasional windfall. But without a system, you are always playing catch-up. What you need is not more money — it is a structure that makes every pound work harder.","The Confident Starter":"You are The Money Avoider. You know you should be doing more with your finances, but the complexity and fear keep you stuck. This is not about intelligence — it is about confidence. What you need is a simple, judgment-free starting point.","The Plateau Breaker":"You are The Growth-Ready Investor. You have built a solid foundation and you are ready to accelerate. You understand money, you manage it well, and now you need a strategy for the next level."}'::jsonb
+)
+ON CONFLICT (slug) DO NOTHING;
