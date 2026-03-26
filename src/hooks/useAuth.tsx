@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
 
       if (event === 'SIGNED_IN' && session) {
-        const shouldRedirect = AUTH_ROUTES.includes(location.pathname);
+        const shouldRedirect = AUTH_ROUTES.includes(locationRef.current);
         if (shouldRedirect) {
           navigate('/dashboard/overview', { replace: true });
         }
