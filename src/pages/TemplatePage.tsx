@@ -70,7 +70,7 @@ function Hero() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground"
             >
-              A done-for-you quiz funnel that helps your prospects self-identify their biggest challenge — so you can follow up with the right message, every time.
+              A ready-made quiz funnel you customise yourself — helping your prospects self-identify their biggest challenge — so you can follow up with the right message, every time.
             </motion.p>
 
             <div className="mt-8 flex flex-wrap gap-3">
