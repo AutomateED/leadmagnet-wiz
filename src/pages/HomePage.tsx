@@ -108,7 +108,7 @@ function Footer() {
 
 export default function HomePage() {
   useEffect(() => {
-    document.title = 'Pretaquiz — Done-for-You Quiz Funnels for Coaches';
+    document.title = 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour';
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
