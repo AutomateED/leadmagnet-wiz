@@ -70,11 +70,15 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Check if user already exists
-    const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers();
-    const existingUser = existingUsers?.users?.find(
-      (u) => u.email?.toLowerCase() === email.toLowerCase()
-    );
+    // Check if user already exists — direct lookup instead of listing all users
+    let existingUser = null;
+    const { data: userList } = await supabaseAdmin.auth.admin.listUsers({
+      filter: email.toLowerCase(),
+      perPage: 1,
+    });
+    if (userList?.users?.length) {
+      existingUser = userList.users[0];
+    }
 
     if (existingUser) {
       // Update subscription status to active if they already exist
