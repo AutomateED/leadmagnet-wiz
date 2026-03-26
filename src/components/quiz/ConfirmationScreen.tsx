@@ -4,9 +4,11 @@ import type { QuizConfig } from '@/hooks/useConfig';
 interface ConfirmationScreenProps {
   config: QuizConfig;
   email: string;
+  resultType: string;
+  resultCopy: string;
 }
 
-export default function ConfirmationScreen({ config, email }: ConfirmationScreenProps) {
+export default function ConfirmationScreen({ config, email, resultType, resultCopy }: ConfirmationScreenProps) {
   const brandColour = config.brandColour;
 
   return (
@@ -41,12 +43,11 @@ export default function ConfirmationScreen({ config, email }: ConfirmationScreen
           </svg>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-semibold" style={{ color: '#0F0A1E' }}>
-          It's on its way!
+        <h2 className="text-3xl md:text-4xl font-semibold" style={{ color: '#0F0A1E' }}>
+          Your result: {resultType}
         </h2>
-        <p className="mt-4 text-lg leading-relaxed" style={{ color: '#4A4060' }}>
-          Check your inbox — your personalised results are heading to{' '}
-          <span className="font-medium" style={{ color: '#0F0A1E' }}>{email}</span> right now.
+        <p className="mt-6 text-base leading-relaxed" style={{ color: '#4A4060' }}>
+          {resultCopy}
         </p>
 
         {/* Divider */}
