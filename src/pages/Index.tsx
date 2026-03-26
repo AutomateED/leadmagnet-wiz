@@ -1,4 +1,5 @@
 import { useConfig } from '@/hooks/useConfig';
+import { calculateResult } from '@/utils/scoring';
 import { useQuiz } from '@/hooks/useQuiz';
 import StartScreen from '@/components/quiz/StartScreen';
 import QuestionScreen from '@/components/quiz/QuestionScreen';
