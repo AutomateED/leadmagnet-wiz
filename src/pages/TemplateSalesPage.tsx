@@ -216,14 +216,14 @@ function Nav({ stripeUrl, C }: { stripeUrl: string; C: typeof BASE_PALETTE }) {
         <div className="flex items-center gap-4">
           <span
             className="hidden sm:inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide"
-            style={{ backgroundColor: accentRgba(0.15), color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}
+            style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}
           >
             Founding Member Offer
           </span>
           <Link
             to="/login"
             className="rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:opacity-90"
-            style={{ backgroundColor: accentRgba(0.15), color: '#FFFFFF', border: '1px solid rgba(217,70,239,0.3)' }}
+            style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: '#FFFFFF', border: '1px solid rgba(217,70,239,0.3)' }}
           >
             Login
           </Link>
@@ -346,7 +346,7 @@ export default function TemplateSalesPage() {
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
               <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: accentRgba(0.15), color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}>
+                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}>
                   {content.eyebrow}
                 </span>
               </motion.div>
@@ -423,7 +423,7 @@ export default function TemplateSalesPage() {
                 </div>
               </div>
             </motion.div>
-            <p className="mt-4 text-center text-xs font-medium" style={{ color: accentRgba(0.8) }}>
+            <p className="mt-4 text-center text-xs font-medium" style={{ color: hexToRgba(C.accent, 0.8) }}>
               Your logo. Your colours. Your name. ✦
             </p>
           </div>
@@ -454,7 +454,7 @@ export default function TemplateSalesPage() {
                   className="rounded-xl p-6 text-left"
                   style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: accentRgba(0.15) }}>
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: hexToRgba(C.accent, 0.15) }}>
                     <Icon className="h-5 w-5" style={{ color: C.accent }} />
                   </div>
                   <h3 className="text-sm font-semibold mb-2" style={{ color: C.headline }}>{p.title}</h3>
@@ -498,7 +498,7 @@ export default function TemplateSalesPage() {
               <p className="text-sm font-semibold mb-3" style={{ color: C.headline }}>{content.sampleQuestion}</p>
               <div className="space-y-2">
                 {content.sampleOptions.map((opt, i) => (
-                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? accentRgba(0.15) : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? accentRgba(0.3) : C.cardBorder}`, color: i === 0 ? C.accent : C.supporting }}>
+                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? hexToRgba(C.accent, 0.15) : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? hexToRgba(C.accent, 0.3) : C.cardBorder}`, color: i === 0 ? C.accent : C.supporting }}>
                     {opt}
                   </div>
                 ))}
@@ -587,7 +587,7 @@ export default function TemplateSalesPage() {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-lg font-semibold" style={{ color: C.headline }}>{s.title}</h3>
-                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: accentRgba(0.15), color: C.accent }}>{s.badge}</span>
+                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent }}>{s.badge}</span>
                   </div>
                   <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
                 </div>
