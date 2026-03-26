@@ -235,7 +235,7 @@ const TESTIMONIALS = [
     role: 'Business Growth Coach',
   },
   {
-    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. Pretaquiz was done in an hour and it looks like my brand — not some template.",
+    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. PretaQuiz was done in an hour and it looks like my brand — not some template.", and it looks like my brand — not some template.",
     name: 'Marcus R.',
     role: 'Leadership Consultant',
   },
