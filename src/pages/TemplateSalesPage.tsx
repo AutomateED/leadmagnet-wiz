@@ -235,7 +235,7 @@ const TESTIMONIALS = [
     role: 'Business Growth Coach',
   },
   {
-    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. Pretaquiz was done in an hour and it looks like my brand — not some template.",
+    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. PretaQuiz was done in an hour and it looks like my brand — not some template.",
     name: 'Marcus R.',
     role: 'Leadership Consultant',
   },
@@ -266,7 +266,7 @@ function Footer() {
   return (
     <footer className="border-t py-8" style={{ borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.footnote }}>
-        <p>&copy; 2026 Pretaquiz</p>
+        <p>&copy; 2026 PretaQuiz</p>
         <div className="flex gap-5">
           <Link to="/terms" className="hover:opacity-80 transition-opacity">Terms</Link>
           <Link to="/privacy" className="hover:opacity-80 transition-opacity">Privacy</Link>
