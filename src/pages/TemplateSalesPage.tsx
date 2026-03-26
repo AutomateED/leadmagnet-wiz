@@ -211,7 +211,7 @@ function Nav({ stripeUrl, C }: { stripeUrl: string; C: typeof BASE_PALETTE }) {
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="text-[22px] font-bold tracking-tight">
-          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.accent }}>Quiz</span>
+          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
         </Link>
         <div className="flex items-center gap-4">
           <span
