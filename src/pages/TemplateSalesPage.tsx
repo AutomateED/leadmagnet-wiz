@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 
 /* ─── PALETTE ─── */
-const C = {
+const BASE_PALETTE = {
   pageBg: '#0F0A1E',
   sectionBg: '#160E28',
   cardBg: '#201538',
@@ -24,6 +24,33 @@ const C = {
   footnote: 'rgba(255,255,255,0.70)',
 };
 
+const TEMPLATE_PALETTES: Record<string, Partial<typeof BASE_PALETTE>> = {
+  'business-breakthrough': {
+    accent: '#C9A96E',
+    cta: '#B8944F',
+    cardBorder: '#3D2E1A',
+    sectionBg: '#1A150E',
+  },
+  'mindset-mastery': {
+    accent: '#7C3AED',
+    cta: '#7C3AED',
+    cardBorder: '#2D1A5A',
+    sectionBg: '#150E28',
+  },
+  'leadership-style': {
+    accent: '#0EA5E9',
+    cta: '#0EA5E9',
+    cardBorder: '#0C3A5A',
+    sectionBg: '#0A1520',
+  },
+  'wealth-readiness': {
+    accent: '#10B981',
+    cta: '#10B981',
+    cardBorder: '#0A3D2A',
+    sectionBg: '#0A1A14',
+  },
+};
+
 const STRIPE_URLS: Record<string, string> = {
   'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
   'mindset-mastery': 'https://buy.stripe.com/9B68wO6iDfrYdcDgOv0gw02',
@@ -32,6 +59,14 @@ const STRIPE_URLS: Record<string, string> = {
 };
 
 const VALID_SLUGS = Object.keys(STRIPE_URLS);
+
+function hexToRgba(hex: string, opacity: number) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `rgba(${r},${g},${b},${opacity})`;
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
@@ -147,7 +182,7 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
 };
 
 /* ─── SCARCITY BAR ─── */
-function ScarcityBar() {
+function ScarcityBar({ C }: { C: typeof BASE_PALETTE }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
@@ -171,7 +206,7 @@ function ScarcityBar() {
 }
 
 /* ─── NAV ─── */
-function Nav({ stripeUrl }: { stripeUrl: string }) {
+function Nav({ stripeUrl, C }: { stripeUrl: string; C: typeof BASE_PALETTE }) {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -181,14 +216,14 @@ function Nav({ stripeUrl }: { stripeUrl: string }) {
         <div className="flex items-center gap-4">
           <span
             className="hidden sm:inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide"
-            style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}
+            style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent, border: `1px solid ${hexToRgba(C.accent, 0.3)}` }}
           >
             Founding Member Offer
           </span>
           <Link
             to="/login"
             className="rounded-lg px-5 py-2 text-sm font-semibold transition-all hover:opacity-90"
-            style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: '#FFFFFF', border: '1px solid rgba(217,70,239,0.3)' }}
+            style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: '#FFFFFF', border: `1px solid ${hexToRgba(C.accent, 0.3)}` }}
           >
             Login
           </Link>
@@ -262,7 +297,7 @@ const FAQS = [
 ];
 
 /* ─── FOOTER ─── */
-function Footer() {
+function Footer({ C }: { C: typeof BASE_PALETTE }) {
   return (
     <footer className="border-t py-8" style={{ borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-xs sm:flex-row" style={{ color: C.footnote }}>
@@ -287,13 +322,15 @@ export default function TemplateSalesPage() {
 
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
+  const C = { ...BASE_PALETTE, ...TEMPLATE_PALETTES[slug] };
   const stripeUrl = STRIPE_URLS[slug];
   const content = TEMPLATE_CONTENT[slug];
   const howSteps = getHowSteps(content.howStep2Desc);
 
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
-      <Nav stripeUrl={stripeUrl} />
+      <Nav stripeUrl={stripeUrl} C={C} />
 
       {/* ─── HERO ─── */}
       <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
@@ -301,7 +338,7 @@ export default function TemplateSalesPage() {
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
               <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}>
+                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide" style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent, border: `1px solid ${hexToRgba(C.accent, 0.3)}` }}>
                   {content.eyebrow}
                 </span>
               </motion.div>
@@ -378,7 +415,7 @@ export default function TemplateSalesPage() {
                 </div>
               </div>
             </motion.div>
-            <p className="mt-4 text-center text-xs font-medium" style={{ color: 'rgba(217,70,239,0.8)' }}>
+            <p className="mt-4 text-center text-xs font-medium" style={{ color: hexToRgba(C.accent, 0.8) }}>
               Your logo. Your colours. Your name. ✦
             </p>
           </div>
@@ -409,7 +446,7 @@ export default function TemplateSalesPage() {
                   className="rounded-xl p-6 text-left"
                   style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
                 >
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: 'rgba(217,70,239,0.15)' }}>
+                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: hexToRgba(C.accent, 0.15) }}>
                     <Icon className="h-5 w-5" style={{ color: C.accent }} />
                   </div>
                   <h3 className="text-sm font-semibold mb-2" style={{ color: C.headline }}>{p.title}</h3>
@@ -453,7 +490,7 @@ export default function TemplateSalesPage() {
               <p className="text-sm font-semibold mb-3" style={{ color: C.headline }}>{content.sampleQuestion}</p>
               <div className="space-y-2">
                 {content.sampleOptions.map((opt, i) => (
-                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? 'rgba(217,70,239,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? 'rgba(217,70,239,0.3)' : C.cardBorder}`, color: i === 0 ? C.accent : C.supporting }}>
+                  <div key={i} className="rounded-lg px-3 py-2 text-xs" style={{ backgroundColor: i === 0 ? hexToRgba(C.accent, 0.15) : 'rgba(255,255,255,0.05)', border: `1px solid ${i === 0 ? hexToRgba(C.accent, 0.3) : C.cardBorder}`, color: i === 0 ? C.accent : C.supporting }}>
                     {opt}
                   </div>
                 ))}
@@ -542,7 +579,7 @@ export default function TemplateSalesPage() {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-lg font-semibold" style={{ color: C.headline }}>{s.title}</h3>
-                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent }}>{s.badge}</span>
+                    <span className="rounded-full px-2.5 py-0.5 text-[11px] font-medium" style={{ backgroundColor: hexToRgba(C.accent, 0.15), color: C.accent }}>{s.badge}</span>
                   </div>
                   <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
                 </div>
@@ -698,7 +735,7 @@ export default function TemplateSalesPage() {
                 Activate my quiz — $97 &rarr;
               </a>
 
-              <ScarcityBar />
+              <ScarcityBar C={C} />
 
               <p className="mt-4 text-center text-xs" style={{ color: C.footnote }}>
                 Secure checkout &middot; One-time payment &middot; No subscription
@@ -744,7 +781,7 @@ export default function TemplateSalesPage() {
         </motion.div>
       </section>
 
-      <Footer />
+      <Footer C={C} />
     </div>
   );
 }
