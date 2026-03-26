@@ -52,7 +52,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   questions: [],
   resultTexts: DEFAULT_RESULTS,
   ctaText: 'Book Your Free Discovery Call',
-  ctaUrl: 'https://calendly.com',
+  ctaUrl: '',
   ctaTagline: "Ready to break through? Let's talk.",
   webhookUrl: '',
   emailjsServiceId: '',
