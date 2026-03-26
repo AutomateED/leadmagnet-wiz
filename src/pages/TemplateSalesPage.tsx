@@ -781,7 +781,7 @@ export default function TemplateSalesPage() {
         </motion.div>
       </section>
 
-      <Footer />
+      <Footer C={C} />
     </div>
   );
 }
