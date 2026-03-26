@@ -735,7 +735,7 @@ export default function TemplateSalesPage() {
                 Activate my quiz — $97 &rarr;
               </a>
 
-              <ScarcityBar />
+              <ScarcityBar C={C} />
 
               <p className="mt-4 text-center text-xs" style={{ color: C.footnote }}>
                 Secure checkout &middot; One-time payment &middot; No subscription
