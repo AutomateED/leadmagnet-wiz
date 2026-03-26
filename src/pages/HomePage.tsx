@@ -148,28 +148,38 @@ export default function HomePage() {
             </motion.h1>
             <motion.div
               variants={stagger}
-              className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-3"
+              className="mx-auto mt-10 grid max-w-2xl grid-cols-[1fr_auto_1fr] items-center gap-x-4 gap-y-6"
             >
-              {[
-                'A PretaQuiz turns visitors into qualified leads, automatically.',
-                'They get a personalised result.',
-                'You get their name, email, and exactly what they need.',
-                'No tech skills. No monthly fees. Live in under an hour.',
-              ].map((line, i) => (
-                <motion.span
-                  key={i}
-                  variants={fadeUp}
-                  transition={{ duration: 0.5, ease }}
-                  className="inline-block rounded-full px-5 py-2 text-sm font-medium"
-                  style={{
-                    backgroundColor: 'rgba(217,70,239,0.08)',
-                    border: '1px solid rgba(217,70,239,0.2)',
-                    color: C.body,
-                  }}
-                >
-                  {line}
-                </motion.span>
-              ))}
+              {/* Their side */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="text-right">
+                <p className="text-sm font-semibold" style={{ color: '#E879F9' }}>Your visitor</p>
+                <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>Takes a short quiz and gets a personalised result.</p>
+              </motion.div>
+
+              {/* Arrow */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="flex flex-col items-center gap-1">
+                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(217,70,239,0.4)' }} />
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="rotate-90">
+                  <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="#D946EF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(217,70,239,0.4)' }} />
+              </motion.div>
+
+              {/* You side */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="text-left">
+                <p className="text-sm font-semibold" style={{ color: '#E879F9' }}>You</p>
+                <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>Get their name, email, and exactly what they need.</p>
+              </motion.div>
+
+              {/* Bottom tagline spanning full width */}
+              <motion.p
+                variants={fadeUp}
+                transition={{ duration: 0.5, ease }}
+                className="col-span-3 text-center text-sm font-medium tracking-wide"
+                style={{ color: C.body }}
+              >
+                No tech skills. No monthly fees. Live in under an hour.
+              </motion.p>
             </motion.div>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
