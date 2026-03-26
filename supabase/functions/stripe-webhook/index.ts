@@ -132,7 +132,7 @@ Deno.serve(async (req) => {
       client_id: userId,
       slug,
       quiz_name: "My Quiz",
-      template_type: "business-breakthrough",
+      template_type: templateType,
       brand_colour: "#D946EF",
       business_name: "",
       questions: [],
