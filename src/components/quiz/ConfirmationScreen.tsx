@@ -51,7 +51,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
         </p>
 
         {/* Divider */}
-        <div className="my-10 h-px" style={{ backgroundColor: 'rgba(217,70,239,0.15)' }} />
+        <div className="my-10 h-px" style={{ backgroundColor: `${brandColour}26` }} />
 
         {/* CTA section */}
         <div className="flex flex-col items-center gap-4">
