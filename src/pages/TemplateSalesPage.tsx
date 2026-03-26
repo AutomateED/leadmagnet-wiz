@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/accordion';
 
 /* ─── PALETTE ─── */
-const C = {
+const BASE_PALETTE = {
   pageBg: '#0F0A1E',
   sectionBg: '#160E28',
   cardBg: '#201538',
@@ -22,6 +22,33 @@ const C = {
   body: 'rgba(255,255,255,0.85)',
   supporting: 'rgba(255,255,255,0.75)',
   footnote: 'rgba(255,255,255,0.70)',
+};
+
+const TEMPLATE_PALETTES: Record<string, Partial<typeof BASE_PALETTE>> = {
+  'business-breakthrough': {
+    accent: '#C9A96E',
+    cta: '#B8944F',
+    cardBorder: '#3D2E1A',
+    sectionBg: '#1A150E',
+  },
+  'mindset-mastery': {
+    accent: '#7C3AED',
+    cta: '#7C3AED',
+    cardBorder: '#2D1A5A',
+    sectionBg: '#150E28',
+  },
+  'leadership-style': {
+    accent: '#0EA5E9',
+    cta: '#0EA5E9',
+    cardBorder: '#0C3A5A',
+    sectionBg: '#0A1520',
+  },
+  'wealth-readiness': {
+    accent: '#10B981',
+    cta: '#10B981',
+    cardBorder: '#0A3D2A',
+    sectionBg: '#0A1A14',
+  },
 };
 
 const STRIPE_URLS: Record<string, string> = {

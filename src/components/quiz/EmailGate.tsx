@@ -96,7 +96,7 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
           <motion.button
             type="submit"
             className="mt-4 rounded-full px-10 py-4 text-lg font-semibold tracking-wide transition-all duration-300 hover:shadow-lift active:scale-95"
-            style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
+            style={{ backgroundColor: brandColour || '#F020B0', color: '#FFFFFF' }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
           >
