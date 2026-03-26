@@ -100,7 +100,7 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
     heroHeadline: 'Show every prospect exactly what\'s ',
     heroHighlight: 'holding their business back',
     heroAfter: '',
-    heroSub: 'The Business Breakthrough Quiz helps coaches qualify leads by revealing the specific growth bottleneck each prospect is stuck on — before you ever speak to them.',
+    heroSub: 'The Business Breakthrough Quiz helps coaches qualify leads by revealing the specific growth bottleneck each prospect is stuck on – before you ever speak to them.',
     quizStartTitle: "What's Really Holding Your Business Back?",
     quizStartDesc: 'Answer 7 quick questions and discover the #1 thing standing between you and the business you want.',
     sampleQuestion: 'When it comes to growing your business, where do you feel most stuck?',
@@ -112,8 +112,8 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
       { title: 'A segmented email list', body: 'Four distinct result types mean four distinct audiences. Follow up with the right message for each one.' },
       { title: 'Proof of your expertise', body: "Prospects experience your thinking before they've paid you a penny. The quiz builds trust before the conversation begins." },
     ],
-    howStep2Desc: 'Brand it to your business coaching practice — your logo, colours, and the language your ideal clients already use.',
-    pricingHeadline: 'The Business Breakthrough Quiz — activate it today',
+    howStep2Desc: 'Brand it to your business coaching practice – your logo, colours, and the language your ideal clients already use.',
+    pricingHeadline: 'The Business Breakthrough Quiz – activate it today',
     pricingSubtext: 'One payment. Fully branded. Live on your site in under an hour.',
   },
   'mindset-mastery': {
@@ -121,20 +121,20 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
     heroHeadline: 'Help your clients see the thinking patterns that are ',
     heroHighlight: 'keeping them stuck',
     heroAfter: '',
-    heroSub: "The Mindset Mastery Quiz reveals the specific belief patterns shaping your prospects' results — so you can show up to every conversation already knowing how to help.",
+    heroSub: "The Mindset Mastery Quiz reveals the specific belief patterns shaping your prospects' results – so you can show up to every conversation already knowing how to help.",
     quizStartTitle: "What's Your Mindset Type?",
     quizStartDesc: 'Answer 6 questions and discover the thinking pattern that\'s shaping your results right now.',
     sampleQuestion: "When something doesn't go to plan, what's your first instinct?",
     sampleOptions: ['Analyse what went wrong', 'Look for someone to blame', 'Try a different approach', 'Shut down and withdraw'],
     resultTitle: 'Your Pattern: The Analyser',
-    resultDesc: 'You seek certainty before you act. This protects you — but it can also keep you in preparation mode indefinitely.',
+    resultDesc: 'You seek certainty before you act. This protects you – but it can also keep you in preparation mode indefinitely.',
     whatYouGetCards: [
       { title: 'Deeper first conversations', body: 'Prospects arrive self-aware. You skip the surface-level discovery and go straight to the real work.' },
       { title: 'Higher programme fit', body: 'People self-select into your world based on their result. The leads who reach out are already aligned with your approach.' },
       { title: 'A shareable insight tool', body: 'Prospects share their result on social media. Your quiz markets itself.' },
     ],
-    howStep2Desc: 'Brand it to your mindset coaching practice — your logo, colours, and the language your ideal clients already use.',
-    pricingHeadline: 'The Mindset Mastery Quiz — activate it today',
+    howStep2Desc: 'Brand it to your mindset coaching practice – your logo, colours, and the language your ideal clients already use.',
+    pricingHeadline: 'The Mindset Mastery Quiz – activate it today',
     pricingSubtext: 'One payment. Fully branded. Live on your site in under an hour.',
   },
   'leadership-style': {
@@ -142,20 +142,20 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
     heroHeadline: "Give every leader instant insight into how their style is ",
     heroHighlight: 'shaping their team',
     heroAfter: '',
-    heroSub: "The Leadership Style Quiz qualifies prospects by revealing how they lead — and where the gaps are. It's a conversation starter that sells your coaching before you've said a word.",
+    heroSub: "The Leadership Style Quiz qualifies prospects by revealing how they lead – and where the gaps are. It's a conversation starter that sells your coaching before you've said a word.",
     quizStartTitle: "What's Your Leadership Style?",
     quizStartDesc: "Answer 7 questions and discover how your natural style is affecting your team's performance and culture.",
     sampleQuestion: 'When your team faces a difficult decision, what do you typically do?',
     sampleOptions: ['Make the call and move forward', 'Consult the team then decide', 'Hand it to the most capable person', 'Wait to see how it resolves'],
     resultTitle: 'Your Style: The Decisive Driver',
-    resultDesc: 'You move fast and set clear direction. Teams respect your confidence — but may hesitate to bring you problems early.',
+    resultDesc: 'You move fast and set clear direction. Teams respect your confidence – but may hesitate to bring you problems early.',
     whatYouGetCards: [
       { title: 'Executives who arrive ready to work', body: "Leaders who've taken the quiz come to the first session with genuine self-awareness, not defensiveness." },
       { title: 'A clear coaching entry point', body: 'Each result type maps directly to a development area. You know exactly where to start before the call begins.' },
       { title: 'A referral-friendly tool', body: "Leaders share their result with peers. Your quiz reaches the inboxes of people who'd never have found you otherwise." },
     ],
-    howStep2Desc: 'Brand it to your leadership coaching practice — your logo, colours, and the language your ideal clients already use.',
-    pricingHeadline: 'The Leadership Style Quiz — activate it today',
+    howStep2Desc: 'Brand it to your leadership coaching practice – your logo, colours, and the language your ideal clients already use.',
+    pricingHeadline: 'The Leadership Style Quiz – activate it today',
     pricingSubtext: 'One payment. Fully branded. Live on your site in under an hour.',
   },
   'wealth-readiness': {
@@ -163,7 +163,7 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
     heroHeadline: 'Help clients understand exactly where they stand with ',
     heroHighlight: 'money and growth',
     heroAfter: '',
-    heroSub: "The Wealth Readiness Quiz reveals the beliefs, habits, and blind spots shaping your prospects' financial results — so your first conversation starts with real context.",
+    heroSub: "The Wealth Readiness Quiz reveals the beliefs, habits, and blind spots shaping your prospects' financial results – so your first conversation starts with real context.",
     quizStartTitle: 'Are You Ready to Build Real Wealth?',
     quizStartDesc: "Answer 6 questions and discover what's really driving your financial decisions right now.",
     sampleQuestion: "When an unexpected expense comes up, what's your honest reaction?",
@@ -175,8 +175,8 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
       { title: 'The right clients for your programmes', body: 'Result types map directly to readiness levels. You attract people who are genuinely ready to invest in change.' },
       { title: 'A trust-building first touchpoint', body: 'The quiz delivers real value before anyone spends a penny. That generosity converts better than any sales page alone.' },
     ],
-    howStep2Desc: 'Brand it to your financial coaching practice — your logo, colours, and the language your ideal clients already use.',
-    pricingHeadline: 'The Wealth Readiness Quiz — activate it today',
+    howStep2Desc: 'Brand it to your financial coaching practice – your logo, colours, and the language your ideal clients already use.',
+    pricingHeadline: 'The Wealth Readiness Quiz – activate it today',
     pricingSubtext: 'One payment. Fully branded. Live on your site in under an hour.',
   },
 };
@@ -243,7 +243,7 @@ const PAIN_CARDS = [
   {
     icon: Users,
     title: 'Contact forms tell you nothing',
-    body: '"Hi, I\'m interested in your services." — great. You know absolutely nothing about this person or their needs.',
+    body: '"Hi, I\'m interested in your services." – great. You know absolutely nothing about this person or their needs.',
   },
   {
     icon: CircleOff,
@@ -258,19 +258,19 @@ function getHowSteps(step2Desc: string) {
     { title: 'Activate your quiz in one click', desc: 'Pay once and get instant access to your dashboard. No waiting, no setup calls.', badge: 'Takes 2 minutes' },
     { title: 'Build your quiz in the dashboard', desc: step2Desc, badge: 'Takes ~45 minutes' },
     { title: 'Share your unique quiz link', desc: 'Drop it in your email signature, Instagram bio, LinkedIn, or embed it on your website.', badge: 'Takes 5 minutes' },
-    { title: 'Leads land in your inbox and CRM', desc: 'Every prospect gets a personalised result email. You get their details and a warm lead — automatically.', badge: 'Happens automatically' },
+    { title: 'Leads land in your inbox and CRM', desc: 'Every prospect gets a personalised result email. You get their details and a warm lead – automatically.', badge: 'Happens automatically' },
   ];
 }
 
 /* ─── TESTIMONIALS ─── */
 const TESTIMONIALS = [
   {
-    quote: "I set it up in an afternoon and had my first lead come through the same evening. The quality is so much better — they already know their result before we even speak.",
+    quote: "I set it up in an afternoon and had my first lead come through the same evening. The quality is so much better – they already know their result before we even speak.",
     name: 'Sarah C.',
     role: 'Business Growth Coach',
   },
   {
-    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. PretaQuiz was done in an hour and it looks like my brand — not some template.",
+    quote: "I've tried quiz tools before but they were either too complicated or looked terrible on mobile. PretaQuiz was done in an hour and it looks like my brand – not some template.",
     name: 'Marcus R.',
     role: 'Leadership Consultant',
   },
@@ -283,17 +283,17 @@ const PRICING_FEATURES = [
   'Automatic lead delivery to your CRM via webhook',
   'All leads stored in your dashboard',
   'Embed on your site or use as a standalone link',
-  'No tech skills required — ever',
+  'No tech skills required – ever',
 ];
 
 /* ─── FAQS ─── */
 const FAQS = [
-  { q: 'Can I change the questions?', a: 'Yes — all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
-  { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website — Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
+  { q: 'Can I change the questions?', a: 'Yes – all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
+  { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website – Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
   { q: 'What happens after I buy?', a: "You'll receive your dashboard login immediately after checkout. Log in, pick your template, and follow the setup steps. Most clients are live within the hour." },
   { q: 'Do I need a developer?', a: 'No. Everything is point-and-click. If you can update a Google Doc, you can set up your quiz.' },
   { q: 'Is there a monthly fee?', a: 'No. $97 one-time payment. No subscription, no renewal, no surprises.' },
-  { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook — including Zapier, which means it connects to almost every CRM and email tool on the market.' },
+  { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook – including Zapier, which means it connects to almost every CRM and email tool on the market.' },
 ];
 
 /* ─── FOOTER ─── */
@@ -317,7 +317,7 @@ export default function TemplateSalesPage() {
   const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
-    document.title = 'PretaQuiz — Turn Visitors Into Qualified Leads';
+    document.title = 'PretaQuiz – Turn Visitors Into Qualified Leads';
   }, []);
 
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
@@ -387,7 +387,7 @@ export default function TemplateSalesPage() {
                   className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] inline-block"
                   style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
                 >
-                  Activate this quiz — $97 &rarr;
+                  Activate this quiz – $97 &rarr;
                 </a>
               </div>
             </motion.div>
@@ -474,7 +474,7 @@ export default function TemplateSalesPage() {
           </motion.div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {/* Screen 1 — Start */}
+            {/* Screen 1 – Start */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
               <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Start Screen</p>
               <h3 className="text-base font-bold" style={{ color: C.headline }}>{content.quizStartTitle}</h3>
@@ -484,7 +484,7 @@ export default function TemplateSalesPage() {
               </div>
             </motion.div>
 
-            {/* Screen 2 — Question */}
+            {/* Screen 2 – Question */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
               <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Sample Question</p>
               <p className="text-sm font-semibold mb-3" style={{ color: C.headline }}>{content.sampleQuestion}</p>
@@ -497,7 +497,7 @@ export default function TemplateSalesPage() {
               </div>
             </motion.div>
 
-            {/* Screen 3 — Result */}
+            {/* Screen 3 – Result */}
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="rounded-xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
               <p className="text-[10px] font-medium tracking-widest uppercase mb-3" style={{ color: C.footnote }}>Result Preview</p>
               <h3 className="text-base font-bold" style={{ color: C.accent }}>{content.resultTitle}</h3>
@@ -627,7 +627,7 @@ export default function TemplateSalesPage() {
               className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate this quiz — $97 &rarr;
+              Activate this quiz – $97 &rarr;
             </a>
           </div>
         </motion.div>
@@ -676,7 +676,7 @@ export default function TemplateSalesPage() {
               className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate this quiz — $97 &rarr;
+              Activate this quiz – $97 &rarr;
             </a>
           </div>
         </motion.div>
@@ -710,7 +710,7 @@ export default function TemplateSalesPage() {
 
               <p className="mt-4 text-base line-through" style={{ color: C.footnote }}>$197</p>
               <p className="mt-1 text-[52px] font-bold tracking-tight" style={{ color: C.headline }}>$97</p>
-              <p className="mt-1 text-sm" style={{ color: C.body }}>one-time payment — yours forever</p>
+              <p className="mt-1 text-sm" style={{ color: C.body }}>one-time payment – yours forever</p>
             </div>
 
             <div className="px-8 py-6" style={{ borderTop: `1px solid ${C.cardBorder}` }}>
@@ -732,7 +732,7 @@ export default function TemplateSalesPage() {
                 className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
                 style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
               >
-                Activate my quiz — $97 &rarr;
+                Activate my quiz – $97 &rarr;
               </a>
 
               <ScarcityBar C={C} />
@@ -762,7 +762,7 @@ export default function TemplateSalesPage() {
             Ready to stop losing leads to a <span style={{ color: C.accent }}>silent website</span>?
           </motion.h2>
           <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed font-light" style={{ color: C.body }}>
-            Pay once. Get your quiz live today. No subscription, no hidden fees — just a quiz that works for you 24/7.
+            Pay once. Get your quiz live today. No subscription, no hidden fees – just a quiz that works for you 24/7.
           </motion.p>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
             <a
@@ -772,7 +772,7 @@ export default function TemplateSalesPage() {
               className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate my quiz — $97 &rarr;
+              Activate my quiz – $97 &rarr;
             </a>
             <p className="mt-3 text-xs" style={{ color: C.footnote }}>
               $97 one-time &middot; Secure checkout &middot; No subscription
