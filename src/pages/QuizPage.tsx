@@ -9,6 +9,7 @@ import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
 import { fireWebhook } from '@/utils/webhook';
 import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
+import { calculateResult } from '@/utils/scoring';
 import { supabase } from '@/integrations/supabase/client';
 
 export default function QuizPage() {
@@ -53,9 +54,10 @@ export default function QuizPage() {
   }
 
   const handleEmailSubmit = async (firstName: string, email: string, lastName: string) => {
-    quiz.submitEmail(firstName, email, lastName);
-    const resultType = quiz.result!;
+    // Calculate result directly from answers to avoid race condition with setState
+    const resultType = calculateResult(quiz.answers);
     const resultCopy = config.resultTexts[resultType];
+    quiz.submitEmail(firstName, email, lastName);
 
     // Insert lead into Supabase (fire-and-forget)
     supabase
