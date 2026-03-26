@@ -133,7 +133,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-4xl px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-              <span className="inline-block rounded-full px-4 py-1.5 text-xs font-medium tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, border: '1px solid rgba(217,70,239,0.3)' }}>
+              <span className="inline-block rounded-full px-5 py-2 text-sm font-semibold tracking-widest uppercase" style={{ backgroundColor: 'rgba(217,70,239,0.2)', color: '#E879F9', border: '1px solid rgba(217,70,239,0.5)', boxShadow: '0 0 20px rgba(217,70,239,0.15)' }}>
                 The fastest way to qualify leads online
               </span>
             </motion.div>
