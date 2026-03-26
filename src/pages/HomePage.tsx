@@ -158,11 +158,25 @@ export default function HomePage() {
 
               {/* Arrow */}
               <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="flex flex-col items-center gap-1">
-                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(217,70,239,0.4)' }} />
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="rotate-90">
+                <motion.div
+                  className="h-8 w-px"
+                  style={{ backgroundColor: 'rgba(217,70,239,0.4)' }}
+                  animate={{ scaleY: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.svg
+                  width="20" height="20" viewBox="0 0 20 20" fill="none" className="rotate-90"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
                   <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="#D946EF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(217,70,239,0.4)' }} />
+                </motion.svg>
+                <motion.div
+                  className="h-8 w-px"
+                  style={{ backgroundColor: 'rgba(217,70,239,0.4)' }}
+                  animate={{ scaleY: [1, 1.3, 1], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                />
               </motion.div>
 
               {/* You side */}
