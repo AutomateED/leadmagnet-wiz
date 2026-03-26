@@ -146,16 +146,31 @@ export default function HomePage() {
               <br />
               <span style={{ color: '#F020B0' }}>Are any of them becoming leads?</span>
             </motion.h1>
-            <motion.p
-              variants={fadeUp} transition={{ duration: 0.6, ease }}
-              className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed font-light"
-              style={{ color: C.body }}
+            <motion.div
+              variants={stagger}
+              className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-3"
             >
-              A PretaQuiz turns visitors into qualified leads, automatically.
-              <br />They get a personalised result.
-              <br />You get their name, email, and exactly what they need.
-              <br />No tech skills. No monthly fees. Live in under an hour.
-            </motion.p>
+              {[
+                'A PretaQuiz turns visitors into qualified leads, automatically.',
+                'They get a personalised result.',
+                'You get their name, email, and exactly what they need.',
+                'No tech skills. No monthly fees. Live in under an hour.',
+              ].map((line, i) => (
+                <motion.span
+                  key={i}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, ease }}
+                  className="inline-block rounded-full px-5 py-2 text-sm font-medium"
+                  style={{
+                    backgroundColor: 'rgba(217,70,239,0.08)',
+                    border: '1px solid rgba(217,70,239,0.2)',
+                    color: C.body,
+                  }}
+                >
+                  {line}
+                </motion.span>
+              ))}
+            </motion.div>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
               <a
                 href="/quiz/demo-business-breakthrough"
