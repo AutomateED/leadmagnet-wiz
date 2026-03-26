@@ -72,7 +72,7 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
               placeholder="Your last name"
               className="w-full bg-transparent border-b-2 outline-none text-xl py-4 transition-colors placeholder:opacity-40"
               style={{
-                borderColor: errors.lastName ? 'hsl(var(--destructive))' : lastName ? brandColour : 'rgba(217,70,239,0.15)',
+                borderColor: errors.lastName ? 'hsl(var(--destructive))' : lastName ? brandColour : `${brandColour}26`,
                 color: '#0F0A1E',
               } as React.CSSProperties}
             />
