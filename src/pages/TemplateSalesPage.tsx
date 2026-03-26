@@ -60,6 +60,14 @@ const STRIPE_URLS: Record<string, string> = {
 
 const VALID_SLUGS = Object.keys(STRIPE_URLS);
 
+function hexToRgba(hex: string, opacity: number) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `rgba(${r},${g},${b},${opacity})`;
+}
+
 const fadeUp = {
   hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
   visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
