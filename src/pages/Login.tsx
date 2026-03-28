@@ -30,6 +30,9 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background px-4">
+      <Link to="/" className="text-[24px] font-bold tracking-tight mb-2">
+        <span style={{ color: '#0F0A1E' }}>Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
+      </Link>
       <Link to="/" className="mb-6 text-sm text-muted-foreground hover:text-foreground transition-colors">
         ← Back to home
       </Link>
