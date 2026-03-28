@@ -112,7 +112,7 @@ export default function Dashboard() {
     navigate('/dashboard');
   }, [navigate]);
 
-  if (authLoading || !user || dataLoading) {
+  if (authLoading || !user || dataLoading || (isOnSubPage && !config && quizzes.length > 0)) {
     return (
       <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#D946EF', borderTopColor: 'transparent' }} />
