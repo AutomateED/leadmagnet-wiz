@@ -317,8 +317,40 @@ export default function TemplateSalesPage() {
   const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
-    document.title = 'PretaQuiz – Turn Visitors Into Qualified Leads';
-  }, []);
+    if (!slug || !VALID_SLUGS.includes(slug)) return;
+    const c = TEMPLATE_CONTENT[slug];
+    const templateName = c.heroHeadline.replace(/'/g, '') + c.heroHighlight;
+    const prettyName = slug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+    document.title = `PretaQuiz – ${prettyName} Quiz Template`;
+
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: `${prettyName} Quiz Template`,
+      description: c.heroSub,
+      brand: { '@type': 'Organization', name: 'PretaQuiz' },
+      url: `https://pretaquiz.com/templates/${slug}`,
+      offers: {
+        '@type': 'Offer',
+        price: '97',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+        priceValidUntil: '2027-12-31',
+        url: STRIPE_URLS[slug],
+      },
+      category: c.eyebrow,
+    };
+    let scriptEl = document.querySelector('script[data-jsonld="template"]') as HTMLScriptElement | null;
+    if (!scriptEl) {
+      scriptEl = document.createElement('script');
+      scriptEl.type = 'application/ld+json';
+      scriptEl.setAttribute('data-jsonld', 'template');
+      document.head.appendChild(scriptEl);
+    }
+    scriptEl.textContent = JSON.stringify(jsonLd);
+
+    return () => { scriptEl?.remove(); };
+  }, [slug]);
 
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
