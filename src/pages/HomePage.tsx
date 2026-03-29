@@ -82,9 +82,12 @@ function Nav() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="text-[22px] font-bold tracking-tight">
-          <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.accent }}>Quiz</span>
-        </Link>
+        <div className="flex items-center gap-2.5">
+          <Link to="/" className="text-[22px] font-bold tracking-tight">
+            <span style={{ color: '#fff' }}>Preta</span><span style={{ color: C.accent }}>Quiz</span>
+          </Link>
+          <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'rgba(217,70,239,0.2)', color: '#E879F9', border: '1px solid rgba(217,70,239,0.4)' }}>Beta</span>
+        </div>
         <Link to="/login" className="rounded-lg px-6 py-2.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]" style={{ backgroundColor: C.cta, color: '#FFFFFF' }}>Login</Link>
       </div>
     </nav>
