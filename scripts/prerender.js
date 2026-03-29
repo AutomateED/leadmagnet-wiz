@@ -7,10 +7,10 @@ const distDir = join(__dirname, '..', 'dist');
 const template = readFileSync(join(distDir, 'index.html'), 'utf-8');
 
 const pages = [
-  {
+  
     route: '/',
-    title: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour',
-    description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
+    title: 'PretaQuiz — Get Your Quiz Funnel Live in Under an Hour with our Ready-Made Setup',
+    description: 'Ready made quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
     h1: 'Your website gets visitors. Are any of them becoming leads?',
     body: 'PretaQuiz gives coaches and consultants a branded lead-generation quiz they can make their own. No tech skills. No monthly fees. Live in under an hour. Pick your template, upload your logo, set your brand colour, add your questions. Every completed quiz sends lead data straight to your CRM via webhook. $97 one-time payment per quiz. Choose from Business Breakthrough, Mindset Mastery, Leadership Style, or Wealth Readiness templates.',
     jsonLd: {
@@ -18,7 +18,7 @@ const pages = [
       '@graph': [
         { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers.' },
         { '@type': 'WebSite', '@id': 'https://pretaquiz.com/#website', url: 'https://pretaquiz.com', name: 'PretaQuiz', publisher: { '@id': 'https://pretaquiz.com/#organization' } },
-        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour', description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
+        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Get Your Quiz Funnel Live in Under an Hour with our Ready-Made Setup', description: 'Ready made quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
         { '@type': 'SoftwareApplication', name: 'PretaQuiz', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', priceValidUntil: '2027-12-31' }, description: 'Quiz funnel builder for coaches and consultants. Customise questions, brand it, and go live in under an hour.' },
       ],
     },
