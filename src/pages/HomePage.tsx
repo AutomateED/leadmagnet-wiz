@@ -118,6 +118,58 @@ export default function HomePage() {
       el.setAttribute('content', content);
     };
     setMeta('name', 'description', 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.');
+
+    // JSON-LD structured data
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': 'https://pretaquiz.com/#organization',
+          name: 'PretaQuiz',
+          url: 'https://pretaquiz.com',
+          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers.',
+        },
+        {
+          '@type': 'WebSite',
+          '@id': 'https://pretaquiz.com/#website',
+          url: 'https://pretaquiz.com',
+          name: 'PretaQuiz',
+          publisher: { '@id': 'https://pretaquiz.com/#organization' },
+        },
+        {
+          '@type': 'WebPage',
+          '@id': 'https://pretaquiz.com/#webpage',
+          url: 'https://pretaquiz.com',
+          name: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour',
+          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
+          isPartOf: { '@id': 'https://pretaquiz.com/#website' },
+        },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'PretaQuiz',
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          offers: {
+            '@type': 'Offer',
+            price: '97',
+            priceCurrency: 'USD',
+            priceValidUntil: '2027-12-31',
+          },
+          description: 'Quiz funnel builder for coaches and consultants. Customise questions, brand it, and go live in under an hour.',
+        },
+      ],
+    };
+    let scriptEl = document.querySelector('script[data-jsonld="homepage"]') as HTMLScriptElement | null;
+    if (!scriptEl) {
+      scriptEl = document.createElement('script');
+      scriptEl.type = 'application/ld+json';
+      scriptEl.setAttribute('data-jsonld', 'homepage');
+      document.head.appendChild(scriptEl);
+    }
+    scriptEl.textContent = JSON.stringify(jsonLd);
+
+    return () => { scriptEl?.remove(); };
   }, []);
 
   return (
