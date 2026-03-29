@@ -104,8 +104,13 @@ for (const page of pages) {
     `<meta property="og:url" content="https://pretaquiz.com${page.route === '/' ? '' : page.route}"`
   );
   
+  // Inject JSON-LD if present
+  if (page.jsonLd) {
+    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>`;
+    html = html.replace('</head>', jsonLdScript + '\n</head>');
+  }
+
   // Inject SEO content into the body, inside the root div
-  // This content is visible to crawlers but will be replaced by React on hydration
   const seoContent = `<div id="root"><div style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"><h1>${page.h1}</h1><p>${page.body}</p></div>`;
   html = html.replace('<div id="root"></div>', seoContent + '</div>');
   
