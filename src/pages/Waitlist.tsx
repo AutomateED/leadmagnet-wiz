@@ -25,7 +25,7 @@ const Waitlist = () => {
     try {
       const { error } = await supabase
         .from("waitlist_signups" as any)
-        .insert({ email: trimmed } as any);
+        .insert({ email: trimmed, first_name: firstName.trim(), last_name: lastName.trim() } as any);
 
       if (error) {
         if (error.code === "23505") {
