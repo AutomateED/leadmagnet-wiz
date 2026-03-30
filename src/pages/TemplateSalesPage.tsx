@@ -380,7 +380,7 @@ export default function TemplateSalesPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
-      <Nav stripeUrl={stripeUrl} C={C} />
+      <Nav C={C} />
 
       {/* ─── HERO ─── */}
       <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
