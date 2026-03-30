@@ -142,7 +142,7 @@ export default function HomePage() {
           '@id': 'https://pretaquiz.com/#webpage',
           url: 'https://pretaquiz.com',
           name: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour',
-          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
+          description: 'Ready-made quiz funnels for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
           isPartOf: { '@id': 'https://pretaquiz.com/#website' },
         },
         {
