@@ -6,7 +6,7 @@ import StartScreen from '@/components/quiz/StartScreen';
 import QuestionScreen from '@/components/quiz/QuestionScreen';
 import EmailGate from '@/components/quiz/EmailGate';
 import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
-import { fireWebhook } from '@/utils/webhook';
+
 import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
 import { calculateResult } from '@/utils/scoring';
