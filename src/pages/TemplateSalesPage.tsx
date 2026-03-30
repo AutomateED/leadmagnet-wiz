@@ -310,6 +310,7 @@ function Footer({ C }: { C: typeof BASE_PALETTE }) {
 /* ─── PAGE ─── */
 export default function TemplateSalesPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     if (!slug || !VALID_SLUGS.includes(slug)) return;
@@ -350,8 +351,6 @@ export default function TemplateSalesPage() {
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
   const C = { ...BASE_PALETTE, ...TEMPLATE_PALETTES[slug] };
-
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const handleCheckout = async () => {
     if (checkoutLoading) return;
