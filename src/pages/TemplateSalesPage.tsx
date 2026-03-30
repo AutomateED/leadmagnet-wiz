@@ -350,7 +350,30 @@ export default function TemplateSalesPage() {
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
   const C = { ...BASE_PALETTE, ...TEMPLATE_PALETTES[slug] };
-  const stripeUrl = STRIPE_URLS[slug];
+
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    if (checkoutLoading) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch(CHECKOUT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ template_type: slug }),
+      });
+      const data = await res.json();
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL returned', data);
+        setCheckoutLoading(false);
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setCheckoutLoading(false);
+    }
+  };
   const content = TEMPLATE_CONTENT[slug];
   const howSteps = getHowSteps(content.howStep2Desc);
 
