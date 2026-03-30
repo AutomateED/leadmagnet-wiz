@@ -56,6 +56,13 @@ const pages = [
     jsonLd: { '@context': 'https://schema.org', '@type': 'Product', name: 'Wealth Readiness Quiz Template', description: 'Help clients understand their relationship with money and growth.', brand: { '@type': 'Organization', name: 'PretaQuiz' }, url: 'https://pretaquiz.com/templates/wealth-readiness', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', availability: 'https://schema.org/InStock', priceValidUntil: '2027-12-31' }, category: 'For financial coaches and wealth consultants' },
   },
   {
+    route: '/welcome',
+    title: 'Welcome — PretaQuiz',
+    description: 'Your quiz is being set up. Check your inbox for a magic link to set your password and access your dashboard.',
+    h1: 'Welcome to PretaQuiz',
+    body: 'Your quiz is being set up right now. Check your inbox for a magic link to set your password and access your PretaQuiz dashboard. Open the email, click the link, and start customising your quiz.',
+  },
+  {
     route: '/contact',
     title: 'Contact — PretaQuiz',
     description: 'Get in touch with PretaQuiz. Questions about setting up your quiz funnel? We are here to help.',
