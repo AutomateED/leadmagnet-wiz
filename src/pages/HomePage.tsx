@@ -128,7 +128,7 @@ export default function HomePage() {
           '@id': 'https://pretaquiz.com/#organization',
           name: 'PretaQuiz',
           url: 'https://pretaquiz.com',
-          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers.',
+          description: 'Ready-made quiz funnels for coaches, consultants, and service providers.',
         },
         {
           '@type': 'WebSite',
