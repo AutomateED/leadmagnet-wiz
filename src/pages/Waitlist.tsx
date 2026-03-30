@@ -62,7 +62,7 @@ const Waitlist = () => {
             PretaQuiz
           </h1>
           <p className="text-lg text-muted-foreground max-w-md mx-auto">
-            Beautiful lead-generating quizzes for your business. Be the first to know when we launch.
+            The fastest way to qualify leads online. Be the first to know when we launch.
           </p>
         </div>
 
