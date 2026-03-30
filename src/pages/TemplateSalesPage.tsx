@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Check, CircleOff, MessageSquareX, Users, ArrowRight } from 'lucide-react';
