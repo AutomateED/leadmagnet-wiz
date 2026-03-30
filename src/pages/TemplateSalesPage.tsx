@@ -201,7 +201,7 @@ function ScarcityBar({ C }: { C: typeof BASE_PALETTE }) {
 }
 
 /* ─── NAV ─── */
-function Nav({ stripeUrl, C }: { stripeUrl: string; C: typeof BASE_PALETTE }) {
+function Nav({ C }: { C: typeof BASE_PALETTE }) {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
