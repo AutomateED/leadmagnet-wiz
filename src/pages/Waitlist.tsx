@@ -7,6 +7,8 @@ import { CheckCircle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Waitlist = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -23,7 +25,7 @@ const Waitlist = () => {
     try {
       const { error } = await supabase
         .from("waitlist_signups" as any)
-        .insert({ email: trimmed } as any);
+        .insert({ email: trimmed, first_name: firstName.trim(), last_name: lastName.trim() } as any);
 
       if (error) {
         if (error.code === "23505") {
@@ -60,7 +62,7 @@ const Waitlist = () => {
             PretaQuiz
           </h1>
           <p className="text-lg text-muted-foreground max-w-md mx-auto">
-            Beautiful lead-generating quizzes for your business. Be the first to know when we launch.
+            The fastest way to qualify leads online. Be the first to know when we launch.
           </p>
         </div>
 
@@ -75,19 +77,41 @@ const Waitlist = () => {
             <p className="text-sm text-muted-foreground">We'll email you when PretaQuiz is ready.</p>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1"
-              disabled={loading}
-            />
-            <Button type="submit" disabled={loading} className="px-6">
-              {loading ? "Joining…" : "Join the Waitlist"}
-            </Button>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">
+            <div className="flex gap-3">
+              <Input
+                type="text"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+              <Input
+                type="text"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+              <Button type="submit" disabled={loading} className="px-6">
+                {loading ? "Joining…" : "Join the Waitlist"}
+              </Button>
+            </div>
           </form>
         )}
 
