@@ -331,7 +331,7 @@ export default function TemplateSalesPage() {
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         priceValidUntil: '2027-12-31',
-        url: STRIPE_URLS[slug],
+        url: `https://pretaquiz.com/templates/${slug}`,
       },
       category: c.eyebrow,
     };
