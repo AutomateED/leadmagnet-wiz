@@ -6,7 +6,7 @@ import StartScreen from '@/components/quiz/StartScreen';
 import QuestionScreen from '@/components/quiz/QuestionScreen';
 import EmailGate from '@/components/quiz/EmailGate';
 import ConfirmationScreen from '@/components/quiz/ConfirmationScreen';
-import { fireWebhook } from '@/utils/webhook';
+
 import { QUESTIONS } from '@/utils/questions';
 import { sendResultEmail } from '@/utils/email';
 import { calculateResult } from '@/utils/scoring';
@@ -74,17 +74,25 @@ export default function QuizPage() {
         if (insertError) console.error('Lead insert failed:', insertError);
       });
 
-    fireWebhook(config, {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      result_type: resultType,
-      result_copy: resultCopy,
-      answers: quiz.answers,
-      quiz_name: config.quizName || config.businessName,
-      client_name: config.businessName,
-      timestamp: new Date().toISOString(),
-    });
+    // Fire webhook via server-side Edge Function (keeps webhook URL secret)
+    fetch('https://sgllwxhabdhjldhpnnsg.supabase.co/functions/v1/fire-webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug: slug!,
+        payload: {
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          result_type: resultType,
+          result_copy: resultCopy,
+          answers: quiz.answers,
+          quiz_name: config.quizName || config.businessName,
+          client_name: config.businessName,
+          timestamp: new Date().toISOString(),
+        },
+      }),
+    }).catch(() => {});
 
     sendResultEmail(config, {
       to_email: email,
