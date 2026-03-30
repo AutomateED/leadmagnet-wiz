@@ -46,6 +46,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/waitlist" element={<Waitlist />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
