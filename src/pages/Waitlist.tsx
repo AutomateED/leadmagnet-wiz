@@ -7,6 +7,8 @@ import { CheckCircle, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Waitlist = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
