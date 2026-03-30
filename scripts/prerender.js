@@ -7,7 +7,7 @@ const distDir = join(__dirname, '..', 'dist');
 const template = readFileSync(join(distDir, 'index.html'), 'utf-8');
 
 const pages = [
-  
+  {
     route: '/',
     title: 'PretaQuiz — Get Your Quiz Funnel Live in Under an Hour with our Ready-Made Setup',
     description: 'Ready made quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
@@ -16,7 +16,7 @@ const pages = [
     jsonLd: {
       '@context': 'https://schema.org',
       '@graph': [
-        { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', description: 'Ready-made quiz funnels for coaches, consultants, and service providers.' },
+        { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', description: 'Ready-made quiz funnels for coaches, consultants, and service providers.' },
         { '@type': 'WebSite', '@id': 'https://pretaquiz.com/#website', url: 'https://pretaquiz.com', name: 'PretaQuiz', publisher: { '@id': 'https://pretaquiz.com/#organization' } },
         { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Get Your Quiz Funnel Live in Under an Hour with our Ready-Made Setup', description: 'Ready made quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
         { '@type': 'SoftwareApplication', name: 'PretaQuiz', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', priceValidUntil: '2027-12-31' }, description: 'Quiz funnel builder for coaches and consultants. Customise questions, brand it, and go live in under an hour.' },
