@@ -669,15 +669,14 @@ export default function TemplateSalesPage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <a
-              href={stripeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+            <button
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate this quiz – $97 &rarr;
-            </a>
+              {checkoutLoading ? 'Redirecting…' : 'Activate this quiz – $97 →'}
+            </button>
           </div>
         </motion.div>
       </section>
