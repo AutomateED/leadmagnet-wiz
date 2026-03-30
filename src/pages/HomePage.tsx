@@ -117,7 +117,7 @@ export default function HomePage() {
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
       el.setAttribute('content', content);
     };
-    setMeta('name', 'description', 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.');
+    setMeta('name', 'description', 'Ready-made quiz funnels for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.');
 
     // JSON-LD structured data
     const jsonLd = {
@@ -128,7 +128,7 @@ export default function HomePage() {
           '@id': 'https://pretaquiz.com/#organization',
           name: 'PretaQuiz',
           url: 'https://pretaquiz.com',
-          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers.',
+          description: 'Ready-made quiz funnels for coaches, consultants, and service providers.',
         },
         {
           '@type': 'WebSite',
@@ -142,7 +142,7 @@ export default function HomePage() {
           '@id': 'https://pretaquiz.com/#webpage',
           url: 'https://pretaquiz.com',
           name: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour',
-          description: 'Done-for-you quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
+          description: 'Ready-made quiz funnels for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
           isPartOf: { '@id': 'https://pretaquiz.com/#website' },
         },
         {
