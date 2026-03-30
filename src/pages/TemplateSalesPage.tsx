@@ -772,15 +772,14 @@ export default function TemplateSalesPage() {
             </div>
 
             <div className="px-8 pb-8">
-              <a
-                href={stripeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+              <button
+                onClick={handleCheckout}
+                disabled={checkoutLoading}
+                className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
                 style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
               >
-                Activate my quiz – $97 &rarr;
-              </a>
+                {checkoutLoading ? 'Redirecting…' : 'Activate my quiz – $97 →'}
+              </button>
 
               <ScarcityBar C={C} />
 
