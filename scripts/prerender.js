@@ -7,7 +7,7 @@ const distDir = join(__dirname, '..', 'dist');
 const template = readFileSync(join(distDir, 'index.html'), 'utf-8');
 
 const pages = [
-  
+  {
     route: '/',
     title: 'PretaQuiz — Get Your Quiz Funnel Live in Under an Hour with our Ready-Made Setup',
     description: 'Ready made quiz funnels built for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
