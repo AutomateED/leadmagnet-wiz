@@ -238,9 +238,7 @@ export type Database = {
           cta_tagline: string | null
           cta_text: string | null
           cta_url: string | null
-          email: string | null
           font_family: string | null
-          full_name: string | null
           logo_url: string | null
           questions: Json | null
           quiz_name: string | null
@@ -255,9 +253,7 @@ export type Database = {
           cta_tagline?: string | null
           cta_text?: string | null
           cta_url?: string | null
-          email?: string | null
           font_family?: string | null
-          full_name?: string | null
           logo_url?: string | null
           questions?: Json | null
           quiz_name?: string | null
@@ -272,9 +268,7 @@ export type Database = {
           cta_tagline?: string | null
           cta_text?: string | null
           cta_url?: string | null
-          email?: string | null
           font_family?: string | null
-          full_name?: string | null
           logo_url?: string | null
           questions?: Json | null
           quiz_name?: string | null
