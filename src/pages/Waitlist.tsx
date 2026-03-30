@@ -77,19 +77,41 @@ const Waitlist = () => {
             <p className="text-sm text-muted-foreground">We'll email you when PretaQuiz is ready.</p>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1"
-              disabled={loading}
-            />
-            <Button type="submit" disabled={loading} className="px-6">
-              {loading ? "Joining…" : "Join the Waitlist"}
-            </Button>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">
+            <div className="flex gap-3">
+              <Input
+                type="text"
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+              <Input
+                type="text"
+                placeholder="Last name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1"
+                disabled={loading}
+              />
+              <Button type="submit" disabled={loading} className="px-6">
+                {loading ? "Joining…" : "Join the Waitlist"}
+              </Button>
+            </div>
           </form>
         )}
 
