@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Check, CircleOff, MessageSquareX, Users, ArrowRight } from 'lucide-react';
@@ -51,14 +51,9 @@ const TEMPLATE_PALETTES: Record<string, Partial<typeof BASE_PALETTE>> = {
   },
 };
 
-const STRIPE_URLS: Record<string, string> = {
-  'business-breakthrough': 'https://buy.stripe.com/8x28wO0Yj3Jg6OfdCj0gw00',
-  'mindset-mastery': 'https://buy.stripe.com/9B68wO6iDfrYdcDgOv0gw02',
-  'leadership-style': 'https://buy.stripe.com/3cIcN4gXhfrYc8zeGn0gw03',
-  'wealth-readiness': 'https://buy.stripe.com/00wdR8cH1gw26Of8hZ0gw01',
-};
-
-const VALID_SLUGS = Object.keys(STRIPE_URLS);
+const VALID_TEMPLATES = ['business-breakthrough', 'mindset-mastery', 'leadership-style', 'wealth-readiness'];
+const CHECKOUT_URL = 'https://sgllwxhabdhjldhpnnsg.supabase.co/functions/v1/create-checkout';
+const VALID_SLUGS = VALID_TEMPLATES;
 
 function hexToRgba(hex: string, opacity: number) {
   const h = hex.replace('#', '');
@@ -206,7 +201,7 @@ function ScarcityBar({ C }: { C: typeof BASE_PALETTE }) {
 }
 
 /* ─── NAV ─── */
-function Nav({ stripeUrl, C }: { stripeUrl: string; C: typeof BASE_PALETTE }) {
+function Nav({ C }: { C: typeof BASE_PALETTE }) {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(15,10,30,0.85)', borderColor: C.cardBorder }}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -315,6 +310,7 @@ function Footer({ C }: { C: typeof BASE_PALETTE }) {
 /* ─── PAGE ─── */
 export default function TemplateSalesPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     if (!slug || !VALID_SLUGS.includes(slug)) return;
@@ -336,7 +332,7 @@ export default function TemplateSalesPage() {
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         priceValidUntil: '2027-12-31',
-        url: STRIPE_URLS[slug],
+        url: `https://pretaquiz.com/templates/${slug}`,
       },
       category: c.eyebrow,
     };
@@ -355,14 +351,35 @@ export default function TemplateSalesPage() {
   if (!slug || !VALID_SLUGS.includes(slug)) return <Navigate to="/" replace />;
 
   const C = { ...BASE_PALETTE, ...TEMPLATE_PALETTES[slug] };
-  const stripeUrl = STRIPE_URLS[slug];
+
+  const handleCheckout = async () => {
+    if (checkoutLoading) return;
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch(CHECKOUT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ template_type: slug }),
+      });
+      const data = await res.json();
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL returned', data);
+        setCheckoutLoading(false);
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setCheckoutLoading(false);
+    }
+  };
   const content = TEMPLATE_CONTENT[slug];
   const howSteps = getHowSteps(content.howStep2Desc);
 
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
-      <Nav stripeUrl={stripeUrl} C={C} />
+      <Nav C={C} />
 
       {/* ─── HERO ─── */}
       <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
@@ -412,15 +429,14 @@ export default function TemplateSalesPage() {
                 >
                   See It In Action
                 </Link>
-                <a
-                  href={stripeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] inline-block"
+                <button
+                  onClick={handleCheckout}
+                  disabled={checkoutLoading}
+                  className="rounded-lg px-6 py-3 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] inline-block cursor-pointer disabled:opacity-60"
                   style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
                 >
-                  Activate this quiz – $97 &rarr;
-                </a>
+                  {checkoutLoading ? 'Redirecting…' : 'Activate this quiz – $97 →'}
+                </button>
               </div>
             </motion.div>
 
@@ -652,15 +668,14 @@ export default function TemplateSalesPage() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <a
-              href={stripeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+            <button
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate this quiz – $97 &rarr;
-            </a>
+              {checkoutLoading ? 'Redirecting…' : 'Activate this quiz – $97 →'}
+            </button>
           </div>
         </motion.div>
       </section>
@@ -701,15 +716,14 @@ export default function TemplateSalesPage() {
             <p className="mb-3" style={{ color: C.footnote, fontSize: '13px' }}>
               One payment. No subscription. Live in under an hour.
             </p>
-            <a
-              href={stripeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+            <button
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+              className="inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate this quiz – $97 &rarr;
-            </a>
+              {checkoutLoading ? 'Redirecting…' : 'Activate this quiz – $97 →'}
+            </button>
           </div>
         </motion.div>
       </section>
@@ -757,15 +771,14 @@ export default function TemplateSalesPage() {
             </div>
 
             <div className="px-8 pb-8">
-              <a
-                href={stripeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+              <button
+                onClick={handleCheckout}
+                disabled={checkoutLoading}
+                className="block w-full rounded-lg py-3.5 text-center text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
                 style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
               >
-                Activate my quiz – $97 &rarr;
-              </a>
+                {checkoutLoading ? 'Redirecting…' : 'Activate my quiz – $97 →'}
+              </button>
 
               <ScarcityBar C={C} />
 
@@ -797,15 +810,14 @@ export default function TemplateSalesPage() {
             Pay once. Get your quiz live today. No subscription, no hidden fees – just a quiz that works for you 24/7.
           </motion.p>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-            <a
-              href={stripeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+            <button
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate my quiz – $97 &rarr;
-            </a>
+              {checkoutLoading ? 'Redirecting…' : 'Activate my quiz – $97 →'}
+            </button>
             <p className="mt-3 text-xs" style={{ color: C.footnote }}>
               $97 one-time &middot; Secure checkout &middot; No subscription
             </p>
