@@ -450,7 +450,7 @@ export default function TemplateSalesPage() {
             >
               <div className="relative w-[280px] rounded-[2rem] border-[6px] p-5 shadow-lg" style={{ borderColor: C.cardBorder, backgroundColor: C.cardBg }}>
                 <div className="mx-auto mb-6 h-1 w-16 rounded-full" style={{ backgroundColor: C.cardBorder }} />
-                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.footnote }}>Sarah Mitchell Coaching</p>
+                <p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.footnote }}><p className="text-[10px] font-medium tracking-widest uppercase" style={{ color: C.footnote }}>Your Business Name</p></p>
                 <h3 className="mt-4 text-lg font-bold leading-snug" style={{ color: C.headline }}>
                   {content.quizStartTitle}
                 </h3>
