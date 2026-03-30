@@ -811,15 +811,14 @@ export default function TemplateSalesPage() {
             Pay once. Get your quiz live today. No subscription, no hidden fees – just a quiz that works for you 24/7.
           </motion.p>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
-            <a
-              href={stripeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97]"
+            <button
+              onClick={handleCheckout}
+              disabled={checkoutLoading}
+              className="mt-8 inline-block rounded-lg px-8 py-3.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.97] cursor-pointer disabled:opacity-60"
               style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
             >
-              Activate my quiz – $97 &rarr;
-            </a>
+              {checkoutLoading ? 'Redirecting…' : 'Activate my quiz – $97 →'}
+            </button>
             <p className="mt-3 text-xs" style={{ color: C.footnote }}>
               $97 one-time &middot; Secure checkout &middot; No subscription
             </p>
