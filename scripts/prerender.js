@@ -82,14 +82,30 @@ const pages = [
     description: 'PretaQuiz privacy policy. How we handle your data.',
     h1: 'Privacy Policy',
     body: 'Privacy policy for PretaQuiz.',
+  },
+  {
+    route: '/waitlist',
+    title: 'Join the Waitlist — PretaQuiz',
+    description: 'Be first in line for PretaQuiz. The fastest way to qualify leads online with ready-made quiz funnels for coaches and consultants.',
+    h1: 'Join the PretaQuiz Waitlist',
+    body: 'Be the first to know when PretaQuiz launches. Ready-made quiz funnels for coaches, consultants, and service providers. Sign up to get early access.',
   }
 ];
 
 for (const page of pages) {
   let html = template;
   
+  const canonicalUrl = `https://pretaquiz.com${page.route === '/' ? '' : page.route}`;
+  
   // Update title
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`);
+  
+  // Update or inject canonical
+  if (html.includes('rel="canonical"')) {
+    html = html.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonicalUrl}"`);
+  } else {
+    html = html.replace('</head>', `    <link rel="canonical" href="${canonicalUrl}" />\n</head>`);
+  }
   
   // Update meta description
   html = html.replace(
@@ -108,7 +124,7 @@ for (const page of pages) {
   );
   html = html.replace(
     /<meta property="og:url" content="[^"]*"/,
-    `<meta property="og:url" content="https://pretaquiz.com${page.route === '/' ? '' : page.route}"`
+    `<meta property="og:url" content="${canonicalUrl}"`
   );
   
   // Inject JSON-LD if present
