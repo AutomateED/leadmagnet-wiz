@@ -88,8 +88,17 @@ const pages = [
 for (const page of pages) {
   let html = template;
   
+  const canonicalUrl = `https://pretaquiz.com${page.route === '/' ? '' : page.route}`;
+  
   // Update title
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`);
+  
+  // Update or inject canonical
+  if (html.includes('rel="canonical"')) {
+    html = html.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonicalUrl}"`);
+  } else {
+    html = html.replace('</head>', `    <link rel="canonical" href="${canonicalUrl}" />\n</head>`);
+  }
   
   // Update meta description
   html = html.replace(
@@ -108,7 +117,7 @@ for (const page of pages) {
   );
   html = html.replace(
     /<meta property="og:url" content="[^"]*"/,
-    `<meta property="og:url" content="https://pretaquiz.com${page.route === '/' ? '' : page.route}"`
+    `<meta property="og:url" content="${canonicalUrl}"`
   );
   
   // Inject JSON-LD if present
