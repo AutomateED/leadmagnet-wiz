@@ -56,7 +56,6 @@ Deno.serve(async (req) => {
     const session = event.data.object as Stripe.Checkout.Session;
     const email = session.customer_details?.email;
     const name = session.customer_details?.name ?? "";
-    const templateType = (session.metadata?.template_type as string) || 'business-breakthrough';
 
     if (!email) {
       console.error("No email in checkout session");
@@ -71,22 +70,20 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Check if user already exists — direct lookup instead of listing all users
-    let existingUser = null;
-    const { data: userList } = await supabaseAdmin.auth.admin.listUsers({
-      filter: email.toLowerCase(),
-      perPage: 1,
-    });
-    if (userList?.users?.length) {
-      existingUser = userList.users[0];
-    }
+    // Check if user already exists
+    const normalizedEmail = email.toLowerCase();
+    const { data: existingClient } = await supabaseAdmin
+      .from("clients")
+      .select("id")
+      .eq("email", normalizedEmail)
+      .maybeSingle();
 
-    if (existingUser) {
+    if (existingClient) {
       // Update subscription status to active if they already exist
       await supabaseAdmin
         .from("clients")
         .update({ subscription_status: "active" })
-        .eq("id", existingUser.id);
+        .eq("id", existingClient.id);
 
       console.log(`User ${email} already exists, updated to active`);
       return new Response(JSON.stringify({ received: true }), {
@@ -114,7 +111,7 @@ Deno.serve(async (req) => {
     // Insert client row
     const { error: insertError } = await supabaseAdmin.from("clients").insert({
       id: userId,
-      email,
+      email: normalizedEmail,
       business_name: "",
       subscription_status: "active",
     });
@@ -125,14 +122,14 @@ Deno.serve(async (req) => {
 
     // Generate slug from email
     const randomSuffix = Math.random().toString(36).substring(2, 6);
-    const slug = email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-" + randomSuffix;
+    const slug = normalizedEmail.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-" + randomSuffix;
 
     // Insert quiz_configs row
     const { error: quizError } = await supabaseAdmin.from("quiz_configs").insert({
       client_id: userId,
       slug,
       quiz_name: "My Quiz",
-      template_type: templateType,
+      template_type: "custom",
       brand_colour: "#D946EF",
       business_name: "",
       questions: [],
@@ -142,7 +139,7 @@ Deno.serve(async (req) => {
       cta_tagline: "",
       font_family: "Plus Jakarta Sans",
       full_name: name,
-      email,
+      email: normalizedEmail,
     });
 
     if (quizError) {

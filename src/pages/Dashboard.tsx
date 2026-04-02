@@ -35,7 +35,6 @@ const NAV_ITEMS = [
 interface QuizRow {
   id: string;
   quiz_name: string;
-  template_type: string;
   slug: string;
   [key: string]: any;
 }
@@ -224,7 +223,7 @@ function mapRowToConfig(row: any): QuizConfig {
   const ec = (row.email_config as any) || {};
   return {
     quizId: row.id || '', clientId: row.client_id || '', quizName: row.quiz_name || 'My Quiz',
-    templateType: row.template_type || 'business-breakthrough',
+    templateType: row.template_type || 'custom',
     fullName: row.full_name || '', businessName: row.business_name || '',
     email: row.email || '', logo: row.logo_url || '',
     brandColour: row.brand_colour || DEFAULT_CONFIG.brandColour,

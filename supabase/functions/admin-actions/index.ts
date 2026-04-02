@@ -7,9 +7,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-function generateSlug(template: string): string {
+function generateSlug(email: string): string {
   const rand = Math.random().toString(36).substring(2, 8)
-  return `${template}-${rand}`
+  const prefix = email.split('@')[0].replace(/[^a-z0-9]/gi, '').toLowerCase()
+  return `${prefix}-${rand}`
 }
 
 Deno.serve(async (req) => {
@@ -23,17 +24,17 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders })
     }
 
+    // Verify admin using getUser instead of getClaims
     const supabaseAuth = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_ANON_KEY')!,
       { global: { headers: { Authorization: authHeader } } }
     )
-    const { data: claims, error: claimsErr } = await supabaseAuth.auth.getClaims(authHeader.replace('Bearer ', ''))
-    if (claimsErr || !claims?.claims) {
+    const { data: { user }, error: userErr } = await supabaseAuth.auth.getUser()
+    if (userErr || !user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders })
     }
-    const userEmail = (claims.claims as any).email
-    if (userEmail !== ADMIN_EMAIL) {
+    if (user.email !== ADMIN_EMAIL) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: corsHeaders })
     }
 
@@ -47,7 +48,7 @@ Deno.serve(async (req) => {
 
     switch (action) {
       case 'grant_access': {
-        const { email, full_name, business_name, template_type } = payload
+        const { email, full_name, business_name } = payload
         if (!email) return new Response(JSON.stringify({ error: 'Email is required' }), { status: 400, headers: corsHeaders })
 
         // Create auth user with a random password (they'll reset it)
@@ -70,11 +71,11 @@ Deno.serve(async (req) => {
         })
 
         // Create quiz config
-        const slug = generateSlug(template_type || 'business-breakthrough')
+        const slug = generateSlug(email)
         await supabase.from('quiz_configs').insert({
           client_id: userId,
           slug,
-          template_type: template_type || 'business-breakthrough',
+          template_type: 'custom',
           quiz_name: business_name ? `${business_name} Quiz` : 'My Quiz',
           full_name: full_name || '',
           business_name: business_name || '',
@@ -138,7 +139,7 @@ Deno.serve(async (req) => {
           business_name: clientData?.business_name || null,
           subscription_status: clientData?.subscription_status || null,
           admin_notes: clientData?.notes || clientData?.admin_notes || null,
-          template_type: clientData?.template_type || (quizData?.[0]?.template_type) || null,
+          template_type: quizData?.[0]?.template_type || null,
           lead_count: leadData?.length || 0,
           quiz_configs: quizData as any,
           archived_reason: reason || 'manual_delete',
@@ -201,7 +202,6 @@ Deno.serve(async (req) => {
           business_name: arch.business_name || '',
           subscription_status: arch.subscription_status || 'active',
           notes: arch.admin_notes || '',
-          template_type: arch.template_type || '',
         })
 
         // Re-create quiz configs if we have them

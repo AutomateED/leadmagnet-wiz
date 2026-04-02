@@ -26,35 +26,35 @@ const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const FEATURES = [
-  { icon: Zap, title: 'Live in under an hour', body: 'Pick your template, upload your logo, set your brand colour, add your questions. That\'s it. No developer, no designer, no complicated setup.' },
-  { icon: Palette, title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business — because it was.' },
-  { icon: Target, title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients — not a generic template.' },
+  { icon: Zap, title: 'Live in under an hour', body: 'Pay once, log in, upload your logo, set your brand colour, write your questions. No developer, no designer, no complicated setup.' },
+  { icon: Palette, title: 'Fully your brand', body: 'Your logo, your colours, your copy. Every quiz looks like it was built specifically for your business.' },
+  { icon: Target, title: 'Your questions, your results', body: 'Customise every question, answer, and result description. The quiz reflects exactly how you work with clients.' },
   { icon: Inbox, title: 'Leads delivered automatically', body: 'Every completed quiz sends lead data straight to your CRM via webhook. You see who they are, what result they got, and how to follow up.' },
   { icon: Link2, title: 'Share it anywhere', body: 'Grab your unique quiz link or copy the embed code and paste it onto your website. Two options, both ready to go.' },
   { icon: Lock, title: 'One payment, no surprises', body: '$97 per quiz. No monthly fees, no hidden costs, no subscription to cancel. Yours to use for as long as you want.' },
 ];
 
-const TEMPLATES = [
-  { name: 'Business Breakthrough Quiz', tagline: "What's Really Holding Your Business Back?", benefit: 'Help clients identify the #1 thing holding their business back', niche: 'For business coaches', href: '/templates/business-breakthrough' },
-  { name: 'Mindset Mastery Quiz', tagline: "What's Your Hidden Mindset Block?", benefit: 'Reveal the thinking patterns shaping your clients\' results', niche: 'For life and mindset coaches', href: '/templates/mindset-mastery' },
-  { name: 'Leadership Style Quiz', tagline: 'What Kind of Leader Are You?', benefit: 'Show leaders how their style affects their team and outcomes', niche: 'For leadership and executive coaches', href: '/templates/leadership-style' },
-  { name: 'Wealth Readiness Quiz', tagline: 'How Ready Are You to Build Real Wealth?', benefit: 'Help clients understand their relationship with money and growth', niche: 'For financial coaches and wealth consultants', href: '/templates/wealth-readiness' },
+const NICHE_EXAMPLES = [
+  { niche: 'Business coaches', title: "What's Really Holding Your Business Back?", desc: 'Help clients identify the #1 bottleneck in their business' },
+  { niche: 'Mindset coaches', title: "What's Your Hidden Mindset Block?", desc: 'Reveal the thinking patterns shaping your clients\' results' },
+  { niche: 'Leadership coaches', title: 'What Kind of Leader Are You?', desc: 'Show leaders how their style affects their team and outcomes' },
+  { niche: 'Financial coaches', title: 'How Ready Are You to Build Real Wealth?', desc: 'Help clients understand their relationship with money and growth' },
 ];
 
 const STEPS = [
-  { num: '1', title: 'Choose your quiz template', desc: 'Browse our ready-made templates built for coaches and consultants. Pick the one that fits your niche and audience.' },
-  { num: '2', title: 'Pay once — $97 per quiz', desc: 'Complete your one-time $97 payment for the quiz you want. No subscription, no onboarding call. Instant dashboard access.' },
-  { num: '3', title: 'Brand it in minutes', desc: 'Upload your logo, set your brand colour, and update your copy. Your quiz looks like yours — not ours.' },
-  { num: '4', title: 'Share your link and watch leads come in', desc: 'Paste your unique quiz link anywhere. Every completion sends a warm, qualified lead straight to your inbox and CRM.' },
+  { num: '1', title: 'Activate your quiz', desc: 'Complete your one-time $97 payment. No subscription, no onboarding call. Instant dashboard access.' },
+  { num: '2', title: 'Make it yours', desc: 'Upload your logo, set your brand colour, write your questions and result descriptions. The dashboard walks you through every step.' },
+  { num: '3', title: 'Share your link', desc: 'Paste your unique quiz link anywhere, or embed it directly on your website. Ready to go in minutes.' },
+  { num: '4', title: 'Watch leads come in', desc: 'Every completed quiz sends a warm, qualified lead straight to your inbox and CRM. Automatically.' },
 ];
 
 const FAQS = [
-  { q: 'Can I change the questions?', a: 'Yes — all of them. Every question, answer option, and result description is editable from your dashboard. The template gives you a starting point, not a constraint.' },
-  { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website — Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
-  { q: 'What happens after I buy?', a: 'You\'ll receive your dashboard login immediately after checkout. Log in and follow the setup steps. Most clients are live within the hour.' },
+  { q: 'Can I change the questions?', a: 'Yes. Every question, answer option, and result description is editable from your dashboard. You start with a flexible structure and make it completely yours.' },
+  { q: 'Does it work on my website?', a: 'Yes. You get an embed code to paste onto any website. Squarespace, Wix, WordPress, Kajabi, whatever you use. Or share the standalone link directly.' },
+  { q: 'What happens after I buy?', a: 'You\'ll receive a magic link email to set your password and access your dashboard. Log in and follow the setup checklist. Most clients are live within the hour.' },
   { q: 'Do I need a developer?', a: 'No. Everything is point-and-click. If you can update a Google Doc, you can set up your quiz.' },
-  { q: 'Is there a monthly fee?', a: 'No. Each quiz is a $97 one-time payment. No subscription, no renewal, no surprises.' },
-  { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook — including Zapier, which means it connects to almost every CRM and email tool on the market.' },
+  { q: 'Is there a monthly fee?', a: 'No. $97 one-time payment. No subscription, no renewal, no surprises.' },
+  { q: 'What CRMs does it connect to?', a: 'Anything that accepts a webhook, which includes Zapier. That means it connects to almost every CRM and email tool on the market.' },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -111,15 +111,14 @@ function Footer() {
 
 export default function HomePage() {
   useEffect(() => {
-    document.title = 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour';
+    document.title = 'PretaQuiz \u2014 Your Quiz Funnel, Live in Under an Hour';
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
       el.setAttribute('content', content);
     };
-    setMeta('name', 'description', 'Ready-made quiz funnels for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.');
+    setMeta('name', 'description', 'A branded lead-generation quiz for coaches, consultants, and service providers. Customise every question and result. Live in under an hour. $97 one-time.');
 
-    // JSON-LD structured data
     const jsonLd = {
       '@context': 'https://schema.org',
       '@graph': [
@@ -128,7 +127,7 @@ export default function HomePage() {
           '@id': 'https://pretaquiz.com/#organization',
           name: 'PretaQuiz',
           url: 'https://pretaquiz.com',
-          description: 'Ready-made quiz funnels for coaches, consultants, and service providers.',
+          description: 'A branded lead-generation quiz for coaches, consultants, and service providers.',
         },
         {
           '@type': 'WebSite',
@@ -141,8 +140,8 @@ export default function HomePage() {
           '@type': 'WebPage',
           '@id': 'https://pretaquiz.com/#webpage',
           url: 'https://pretaquiz.com',
-          name: 'PretaQuiz — Build Your Own Quiz Funnel in Under an Hour',
-          description: 'Ready-made quiz funnels for coaches, consultants, and service providers. Pick your niche. Customise your quiz. Go live in under an hour.',
+          name: 'PretaQuiz \u2014 Your Quiz Funnel, Live in Under an Hour',
+          description: 'A branded lead-generation quiz for coaches, consultants, and service providers. Customise every question and result. Live in under an hour.',
           isPartOf: { '@id': 'https://pretaquiz.com/#website' },
         },
         {
@@ -156,7 +155,7 @@ export default function HomePage() {
             priceCurrency: 'USD',
             priceValidUntil: '2027-12-31',
           },
-          description: 'Quiz funnel builder for coaches and consultants. Customise questions, brand it, and go live in under an hour.',
+          description: 'Branded quiz funnel for coaches and consultants. Customise questions, results, and branding. Live in under an hour.',
         },
       ],
     };
@@ -174,13 +173,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: C.pageBg, color: '#fff', scrollBehavior: 'smooth' }}>
-      <style>{`
-        @keyframes pulseGlow {
-          0% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
-          50% { box-shadow: 0 0 9px 3px rgba(240,32,176,0.25), 0 0 20px 6px rgba(217,70,239,0.10); }
-          100% { box-shadow: 0 0 4px 1px rgba(217,70,239,0.15), 0 0 10px 2px rgba(217,70,239,0.05); }
-        }
-      `}</style>
       <Nav />
 
       {/* ─── HERO ─── */}
@@ -205,13 +197,11 @@ export default function HomePage() {
               variants={stagger}
               className="mx-auto mt-10 grid max-w-2xl grid-cols-[1fr_auto_1fr] items-center gap-x-4 gap-y-6"
             >
-              {/* Their side */}
               <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="text-right">
                 <p className="text-sm font-semibold" style={{ color: '#E879F9' }}>Your visitor</p>
                 <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>Takes a short quiz and gets a personalised result.</p>
               </motion.div>
 
-              {/* Arrow */}
               <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="flex flex-col items-center gap-1">
                 <motion.div
                   className="h-8 w-px"
@@ -234,13 +224,11 @@ export default function HomePage() {
                 />
               </motion.div>
 
-              {/* You side */}
               <motion.div variants={fadeUp} transition={{ duration: 0.5, ease }} className="text-left">
                 <p className="text-sm font-semibold" style={{ color: '#E879F9' }}>You</p>
                 <p className="mt-1 text-sm leading-relaxed" style={{ color: C.body }}>Get their name, email, and exactly what they need.</p>
               </motion.div>
 
-              {/* Bottom tagline spanning full width */}
               <motion.p
                 variants={fadeUp}
                 transition={{ duration: 0.5, ease }}
@@ -251,22 +239,22 @@ export default function HomePage() {
               </motion.p>
             </motion.div>
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-8 flex items-center justify-center" style={{ flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
+              <Link
+                to="/get-started"
+                className="rounded-lg transition-all hover:brightness-110 active:scale-[0.97]"
+                style={{ backgroundColor: '#F020B0', color: '#FFFFFF', padding: '16px 48px', fontSize: '16px', fontWeight: '700', letterSpacing: '0.1em' }}
+              >
+                GET STARTED
+              </Link>
               <a
                 href="/quiz/demo-business-breakthrough"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg transition-all hover:opacity-90 active:scale-[0.97]"
-                style={{ backgroundColor: '#F020B0', color: '#FFFFFF', padding: '16px 48px', fontSize: '16px', fontWeight: '700', letterSpacing: '0.1em' }}
-              >
-                SEE IT IN ACTION
-              </a>
-              <button
-                onClick={() => document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth' })}
                 className="rounded-lg transition-all hover:bg-white/5 active:scale-[0.97]"
                 style={{ backgroundColor: 'transparent', border: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.90)', padding: '12px 32px', fontSize: '14px' }}
               >
-                Browse quiz templates &rarr;
-              </button>
+                Try the demo quiz &rarr;
+              </a>
             </motion.div>
           </motion.div>
         </div>
@@ -280,7 +268,7 @@ export default function HomePage() {
               Everything you need. <span style={{ color: C.accent }}>Nothing you don't.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.body }}>
-              Built for coaches and consultants who want results — not a tech project.
+              Built for coaches and consultants who want results, not a tech project.
             </p>
           </motion.div>
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -301,39 +289,45 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ─── TEMPLATE GRID ─── */}
-      <section id="templates" className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
+      {/* ─── NICHE EXAMPLES ─── */}
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.pageBg }}>
         <motion.div className="mx-auto max-w-5xl px-6" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={stagger}>
           <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-center mb-12">
             <h2 className="text-3xl font-bold md:text-4xl" style={{ color: C.headline }}>
-              Choose your <span style={{ color: C.accent }}>quiz template</span>
+              One quiz. <span style={{ color: C.accent }}>Any coaching niche.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.body }}>
-              Each template is ready to brand and launch. Pick the one that fits your audience.
+              You get a flexible quiz structure and make it completely yours. Here's how coaches in different niches use it:
             </p>
           </motion.div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {TEMPLATES.map((t) => (
-              <motion.div key={t.href} variants={fadeUp} transition={{ duration: 0.6, ease }}>
-                <Link
-                  to={t.href}
-                  className="group block rounded-xl p-6 transition-all hover:-translate-y-0.5"
-                  style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}`, animation: 'pulseGlow 3s ease-in-out infinite' }}
-                >
-                  <span className="inline-block rounded-full px-3 py-1 text-[11px] font-medium tracking-wide" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent, textTransform: 'uppercase', fontSize: '11px', letterSpacing: '0.1em', fontWeight: '700' }}>
-                    {t.niche}
-                  </span>
-                  <h3 className="mt-4 text-xl font-bold" style={{ color: C.headline }}>
-                    {t.name}
-                  </h3>
-                  <p className="mt-1 text-sm" style={{ color: C.supporting }}>{t.benefit}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors" style={{ color: C.accent }}>
-                    View Template <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </Link>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {NICHE_EXAMPLES.map((ex) => (
+              <motion.div
+                key={ex.niche}
+                variants={fadeUp}
+                transition={{ duration: 0.6, ease }}
+                className="rounded-xl p-6"
+                style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
+              >
+                <span className="inline-block rounded-full px-3 py-1 text-[11px] font-bold tracking-wide uppercase" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: C.accent }}>
+                  {ex.niche}
+                </span>
+                <h3 className="mt-4 text-lg font-bold" style={{ color: C.headline }}>
+                  "{ex.title}"
+                </h3>
+                <p className="mt-1.5 text-sm" style={{ color: C.supporting }}>{ex.desc}</p>
               </motion.div>
             ))}
           </div>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-10 text-center">
+            <Link
+              to="/get-started"
+              className="inline-flex items-center gap-2 rounded-lg px-8 py-3.5 text-sm font-bold transition-all hover:brightness-110 active:scale-[0.97]"
+              style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
+            >
+              Get started <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -345,7 +339,7 @@ export default function HomePage() {
               From purchase to live quiz <span style={{ color: C.accent }}>in under an hour</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base" style={{ color: C.body }}>
-              No tech skills required. No setup calls. Just follow these four steps.
+              No tech skills required. No setup calls. Just follow four steps.
             </p>
           </motion.div>
 
@@ -377,6 +371,27 @@ export default function HomePage() {
             {FAQS.map((faq) => (
               <FaqItem key={faq.q} q={faq.q} a={faq.a} />
             ))}
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ─── FINAL CTA ─── */}
+      <section className="py-20 md:py-28" style={{ backgroundColor: C.sectionBg }}>
+        <motion.div className="mx-auto max-w-3xl px-6 text-center" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={stagger}>
+          <motion.h2 variants={fadeUp} transition={{ duration: 0.6, ease }} className="text-3xl font-bold md:text-4xl" style={{ color: C.headline }}>
+            Ready to turn visitors into <span style={{ color: C.accent }}>qualified leads</span>?
+          </motion.h2>
+          <motion.p variants={fadeUp} transition={{ duration: 0.6, ease }} className="mt-4 text-base leading-relaxed" style={{ color: C.body }}>
+            $97 one-time. No subscription. Live in under an hour.
+          </motion.p>
+          <motion.div variants={fadeUp} transition={{ duration: 0.6, ease }}>
+            <Link
+              to="/get-started"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg px-8 py-3.5 text-sm font-bold transition-all hover:brightness-110 active:scale-[0.97]"
+              style={{ backgroundColor: C.cta, color: '#FFFFFF' }}
+            >
+              Get started <ArrowRight className="h-4 w-4" />
+            </Link>
           </motion.div>
         </motion.div>
       </section>

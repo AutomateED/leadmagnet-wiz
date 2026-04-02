@@ -59,13 +59,7 @@ export default function StartScreen({ config, onStart }: StartScreenProps) {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl leading-relaxed max-w-md" style={{ color: '#4A4060' }}>
-          Answer {config.questions?.length || 7} quick questions and {(() => {
-            const t = config.templateType;
-            if (t === 'mindset-mastery') return 'uncover the hidden beliefs shaping your confidence and success.';
-            if (t === 'leadership-style') return 'reveal your natural leadership style and how to amplify it.';
-            if (t === 'wealth-readiness') return 'find out how prepared you really are to build lasting wealth.';
-            return "discover exactly what's standing between you and the business you want.";
-          })()}
+          Answer {config.questions?.length || 7} quick questions and get your personalised result.
         </p>
 
         <p className="mt-4 text-sm" style={{ color: '#6B5F80' }}>Takes about 2 minutes</p>

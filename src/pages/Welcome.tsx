@@ -1,21 +1,10 @@
-import { useSearchParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
-
-const TEMPLATE_NAMES: Record<string, string> = {
-  'business-breakthrough': 'Business Breakthrough Quiz',
-  'mindset-mastery': 'Mindset Mastery Quiz',
-  'leadership-style': 'Leadership Style Quiz',
-  'wealth-readiness': 'Wealth Readiness Quiz',
-};
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Welcome() {
-  const [params] = useSearchParams();
-  const template = params.get('template') || '';
-  const quizName = TEMPLATE_NAMES[template] || 'your quiz';
-
   return (
     <div
       className="flex min-h-screen flex-col items-center justify-center px-4"
@@ -53,7 +42,7 @@ export default function Welcome() {
         </h1>
 
         <p className="mb-6 text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.85)' }}>
-          Your <span className="font-semibold text-white">{quizName}</span> is being set up right now.
+          Your quiz is being set up right now.
         </p>
 
         {/* Email notice */}

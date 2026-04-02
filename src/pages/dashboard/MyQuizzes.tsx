@@ -1,11 +1,9 @@
 import { Plus, ArrowRight } from 'lucide-react';
-import { type QuizConfig } from '@/hooks/useConfig';
 import { Link } from 'react-router-dom';
 
 interface QuizRow {
   id: string;
   quiz_name: string;
-  template_type: string;
   slug: string;
 }
 
@@ -28,14 +26,14 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
           You don't have any quizzes yet
         </h2>
         <p className="text-base mb-8 max-w-md" style={{ color: '#6B5F80' }}>
-          Browse our templates and create your first lead-generating quiz in minutes.
+          Get started with PretaQuiz and create your first lead-generating quiz in minutes.
         </p>
         <Link
-          to="/#templates"
+          to="/get-started"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90"
           style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
         >
-          Browse Templates
+          Get Started
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -46,7 +44,7 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
     <div className="p-8 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>My Quizzes</h1>
       <p className="text-sm mb-8" style={{ color: '#6B5F80' }}>
-        Select a quiz to configure, or add a new one.
+        Select a quiz to configure.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -60,12 +58,6 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
             }}
           >
             <div>
-              <span
-                className="inline-block text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full mb-2"
-                style={{ backgroundColor: 'rgba(217,70,239,0.1)', color: '#D946EF' }}
-              >
-                {quiz.template_type.replace(/-/g, ' ')}
-              </span>
               <h3 className="text-base font-bold leading-tight" style={{ color: '#0F0A1E' }}>
                 {quiz.quiz_name}
               </h3>
@@ -86,7 +78,7 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
 
         {/* Add a quiz card */}
         <a
-          href="https://pretaquiz.com"
+          href="https://pretaquiz.com/get-started"
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-xl p-5 flex flex-col items-center justify-center gap-3 min-h-[180px] transition-colors hover:border-opacity-40 group"

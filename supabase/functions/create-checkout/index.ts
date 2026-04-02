@@ -1,22 +1,10 @@
 import Stripe from "npm:stripe@17";
-import { z } from "npm:zod@3";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
 };
-
-const VALID_TEMPLATES = [
-  "business-breakthrough",
-  "mindset-mastery",
-  "leadership-style",
-  "wealth-readiness",
-];
-
-const BodySchema = z.object({
-  template_type: z.enum(VALID_TEMPLATES as [string, ...string[]]),
-});
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -39,56 +27,34 @@ Deno.serve(async (req) => {
     });
   }
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
-      status: 400,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-  }
-
-  const parsed = BodySchema.safeParse(body);
-  if (!parsed.success) {
-    return new Response(
-      JSON.stringify({ error: "Invalid template_type", details: parsed.error.flatten().fieldErrors }),
-      { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
-  }
-
-  const { template_type } = parsed.data;
-
-  const TEMPLATE_NAMES: Record<string, string> = {
-    "business-breakthrough": "Business Breakthrough Quiz",
-    "mindset-mastery": "Mindset Mastery Quiz",
-    "leadership-style": "Leadership Style Quiz",
-    "wealth-readiness": "Wealth Readiness Quiz",
-  };
+  // Use a fixed price ID from env, or fall back to inline price_data
+  const priceId = Deno.env.get("PRETAQUIZ_PRICE_ID");
 
   try {
     const stripe = new Stripe(stripeKey, { apiVersion: "2024-12-18.acacia" });
 
     const origin = req.headers.get("origin") || "https://pretaquiz.com";
 
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: [
-        {
+    const lineItem = priceId
+      ? { price: priceId, quantity: 1 }
+      : {
           price_data: {
             currency: "usd",
             unit_amount: 9700,
             product_data: {
-              name: TEMPLATE_NAMES[template_type] || "Quiz Template",
+              name: "PretaQuiz Activation",
               description: "One-time purchase — no recurring fees",
             },
           },
           quantity: 1,
-        },
-      ],
-      metadata: { template_type },
-      success_url: `${origin}/welcome?template=${template_type}`,
-      cancel_url: `${origin}/templates/${template_type}`,
+        };
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      line_items: [lineItem],
+      allow_promotion_codes: true,
+      success_url: `${origin}/welcome`,
+      cancel_url: `${origin}/get-started`,
     });
 
     return new Response(JSON.stringify({ url: session.url }), {

@@ -12,9 +12,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
-import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
   AlertDialogTrigger,
@@ -102,7 +99,6 @@ export default function Admin() {
   const [grantEmail, setGrantEmail] = useState('');
   const [grantName, setGrantName] = useState('');
   const [grantBusiness, setGrantBusiness] = useState('');
-  const [grantTemplate, setGrantTemplate] = useState('business-breakthrough');
   const [granting, setGranting] = useState(false);
 
   // Notes state
@@ -187,7 +183,6 @@ export default function Admin() {
         email: grantEmail.trim(),
         full_name: grantName.trim(),
         business_name: grantBusiness.trim(),
-        template_type: grantTemplate,
       });
       if (res.error) throw new Error(res.error);
       toast({ title: 'Access granted', description: res.message });
@@ -324,20 +319,6 @@ export default function Admin() {
                     style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
                   />
                 </div>
-                <div className="min-w-[180px]">
-                  <Label className="text-xs" style={{ color: C.muted }}>Template</Label>
-                  <Select value={grantTemplate} onValueChange={setGrantTemplate}>
-                    <SelectTrigger className="mt-1" style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="business-breakthrough">Business Breakthrough</SelectItem>
-                      <SelectItem value="mindset-mastery">Mindset Mastery</SelectItem>
-                      <SelectItem value="leadership-style">Leadership Style</SelectItem>
-                      <SelectItem value="wealth-readiness">Wealth Readiness</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
                 <Button type="submit" disabled={granting} style={{ backgroundColor: C.cta, color: C.white }}>
                   {granting ? 'Granting…' : 'Grant Access'}
                 </Button>
@@ -353,7 +334,7 @@ export default function Admin() {
                 <table className="w-full text-sm" style={{ color: C.body }}>
                   <thead>
                     <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                      {['Email', 'Business', 'Status', 'Quiz', 'Template', 'Last login', 'Setup', 'Actions'].map((h) => (
+                      {['Email', 'Business', 'Status', 'Quiz', 'Last login', 'Setup', 'Actions'].map((h) => (
                         <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: C.muted }}>{h}</th>
                       ))}
                     </tr>
@@ -375,7 +356,6 @@ export default function Admin() {
                             </a>
                           ) : '—'}
                         </td>
-                        <td className="px-4 py-3 text-xs">{c.template_type || '—'}</td>
                         <td className="px-4 py-3 text-xs">{c.last_login ? new Date(c.last_login).toLocaleDateString() : '—'}</td>
                         <td className="px-4 py-3">
                           <span className="text-xs font-mono" style={{ color: c.setup_score >= 4 ? C.green : c.setup_score >= 2 ? C.amber : C.muted }}>
@@ -478,7 +458,7 @@ export default function Admin() {
                       </tr>
                     ))}
                     {clients.length === 0 && (
-                      <tr><td colSpan={8} className="px-4 py-8 text-center" style={{ color: C.muted }}>No clients yet</td></tr>
+                      <tr><td colSpan={7} className="px-4 py-8 text-center" style={{ color: C.muted }}>No clients yet</td></tr>
                     )}
                   </tbody>
                 </table>

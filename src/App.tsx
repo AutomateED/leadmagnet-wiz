@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import CookieConsent from "@/components/CookieConsent";
 import HomePage from "./pages/HomePage";
-import TemplateSalesPage from "./pages/TemplateSalesPage";
+import GetStarted from "./pages/GetStarted";
 import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
@@ -33,7 +33,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/templates/:slug" element={<TemplateSalesPage />} />
+            <Route path="/get-started" element={<GetStarted />} />
             <Route path="/setup" element={<Setup />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
@@ -47,6 +47,8 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/waitlist" element={<Waitlist />} />
+            {/* Redirect old template URLs to get-started */}
+            <Route path="/templates/*" element={<GetStarted />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
