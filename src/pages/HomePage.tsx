@@ -529,6 +529,7 @@ export default function HomePage() {
           </p>
         </div>
       </Section>
+      <div className="section-glow" aria-hidden="true" />
 
       {/* ═══ SECTION 8: SOCIAL PROOF ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
