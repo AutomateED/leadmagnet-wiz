@@ -27,6 +27,7 @@ function Section({ children, className = '', id, style }: { children: React.Reac
       animate={inView ? 'visible' : 'hidden'}
       variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       className={className}
+      style={style}
     >
       {children}
     </motion.section>
