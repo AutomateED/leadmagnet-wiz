@@ -113,10 +113,10 @@ const FOR_YOU = [
 ];
 
 const NOT_FOR_YOU = [
-  'Advanced A/B split testing',
-  'Built-in email sequences and automation',
-  'Multi-branch conditional logic with weighted scoring',
-  'Enterprise-level analytics dashboards',
+  'Advanced A/B split testing*',
+  'Built-in email sequences and automation*',
+  'Multi-branch conditional logic with weighted scoring*',
+  'Enterprise-level analytics dashboards*',
 ];
 
 const TESTIMONIALS = [
@@ -479,7 +479,7 @@ export default function HomePage() {
             </motion.div>
           </div>
           <p className="mt-10 text-sm leading-relaxed text-center max-w-3xl mx-auto" style={{ color: C.supporting }}>
-            Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
+            *Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
           </p>
         </div>
       </Section>
