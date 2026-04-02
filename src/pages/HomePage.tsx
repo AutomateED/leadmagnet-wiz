@@ -169,6 +169,7 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-xl font-bold" style={{ color: C.headline }}>Preta<span style={{ color: C.accent }}>Quiz</span></span>
+          <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: '#D946EF', border: '1px solid rgba(217,70,239,0.3)' }}>Beta</span>
         </Link>
         <div className="flex items-center gap-4">
           <Link to="/login" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
