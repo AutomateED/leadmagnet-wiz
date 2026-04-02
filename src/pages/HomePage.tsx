@@ -310,6 +310,7 @@ export default function HomePage() {
           </motion.div>
         </div>
       </Section>
+      <div className="section-glow" aria-hidden="true" />
 
       {/* ═══ SECTION 2: PROBLEM / AGITATION ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
