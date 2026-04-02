@@ -113,10 +113,10 @@ const FOR_YOU = [
 ];
 
 const NOT_FOR_YOU = [
-  'Advanced A/B split testing',
-  'Built-in email sequences and automation',
-  'Multi-branch conditional logic with weighted scoring',
-  'Enterprise-level analytics dashboards',
+  'Advanced A/B split testing*',
+  'Built-in email sequences and automation*',
+  'Multi-branch conditional logic with weighted scoring*',
+  'Enterprise-level analytics dashboards*',
 ];
 
 const TESTIMONIALS = [
