@@ -340,6 +340,48 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* ═══ NICHE EXAMPLES ═══ */}
+      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
+        <div className="max-w-5xl mx-auto">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
+            One quiz structure. Any coaching niche.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-lg text-center leading-relaxed max-w-2xl mx-auto" style={{ color: C.supporting }}>
+            You get a flexible quiz framework and make it completely yours. Here's how coaches across different niches use it:
+          </motion.p>
+          <div className="mt-14 grid sm:grid-cols-2 gap-6">
+            {NICHE_EXAMPLES.map((ex, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className="rounded-2xl p-6 md:p-8 transition-all hover:scale-[1.01]"
+                style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}
+              >
+                <span className="inline-block text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full" style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: C.accent }}>
+                  {ex.niche}
+                </span>
+                <h3 className="mt-4 text-lg font-semibold" style={{ color: C.headline }}>
+                  "{ex.quizTitle}"
+                </h3>
+                <div className="mt-4 space-y-3">
+                  <p className="text-sm leading-relaxed" style={{ color: C.supporting }}>
+                    <span className="font-medium" style={{ color: C.body }}>Sample question:</span> {ex.sampleQ}
+                  </p>
+                  <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(217,70,239,0.06)', border: `1px solid rgba(217,70,239,0.15)` }}>
+                    <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: C.accent }}>
+                      {ex.sampleResult}
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: C.body }}>
+                      {ex.resultSnippet}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       {/* ═══ SECTION 6: PRICE COMPARISON ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
