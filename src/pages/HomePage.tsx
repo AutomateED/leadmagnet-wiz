@@ -476,11 +476,11 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm leading-relaxed" style={{ color: C.supporting }}>
-                Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
-              </p>
             </motion.div>
           </div>
+          <p className="mt-10 text-sm leading-relaxed text-center max-w-3xl mx-auto" style={{ color: C.supporting }}>
+            Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
+          </p>
         </div>
       </Section>
 
