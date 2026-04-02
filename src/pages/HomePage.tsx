@@ -250,7 +250,7 @@ export default function HomePage() {
         @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px)} }
         @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,25px)} }
         @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,40px)} }
-        @keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-15%)} 40%{transform:translate(-5%,15%)} 50%{transform:translate(-10%,5%)} 60%{transform:translate(15%,0)} 70%{transform:translate(0,10%)} 80%{transform:translate(3%,-15%)} 90%{transform:translate(-10%,10%)} 100%{transform:translate(0,0)} }
+        @keyframes grain { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,-3%)} }
         .grain-overlay::after {
           content: '';
           position: fixed;
@@ -260,7 +260,7 @@ export default function HomePage() {
           opacity: 0.035;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
           background-size: 256px 256px;
-          animation: grain 8s steps(10) infinite;
+          animation: grain 20s linear infinite;
         }
         @keyframes sweepLine { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
         .section-glow {
