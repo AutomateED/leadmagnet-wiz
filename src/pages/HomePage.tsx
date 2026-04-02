@@ -247,9 +247,9 @@ export default function HomePage() {
     <div className="min-h-screen relative" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       {/* Grain texture overlay */}
       <style>{`
-        @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px)} }
-        @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,25px)} }
-        @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,40px)} }
+        @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-15px)} }
+        @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,12px)} }
+        @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(12px,20px)} }
         @keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-15%)} 40%{transform:translate(-5%,15%)} 50%{transform:translate(-10%,5%)} 60%{transform:translate(15%,0)} 70%{transform:translate(0,10%)} 80%{transform:translate(3%,-15%)} 90%{transform:translate(-10%,10%)} 100%{transform:translate(0,0)} }
         .grain-overlay::after {
           content: '';
@@ -262,14 +262,16 @@ export default function HomePage() {
           background-size: 256px 256px;
           animation: grain 8s steps(10) infinite;
         }
-        @keyframes pulseLine { 0%,100%{opacity:0.08} 50%{opacity:0.25} }
+        @keyframes sweepLine { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
         .section-glow {
           height: 1px;
-          background: radial-gradient(ellipse at center, rgba(240,32,176,0.5), transparent 70%);
+          background: linear-gradient(90deg, transparent 0%, rgba(240,32,176,0.4) 50%, transparent 100%);
+          background-size: 50% 100%;
+          background-repeat: no-repeat;
           pointer-events: none;
           position: relative;
           z-index: 1;
-          animation: pulseLine 6s ease-in-out infinite;
+          animation: sweepLine 6s ease-in-out infinite;
         }
       `}</style>
 
