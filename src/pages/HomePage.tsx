@@ -102,7 +102,7 @@ const FAQS = [
   { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers — everything you need to segment and follow up.' },
   { q: 'Do I need hosting or WordPress?', a: 'No. Your quiz is hosted for you. Nothing to install, no server to manage.' },
   { q: 'What if I want to change my questions later?', a: 'You can update your quiz questions, results, and branding at any time.' },
-  { q: 'Is there a money-back guarantee?', a: 'Yes — if you\'re not happy within 14 days and haven\'t published your quiz, you\'ll get a full refund. No questions asked.' },
+  
 ];
 
 /* ─── COMPONENTS ─── */
