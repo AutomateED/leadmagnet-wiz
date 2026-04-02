@@ -244,12 +244,52 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      {/* Grain texture overlay */}
+      <style>{`
+        @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px)} }
+        @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,25px)} }
+        @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,40px)} }
+        @keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-15%)} 40%{transform:translate(-5%,15%)} 50%{transform:translate(-10%,5%)} 60%{transform:translate(15%,0)} 70%{transform:translate(0,10%)} 80%{transform:translate(3%,-15%)} 90%{transform:translate(-10%,10%)} 100%{transform:translate(0,0)} }
+        .grain-overlay::after {
+          content: '';
+          position: fixed;
+          inset: 0;
+          z-index: 50;
+          pointer-events: none;
+          opacity: 0.035;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+          background-size: 256px 256px;
+          animation: grain 8s steps(10) infinite;
+        }
+        .section-glow {
+          height: 1px;
+          background: radial-gradient(ellipse at center, rgba(217,70,239,0.15), transparent 70%);
+          filter: blur(20px);
+          pointer-events: none;
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
+
+      <div className="grain-overlay" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 40 }} />
+
       <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} />
 
       {/* ═══ SECTION 1: HERO ═══ */}
-      <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28" style={{ backgroundColor: C.pageBg }}>
-        <div className="max-w-3xl mx-auto text-center">
+      <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28 relative overflow-hidden" style={{ backgroundColor: C.pageBg }}>
+        {/* Gradient orbs */}
+        <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" aria-hidden="true">
+          <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full" style={{ background: 'rgba(217,70,239,0.10)', filter: 'blur(120px)', animation: 'drift1 10s ease-in-out infinite' }} />
+          <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] rounded-full" style={{ background: 'rgba(240,32,176,0.06)', filter: 'blur(150px)', animation: 'drift2 12s ease-in-out infinite' }} />
+          <div className="absolute bottom-[-15%] left-[30%] w-[450px] h-[450px] rounded-full" style={{ background: 'rgba(217,70,239,0.07)', filter: 'blur(130px)', animation: 'drift3 9s ease-in-out infinite' }} />
+        </div>
+        {/* Mobile: smaller orbs */}
+        <div className="absolute inset-0 pointer-events-none z-0 md:hidden" aria-hidden="true">
+          <div className="absolute top-[-5%] left-[-10%] w-[250px] h-[250px] rounded-full" style={{ background: 'rgba(217,70,239,0.08)', filter: 'blur(80px)', animation: 'drift1 10s ease-in-out infinite' }} />
+          <div className="absolute top-[30%] right-[-10%] w-[200px] h-[200px] rounded-full" style={{ background: 'rgba(240,32,176,0.05)', filter: 'blur(100px)', animation: 'drift2 12s ease-in-out infinite' }} />
+        </div>
+        <div className="max-w-3xl mx-auto text-center relative z-10">
           <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight" style={{ color: C.headline }}>
             Your website gets visitors.{' '}
             <span className="block mt-1">Are any of them becoming leads?</span>
