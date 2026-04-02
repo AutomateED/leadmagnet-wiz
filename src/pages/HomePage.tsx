@@ -338,7 +338,6 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
-        </div>
       </Section>
 
       {/* ═══ FULL-WIDTH CALLOUT ═══ */}
