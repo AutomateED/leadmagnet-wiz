@@ -338,7 +338,15 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
+        </div>
       </Section>
+
+      {/* ═══ FULL-WIDTH CALLOUT ═══ */}
+      <div className="py-8 px-5" style={{ backgroundColor: C.sectionBg, borderTop: `1px solid ${C.cardBorder}`, borderBottom: `1px solid ${C.cardBorder}` }}>
+        <p className="max-w-4xl mx-auto text-center text-base md:text-lg leading-relaxed" style={{ color: C.body }}>
+          Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
+        </p>
+      </div>
 
       {/* ═══ NICHE EXAMPLES ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
