@@ -4,9 +4,19 @@ import { motion, useInView } from 'framer-motion';
 import { Check, X, ChevronDown, Minus } from 'lucide-react';
 
 /* ─── PALETTE ─── */
-const BRAND = '#F97066';
-const BRAND_DARK = '#E85D52';
-const BRAND_LIGHT = '#FFF1F0';
+const C = {
+  pageBg: '#0F0A1E',
+  sectionBg: '#160E28',
+  cardBg: '#201538',
+  cardBorder: '#2D1A4A',
+  accent: '#D946EF',
+  cta: '#F020B0',
+  headline: '#FFFFFF',
+  subheading: 'rgba(255,255,255,0.92)',
+  body: 'rgba(255,255,255,0.85)',
+  supporting: 'rgba(255,255,255,0.75)',
+  footnote: 'rgba(255,255,255,0.70)',
+};
 
 const CHECKOUT_URL = 'https://sgllwxhabdhjldhpnnsg.supabase.co/functions/v1/create-checkout';
 
@@ -99,16 +109,17 @@ const FAQS = [
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-200">
+    <div style={{ borderBottomColor: C.cardBorder }} className="border-b">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-5 text-left text-base font-medium text-gray-900 hover:text-gray-700 transition-colors"
+        className="flex w-full items-center justify-between py-5 text-left text-base font-medium transition-colors"
+        style={{ color: C.headline }}
       >
         {q}
-        <ChevronDown className={`h-5 w-5 text-gray-400 shrink-0 ml-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`h-5 w-5 shrink-0 ml-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} style={{ color: C.supporting }} />
       </button>
       {open && (
-        <p className="pb-5 text-gray-600 leading-relaxed">{a}</p>
+        <p className="pb-5 leading-relaxed" style={{ color: C.body }}>{a}</p>
       )}
     </div>
   );
@@ -123,20 +134,20 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#0F0A1E]/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-gray-900">Preta<span style={{ color: '#D946EF' }}>Quiz</span></span>
+          <span className="text-xl font-bold" style={{ color: C.headline }}>Preta<span style={{ color: C.accent }}>Quiz</span></span>
         </Link>
         <div className="flex items-center gap-4">
-          <Link to="/login" className="hidden sm:inline-block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+          <Link to="/login" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
             Login
           </Link>
           <button
             onClick={onCheckout}
             disabled={loading}
             className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
-            style={{ backgroundColor: BRAND }}
+            style={{ backgroundColor: C.cta }}
           >
             {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
           </button>
@@ -202,17 +213,17 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} />
 
       {/* ═══ SECTION 1: HERO ═══ */}
-      <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28">
+      <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto text-center">
-          <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1] tracking-tight">
+          <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight" style={{ color: C.headline }}>
             Your website gets visitors.{' '}
             <span className="block mt-1">Are any of them becoming leads?</span>
           </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+          <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto" style={{ color: C.body }}>
             PretaQuiz gives coaches and consultants a branded lead-generation quiz they can make their own. No tech skills. No monthly fees. Live in under an hour.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-10">
@@ -220,22 +231,22 @@ export default function HomePage() {
               onClick={handleCheckout}
               disabled={checkoutLoading}
               className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-              style={{ backgroundColor: BRAND }}
+              style={{ backgroundColor: C.cta }}
             >
               {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
             </button>
-            <p className="mt-4 text-sm text-gray-500">No subscription. No hidden costs. Pay once, it's yours.</p>
+            <p className="mt-4 text-sm" style={{ color: C.supporting }}>No subscription. No hidden costs. Pay once, it's yours.</p>
           </motion.div>
         </div>
       </Section>
 
       {/* ═══ SECTION 2: PROBLEM / AGITATION ═══ */}
-      <Section className="py-20 px-5 bg-gray-50">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: C.headline }}>
             You know you need a lead magnet. But the options aren't great.
           </motion.h2>
-          <motion.div variants={fadeUp} className="mt-8 text-gray-600 text-lg leading-relaxed space-y-5 text-left md:text-center">
+          <motion.div variants={fadeUp} className="mt-8 text-lg leading-relaxed space-y-5 text-left md:text-center" style={{ color: C.body }}>
             <p>
               PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month — that's $350–$1,200 a year — just to ask your audience a few questions and collect an email address.
             </p>
@@ -247,21 +258,21 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 3: WHAT IT IS ═══ */}
-      <Section className="py-20 px-5">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             A branded quiz funnel you own for a one-time price.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-8 text-gray-600 text-lg leading-relaxed text-center">
+          <motion.p variants={fadeUp} className="mt-8 text-lg leading-relaxed text-center" style={{ color: C.body }}>
             PretaQuiz is a ready-made lead generation quiz you customise with your brand, your questions, and your results. When someone completes your quiz, their name, email, and answers go straight to your CRM or email tool via webhook. No middleman. No monthly fee.
           </motion.p>
         </div>
       </Section>
 
       {/* ═══ SECTION 4: HOW IT WORKS ═══ */}
-      <Section className="py-20 px-5 bg-gray-50">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             Live in three steps. Under an hour.
           </motion.h2>
           <div className="mt-14 grid md:grid-cols-3 gap-10">
@@ -269,12 +280,12 @@ export default function HomePage() {
               <motion.div key={s.num} variants={fadeUp} className="text-center md:text-left">
                 <div
                   className="inline-flex items-center justify-center w-14 h-14 rounded-full text-white text-xl font-bold mb-5"
-                  style={{ backgroundColor: BRAND }}
+                  style={{ backgroundColor: C.cta }}
                 >
                   {s.num}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{s.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{s.desc}</p>
+                <h3 className="text-xl font-semibold mb-3" style={{ color: C.headline }}>{s.title}</h3>
+                <p className="leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -282,16 +293,16 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 5: WHAT'S INCLUDED ═══ */}
-      <Section className="py-20 px-5">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             Everything you need. Nothing you don't.
           </motion.h2>
           <motion.div variants={fadeUp} className="mt-12 grid sm:grid-cols-2 gap-x-10 gap-y-5">
             {INCLUDED.map((item, i) => (
               <div key={i} className="flex items-start gap-3">
-                <Check className="h-5 w-5 shrink-0 mt-0.5" style={{ color: BRAND }} />
-                <span className="text-gray-700 leading-relaxed">{item}</span>
+                <Check className="h-5 w-5 shrink-0 mt-0.5" style={{ color: C.accent }} />
+                <span className="leading-relaxed" style={{ color: C.body }}>{item}</span>
               </div>
             ))}
           </motion.div>
@@ -299,9 +310,9 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 6: PRICE COMPARISON ═══ */}
-      <Section className="py-20 px-5 bg-gray-50">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             How PretaQuiz compares to monthly quiz tools
           </motion.h2>
 
@@ -310,21 +321,21 @@ export default function HomePage() {
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr>
-                  <th className="text-left py-4 px-4 font-medium text-gray-500 w-1/5"></th>
-                  <th className="py-4 px-4 text-center font-bold text-white rounded-t-xl w-1/5" style={{ backgroundColor: BRAND }}>PretaQuiz</th>
-                  <th className="py-4 px-4 text-center font-medium text-gray-600 bg-gray-100 w-1/5">Interact</th>
-                  <th className="py-4 px-4 text-center font-medium text-gray-600 bg-gray-100 w-1/5">ScoreApp</th>
-                  <th className="py-4 px-4 text-center font-medium text-gray-600 bg-gray-100 w-1/5">LeadQuizzes</th>
+                  <th className="text-left py-4 px-4 font-medium w-1/5" style={{ color: C.supporting }}></th>
+                  <th className="py-4 px-4 text-center font-bold text-white rounded-t-xl w-1/5" style={{ backgroundColor: C.cta }}>PretaQuiz</th>
+                  <th className="py-4 px-4 text-center font-medium w-1/5" style={{ backgroundColor: C.cardBg, color: C.body }}>Interact</th>
+                  <th className="py-4 px-4 text-center font-medium w-1/5" style={{ backgroundColor: C.cardBg, color: C.body }}>ScoreApp</th>
+                  <th className="py-4 px-4 text-center font-medium w-1/5" style={{ backgroundColor: C.cardBg, color: C.body }}>LeadQuizzes</th>
                 </tr>
               </thead>
               <tbody>
                 {COMPARISON.rows.map((row, i) => (
-                  <tr key={i} className="border-t border-gray-200">
-                    <td className="py-4 px-4 font-medium text-gray-700">{row.label}</td>
-                    <td className="py-4 px-4 text-center font-bold text-gray-900" style={{ backgroundColor: `${BRAND}10` }}>{row.pq}</td>
-                    <td className="py-4 px-4 text-center text-gray-600">{row.interact}</td>
-                    <td className="py-4 px-4 text-center text-gray-600">{row.scoreapp}</td>
-                    <td className="py-4 px-4 text-center text-gray-600">{row.leadquizzes}</td>
+                  <tr key={i} style={{ borderTopColor: C.cardBorder }} className="border-t">
+                    <td className="py-4 px-4 font-medium" style={{ color: C.supporting }}>{row.label}</td>
+                    <td className="py-4 px-4 text-center font-bold" style={{ color: C.headline, backgroundColor: 'rgba(240,32,176,0.08)' }}>{row.pq}</td>
+                    <td className="py-4 px-4 text-center" style={{ color: C.body }}>{row.interact}</td>
+                    <td className="py-4 px-4 text-center" style={{ color: C.body }}>{row.scoreapp}</td>
+                    <td className="py-4 px-4 text-center" style={{ color: C.body }}>{row.leadquizzes}</td>
                   </tr>
                 ))}
               </tbody>
@@ -334,65 +345,65 @@ export default function HomePage() {
           {/* Mobile cards */}
           <motion.div variants={fadeUp} className="mt-12 md:hidden space-y-4">
             {COMPARISON.rows.map((row, i) => (
-              <div key={i} className="bg-white rounded-xl p-5 border border-gray-200">
-                <p className="font-medium text-gray-500 text-sm mb-3">{row.label}</p>
+              <div key={i} className="rounded-xl p-5" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
+                <p className="font-medium text-sm mb-3" style={{ color: C.supporting }}>{row.label}</p>
                 <div className="space-y-2">
-                  <div className="flex justify-between items-center py-1.5 px-3 rounded-lg" style={{ backgroundColor: BRAND_LIGHT }}>
-                    <span className="font-semibold text-gray-900">PretaQuiz</span>
-                    <span className="font-bold" style={{ color: BRAND_DARK }}>{row.pq}</span>
+                  <div className="flex justify-between items-center py-1.5 px-3 rounded-lg" style={{ backgroundColor: 'rgba(240,32,176,0.12)' }}>
+                    <span className="font-semibold" style={{ color: C.headline }}>PretaQuiz</span>
+                    <span className="font-bold" style={{ color: C.headline }}>{row.pq}</span>
                   </div>
                   <div className="flex justify-between items-center py-1.5 px-3">
-                    <span className="text-gray-500">Interact</span>
-                    <span className="text-gray-600">{row.interact}</span>
+                    <span style={{ color: C.supporting }}>Interact</span>
+                    <span style={{ color: C.body }}>{row.interact}</span>
                   </div>
                   <div className="flex justify-between items-center py-1.5 px-3">
-                    <span className="text-gray-500">ScoreApp</span>
-                    <span className="text-gray-600">{row.scoreapp}</span>
+                    <span style={{ color: C.supporting }}>ScoreApp</span>
+                    <span style={{ color: C.body }}>{row.scoreapp}</span>
                   </div>
                   <div className="flex justify-between items-center py-1.5 px-3">
-                    <span className="text-gray-500">LeadQuizzes</span>
-                    <span className="text-gray-600">{row.leadquizzes}</span>
+                    <span style={{ color: C.supporting }}>LeadQuizzes</span>
+                    <span style={{ color: C.body }}>{row.leadquizzes}</span>
                   </div>
                 </div>
               </div>
             ))}
           </motion.div>
 
-          <motion.p variants={fadeUp} className="mt-6 text-xs text-gray-400 text-center">
+          <motion.p variants={fadeUp} className="mt-6 text-xs text-center" style={{ color: C.footnote }}>
             Competitor pricing based on publicly listed annual billing rates as of April 2026. Prices may vary.
           </motion.p>
         </div>
       </Section>
 
       {/* ═══ SECTION 7: WHO IT'S FOR ═══ */}
-      <Section className="py-20 px-5">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-4xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             Is PretaQuiz right for you?
           </motion.h2>
           <div className="mt-12 grid md:grid-cols-2 gap-10">
             <motion.div variants={fadeUp}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-5">PretaQuiz is for you if you:</h3>
+              <h3 className="text-lg font-semibold mb-5" style={{ color: C.headline }}>PretaQuiz is for you if you:</h3>
               <ul className="space-y-4">
                 {FOR_YOU.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <Check className="h-5 w-5 shrink-0 mt-0.5" style={{ color: BRAND }} />
-                    <span className="text-gray-700 leading-relaxed">{item}</span>
+                    <Check className="h-5 w-5 shrink-0 mt-0.5" style={{ color: C.accent }} />
+                    <span className="leading-relaxed" style={{ color: C.body }}>{item}</span>
                   </li>
                 ))}
               </ul>
             </motion.div>
             <motion.div variants={fadeUp}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-5">It's probably not for you if you need:</h3>
+              <h3 className="text-lg font-semibold mb-5" style={{ color: C.headline }}>It's probably not for you if you need:</h3>
               <ul className="space-y-4">
                 {NOT_FOR_YOU.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <Minus className="h-5 w-5 shrink-0 mt-0.5 text-gray-400" />
-                    <span className="text-gray-500 leading-relaxed">{item}</span>
+                    <Minus className="h-5 w-5 shrink-0 mt-0.5" style={{ color: C.supporting }} />
+                    <span className="leading-relaxed" style={{ color: C.supporting }}>{item}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 text-sm text-gray-500 leading-relaxed">
+              <p className="mt-6 text-sm leading-relaxed" style={{ color: C.supporting }}>
                 Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
               </p>
             </motion.div>
@@ -401,9 +412,9 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 8: SOCIAL PROOF ═══ */}
-      <Section className="py-20 px-5 bg-gray-50">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             What coaches are saying
           </motion.h2>
           <div className="mt-12 grid md:grid-cols-3 gap-8">
@@ -411,13 +422,14 @@ export default function HomePage() {
               <motion.div
                 key={i}
                 variants={fadeUp}
-                className="bg-white rounded-2xl p-8 border border-gray-200 border-dashed relative"
+                className="rounded-2xl p-8 border-dashed relative"
+                style={{ backgroundColor: C.cardBg, borderColor: C.cardBorder, borderWidth: '1px' }}
               >
-                <div className="absolute top-4 right-4 text-[10px] uppercase tracking-wider text-gray-400 font-medium bg-gray-100 px-2 py-0.5 rounded">Placeholder</div>
-                <p className="text-gray-700 leading-relaxed italic">"{t.quote}"</p>
-                <div className="mt-6 pt-4 border-t border-gray-100">
-                  <p className="font-semibold text-gray-900">{t.name}</p>
-                  <p className="text-sm text-gray-500">{t.role}</p>
+                <div className="absolute top-4 right-4 text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded" style={{ color: C.footnote, backgroundColor: C.cardBorder }}>Placeholder</div>
+                <p className="leading-relaxed italic" style={{ color: C.body }}>"{t.quote}"</p>
+                <div className="mt-6 pt-4" style={{ borderTopColor: C.cardBorder, borderTopWidth: '1px' }}>
+                  <p className="font-semibold" style={{ color: C.headline }}>{t.name}</p>
+                  <p className="text-sm" style={{ color: C.supporting }}>{t.role}</p>
                 </div>
               </motion.div>
             ))}
@@ -426,9 +438,9 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 9: FAQ ═══ */}
-      <Section className="py-20 px-5">
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-center mb-12">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center mb-12" style={{ color: C.headline }}>
             Questions? Answered.
           </motion.h2>
           <motion.div variants={fadeUp}>
@@ -440,12 +452,12 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 10: FINAL CTA ═══ */}
-      <Section className="py-24 px-5" style={{ backgroundColor: '#1a1a2e' }}>
+      <Section className="py-24 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold text-white leading-tight">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: C.headline }}>
             $97. Once. Done.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-6 text-lg text-gray-300 leading-relaxed">
+          <motion.p variants={fadeUp} className="mt-6 text-lg leading-relaxed" style={{ color: C.body }}>
             Stop paying monthly for a quiz tool. Get PretaQuiz, brand it, write your questions, and start collecting leads today.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-10">
@@ -453,26 +465,26 @@ export default function HomePage() {
               onClick={handleCheckout}
               disabled={checkoutLoading}
               className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-              style={{ backgroundColor: BRAND }}
+              style={{ backgroundColor: C.cta }}
             >
               {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
             </button>
-            <p className="mt-4 text-sm text-gray-400">One-time payment. No subscription. No upsells.</p>
+            <p className="mt-4 text-sm" style={{ color: C.footnote }}>One-time payment. No subscription. No upsells.</p>
           </motion.div>
         </div>
       </Section>
 
       {/* ═══ SECTION 11: FOOTER ═══ */}
-      <footer className="py-10 px-5 border-t border-gray-200 bg-white">
+      <footer className="py-10 px-5" style={{ backgroundColor: C.sectionBg, borderTop: `1px solid ${C.cardBorder}` }}>
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-gray-900">Preta<span style={{ color: '#D946EF' }}>Quiz</span></span>
+            <span className="text-lg font-bold" style={{ color: C.headline }}>Preta<span style={{ color: C.accent }}>Quiz</span></span>
           </div>
-          <p className="text-sm text-gray-500">© 2026 PretaQuiz. All rights reserved.</p>
-          <div className="flex items-center gap-6 text-sm text-gray-500">
-            <Link to="/privacy" className="hover:text-gray-900 transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-gray-900 transition-colors">Terms of Service</Link>
-            <Link to="/contact" className="hover:text-gray-900 transition-colors">Contact</Link>
+          <p className="text-sm" style={{ color: C.footnote }}>© 2026 PretaQuiz. All rights reserved.</p>
+          <div className="flex items-center gap-6 text-sm" style={{ color: C.footnote }}>
+            <Link to="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</Link>
+            <Link to="/terms" className="hover:opacity-80 transition-opacity">Terms of Service</Link>
+            <Link to="/contact" className="hover:opacity-80 transition-opacity">Contact</Link>
           </div>
         </div>
       </footer>
