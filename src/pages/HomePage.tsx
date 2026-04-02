@@ -269,7 +269,7 @@ export default function HomePage() {
           pointer-events: none;
           position: relative;
           z-index: 1;
-          animation: pulseLine 3s ease-in-out infinite;
+          animation: pulseLine 6s ease-in-out infinite;
         }
       `}</style>
 
