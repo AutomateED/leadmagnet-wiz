@@ -365,6 +365,7 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+      <div className="section-glow" aria-hidden="true" />
 
       {/* ═══ SECTION 5: WHAT'S INCLUDED ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
