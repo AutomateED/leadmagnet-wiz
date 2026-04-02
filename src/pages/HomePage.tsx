@@ -62,6 +62,37 @@ const INCLUDED = [
   'Hosted for you — no WordPress, no domain setup, no tech headaches',
 ];
 
+const NICHE_EXAMPLES = [
+  {
+    niche: 'Business coach',
+    quizTitle: "What's Really Holding Your Business Back?",
+    sampleQ: 'Where are you in your business right now?',
+    sampleResult: 'The Invisible Expert',
+    resultSnippet: 'Your offer is strong but the right people aren\'t finding you yet.',
+  },
+  {
+    niche: 'Mindset coach',
+    quizTitle: "What's Your Hidden Mindset Block?",
+    sampleQ: "When something doesn't go to plan, what's your first instinct?",
+    sampleResult: 'The Analyser',
+    resultSnippet: 'You seek certainty before you act. This protects you but can keep you in preparation mode.',
+  },
+  {
+    niche: 'Leadership coach',
+    quizTitle: 'What Kind of Leader Are You?',
+    sampleQ: 'When your team faces a difficult decision, what do you typically do?',
+    sampleResult: 'The Decisive Driver',
+    resultSnippet: 'You move fast and set clear direction. Teams respect your confidence.',
+  },
+  {
+    niche: 'Financial coach',
+    quizTitle: 'Are You Ready to Build Real Wealth?',
+    sampleQ: "When an unexpected expense comes up, what's your honest reaction?",
+    sampleResult: 'The Cautious Saver',
+    resultSnippet: 'You\'re disciplined and risk-aware but your caution may be costing you growth.',
+  },
+];
+
 const COMPARISON = {
   rows: [
     { label: 'Year 1 cost', pq: '$97', interact: '$324+', scoreapp: '$348+', leadquizzes: '$444+' },
