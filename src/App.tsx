@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import CookieConsent from "@/components/CookieConsent";
 import HomePage from "./pages/HomePage";
-import GetStarted from "./pages/GetStarted";
+
 import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
@@ -33,7 +33,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/get-started" element={<Navigate to="/" replace />} />
             <Route path="/setup" element={<Setup />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
@@ -48,7 +48,7 @@ const App = () => (
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/waitlist" element={<Waitlist />} />
             {/* Redirect old template URLs to get-started */}
-            <Route path="/templates/*" element={<GetStarted />} />
+            <Route path="/templates/*" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
