@@ -48,7 +48,7 @@ const App = () => (
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/waitlist" element={<Waitlist />} />
             {/* Redirect old template URLs to get-started */}
-            <Route path="/templates/*" element={<GetStarted />} />
+            <Route path="/templates/*" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
