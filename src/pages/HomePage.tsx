@@ -262,13 +262,14 @@ export default function HomePage() {
           background-size: 256px 256px;
           animation: grain 8s steps(10) infinite;
         }
+        @keyframes pulseLine { 0%,100%{opacity:0.08} 50%{opacity:0.25} }
         .section-glow {
           height: 1px;
-          background: radial-gradient(ellipse at center, rgba(217,70,239,0.15), transparent 70%);
-          filter: blur(20px);
+          background: radial-gradient(ellipse at center, rgba(240,32,176,0.5), transparent 70%);
           pointer-events: none;
           position: relative;
           z-index: 1;
+          animation: pulseLine 3s ease-in-out infinite;
         }
       `}</style>
 
