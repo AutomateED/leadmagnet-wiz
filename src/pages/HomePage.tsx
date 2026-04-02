@@ -126,7 +126,7 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-gray-900">Preta<span style={{ color: BRAND }}>Quiz</span></span>
+          <span className="text-xl font-bold text-gray-900">Preta<span style={{ color: '#D946EF' }}>Quiz</span></span>
         </Link>
         <div className="flex items-center gap-4">
           <Link to="/login" className="hidden sm:inline-block text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
@@ -466,7 +466,7 @@ export default function HomePage() {
       <footer className="py-10 px-5 border-t border-gray-200 bg-white">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-gray-900">Preta<span style={{ color: BRAND }}>Quiz</span></span>
+            <span className="text-lg font-bold text-gray-900">Preta<span style={{ color: '#D946EF' }}>Quiz</span></span>
           </div>
           <p className="text-sm text-gray-500">© 2026 PretaQuiz. All rights reserved.</p>
           <div className="flex items-center gap-6 text-sm text-gray-500">
