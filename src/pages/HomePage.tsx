@@ -112,13 +112,13 @@ const STEPS = [
 ];
 
 const PRICING_FEATURES = [
-  'Fully branded quiz with your logo, colours, and copy',
-  'Personalised results email sent to every prospect',
-  'Automatic lead delivery to your CRM via webhook',
-  'All leads visible in your dashboard',
-  'Embed on your site or share as a standalone link',
-  'Edit questions, results, and branding any time',
-  'No tech skills required, ever',
+  'A ready-made quiz structure you brand yourself in minutes',
+  'Simple dashboard to set your logo, colours, questions, and results',
+  'Prospects receive a personalised result email automatically',
+  'Every lead delivered to your CRM without you lifting a finger',
+  'See all your leads and their results in one place',
+  'Embed on your website or share as a standalone link',
+  'No developer needed to set up or make changes',
 ];
 
 const FAQS = [
