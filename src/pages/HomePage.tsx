@@ -247,9 +247,9 @@ export default function HomePage() {
     <div className="min-h-screen relative" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       {/* Grain texture overlay */}
       <style>{`
-        @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-15px)} }
-        @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-25px,12px)} }
-        @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(12px,20px)} }
+        @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px)} }
+        @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,25px)} }
+        @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(25px,40px)} }
         @keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-5%,-10%)} 20%{transform:translate(-15%,5%)} 30%{transform:translate(7%,-15%)} 40%{transform:translate(-5%,15%)} 50%{transform:translate(-10%,5%)} 60%{transform:translate(15%,0)} 70%{transform:translate(0,10%)} 80%{transform:translate(3%,-15%)} 90%{transform:translate(-10%,10%)} 100%{transform:translate(0,0)} }
         .grain-overlay::after {
           content: '';
@@ -283,14 +283,14 @@ export default function HomePage() {
       <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28 relative overflow-hidden" style={{ backgroundColor: C.pageBg }}>
         {/* Gradient orbs */}
         <div className="absolute inset-0 pointer-events-none z-0 hidden md:block" aria-hidden="true">
-          <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full" style={{ background: 'rgba(217,70,239,0.10)', filter: 'blur(120px)', animation: 'drift1 10s ease-in-out infinite' }} />
-          <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] rounded-full" style={{ background: 'rgba(240,32,176,0.06)', filter: 'blur(150px)', animation: 'drift2 12s ease-in-out infinite' }} />
-          <div className="absolute bottom-[-15%] left-[30%] w-[450px] h-[450px] rounded-full" style={{ background: 'rgba(217,70,239,0.07)', filter: 'blur(130px)', animation: 'drift3 9s ease-in-out infinite' }} />
+          <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full" style={{ background: 'rgba(217,70,239,0.10)', filter: 'blur(120px)', animation: 'drift1 20s ease-in-out infinite' }} />
+          <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] rounded-full" style={{ background: 'rgba(240,32,176,0.06)', filter: 'blur(150px)', animation: 'drift2 24s ease-in-out infinite' }} />
+          <div className="absolute bottom-[-15%] left-[30%] w-[450px] h-[450px] rounded-full" style={{ background: 'rgba(217,70,239,0.07)', filter: 'blur(130px)', animation: 'drift3 18s ease-in-out infinite' }} />
         </div>
         {/* Mobile: smaller orbs */}
         <div className="absolute inset-0 pointer-events-none z-0 md:hidden" aria-hidden="true">
-          <div className="absolute top-[-5%] left-[-10%] w-[250px] h-[250px] rounded-full" style={{ background: 'rgba(217,70,239,0.08)', filter: 'blur(80px)', animation: 'drift1 10s ease-in-out infinite' }} />
-          <div className="absolute top-[30%] right-[-10%] w-[200px] h-[200px] rounded-full" style={{ background: 'rgba(240,32,176,0.05)', filter: 'blur(100px)', animation: 'drift2 12s ease-in-out infinite' }} />
+          <div className="absolute top-[-5%] left-[-10%] w-[250px] h-[250px] rounded-full" style={{ background: 'rgba(217,70,239,0.08)', filter: 'blur(80px)', animation: 'drift1 20s ease-in-out infinite' }} />
+          <div className="absolute top-[30%] right-[-10%] w-[200px] h-[200px] rounded-full" style={{ background: 'rgba(240,32,176,0.05)', filter: 'blur(100px)', animation: 'drift2 24s ease-in-out infinite' }} />
         </div>
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <motion.h1 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight" style={{ color: C.headline }}>
