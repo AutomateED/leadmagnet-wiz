@@ -33,7 +33,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/get-started" element={<GetStarted />} />
+            <Route path="/get-started" element={<Navigate to="/" replace />} />
             <Route path="/setup" element={<Setup />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
