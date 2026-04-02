@@ -492,6 +492,7 @@ export default function HomePage() {
           </motion.p>
         </div>
       </Section>
+      <div className="section-glow" aria-hidden="true" />
 
       {/* ═══ SECTION 7: WHO IT'S FOR ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
