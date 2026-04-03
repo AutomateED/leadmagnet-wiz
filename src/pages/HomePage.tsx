@@ -54,7 +54,7 @@ const STEPS = [
 const INCLUDED = [
   'Your own branded quiz page (logo, brand colour, welcome message)',
   'Multiple-choice questions with mapped results',
-  'Email capture built in — no separate opt-in form needed',
+  'Email capture built in, no separate opt-in form needed',
   'Webhook integration to send leads to any CRM or email platform',
   'Mobile-responsive design that works on every device',
   'No response limits — collect as many leads as you want',
