@@ -223,7 +223,7 @@ export default function HomePage() {
       '@graph': [
         { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', description: 'Branded lead-generation quiz builder for coaches and consultants.' },
         { '@type': 'WebSite', '@id': 'https://pretaquiz.com/#website', url: 'https://pretaquiz.com', name: 'PretaQuiz', publisher: { '@id': 'https://pretaquiz.com/#organization' } },
-        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Lead Generation Quiz Builder for Coaches', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
+        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz: Lead Generation Quiz Builder for Coaches', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
         { '@type': 'SoftwareApplication', name: 'PretaQuiz', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', priceValidUntil: '2027-12-31' } },
       ],
     };
