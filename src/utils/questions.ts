@@ -61,7 +61,7 @@ export const QUESTIONS: Question[] = [
     options: [
       { letter: "A", text: "Online courses and self-study" },
       { letter: "B", text: "Previous coaching or mentoring" },
-      { letter: "C", text: "DIY — figuring it out as I go" },
+      { letter: "C", text: "DIY, figuring it out as I go" },
       { letter: "D", text: "I haven't really tried anything structured yet" },
     ],
   },

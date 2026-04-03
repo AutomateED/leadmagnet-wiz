@@ -73,7 +73,7 @@ export default function Questions({ config, onConfigChange, userId, quizId }: Qu
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Questions</h1>
       <p className="mb-6" style={{ color: '#6B5F80' }}>
-        Edit your quiz questions and answer options. Each answer maps to a result type — the result a prospect gets most often becomes their final result.
+        Edit your quiz questions and answer options. Each answer maps to a result type. The result a prospect gets most often becomes their final result.
       </p>
 
       <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>

@@ -107,7 +107,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
             >
               <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>My CRM has a webhook URL</p>
               <p className="text-xs mt-1" style={{ color: '#6B5F80' }}>
-                e.g. GoHighLevel, ActiveCampaign, some others — your CRM gives you a URL to paste here directly.
+                e.g. GoHighLevel, ActiveCampaign, and others. Your CRM gives you a URL to paste here directly.
               </p>
             </button>
             <button

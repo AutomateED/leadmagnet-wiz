@@ -617,7 +617,7 @@ export default function HomePage() {
               className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               style={{ backgroundColor: C.cta }}
             >
-              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
+              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz - $97 one-time'}
             </button>
             {checkoutError && (
               <p className="mt-2 text-sm" style={{ color: '#F87171' }}>

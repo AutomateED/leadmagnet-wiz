@@ -35,7 +35,7 @@ const DEFAULT_RESULTS = {
   'The Confident Starter':
     "You're at the beginning of something exciting, and the energy you're bringing is everything. But right now, the path forward feels unclear. There are too many options, too much noise, and not enough certainty about which direction to go. That's completely normal at this stage. What you need is a solid foundation: clarity on who you serve, what you offer, and how to communicate it in a way that attracts the right people. With the right support, you can avoid years of trial and error and build something that works from day one.",
   'The Plateau Breaker':
-    "You've done the hard work of building a business that works — and now you're frustrated that it's not growing the way you know it should. You've hit a ceiling, and the strategies that got you here aren't getting you to the next level. This is one of the most exciting (and most common) places to be, because it means you're ready. What you need isn't more tactics — it's a strategic shift. A fresh perspective, a bolder offer, and the courage to step into the bigger version of your business that's waiting for you.",
+    "You've done the hard work of building a business that works, and now you're frustrated that it's not growing the way you know it should. You've hit a ceiling, and the strategies that got you here aren't getting you to the next level. This is one of the most exciting (and most common) places to be, because it means you're ready. What you need isn't more tactics. It's a strategic shift. A fresh perspective, a bolder offer, and the courage to step into the bigger version of your business that's waiting for you.",
 };
 
 export const DEFAULT_CONFIG: QuizConfig = {

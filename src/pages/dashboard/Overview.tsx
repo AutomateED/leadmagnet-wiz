@@ -121,7 +121,7 @@ export default function Overview({ config, slug }: OverviewProps) {
         <span className="font-medium" style={{ color: '#0F0A1E' }}>{config.businessName || 'Your Business Name'}</span>.
       </p>
       <p className="text-sm mt-3 max-w-[800px]" style={{ color: '#6B5F80' }}>
-        You're just a few steps away from having your own lead-generation quiz. Work through the checklist below — most clients finish in under 30 minutes.
+        You're just a few steps away from having your own lead-generation quiz. Work through the checklist below. Most clients finish in under 30 minutes.
       </p>
 
       {/* Total Leads stat */}
