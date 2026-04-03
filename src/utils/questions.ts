@@ -21,7 +21,7 @@ export const QUESTIONS: Question[] = [
     options: [
       { letter: "A", text: "I'm not attracting enough clients" },
       { letter: "B", text: "My income is unpredictable month to month" },
-      { letter: "C", text: "I have no time — I'm doing everything myself" },
+      { letter: "C", text: "I have no time. I'm doing everything myself" },
       { letter: "D", text: "I know what I want but I'm unclear on how to get there" },
     ],
   },
