@@ -240,6 +240,7 @@ export default function HomePage() {
 
   const handleCheckout = async () => {
     if (checkoutLoading) return;
+    setCheckoutError(false);
     setCheckoutLoading(true);
     try {
       const res = await fetch(CHECKOUT_URL, {
@@ -252,10 +253,12 @@ export default function HomePage() {
         window.location.href = data.url;
       } else {
         console.error('No checkout URL returned', data);
+        setCheckoutError(true);
         setCheckoutLoading(false);
       }
     } catch (err) {
       console.error('Checkout error:', err);
+      setCheckoutError(true);
       setCheckoutLoading(false);
     }
   };
