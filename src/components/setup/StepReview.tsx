@@ -99,7 +99,7 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
           <div className="mt-5 rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-2 mb-2">
               <Globe className="h-4 w-4 text-primary" />
-              <p className="text-sm font-semibold text-foreground">Option 1 — Direct link</p>
+              <p className="text-sm font-semibold text-foreground">Option 1: Direct link</p>
             </div>
             <p className="text-xs text-muted-foreground mb-3">
               Share this link directly with your audience via email, social media, or a button on your website.
@@ -116,7 +116,7 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
           <div className="mt-4 rounded-xl border border-border bg-card p-5">
             <div className="flex items-center gap-2 mb-2">
               <Code2 className="h-4 w-4 text-primary" />
-              <p className="text-sm font-semibold text-foreground">Option 2 — Embed on your website</p>
+              <p className="text-sm font-semibold text-foreground">Option 2: Embed on your website</p>
             </div>
             <p className="text-xs text-muted-foreground mb-3">
               Paste this code into any page on your website (WordPress, Squarespace, Wix, Kajabi, etc.) where you want the quiz to appear. Look for an "HTML block" or "Custom code" section in your page builder.

@@ -103,7 +103,7 @@ export default function Leads() {
         >
           <p style={{ color: '#6B5F80' }}>
             {leads.length === 0
-              ? 'No leads yet — share your quiz link to get started.'
+              ? 'No leads yet. Share your quiz link to get started.'
               : 'No leads match this filter.'}
           </p>
         </div>
