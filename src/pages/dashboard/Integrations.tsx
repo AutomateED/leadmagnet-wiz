@@ -120,7 +120,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
             >
               <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>I use Mailchimp, or I'm not sure</p>
               <p className="text-xs mt-1" style={{ color: '#6B5F80' }}>
-                Use a free tool like Zapier or Make to connect any CRM — takes about 5 minutes.
+                Use a free tool like Zapier or Make to connect any CRM. Takes about 5 minutes.
               </p>
             </button>
           </div>
