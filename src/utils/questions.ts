@@ -11,7 +11,7 @@ export const QUESTIONS: Question[] = [
     options: [
       { letter: "A", text: "Just starting out, finding my feet" },
       { letter: "B", text: "Growing, but results are inconsistent" },
-      { letter: "C", text: "Stuck — I've hit a ceiling" },
+      { letter: "C", text: "Stuck. I've hit a ceiling" },
       { letter: "D", text: "Ready to scale to the next level" },
     ],
   },
