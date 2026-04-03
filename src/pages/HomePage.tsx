@@ -348,7 +348,7 @@ export default function HomePage() {
           </motion.h2>
           <motion.div variants={fadeUp} className="mt-8 text-lg leading-relaxed space-y-5 text-left md:text-center" style={{ color: C.body }}>
             <p>
-              PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month — that's $350–$1,200 a year — just to ask your audience a few questions and collect an email address.
+              PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month. That's $350–$1,200 a year, just to ask your audience a few questions and collect an email address.
             </p>
             <p>
               You don't need another monthly subscription. You need a quiz that works, looks professional, and sends leads straight to your CRM. That's it.
