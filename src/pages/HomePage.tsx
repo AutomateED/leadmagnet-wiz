@@ -210,7 +210,7 @@ export default function HomePage() {
   }, [navigate]);
 
   useEffect(() => {
-    document.title = 'PretaQuiz — Lead Generation Quiz Builder for Coaches | $97 One-Time';
+    document.title = 'PretaQuiz: Lead Generation Quiz Builder for Coaches | $97 One-Time';
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
