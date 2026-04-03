@@ -182,7 +182,7 @@ function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loa
               className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
               style={{ backgroundColor: C.cta }}
             >
-              {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
+              {loading ? 'Redirecting…' : 'Get PretaQuiz - $97'}
             </button>
             {error && (
               <p className="mt-1 text-xs text-center" style={{ color: '#F87171' }}>
