@@ -95,7 +95,7 @@ export default function Welcome() {
             Already set your password?
           </p>
           <Link
-            to="/login"
+            to="/dashboard/overview"
             className="mt-2 inline-flex items-center gap-1.5 rounded-lg px-6 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
             style={{ backgroundColor: '#D946EF' }}
           >
