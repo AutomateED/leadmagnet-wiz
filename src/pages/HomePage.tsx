@@ -200,6 +200,7 @@ function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loa
 export default function HomePage() {
   const navigate = useNavigate();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
