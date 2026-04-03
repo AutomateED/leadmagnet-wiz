@@ -59,7 +59,7 @@ const INCLUDED = [
   'Mobile-responsive design that works on every device',
   'No response limits. Collect as many leads as you want',
   'No monthly fees, ever',
-  'Hosted for you — no WordPress, no domain setup, no tech headaches',
+  'Hosted for you. No WordPress, no domain setup, no tech headaches',
 ];
 
 const NICHE_EXAMPLES = [
