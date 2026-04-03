@@ -48,7 +48,7 @@ function Section({ children, className = '', id, style }: { children: React.Reac
 const STEPS = [
   { num: '1', title: 'Make it yours', desc: 'Upload your logo, pick your brand colour, and write a welcome message. Your quiz looks like part of your website, not a third-party tool.' },
   { num: '2', title: 'Write your questions & results', desc: 'Add your questions (multiple choice), write the result descriptions your quiz-takers will see, and map which answers lead to which result. If you can write a social media post, you can do this.' },
-  { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier — anything that accepts a webhook). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },
+  { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier and anything that accepts a webhook). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },
 ];
 
 const INCLUDED = [
