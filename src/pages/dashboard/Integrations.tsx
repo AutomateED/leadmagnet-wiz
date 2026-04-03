@@ -18,7 +18,7 @@ const directSteps = [
   'Create a new webhook or incoming webhook trigger. Your CRM will give you a URL.',
   'Copy that URL and paste it into the field below.',
   'Click Save, then complete your own quiz once to send a test lead through.',
-  'Check your CRM — the test lead should appear within a few seconds.',
+  'Check your CRM. The test lead should appear within a few seconds.',
 ];
 
 const zapierSteps = [
