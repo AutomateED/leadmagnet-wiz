@@ -40,7 +40,7 @@ export const QUESTIONS: Question[] = [
     text: "How are most of your clients finding you right now?",
     options: [
       { letter: "A", text: "Word of mouth and referrals only" },
-      { letter: "B", text: "Social media — but it's hit and miss" },
+      { letter: "B", text: "Social media, but it's hit and miss" },
       { letter: "C", text: "My website (or I wish they were!)" },
       { letter: "D", text: "Honestly, I'm not getting enough clients from anywhere" },
     ],
