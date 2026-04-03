@@ -156,7 +156,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: boolean }) {
+function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loading: boolean; error: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -175,14 +175,21 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
           <Link to="/login" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
             Login
           </Link>
-          <button
-            onClick={onCheckout}
-            disabled={loading}
-            className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
-            style={{ backgroundColor: C.cta }}
-          >
-            {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
-          </button>
+          <div>
+            <button
+              onClick={onCheckout}
+              disabled={loading}
+              className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
+              style={{ backgroundColor: C.cta }}
+            >
+              {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
+            </button>
+            {error && (
+              <p className="mt-1 text-xs text-center" style={{ color: '#F87171' }}>
+                Something went wrong. Please try again or email hello@pretaquiz.com.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </nav>
@@ -193,6 +200,7 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
 export default function HomePage() {
   const navigate = useNavigate();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -232,6 +240,7 @@ export default function HomePage() {
 
   const handleCheckout = async () => {
     if (checkoutLoading) return;
+    setCheckoutError(false);
     setCheckoutLoading(true);
     try {
       const res = await fetch(CHECKOUT_URL, {
@@ -244,10 +253,12 @@ export default function HomePage() {
         window.location.href = data.url;
       } else {
         console.error('No checkout URL returned', data);
+        setCheckoutError(true);
         setCheckoutLoading(false);
       }
     } catch (err) {
       console.error('Checkout error:', err);
+      setCheckoutError(true);
       setCheckoutLoading(false);
     }
   };
@@ -286,7 +297,7 @@ export default function HomePage() {
 
       <div className="grain-overlay" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 40 }} />
 
-      <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} />
+      <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} error={checkoutError} />
 
       {/* ═══ SECTION 1: HERO ═══ */}
       <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28 relative overflow-hidden" style={{ backgroundColor: C.pageBg }}>
@@ -318,6 +329,11 @@ export default function HomePage() {
             >
               {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
             </button>
+            {checkoutError && (
+              <p className="mt-2 text-sm" style={{ color: '#F87171' }}>
+                Something went wrong. Please try again or email hello@pretaquiz.com.
+              </p>
+            )}
             <p className="mt-4 text-sm" style={{ color: C.supporting }}>No subscription. No hidden costs. Pay once, it's yours.</p>
           </motion.div>
         </div>
@@ -603,6 +619,11 @@ export default function HomePage() {
             >
               {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
             </button>
+            {checkoutError && (
+              <p className="mt-2 text-sm" style={{ color: '#F87171' }}>
+                Something went wrong. Please try again or email hello@pretaquiz.com.
+              </p>
+            )}
             <p className="mt-4 text-sm" style={{ color: C.footnote }}>One-time payment. No subscription. No upsells.</p>
           </motion.div>
         </div>
