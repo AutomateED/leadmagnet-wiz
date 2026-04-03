@@ -31,7 +31,7 @@ export const QUESTIONS: Question[] = [
     options: [
       { letter: "A", text: "Excited but completely overwhelmed" },
       { letter: "B", text: "Confused about what to do next" },
-      { letter: "C", text: "Defeated — like I keep trying but nothing sticks" },
+      { letter: "C", text: "Defeated, like I keep trying but nothing sticks" },
       { letter: "D", text: "Quietly confident but ready for a push" },
     ],
   },
