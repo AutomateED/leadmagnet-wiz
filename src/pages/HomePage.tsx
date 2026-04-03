@@ -46,18 +46,18 @@ function Section({ children, className = '', id, style }: { children: React.Reac
 
 /* ─── DATA ─── */
 const STEPS = [
-  { num: '1', title: 'Make it yours', desc: 'Upload your logo, pick your brand colour, and write a welcome message. Your quiz looks like part of your website — not a third-party tool.' },
+  { num: '1', title: 'Make it yours', desc: 'Upload your logo, pick your brand colour, and write a welcome message. Your quiz looks like part of your website, not a third-party tool.' },
   { num: '2', title: 'Write your questions & results', desc: 'Add your questions (multiple choice), write the result descriptions your quiz-takers will see, and map which answers lead to which result. If you can write a social media post, you can do this.' },
-  { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier — anything that accepts a webhook). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },
+  { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier and anything that accepts a webhook). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },
 ];
 
 const INCLUDED = [
   'Your own branded quiz page (logo, brand colour, welcome message)',
   'Multiple-choice questions with mapped results',
-  'Email capture built in — no separate opt-in form needed',
+  'Email capture built in, no separate opt-in form needed',
   'Webhook integration to send leads to any CRM or email platform',
   'Mobile-responsive design that works on every device',
-  'No response limits — collect as many leads as you want',
+  'No response limits. Collect as many leads as you want',
   'No monthly fees, ever',
   'Hosted for you — no WordPress, no domain setup, no tech headaches',
 ];
@@ -97,7 +97,7 @@ const COMPARISON = {
   rows: [
     { label: 'Year 1 cost', pq: '$97', interact: '$324+', scoreapp: '$348+', leadquizzes: '$444+' },
     { label: 'Year 2 cost', pq: '$0', interact: '$324+', scoreapp: '$348+', leadquizzes: '$444+' },
-    { label: 'Monthly fee', pq: 'None — ever', interact: 'From $27/mo', scoreapp: 'From $29/mo', leadquizzes: 'From $37/mo' },
+    { label: 'Monthly fee', pq: 'None, ever', interact: 'From $27/mo', scoreapp: 'From $29/mo', leadquizzes: 'From $37/mo' },
     { label: 'Response limits', pq: 'None', interact: '500/mo on Lite', scoreapp: '100/mo on Starter', leadquizzes: '100/mo on Startup' },
     { label: 'Webhook / CRM integration', pq: 'Yes', interact: 'Yes (paid plans)', scoreapp: 'Yes (paid plans)', leadquizzes: 'Yes (paid plans)' },
     { label: 'Requires WordPress', pq: 'No', interact: 'No', scoreapp: 'No', leadquizzes: 'No' },
@@ -128,9 +128,9 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'Do I need any tech skills?', a: 'No. If you can upload a logo, type questions, and paste a URL, you can set up PretaQuiz.' },
   { q: 'What\'s a webhook?', a: 'It\'s a URL your CRM or email tool gives you so other apps can send it data. ActiveCampaign, Kit, MailChimp, HighLevel, and Zapier all support webhooks. When someone finishes your quiz, PretaQuiz sends their details to that URL automatically.' },
-  { q: 'Can I embed the quiz on my website?', a: 'You get a direct link to your hosted quiz that you can share anywhere — your website, Instagram bio, email signature, or ads. You can also embed it on any webpage using an iframe.' },
+  { q: 'Can I embed the quiz on my website?', a: 'You get a direct link to your hosted quiz that you can share anywhere: your website, Instagram bio, email signature, or ads. You can also embed it on any webpage using an iframe.' },
   { q: 'Is there a limit on how many people can take my quiz?', a: 'No. Collect as many leads as you want at no extra cost.' },
-  { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers — everything you need to segment and follow up.' },
+  { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers, everything you need to segment and follow up.' },
   { q: 'Do I need hosting or WordPress?', a: 'No. Your quiz is hosted for you. Nothing to install, no server to manage.' },
   { q: 'What if I want to change my questions later?', a: 'You can update your quiz questions, results, and branding at any time.' },
   
@@ -182,7 +182,7 @@ function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loa
               className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
               style={{ backgroundColor: C.cta }}
             >
-              {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
+              {loading ? 'Redirecting…' : 'Get PretaQuiz - $97'}
             </button>
             {error && (
               <p className="mt-1 text-xs text-center" style={{ color: '#F87171' }}>
@@ -210,7 +210,7 @@ export default function HomePage() {
   }, [navigate]);
 
   useEffect(() => {
-    document.title = 'PretaQuiz — Lead Generation Quiz Builder for Coaches | $97 One-Time';
+    document.title = 'PretaQuiz: Lead Generation Quiz Builder for Coaches | $97 One-Time';
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
       if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
@@ -223,7 +223,7 @@ export default function HomePage() {
       '@graph': [
         { '@type': 'Organization', '@id': 'https://pretaquiz.com/#organization', name: 'PretaQuiz', url: 'https://pretaquiz.com', description: 'Branded lead-generation quiz builder for coaches and consultants.' },
         { '@type': 'WebSite', '@id': 'https://pretaquiz.com/#website', url: 'https://pretaquiz.com', name: 'PretaQuiz', publisher: { '@id': 'https://pretaquiz.com/#organization' } },
-        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Lead Generation Quiz Builder for Coaches', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
+        { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz: Lead Generation Quiz Builder for Coaches', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
         { '@type': 'SoftwareApplication', name: 'PretaQuiz', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', priceValidUntil: '2027-12-31' } },
       ],
     };
@@ -327,7 +327,7 @@ export default function HomePage() {
               className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               style={{ backgroundColor: C.cta }}
             >
-              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
+              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz - $97 one-time'}
             </button>
             {checkoutError && (
               <p className="mt-2 text-sm" style={{ color: '#F87171' }}>
@@ -348,7 +348,7 @@ export default function HomePage() {
           </motion.h2>
           <motion.div variants={fadeUp} className="mt-8 text-lg leading-relaxed space-y-5 text-left md:text-center" style={{ color: C.body }}>
             <p>
-              PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month — that's $350–$1,200 a year — just to ask your audience a few questions and collect an email address.
+              PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month. That's $350–$1,200 a year, just to ask your audience a few questions and collect an email address.
             </p>
             <p>
               You don't need another monthly subscription. You need a quiz that works, looks professional, and sends leads straight to your CRM. That's it.
@@ -553,7 +553,7 @@ export default function HomePage() {
             </motion.div>
           </div>
           <p className="mt-10 text-sm leading-relaxed text-center max-w-3xl mx-auto" style={{ color: C.supporting }}>
-            *Those features exist — they just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
+            *Those features exist. They just cost $50–$150/month elsewhere. PretaQuiz does one thing well: get a professional branded quiz live fast and send the leads to your system.
           </p>
         </div>
       </Section>
@@ -617,7 +617,7 @@ export default function HomePage() {
               className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
               style={{ backgroundColor: C.cta }}
             >
-              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
+              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz - $97 one-time'}
             </button>
             {checkoutError && (
               <p className="mt-2 text-sm" style={{ color: '#F87171' }}>

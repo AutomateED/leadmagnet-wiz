@@ -31,7 +31,7 @@ export default function ShareQuiz({ slug }: ShareQuizProps) {
             </Button>
           </div>
           <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>
-            <p className="text-sm" style={{ color: '#4A4060' }}>Share this link anywhere — in emails, social media posts, your Instagram bio, or send it directly to prospects. Anyone who clicks it will land straight on your quiz.</p>
+            <p className="text-sm" style={{ color: '#4A4060' }}>Share this link anywhere: in emails, social media posts, your Instagram bio, or send it directly to prospects. Anyone who clicks it will land straight on your quiz.</p>
           </div>
         </section>
 

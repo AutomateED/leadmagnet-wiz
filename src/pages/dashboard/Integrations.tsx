@@ -18,17 +18,17 @@ const directSteps = [
   'Create a new webhook or incoming webhook trigger. Your CRM will give you a URL.',
   'Copy that URL and paste it into the field below.',
   'Click Save, then complete your own quiz once to send a test lead through.',
-  'Check your CRM — the test lead should appear within a few seconds.',
+  'Check your CRM. The test lead should appear within a few seconds.',
 ];
 
 const zapierSteps = [
   'Go to zapier.com and log in or create a free account.',
   'Create a new Zap. Click "Create" → "Zaps".',
   'Set your trigger. Search for "Webhooks by Zapier" → select "Catch Hook" → click Continue.',
-  'Copy your webhook URL. Zapier shows you a unique URL — copy it.',
+  'Copy your webhook URL. Zapier shows you a unique URL. Copy it.',
   'Paste it below and click Save.',
   'Add your CRM as the action. Back in Zapier, click Continue and choose your CRM (Mailchimp, HubSpot, Flodesk, etc.). Map the fields: first_name, last_name, email, result_type.',
-  'Test it. Complete your own quiz once. In Zapier, click "Test trigger" — your test lead will appear. Then publish your Zap.',
+  'Test it. Complete your own quiz once. In Zapier, click "Test trigger" and your test lead will appear. Then publish your Zap.',
 ];
 
 const makeSteps = [
@@ -37,7 +37,7 @@ const makeSteps = [
   'Add a Webhooks module. Search "Webhooks" → select "Custom webhook" → click "Add" to generate a URL.',
   'Copy your webhook URL and paste it below. Click Save.',
   'Add your CRM module. Click + in Make and choose your CRM. Map the fields: first_name, last_name, email, result_type.',
-  'Test it. Complete your own quiz once. Click "Run once" in Make — your test lead will appear. Turn your scenario on.',
+  'Test it. Complete your own quiz once. Click "Run once" in Make and your test lead will appear. Turn your scenario on.',
 ];
 
 function StepList({ steps }: { steps: string[] }) {
@@ -107,7 +107,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
             >
               <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>My CRM has a webhook URL</p>
               <p className="text-xs mt-1" style={{ color: '#6B5F80' }}>
-                e.g. GoHighLevel, ActiveCampaign, some others — your CRM gives you a URL to paste here directly.
+                e.g. GoHighLevel, ActiveCampaign, and others. Your CRM gives you a URL to paste here directly.
               </p>
             </button>
             <button
@@ -120,7 +120,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
             >
               <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>I use Mailchimp, or I'm not sure</p>
               <p className="text-xs mt-1" style={{ color: '#6B5F80' }}>
-                Use a free tool like Zapier or Make to connect any CRM — takes about 5 minutes.
+                Use a free tool like Zapier or Make to connect any CRM. Takes about 5 minutes.
               </p>
             </button>
           </div>
