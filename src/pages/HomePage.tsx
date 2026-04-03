@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Check, X, ChevronDown, Minus } from 'lucide-react';
@@ -191,7 +191,15 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
 
 /* ─── MAIN PAGE ─── */
 export default function HomePage() {
+  const navigate = useNavigate();
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && (hash.includes("type=invite") || hash.includes("type=recovery"))) {
+      navigate("/reset-password" + hash);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     document.title = 'PretaQuiz — Lead Generation Quiz Builder for Coaches | $97 One-Time';
