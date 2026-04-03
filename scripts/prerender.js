@@ -24,22 +24,6 @@ const pages = [
     },
   },
   {
-    route: '/get-started',
-    title: 'Get Started with PretaQuiz — Your Quiz Funnel, Live in Under an Hour',
-    description: 'A branded lead-generation quiz for coaches and consultants. Customise every question, result, and CTA. $97 one-time. No developer needed.',
-    h1: 'A quiz funnel that works while you sleep',
-    body: 'PretaQuiz is a branded lead-generation quiz for coaches and consultants. Your prospects take a short quiz and get a personalised result. You get their name, email, and exactly what they need help with. Automatically. Customise every question, answer, and result description. Upload your logo, set your brand colour, and go live in under an hour. $97 one-time payment. No subscription. No developer needed.',
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'Product',
-      name: 'PretaQuiz',
-      description: 'A branded lead-generation quiz for coaches and consultants. Customise every question, result, and CTA. $97 one-time.',
-      brand: { '@type': 'Organization', name: 'PretaQuiz' },
-      url: 'https://pretaquiz.com/get-started',
-      offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', availability: 'https://schema.org/InStock', priceValidUntil: '2027-12-31' },
-    },
-  },
-  {
     route: '/welcome',
     title: 'Welcome — PretaQuiz',
     description: 'Your quiz is being set up. Check your inbox for a magic link to set your password and access your dashboard.',
