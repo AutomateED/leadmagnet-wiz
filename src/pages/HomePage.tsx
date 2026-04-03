@@ -156,7 +156,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: boolean }) {
+function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loading: boolean; error: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -175,14 +175,21 @@ function StickyNav({ onCheckout, loading }: { onCheckout: () => void; loading: b
           <Link to="/login" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
             Login
           </Link>
-          <button
-            onClick={onCheckout}
-            disabled={loading}
-            className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
-            style={{ backgroundColor: C.cta }}
-          >
-            {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
-          </button>
+          <div>
+            <button
+              onClick={onCheckout}
+              disabled={loading}
+              className="text-sm font-semibold text-white px-5 py-2.5 rounded-lg transition-all hover:shadow-lg active:scale-[0.98]"
+              style={{ backgroundColor: C.cta }}
+            >
+              {loading ? 'Redirecting…' : 'Get PretaQuiz — $97'}
+            </button>
+            {error && (
+              <p className="mt-1 text-xs text-center" style={{ color: '#F87171' }}>
+                Something went wrong. Please try again or email hello@pretaquiz.com.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </nav>
