@@ -120,8 +120,8 @@ export default function ResetPassword() {
       </Link>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Set new password</CardTitle>
-          <CardDescription>Enter your new password below</CardDescription>
+          <CardTitle className="text-2xl">Set your password</CardTitle>
+          <CardDescription>Choose a password to access your dashboard.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -151,7 +151,7 @@ export default function ResetPassword() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Updating…' : 'Update password'}
+              {loading ? 'Updating…' : 'Access My Dashboard →'}
             </Button>
           </form>
         </CardContent>
