@@ -25,7 +25,7 @@ const zapierSteps = [
   'Go to zapier.com and log in or create a free account.',
   'Create a new Zap. Click "Create" → "Zaps".',
   'Set your trigger. Search for "Webhooks by Zapier" → select "Catch Hook" → click Continue.',
-  'Copy your webhook URL. Zapier shows you a unique URL — copy it.',
+  'Copy your webhook URL. Zapier shows you a unique URL. Copy it.',
   'Paste it below and click Save.',
   'Add your CRM as the action. Back in Zapier, click Continue and choose your CRM (Mailchimp, HubSpot, Flodesk, etc.). Map the fields: first_name, last_name, email, result_type.',
   'Test it. Complete your own quiz once. In Zapier, click "Test trigger" — your test lead will appear. Then publish your Zap.',
