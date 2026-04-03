@@ -128,7 +128,7 @@ const TESTIMONIALS = [
 const FAQS = [
   { q: 'Do I need any tech skills?', a: 'No. If you can upload a logo, type questions, and paste a URL, you can set up PretaQuiz.' },
   { q: 'What\'s a webhook?', a: 'It\'s a URL your CRM or email tool gives you so other apps can send it data. ActiveCampaign, Kit, MailChimp, HighLevel, and Zapier all support webhooks. When someone finishes your quiz, PretaQuiz sends their details to that URL automatically.' },
-  { q: 'Can I embed the quiz on my website?', a: 'You get a direct link to your hosted quiz that you can share anywhere — your website, Instagram bio, email signature, or ads. You can also embed it on any webpage using an iframe.' },
+  { q: 'Can I embed the quiz on my website?', a: 'You get a direct link to your hosted quiz that you can share anywhere: your website, Instagram bio, email signature, or ads. You can also embed it on any webpage using an iframe.' },
   { q: 'Is there a limit on how many people can take my quiz?', a: 'No. Collect as many leads as you want at no extra cost.' },
   { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers — everything you need to segment and follow up.' },
   { q: 'Do I need hosting or WordPress?', a: 'No. Your quiz is hosted for you. Nothing to install, no server to manage.' },
