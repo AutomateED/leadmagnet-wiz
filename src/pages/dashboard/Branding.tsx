@@ -111,7 +111,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
 
         <div className="space-y-2">
           <Label htmlFor="fullName">Your Full Name</Label>
-          <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Sarah Mitchell" />
+          <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Jane Smith" />
         </div>
 
         <div className="space-y-2">
