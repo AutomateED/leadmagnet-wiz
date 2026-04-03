@@ -297,7 +297,7 @@ export default function HomePage() {
 
       <div className="grain-overlay" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 40 }} />
 
-      <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} />
+      <StickyNav onCheckout={handleCheckout} loading={checkoutLoading} error={checkoutError} />
 
       {/* ═══ SECTION 1: HERO ═══ */}
       <Section className="pt-32 pb-20 px-5 md:pt-40 md:pb-28 relative overflow-hidden" style={{ backgroundColor: C.pageBg }}>
