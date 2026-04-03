@@ -57,7 +57,7 @@ const INCLUDED = [
   'Email capture built in, no separate opt-in form needed',
   'Webhook integration to send leads to any CRM or email platform',
   'Mobile-responsive design that works on every device',
-  'No response limits — collect as many leads as you want',
+  'No response limits. Collect as many leads as you want',
   'No monthly fees, ever',
   'Hosted for you — no WordPress, no domain setup, no tech headaches',
 ];
