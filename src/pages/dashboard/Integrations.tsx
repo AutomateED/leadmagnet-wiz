@@ -37,7 +37,7 @@ const makeSteps = [
   'Add a Webhooks module. Search "Webhooks" → select "Custom webhook" → click "Add" to generate a URL.',
   'Copy your webhook URL and paste it below. Click Save.',
   'Add your CRM module. Click + in Make and choose your CRM. Map the fields: first_name, last_name, email, result_type.',
-  'Test it. Complete your own quiz once. Click "Run once" in Make — your test lead will appear. Turn your scenario on.',
+  'Test it. Complete your own quiz once. Click "Run once" in Make and your test lead will appear. Turn your scenario on.',
 ];
 
 function StepList({ steps }: { steps: string[] }) {
