@@ -29,7 +29,7 @@ export interface QuizConfig {
 
 const DEFAULT_RESULTS = {
   'The Invisible Expert':
-    "You have real skills, deep expertise, and a genuine desire to help your clients transform. The problem isn't your ability — it's your visibility. Your ideal clients don't know you exist yet. You're the best-kept secret in your niche, and that needs to change. The good news? This is the most fixable problem in business. With the right positioning, messaging, and a consistent way to get in front of the right people, everything shifts. You don't need to shout louder — you need to show up smarter.",
+    "You have real skills, deep expertise, and a genuine desire to help your clients transform. The problem isn't your ability. It's your visibility. Your ideal clients don't know you exist yet. You're the best-kept secret in your niche, and that needs to change. The good news? This is the most fixable problem in business. With the right positioning, messaging, and a consistent way to get in front of the right people, everything shifts. You don't need to shout louder. You need to show up smarter.",
   'The Overwhelmed Operator':
     "You're busy — maybe too busy. You're working hard, serving clients, wearing every hat in the business, and somehow still not getting the results that match your effort. The issue isn't your work ethic — it's the lack of systems and structure underneath everything you do. When you're doing everything yourself, there's no room to grow. What you need isn't more hustle. You need a smarter way of working — clear processes, better boundaries, and a business that works even when you step back.",
   'The Confident Starter':
