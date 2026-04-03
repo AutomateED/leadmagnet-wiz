@@ -21,7 +21,7 @@ export default function StepDetails({ draft, updateDraft }: StepProps) {
             value={draft.fullName}
             onChange={(e) => updateDraft({ fullName: e.target.value })}
             className="rounded-lg border border-border bg-card px-4 py-3 text-foreground outline-none transition-colors focus:border-primary"
-            placeholder="Sarah Mitchell"
+            placeholder="e.g. Jane Smith"
           />
         </label>
         <label className="flex flex-col gap-1.5">
