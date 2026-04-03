@@ -619,6 +619,11 @@ export default function HomePage() {
             >
               {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz — $97 one-time'}
             </button>
+            {checkoutError && (
+              <p className="mt-2 text-sm" style={{ color: '#F87171' }}>
+                Something went wrong. Please try again or email hello@pretaquiz.com.
+              </p>
+            )}
             <p className="mt-4 text-sm" style={{ color: C.footnote }}>One-time payment. No subscription. No upsells.</p>
           </motion.div>
         </div>
