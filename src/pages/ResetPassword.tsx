@@ -151,7 +151,7 @@ export default function ResetPassword() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Updating…' : 'Update password'}
+              {loading ? 'Updating…' : 'Access My Dashboard →'}
             </Button>
           </form>
         </CardContent>
