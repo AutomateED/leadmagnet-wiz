@@ -28,7 +28,7 @@ const zapierSteps = [
   'Copy your webhook URL. Zapier shows you a unique URL. Copy it.',
   'Paste it below and click Save.',
   'Add your CRM as the action. Back in Zapier, click Continue and choose your CRM (Mailchimp, HubSpot, Flodesk, etc.). Map the fields: first_name, last_name, email, result_type.',
-  'Test it. Complete your own quiz once. In Zapier, click "Test trigger" — your test lead will appear. Then publish your Zap.',
+  'Test it. Complete your own quiz once. In Zapier, click "Test trigger" and your test lead will appear. Then publish your Zap.',
 ];
 
 const makeSteps = [
