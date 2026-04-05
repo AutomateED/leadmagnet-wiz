@@ -171,6 +171,7 @@ export type Database = {
           questions: Json
           quiz_name: string
           result_texts: Json
+          result_titles: Json | null
           slug: string
           template_type: string
           updated_at: string | null
@@ -192,6 +193,7 @@ export type Database = {
           questions?: Json
           quiz_name?: string
           result_texts?: Json
+          result_titles?: Json | null
           slug: string
           template_type?: string
           updated_at?: string | null
@@ -213,6 +215,7 @@ export type Database = {
           questions?: Json
           quiz_name?: string
           result_texts?: Json
+          result_titles?: Json | null
           slug?: string
           template_type?: string
           updated_at?: string | null
@@ -267,6 +270,7 @@ export type Database = {
           questions: Json | null
           quiz_name: string | null
           result_texts: Json | null
+          result_titles: Json | null
           slug: string | null
           template_type: string | null
         }
@@ -282,6 +286,7 @@ export type Database = {
           questions?: Json | null
           quiz_name?: string | null
           result_texts?: Json | null
+          result_titles?: Json | null
           slug?: string | null
           template_type?: string | null
         }
@@ -297,6 +302,7 @@ export type Database = {
           questions?: Json | null
           quiz_name?: string | null
           result_texts?: Json | null
+          result_titles?: Json | null
           slug?: string | null
           template_type?: string | null
         }
