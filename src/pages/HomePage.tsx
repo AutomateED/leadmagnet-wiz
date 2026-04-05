@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, X, ChevronDown, Minus, FileText, Video, CreditCard, Palette, Send, Clock } from 'lucide-react';
+import { Check, X, ChevronDown, Minus, FileText, Video, CreditCard, Palette, Send, Clock, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
 
 /* ─── PALETTE ─── */
