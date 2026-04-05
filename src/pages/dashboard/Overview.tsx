@@ -15,12 +15,6 @@ interface OverviewProps {
 
 const getBaseUrl = () => typeof window !== 'undefined' ? window.location.origin : 'https://pretaquiz.com';
 
-const RESULT_KEYS = [
-  'The Invisible Expert',
-  'The Overwhelmed Operator',
-  'The Confident Starter',
-  'The Plateau Breaker',
-];
 
 interface Step {
   name: string;
