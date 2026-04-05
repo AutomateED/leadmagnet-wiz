@@ -13,12 +13,8 @@ export interface QuizConfig {
   brandColour: string;
   fontFamily: string;
   questions: { id: number; text: string; options: { letter: string; text: string }[] }[];
-  resultTexts: {
-    'The Invisible Expert': string;
-    'The Overwhelmed Operator': string;
-    'The Confident Starter': string;
-    'The Plateau Breaker': string;
-  };
+  resultTitles: { A: string; B: string; C: string; D: string };
+  resultTexts: Record<string, string>;
   ctaText: string;
   ctaUrl: string;
   ctaTagline: string;
@@ -28,7 +24,14 @@ export interface QuizConfig {
   emailjsPublicKey: string;
 }
 
-const DEFAULT_RESULTS = {
+const DEFAULT_RESULT_TITLES = {
+  A: 'The Invisible Expert',
+  B: 'The Overwhelmed Operator',
+  C: 'The Confident Starter',
+  D: 'The Plateau Breaker',
+};
+
+const DEFAULT_RESULTS: Record<string, string> = {
   'The Invisible Expert':
     "You have real skills, deep expertise, and a genuine desire to help your clients transform. The problem isn't your ability. It's your visibility. Your ideal clients don't know you exist yet. You're the best-kept secret in your niche, and that needs to change. The good news? This is the most fixable problem in business. With the right positioning, messaging, and a consistent way to get in front of the right people, everything shifts. You don't need to shout louder. You need to show up smarter.",
   'The Overwhelmed Operator':
@@ -38,6 +41,8 @@ const DEFAULT_RESULTS = {
   'The Plateau Breaker':
     "You've done the hard work of building a business that works, and now you're frustrated that it's not growing the way you know it should. You've hit a ceiling, and the strategies that got you here aren't getting you to the next level. This is one of the most exciting (and most common) places to be, because it means you're ready. What you need isn't more tactics. It's a strategic shift. A fresh perspective, a bolder offer, and the courage to step into the bigger version of your business that's waiting for you.",
 };
+
+export { DEFAULT_RESULT_TITLES };
 
 export const DEFAULT_CONFIG: QuizConfig = {
   slug: '',
@@ -52,6 +57,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   brandColour: '#C9A96E',
   fontFamily: 'Playfair Display',
   questions: [],
+  resultTitles: DEFAULT_RESULT_TITLES,
   resultTexts: DEFAULT_RESULTS,
   ctaText: 'Book Your Free Discovery Call',
   ctaUrl: '',
@@ -70,7 +76,12 @@ export function useConfig() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        return { ...DEFAULT_CONFIG, ...parsed, resultTexts: { ...DEFAULT_RESULTS, ...parsed.resultTexts } };
+        return {
+          ...DEFAULT_CONFIG,
+          ...parsed,
+          resultTitles: { ...DEFAULT_RESULT_TITLES, ...parsed.resultTitles },
+          resultTexts: { ...DEFAULT_RESULTS, ...parsed.resultTexts },
+        };
       }
     } catch {
       // ignore

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { QuizConfig } from '@/hooks/useConfig';
+import { DEFAULT_RESULT_TITLES } from '@/hooks/useConfig';
 import { QUESTIONS, type Question } from '@/utils/questions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -13,13 +14,6 @@ interface QuestionsProps {
   quizId: string;
 }
 
-const LETTER_MAP: Record<string, string> = {
-  A: 'The Invisible Expert',
-  B: 'The Overwhelmed Operator',
-  C: 'The Confident Starter',
-  D: 'The Plateau Breaker',
-};
-
 const LETTER_COLOURS: Record<string, string> = {
   A: '#6366f1',
   B: '#f59e0b',
@@ -29,6 +23,8 @@ const LETTER_COLOURS: Record<string, string> = {
 
 export default function Questions({ config, onConfigChange, userId, quizId }: QuestionsProps) {
   const { toast } = useToast();
+
+  const letterMap = config.resultTitles || DEFAULT_RESULT_TITLES;
 
   const initial: Question[] = (() => {
     const stored = (config as any).questions;
@@ -79,12 +75,12 @@ export default function Questions({ config, onConfigChange, userId, quizId }: Qu
       <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>
         <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#9A8EAA' }}>Answer &rarr; Result mapping</p>
         <div className="flex flex-wrap gap-x-6 gap-y-1">
-          {Object.entries(LETTER_MAP).map(([letter, result]) => (
+          {(['A', 'B', 'C', 'D'] as const).map((letter) => (
             <div key={letter} className="flex items-center gap-2 text-sm">
               <span className="inline-flex h-5 w-5 items-center justify-center rounded text-[11px] font-bold text-white" style={{ backgroundColor: LETTER_COLOURS[letter] }}>
                 {letter}
               </span>
-              <span style={{ color: '#6B5F80' }}>{result}</span>
+              <span style={{ color: '#6B5F80' }}>{letterMap[letter]}</span>
             </div>
           ))}
         </div>
@@ -108,7 +104,7 @@ export default function Questions({ config, onConfigChange, userId, quizId }: Qu
                   </span>
                   <Input value={opt.text} onChange={(e) => updateOptionText(q.id, opt.letter, e.target.value)} className="text-sm" />
                   <span className="shrink-0 text-xs whitespace-nowrap" style={{ color: '#9A8EAA' }}>
-                    &rarr; {LETTER_MAP[opt.letter]}
+                    &rarr; {letterMap[opt.letter as keyof typeof letterMap]}
                   </span>
                 </div>
               ))}
