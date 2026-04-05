@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, X, ChevronDown, Minus } from 'lucide-react';
+import { Check, X, ChevronDown, Minus, FileText, Video, CreditCard, Palette, Send, Clock } from 'lucide-react';
 import Footer from '@/components/Footer';
 
 /* ─── PALETTE ─── */
@@ -339,31 +339,67 @@ export default function HomePage() {
 
       {/* ═══ SECTION 2: PROBLEM / AGITATION ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: C.headline }}>
+        <div className="max-w-5xl mx-auto">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             You know you need a lead magnet. But the options aren't great.
           </motion.h2>
-          <motion.div variants={fadeUp} className="mt-8 text-lg leading-relaxed space-y-5 text-left md:text-center" style={{ color: C.body }}>
-            <p>
-              PDFs sit in inboxes unopened. Webinars need you to show up live. And the quiz tools everyone raves about? They charge $29–$99 per month. That's $350–$1,200 a year, just to ask your audience a few questions and collect an email address.
-            </p>
-            <p>
-              You don't need another monthly subscription. You need a quiz that works, looks professional, and sends leads straight to your CRM. That's it.
-            </p>
-          </motion.div>
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {[
+              { icon: <FileText className="h-8 w-8" style={{ color: '#9A8EAA' }} />, title: 'PDF guides', body: 'Sit unopened in inboxes. No interaction, no data, no way to qualify leads.' },
+              { icon: <Video className="h-8 w-8" style={{ color: '#9A8EAA' }} />, title: 'Webinars', body: 'Require you to show up live. One time zone, one shot, then it\'s gone.' },
+              { icon: <CreditCard className="h-8 w-8" style={{ color: '#9A8EAA' }} />, title: 'Monthly quiz tools', body: '$29 to $99 per month. That\'s $350 to $1,200 a year just to ask a few questions.' },
+            ].map((card, i) => (
+              <motion.div key={i} variants={fadeUp} className="rounded-2xl p-6" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
+                <div className="mb-4">{card.icon}</div>
+                <h3 className="font-semibold text-lg mb-2" style={{ color: C.headline }}>{card.title}</h3>
+                <p className="leading-relaxed text-sm" style={{ color: C.supporting }}>{card.body}</p>
+              </motion.div>
+            ))}
+          </div>
+          <motion.p variants={fadeUp} className="mt-10 text-lg font-medium text-center" style={{ color: C.body }}>
+            You don't need another subscription. You need a quiz that works.
+          </motion.p>
         </div>
       </Section>
       <div className="section-glow" aria-hidden="true" />
 
       {/* ═══ SECTION 3: WHAT IT IS ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             A branded quiz funnel you own for a one-time price.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-8 text-lg leading-relaxed text-center" style={{ color: C.body }}>
-            PretaQuiz is a ready-made lead generation quiz you customise with your brand, your questions, and your results. When someone completes your quiz, their name, email, and answers go straight to your CRM or email tool via webhook. No middleman. No monthly fee.
-          </motion.p>
+          <div className="mt-12 flex flex-col md:flex-row gap-10">
+            {/* Left column – features */}
+            <motion.div variants={fadeUp} className="flex-1 md:basis-3/5 space-y-6">
+              {[
+                { icon: <Palette className="h-5 w-5" style={{ color: C.accent }} />, title: 'Your brand, your look', desc: 'Upload your logo, set your colours, choose your font.' },
+                { icon: <Send className="h-5 w-5" style={{ color: C.accent }} />, title: 'Leads go straight to your CRM', desc: 'Name, email, result, and answers delivered via webhook the moment they finish.' },
+                { icon: <Clock className="h-5 w-5" style={{ color: C.accent }} />, title: 'Live in under an hour', desc: 'No developer. No WordPress. No waiting. Set it up yourself and share the link.' },
+              ].map((f, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="mt-1 shrink-0">{f.icon}</div>
+                  <div>
+                    <h3 className="font-semibold text-base" style={{ color: C.headline }}>{f.title}</h3>
+                    <p className="text-sm leading-relaxed mt-1" style={{ color: C.supporting }}>{f.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+            {/* Right column – price highlight */}
+            <motion.div variants={fadeUp} className="md:basis-2/5">
+              <div className="rounded-2xl p-8 text-center" style={{ backgroundColor: C.cardBg, border: `1px solid ${C.cardBorder}` }}>
+                <p className="text-5xl font-bold" style={{ color: C.accent }}>$97</p>
+                <p className="text-sm font-medium mt-2" style={{ color: C.headline }}>one-time payment</p>
+                <div className="my-5 h-px" style={{ backgroundColor: C.cardBorder }} />
+                <div className="space-y-2 text-sm" style={{ color: C.supporting }}>
+                  <p>No monthly fees</p>
+                  <p>No limits on leads</p>
+                  <p>No tech skills needed</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </Section>
       <div className="section-glow" aria-hidden="true" />
