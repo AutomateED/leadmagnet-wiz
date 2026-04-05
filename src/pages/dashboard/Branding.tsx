@@ -137,7 +137,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
 
         <div className="space-y-2">
           <Label>Quiz Font</Label>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {FONT_OPTIONS.map((opt) => (
               <button
                 key={opt.family}
