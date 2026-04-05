@@ -392,7 +392,30 @@ export default function HomePage() {
       </Section>
       <div className="section-glow" aria-hidden="true" />
 
-      {/* ═══ SECTION 5: WHAT'S INCLUDED ═══ */}
+      {/* ═══ SECTION 4B: SEE IT IN ACTION ═══ */}
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: C.headline }}>
+            See it in action
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: C.body }}>
+            This is exactly what your prospects will see. Try the demo quiz below, then imagine it with your brand, your questions, and your results.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-10">
+            <iframe
+              src="/quiz/demo-business-breakthrough"
+              title="PretaQuiz demo"
+              className="mx-auto"
+              style={{ width: '100%', maxWidth: 500, height: 700, border: 'none', borderRadius: 16 }}
+            />
+          </motion.div>
+          <motion.p variants={fadeUp} className="mt-6 text-sm" style={{ color: C.footnote }}>
+            This is a live quiz using the Business Breakthrough template. Your quiz will have your own branding, questions, and results.
+          </motion.p>
+        </div>
+      </Section>
+      <div className="section-glow" aria-hidden="true" />
+
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto">
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
