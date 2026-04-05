@@ -9,7 +9,14 @@ import { Upload, X } from 'lucide-react';
 
 const FONT_OPTIONS = [
   { family: 'Playfair Display', label: 'Elegant Serif', fallback: 'serif' },
+  { family: 'Lora', label: 'Warm Serif', fallback: 'serif' },
+  { family: 'Cormorant Garamond', label: 'Editorial Serif', fallback: 'serif' },
+  { family: 'Libre Baskerville', label: 'Classic Serif', fallback: 'serif' },
   { family: 'Montserrat', label: 'Bold Modern', fallback: 'sans-serif' },
+  { family: 'Poppins', label: 'Friendly Modern', fallback: 'sans-serif' },
+  { family: 'Raleway', label: 'Clean Elegant', fallback: 'sans-serif' },
+  { family: 'DM Sans', label: 'Neutral Clean', fallback: 'sans-serif' },
+  { family: 'Quicksand', label: 'Soft Rounded', fallback: 'sans-serif' },
   { family: 'Sacramento', label: 'Handwritten Script', fallback: 'cursive' },
 ] as const;
 
@@ -39,7 +46,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;700&family=Sacramento&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=DM+Sans:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;700&family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&family=Raleway:wght@400;700&family=Sacramento&display=swap';
       document.head.appendChild(link);
     }
   }, []);
@@ -130,7 +137,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
 
         <div className="space-y-2">
           <Label>Quiz Font</Label>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             {FONT_OPTIONS.map((opt) => (
               <button
                 key={opt.family}
