@@ -4,18 +4,66 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Cookie } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const STORAGE_KEY = 'cookie-consent-accepted';
+const STORAGE_KEY = 'cookie-consent';
+
+function loadTrackingScripts() {
+  // GA4
+  if (!document.getElementById('gtag-script')) {
+    const gtagScript = document.createElement('script');
+    gtagScript.id = 'gtag-script';
+    gtagScript.async = true;
+    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-BKNEG1EGEG';
+    document.head.appendChild(gtagScript);
+
+    const gtagInline = document.createElement('script');
+    gtagInline.textContent = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BKNEG1EGEG');
+    `;
+    document.head.appendChild(gtagInline);
+  }
+
+  // Meta Pixel
+  if (!(window as any).fbq) {
+    const fbScript = document.createElement('script');
+    fbScript.textContent = `
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '4221999484776685');
+      fbq('track', 'PageView');
+    `;
+    document.head.appendChild(fbScript);
+  }
+}
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem(STORAGE_KEY);
-    if (!accepted) setVisible(true);
+    const consent = localStorage.getItem(STORAGE_KEY);
+    if (consent === 'accepted') {
+      loadTrackingScripts();
+    } else if (!consent) {
+      setVisible(true);
+    }
   }, []);
 
   const accept = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    loadTrackingScripts();
+    setVisible(false);
+  };
+
+  const decline = () => {
+    localStorage.setItem(STORAGE_KEY, 'declined');
     setVisible(false);
   };
 
@@ -45,7 +93,7 @@ export default function CookieConsent() {
                 We use cookies
               </p>
               <p className="mt-1 text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                This site uses essential cookies to keep things running smoothly. By continuing, you agree to our{' '}
+                We use cookies for analytics to improve your experience. You can accept or decline non-essential cookies. See our{' '}
                 <Link to="/privacy" className="underline hover:opacity-80" style={{ color: 'hsl(var(--accent))' }}>
                   Privacy Policy
                 </Link>
@@ -58,15 +106,15 @@ export default function CookieConsent() {
                   className="text-xs font-semibold"
                   style={{ backgroundColor: 'hsl(var(--accent))', color: '#FFFFFF' }}
                 >
-                  Got it
+                  Accept
                 </Button>
-                <Link
-                  to="/privacy"
+                <button
+                  onClick={decline}
                   className="rounded-md px-3 py-1.5 text-xs font-medium transition-opacity hover:opacity-80"
                   style={{ color: 'rgba(255,255,255,0.6)' }}
                 >
-                  Learn more
-                </Link>
+                  Decline
+                </button>
               </div>
             </div>
           </div>
