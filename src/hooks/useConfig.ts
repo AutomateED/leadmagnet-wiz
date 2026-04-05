@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export interface QuizConfig {
+  slug: string;
   quizId: string;
   clientId: string;
   quizName: string;
@@ -39,6 +40,7 @@ const DEFAULT_RESULTS = {
 };
 
 export const DEFAULT_CONFIG: QuizConfig = {
+  slug: '',
   quizId: '',
   clientId: '',
   quizName: 'My Quiz',

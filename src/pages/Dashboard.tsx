@@ -222,7 +222,7 @@ export default function Dashboard() {
 function mapRowToConfig(row: any): QuizConfig {
   const ec = (row.email_config as any) || {};
   return {
-    quizId: row.id || '', clientId: row.client_id || '', quizName: row.quiz_name || 'My Quiz',
+    slug: row.slug || '', quizId: row.id || '', clientId: row.client_id || '', quizName: row.quiz_name || 'My Quiz',
     templateType: row.template_type || 'custom',
     fullName: row.full_name || '', businessName: row.business_name || '',
     email: row.email || '', logo: row.logo_url || '',

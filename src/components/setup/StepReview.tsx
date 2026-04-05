@@ -40,8 +40,8 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
     { label: 'EmailJS', value: draft.emailjsServiceId ? 'Configured' : 'Not set' },
   ];
 
-  const embedCode = `<iframe src="${window.location.origin}" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"></iframe>`;
-  const directLink = window.location.origin;
+  const embedCode = `<iframe src="${window.location.origin}/quiz/${draft.slug}" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"></iframe>`;
+  const directLink = `${window.location.origin}/quiz/${draft.slug}`;
 
   return (
     <div>
@@ -133,7 +133,7 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
           </div>
 
           <a
-            href="/"
+            href={`/quiz/${draft.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 flex items-center justify-center gap-2 rounded-full border border-border py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
