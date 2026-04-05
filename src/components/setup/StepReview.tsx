@@ -133,7 +133,7 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
           </div>
 
           <a
-            href="/"
+            href={`/quiz/${draft.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 flex items-center justify-center gap-2 rounded-full border border-border py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
