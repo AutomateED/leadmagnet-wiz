@@ -229,6 +229,7 @@ function mapRowToConfig(row: any): QuizConfig {
     brandColour: row.brand_colour || DEFAULT_CONFIG.brandColour,
     fontFamily: row.font_family || DEFAULT_CONFIG.fontFamily,
     questions: Array.isArray(row.questions) ? row.questions : [],
+    resultTitles: (row.result_titles as any) || DEFAULT_CONFIG.resultTitles,
     resultTexts: (row.result_texts as any) || DEFAULT_CONFIG.resultTexts,
     ctaText: row.cta_text || '', ctaUrl: row.cta_url || '',
     ctaTagline: row.cta_tagline || '', webhookUrl: row.webhook_url || '',
