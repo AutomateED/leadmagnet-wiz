@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Check, X, ChevronDown, Minus, FileText, Video, CreditCard, Palette, Send, Clock } from 'lucide-react';
+import { Check, X, ChevronDown, Minus, FileText, Video, CreditCard, Palette, Send, Clock, ExternalLink } from 'lucide-react';
 import Footer from '@/components/Footer';
 
 /* ─── PALETTE ─── */
@@ -438,12 +438,19 @@ export default function HomePage() {
             This is exactly what your prospects will see. Try the demo quiz below, then imagine it with your brand, your questions, and your results.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-10">
-            <iframe
-              src="/quiz/demo-business-breakthrough"
-              title="PretaQuiz demo"
-              className="mx-auto"
-              style={{ width: '100%', maxWidth: 500, height: 700, border: 'none', borderRadius: 16 }}
-            />
+            <a
+              href="/quiz/demo-business-breakthrough"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block max-w-md mx-auto rounded-2xl p-10 text-center hover:scale-[1.02] transition-all cursor-pointer"
+              style={{ backgroundColor: '#201538', border: '1px solid #2D1A4A' }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = '#D946EF')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = '#2D1A4A')}
+            >
+              <ExternalLink className="h-8 w-8 mx-auto mb-4" style={{ color: '#D946EF' }} />
+              <p className="text-lg font-semibold" style={{ color: 'white' }}>Try the Business Breakthrough Quiz</p>
+              <p className="text-sm mt-2" style={{ color: 'rgba(255,255,255,0.6)' }}>Opens in a new tab. Takes about 2 minutes.</p>
+            </a>
           </motion.div>
           <motion.p variants={fadeUp} className="mt-6 text-sm" style={{ color: C.footnote }}>
             This is a live quiz using the Business Breakthrough template. Your quiz will have your own branding, questions, and results.
