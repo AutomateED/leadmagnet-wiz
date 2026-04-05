@@ -9,7 +9,14 @@ import { Upload, X } from 'lucide-react';
 
 const FONT_OPTIONS = [
   { family: 'Playfair Display', label: 'Elegant Serif', fallback: 'serif' },
+  { family: 'Lora', label: 'Warm Serif', fallback: 'serif' },
+  { family: 'Cormorant Garamond', label: 'Editorial Serif', fallback: 'serif' },
+  { family: 'Libre Baskerville', label: 'Classic Serif', fallback: 'serif' },
   { family: 'Montserrat', label: 'Bold Modern', fallback: 'sans-serif' },
+  { family: 'Poppins', label: 'Friendly Modern', fallback: 'sans-serif' },
+  { family: 'Raleway', label: 'Clean Elegant', fallback: 'sans-serif' },
+  { family: 'DM Sans', label: 'Neutral Clean', fallback: 'sans-serif' },
+  { family: 'Quicksand', label: 'Soft Rounded', fallback: 'sans-serif' },
   { family: 'Sacramento', label: 'Handwritten Script', fallback: 'cursive' },
 ] as const;
 
