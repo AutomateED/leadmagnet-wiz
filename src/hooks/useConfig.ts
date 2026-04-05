@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 export interface QuizConfig {
-  quizId: string;
+  slug: string;
   clientId: string;
   quizName: string;
   templateType: string;
