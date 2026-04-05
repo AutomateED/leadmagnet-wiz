@@ -1,0 +1,1 @@
+ALTER TABLE public.quiz_configs ADD COLUMN IF NOT EXISTS result_titles jsonb DEFAULT NULL;
