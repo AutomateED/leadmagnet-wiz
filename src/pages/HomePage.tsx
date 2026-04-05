@@ -120,11 +120,7 @@ const NOT_FOR_YOU = [
   'Enterprise-level analytics dashboards*',
 ];
 
-const TESTIMONIALS = [
-  { quote: 'I had my quiz live in 40 minutes. It\'s the first lead magnet I\'ve created that people actually complete.', name: '[Name]', role: 'Business Coach' },
-  { quote: 'I was paying $39/month for ScoreApp and barely using half the features. PretaQuiz does exactly what I need for a one-off price.', name: '[Name]', role: 'Leadership Coach' },
-  { quote: 'The webhook setup took me five minutes. Leads go straight into my ActiveCampaign list, tagged by quiz result.', name: '[Name]', role: 'Mindset Coach' },
-];
+
 
 const FAQS = [
   { q: 'Do I need any tech skills?', a: 'No. If you can upload a logo, type questions, and paste a URL, you can set up PretaQuiz.' },
