@@ -556,32 +556,8 @@ export default function HomePage() {
       </Section>
       <div className="section-glow" aria-hidden="true" />
 
-      {/* ═══ SECTION 8: SOCIAL PROOF ═══ */}
-      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
-        <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
-            What coaches are saying
-          </motion.h2>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="rounded-2xl p-8 border-dashed relative"
-                style={{ backgroundColor: C.cardBg, borderColor: C.cardBorder, borderWidth: '1px' }}
-              >
-                <div className="absolute top-4 right-4 text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded" style={{ color: C.footnote, backgroundColor: C.cardBorder }}>Placeholder</div>
-                <p className="leading-relaxed italic" style={{ color: C.body }}>"{t.quote}"</p>
-                <div className="mt-6 pt-4" style={{ borderTopColor: C.cardBorder, borderTopWidth: '1px' }}>
-                  <p className="font-semibold" style={{ color: C.headline }}>{t.name}</p>
-                  <p className="text-sm" style={{ color: C.supporting }}>{t.role}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </Section>
-      <div className="section-glow" aria-hidden="true" />
+
+
 
       {/* ═══ SECTION 9: FAQ ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
