@@ -130,7 +130,7 @@ const FAQS = [
   { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers, everything you need to segment and follow up.' },
   { q: 'Do I need hosting or WordPress?', a: 'No. Your quiz is hosted for you. Nothing to install, no server to manage.' },
   { q: 'What if I want to change my questions later?', a: 'You can update your quiz questions, results, and branding at any time.' },
-  
+  { q: 'How is my data handled?', a: 'PretaQuiz is GDPR compliant and hosted in the EU. We never sell your data. Analytics cookies only load if you accept them. Your clients\' lead data is stored securely and only accessible to them. Full details are in our Privacy Policy.' },
 ];
 
 /* ─── COMPONENTS ─── */
