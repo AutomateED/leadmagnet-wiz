@@ -46,7 +46,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
       const link = document.createElement('link');
       link.id = id;
       link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;700&family=Sacramento&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=DM+Sans:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;700&family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&family=Quicksand:wght@400;700&family=Raleway:wght@400;700&family=Sacramento&display=swap';
       document.head.appendChild(link);
     }
   }, []);
