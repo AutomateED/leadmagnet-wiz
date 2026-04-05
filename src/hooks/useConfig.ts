@@ -40,6 +40,7 @@ const DEFAULT_RESULTS = {
 };
 
 export const DEFAULT_CONFIG: QuizConfig = {
+  slug: '',
   quizId: '',
   clientId: '',
   quizName: 'My Quiz',
