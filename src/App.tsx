@@ -16,6 +16,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import Dpa from "./pages/Dpa";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
 import Welcome from "./pages/Welcome";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/dashboard/*" element={<Dashboard />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/dpa" element={<Dpa />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/welcome" element={<Welcome />} />
