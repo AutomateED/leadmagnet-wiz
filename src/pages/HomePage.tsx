@@ -120,11 +120,7 @@ const NOT_FOR_YOU = [
   'Enterprise-level analytics dashboards*',
 ];
 
-const TESTIMONIALS = [
-  { quote: 'I had my quiz live in 40 minutes. It\'s the first lead magnet I\'ve created that people actually complete.', name: '[Name]', role: 'Business Coach' },
-  { quote: 'I was paying $39/month for ScoreApp and barely using half the features. PretaQuiz does exactly what I need for a one-off price.', name: '[Name]', role: 'Leadership Coach' },
-  { quote: 'The webhook setup took me five minutes. Leads go straight into my ActiveCampaign list, tagged by quiz result.', name: '[Name]', role: 'Mindset Coach' },
-];
+
 
 const FAQS = [
   { q: 'Do I need any tech skills?', a: 'No. If you can upload a logo, type questions, and paste a URL, you can set up PretaQuiz.' },
@@ -560,32 +556,8 @@ export default function HomePage() {
       </Section>
       <div className="section-glow" aria-hidden="true" />
 
-      {/* ═══ SECTION 8: SOCIAL PROOF ═══ */}
-      <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
-        <div className="max-w-5xl mx-auto">
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
-            What coaches are saying
-          </motion.h2>
-          <div className="mt-12 grid md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                className="rounded-2xl p-8 border-dashed relative"
-                style={{ backgroundColor: C.cardBg, borderColor: C.cardBorder, borderWidth: '1px' }}
-              >
-                <div className="absolute top-4 right-4 text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded" style={{ color: C.footnote, backgroundColor: C.cardBorder }}>Placeholder</div>
-                <p className="leading-relaxed italic" style={{ color: C.body }}>"{t.quote}"</p>
-                <div className="mt-6 pt-4" style={{ borderTopColor: C.cardBorder, borderTopWidth: '1px' }}>
-                  <p className="font-semibold" style={{ color: C.headline }}>{t.name}</p>
-                  <p className="text-sm" style={{ color: C.supporting }}>{t.role}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </Section>
-      <div className="section-glow" aria-hidden="true" />
+
+
 
       {/* ═══ SECTION 9: FAQ ═══ */}
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
