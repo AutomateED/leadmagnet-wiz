@@ -55,7 +55,8 @@ const STEPS: Step[] = [
       const rt = c.resultTexts as Record<string, string> | undefined;
       if (!rt) return false;
       const defaults = DEFAULT_CONFIG.resultTexts as Record<string, string>;
-      return RESULT_KEYS.some((k) => typeof rt[k] === 'string' && rt[k].trim() !== '' && rt[k] !== defaults[k]);
+      const keys = Object.values(c.resultTitles || {});
+      return keys.some((k) => typeof rt[k] === 'string' && rt[k].trim() !== '' && rt[k] !== defaults[k]);
     },
   },
   {
