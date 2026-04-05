@@ -630,19 +630,7 @@ export default function HomePage() {
       </Section>
 
       {/* ═══ SECTION 11: FOOTER ═══ */}
-      <footer className="py-10 px-5" style={{ backgroundColor: C.sectionBg, borderTop: `1px solid ${C.cardBorder}` }}>
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold" style={{ color: C.headline }}>Preta<span style={{ color: C.accent }}>Quiz</span></span>
-          </div>
-          <p className="text-sm" style={{ color: C.footnote }}>© 2026 PretaQuiz. All rights reserved.</p>
-          <div className="flex items-center gap-6 text-sm" style={{ color: C.footnote }}>
-            <Link to="/privacy" className="hover:opacity-80 transition-opacity">Privacy Policy</Link>
-            <Link to="/terms" className="hover:opacity-80 transition-opacity">Terms of Service</Link>
-            <Link to="/contact" className="hover:opacity-80 transition-opacity">Contact</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
