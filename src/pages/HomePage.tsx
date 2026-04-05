@@ -130,7 +130,7 @@ const FAQS = [
   { q: 'What data gets sent to my CRM?', a: 'Name, email address, quiz result, and individual answers, everything you need to segment and follow up.' },
   { q: 'Do I need hosting or WordPress?', a: 'No. Your quiz is hosted for you. Nothing to install, no server to manage.' },
   { q: 'What if I want to change my questions later?', a: 'You can update your quiz questions, results, and branding at any time.' },
-  
+  { q: 'How is my data handled?', a: 'PretaQuiz is GDPR compliant and hosted in the EU. We never sell your data. Analytics cookies only load if you accept them. Your clients\' lead data is stored securely and only accessible to them. Full details are in our Privacy Policy.' },
 ];
 
 /* ─── COMPONENTS ─── */
@@ -392,7 +392,30 @@ export default function HomePage() {
       </Section>
       <div className="section-glow" aria-hidden="true" />
 
-      {/* ═══ SECTION 5: WHAT'S INCLUDED ═══ */}
+      {/* ═══ SECTION 4B: SEE IT IN ACTION ═══ */}
+      <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: C.headline }}>
+            See it in action
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: C.body }}>
+            This is exactly what your prospects will see. Try the demo quiz below, then imagine it with your brand, your questions, and your results.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-10">
+            <iframe
+              src="/quiz/demo-business-breakthrough"
+              title="PretaQuiz demo"
+              className="mx-auto"
+              style={{ width: '100%', maxWidth: 500, height: 700, border: 'none', borderRadius: 16 }}
+            />
+          </motion.div>
+          <motion.p variants={fadeUp} className="mt-6 text-sm" style={{ color: C.footnote }}>
+            This is a live quiz using the Business Breakthrough template. Your quiz will have your own branding, questions, and results.
+          </motion.p>
+        </div>
+      </Section>
+      <div className="section-glow" aria-hidden="true" />
+
       <Section className="py-20 px-5" style={{ backgroundColor: C.pageBg }}>
         <div className="max-w-3xl mx-auto">
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
