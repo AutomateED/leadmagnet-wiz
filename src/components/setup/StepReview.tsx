@@ -40,8 +40,8 @@ export default function StepReview({ draft, onSave, saved }: StepProps) {
     { label: 'EmailJS', value: draft.emailjsServiceId ? 'Configured' : 'Not set' },
   ];
 
-  const embedCode = `<iframe src="${window.location.origin}" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"></iframe>`;
-  const directLink = window.location.origin;
+  const embedCode = `<iframe src="${window.location.origin}/quiz/${draft.slug}" width="100%" height="700" frameborder="0" style="border:none; border-radius:12px;"></iframe>`;
+  const directLink = `${window.location.origin}/quiz/${draft.slug}`;
 
   return (
     <div>
