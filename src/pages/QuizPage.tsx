@@ -55,7 +55,7 @@ export default function QuizPage() {
 
   const handleEmailSubmit = async (firstName: string, email: string, lastName: string) => {
     // Calculate result directly from answers to avoid race condition with setState
-    const resultType = calculateResult(quiz.answers);
+    const resultType = calculateResult(quiz.answers, config.resultTitles);
     const resultCopy = config.resultTexts[resultType];
     quiz.submitEmail(firstName, email, lastName);
 
@@ -126,7 +126,7 @@ export default function QuizPage() {
     case 'email':
       return <EmailGate brandColour={config.brandColour} onSubmit={handleEmailSubmit} />;
     case 'confirmation': {
-      const confirmResult = calculateResult(quiz.answers);
+      const confirmResult = calculateResult(quiz.answers, config.resultTitles);
       const confirmCopy = config.resultTexts[confirmResult];
       return <ConfirmationScreen config={config} email={quiz.userData.email} resultType={confirmResult} resultCopy={confirmCopy} />;
     }
