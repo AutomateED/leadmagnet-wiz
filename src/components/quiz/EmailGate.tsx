@@ -100,7 +100,7 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
           >
-            Send My Results &rarr;
+            Show Me My Results &rarr;
           </motion.button>
         </form>
 
