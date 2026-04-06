@@ -39,6 +39,7 @@ export default function QuestionScreen({
       {questionIndex > 0 && (
         <button
           onClick={onBack}
+          aria-label="Go back to previous question"
           className="fixed top-6 left-4 z-40 flex items-center gap-1 text-sm transition-colors"
           style={{ color: '#6B5F80' }}
         >

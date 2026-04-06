@@ -10,7 +10,15 @@ export default function ProgressBar({ current, total, brandColour }: ProgressBar
   const progress = ((current + 1) / total) * 100;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 h-1" style={{ backgroundColor: `${brandColour}1A` }}>
+    <div
+      className="fixed top-0 left-0 right-0 z-50 h-1"
+      style={{ backgroundColor: `${brandColour}1A` }}
+      role="progressbar"
+      aria-valuenow={current + 1}
+      aria-valuemin={1}
+      aria-valuemax={total}
+      aria-label={`Question ${current + 1} of ${total}`}
+    >
       <motion.div
         className="h-full rounded-r-full"
         style={{ backgroundColor: brandColour }}

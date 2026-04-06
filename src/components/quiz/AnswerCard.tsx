@@ -11,7 +11,6 @@ interface AnswerCardProps {
 }
 
 export default function AnswerCard({ letter, text, selected, brandColour, index, onSelect }: AnswerCardProps) {
-  // Derive a translucent version for hover/unselected states
   const brandRgb = hexToRgb(brandColour);
   const brandTranslucent10 = brandRgb ? `rgba(${brandRgb},0.1)` : 'rgba(217,70,239,0.1)';
   const brandTranslucent15 = brandRgb ? `rgba(${brandRgb},0.15)` : 'rgba(217,70,239,0.15)';
@@ -23,7 +22,8 @@ export default function AnswerCard({ letter, text, selected, brandColour, index,
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       onClick={onSelect}
-      className="group relative w-full text-left rounded-xl border p-5 md:p-6 transition-all duration-300 ease-out"
+      aria-pressed={selected}
+      className="group relative w-full text-left rounded-xl border p-5 md:p-6 transition-all duration-300 ease-out focus-visible:outline-3 focus-visible:outline-offset-2"
       style={{
         backgroundColor: selected ? brandColour : '#F8F7FF',
         borderColor: selected ? brandColour : brandTranslucent15,
@@ -43,6 +43,7 @@ export default function AnswerCard({ letter, text, selected, brandColour, index,
           {selected ? <Check className="h-4 w-4" /> : letter}
         </span>
         <span className="text-base md:text-lg font-medium leading-snug">{text}</span>
+        {selected && <span className="sr-only">(selected)</span>}
       </div>
     </motion.button>
   );

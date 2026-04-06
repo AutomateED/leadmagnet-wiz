@@ -21,7 +21,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
       >
         {/* Animated checkmark */}
         <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center">
-          <svg className="h-20 w-20" viewBox="0 0 52 52">
+          <svg className="h-20 w-20" viewBox="0 0 52 52" role="img" aria-label="Success checkmark">
             <circle
               className="checkmark-circle"
               cx="26"
@@ -74,6 +74,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
               href={config.ctaUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${config.ctaText} (opens in new tab)`}
               className="mt-2 inline-block rounded-full px-10 py-4 text-lg font-semibold tracking-wide transition-all duration-300 hover:shadow-lift active:scale-95"
               style={{ backgroundColor: brandColour || '#F020B0', color: '#FFFFFF' }}
               whileHover={{ scale: 1.02 }}
