@@ -412,7 +412,7 @@ export default function HomePage() {
           </motion.h2>
           <div className="mt-14 grid md:grid-cols-3 gap-10">
             {STEPS.map((s) => (
-              <motion.div key={s.num} variants={fadeUp} className="text-center border-2 md:text-center">
+              <motion.div key={s.num} variants={fadeUp} className="text-center border-2 md:text-center px-[10px] py-[10px]">
                 <div
                   className="inline-flex items-center justify-center w-14 h-14 rounded-full text-white text-xl font-bold mb-5"
                   style={{ backgroundColor: C.cta }}
