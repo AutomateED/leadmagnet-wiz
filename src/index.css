@@ -58,6 +58,22 @@
   }
 }
 
+@layer base {
+  :focus-visible {
+    outline: 3px solid hsl(var(--primary));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
 /* Checkmark animation */
 @keyframes checkmark-draw {
   0% { stroke-dashoffset: 48; }
@@ -76,24 +92,6 @@
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
   animation: checkmark-draw 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.4s forwards;
-}
-
-@layer base {
-  /* Keyboard focus ring — visible for all interactive elements */
-  :focus-visible {
-    outline: 3px solid hsl(var(--primary));
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
-
-  /* Remove forced animations for users who prefer reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
 }
 
 /* Floating blobs */
