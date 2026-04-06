@@ -59,6 +59,12 @@ export default function QuizPage() {
     const resultCopy = config.resultTexts[resultType];
     quiz.submitEmail(firstName, email, lastName);
 
+    // Fire Meta Pixel Lead event (respects cookie consent)
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent === 'accepted' && typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'Lead');
+    }
+
     // Insert lead into Supabase (fire-and-forget)
     supabase
       .from('leads')

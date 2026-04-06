@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Mail, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
@@ -5,6 +6,13 @@ import { Mail, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Welcome() {
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (consent === 'accepted' && typeof (window as any).fbq === 'function') {
+      (window as any).fbq('track', 'Purchase', { value: 97, currency: 'USD' });
+    }
+  }, []);
+
   return (
     <div
       className="flex min-h-screen flex-col items-center justify-center px-4"
