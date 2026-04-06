@@ -21,7 +21,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
       >
         {/* Animated checkmark */}
         <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center">
-          <svg className="h-20 w-20" viewBox="0 0 52 52">
+          <svg className="h-20 w-20" viewBox="0 0 52 52" role="img" aria-label="Success checkmark">
             <circle
               className="checkmark-circle"
               cx="26"
