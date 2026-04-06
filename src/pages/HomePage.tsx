@@ -409,7 +409,7 @@ export default function HomePage() {
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
-            Live in three steps. Under an hour.
+            Live in four steps. Under an hour.
           </motion.h2>
           <div className="mt-14 grid md:grid-cols-3 gap-10">
             {STEPS.map((s) => (
