@@ -31,6 +31,37 @@ export default function QuizPage() {
     }
   }, [config?.fontFamily]);
 
+  // Dynamically swap favicon to client logo
+  useEffect(() => {
+    if (!config?.logo) return;
+
+    const setFavicon = (url: string) => {
+      const existing = document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]');
+      existing.forEach(el => el.remove());
+      const icon = document.createElement('link');
+      icon.rel = 'icon';
+      icon.href = url;
+      document.head.appendChild(icon);
+    };
+
+    // Test that the logo URL loads before swapping
+    const img = new Image();
+    img.onload = () => setFavicon(config.logo);
+    img.onerror = () => {}; // silently keep PretaQuiz favicon if logo fails
+    img.src = config.logo;
+
+    // Restore PretaQuiz favicon on unmount
+    return () => {
+      const existing = document.querySelectorAll('link[rel="icon"]');
+      existing.forEach(el => el.remove());
+      const icon = document.createElement('link');
+      icon.rel = 'icon';
+      icon.type = 'image/svg+xml';
+      icon.href = '/pretaquiz-favicon.svg';
+      document.head.appendChild(icon);
+    };
+  }, [config?.logo]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-background">
