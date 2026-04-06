@@ -341,7 +341,7 @@ export default function HomePage() {
       <Section className="py-20 px-5" style={{ backgroundColor: C.sectionBg }}>
         <div className="max-w-5xl mx-auto">
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
-            You know you need a lead magnet. But the options aren't great.
+            You know you need a lead magnet.<br />But the options aren't great.
           </motion.h2>
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             {[
