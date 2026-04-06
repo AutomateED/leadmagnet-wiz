@@ -57,6 +57,13 @@ const pages = [
     description: 'Be first in line for PretaQuiz. The fastest way to qualify leads online with ready-made quiz funnels for coaches and consultants.',
     h1: 'Join the PretaQuiz Waitlist',
     body: 'Be the first to know when PretaQuiz launches. Ready-made quiz funnels for coaches, consultants, and service providers. Sign up to get early access.',
+  },
+  {
+    route: '/dpa',
+    title: 'Data Processing Agreement — PretaQuiz',
+    description: 'PretaQuiz Data Processing Agreement. How we process personal data on behalf of our clients in compliance with GDPR.',
+    h1: 'Data Processing Agreement',
+    body: 'Data Processing Agreement for PretaQuiz. This agreement governs how PretaQuiz processes personal data on behalf of coaches and consultants who use the platform, in compliance with GDPR and applicable data protection law.',
   }
 ];
 
