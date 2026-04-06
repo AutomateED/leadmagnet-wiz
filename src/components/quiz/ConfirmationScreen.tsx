@@ -86,7 +86,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
         </div>
 
         <p className="mt-12 text-xs" style={{ color: '#9A8EAA' }}>
-          Powered by <span className="font-semibold">PretaQuiz</span>
+          Powered by <span className="font-semibold">PretaQuiz.com</span>
         </p>
       </motion.div>
     </div>
