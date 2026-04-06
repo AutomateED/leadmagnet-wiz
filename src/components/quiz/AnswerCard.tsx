@@ -23,11 +23,12 @@ export default function AnswerCard({ letter, text, selected, brandColour, index,
       transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       onClick={onSelect}
       aria-pressed={selected}
-      className="group relative w-full text-left rounded-xl border p-5 md:p-6 transition-all duration-300 ease-out focus-visible:outline-3 focus-visible:outline-offset-2"
+      className="group relative w-full text-left rounded-xl border p-5 md:p-6 transition-all duration-300 ease-out"
       style={{
         backgroundColor: selected ? brandColour : '#F8F7FF',
         borderColor: selected ? brandColour : brandTranslucent15,
         color: selected ? '#FFFFFF' : '#0F0A1E',
+        outlineColor: brandColour,
       }}
       whileHover={!selected ? { y: -2, boxShadow: `0 8px 30px -4px ${brandTranslucent15}`, borderColor: brandTranslucent40 } : {}}
       whileTap={{ scale: 0.98 }}
@@ -39,6 +40,7 @@ export default function AnswerCard({ letter, text, selected, brandColour, index,
             backgroundColor: selected ? 'rgba(255,255,255,0.2)' : brandTranslucent10,
             color: selected ? '#FFFFFF' : brandColour,
           }}
+          aria-hidden="true"
         >
           {selected ? <Check className="h-4 w-4" /> : letter}
         </span>
