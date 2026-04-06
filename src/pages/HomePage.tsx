@@ -420,7 +420,7 @@ export default function HomePage() {
                   {s.num}
                 </div>
                 <h3 className="text-xl font-semibold mb-3" style={{ color: C.headline }}>{s.title}</h3>
-                <p className="leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
+                <p className="leading-relaxed whitespace-pre-line" style={{ color: C.body }}>{s.desc}</p>
               </motion.div>
             ))}
           </div>
