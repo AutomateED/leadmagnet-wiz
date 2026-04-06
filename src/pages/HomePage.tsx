@@ -411,7 +411,7 @@ export default function HomePage() {
           <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-bold leading-tight text-center" style={{ color: C.headline }}>
             Live in four steps. Under an hour.
           </motion.h2>
-          <div className="mt-14 grid md:grid-cols-3 gap-10">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto">
             {STEPS.map((s) => (
               <motion.div key={s.num} variants={fadeUp} className="text-center border-2 md:text-center px-[10px] py-[10px]">
                 <div
