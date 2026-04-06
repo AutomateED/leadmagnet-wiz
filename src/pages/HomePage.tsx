@@ -49,7 +49,7 @@ function Section({ children, className = '', id, style }: { children: React.Reac
 const STEPS = [
   { num: '1', title: 'Make it yours', desc: 'Upload your logo, pick your brand colour, and write a welcome message. Your quiz looks like part of your website, not a third-party tool.' },
   { num: '2', title: 'Write your questions & results', desc: 'Add your questions (multiple choice), write the result descriptions your quiz-takers will see, and map which answers lead to which result. If you can write a social media post, you can do this.' },
-  { num: '3', title: 'Connect & share', desc: 'Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier and anything that accepts a webhook). Grab your quiz link and share it on your website, in your bio, or in an email. That\'s it. Leads start arriving.' },
+  { num: '3', title: 'Connect & share', desc: "Paste your webhook URL to send lead data to your CRM (ActiveCampaign, MailChimp, Kit, HighLevel, Zapier and anything that accepts a webhook).\n\n\nGrab your quiz link and share it on your website, in your bio, or in an email. That's it. Leads start arriving." },
 ];
 
 const INCLUDED = [
@@ -412,7 +412,7 @@ export default function HomePage() {
           </motion.h2>
           <div className="mt-14 grid md:grid-cols-3 gap-10">
             {STEPS.map((s) => (
-              <motion.div key={s.num} variants={fadeUp} className="text-center border-2 md:text-center">
+              <motion.div key={s.num} variants={fadeUp} className="text-center border-2 md:text-center px-[10px] py-[10px]">
                 <div
                   className="inline-flex items-center justify-center w-14 h-14 rounded-full text-white text-xl font-bold mb-5"
                   style={{ backgroundColor: C.cta }}
@@ -420,7 +420,7 @@ export default function HomePage() {
                   {s.num}
                 </div>
                 <h3 className="text-xl font-semibold mb-3" style={{ color: C.headline }}>{s.title}</h3>
-                <p className="leading-relaxed" style={{ color: C.body }}>{s.desc}</p>
+                <p className="leading-relaxed whitespace-pre-line" style={{ color: C.body }}>{s.desc}</p>
               </motion.div>
             ))}
           </div>
