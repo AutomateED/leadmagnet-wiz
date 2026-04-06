@@ -74,6 +74,7 @@ export default function ConfirmationScreen({ config, email, resultType, resultCo
               href={config.ctaUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${config.ctaText} (opens in new tab)`}
               className="mt-2 inline-block rounded-full px-10 py-4 text-lg font-semibold tracking-wide transition-all duration-300 hover:shadow-lift active:scale-95"
               style={{ backgroundColor: brandColour || '#F020B0', color: '#FFFFFF' }}
               whileHover={{ scale: 1.02 }}

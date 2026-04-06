@@ -51,46 +51,61 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
 
         <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-6">
           <div>
+            <label htmlFor="firstName" className="sr-only">First name</label>
             <input
+              id="firstName"
               type="text"
               value={firstName}
               onChange={(e) => { setFirstName(e.target.value); setErrors((prev) => ({ ...prev, firstName: undefined })); }}
               placeholder="Your first name"
+              autoComplete="given-name"
               className="w-full bg-transparent border-b-2 outline-none text-xl py-4 transition-colors placeholder:opacity-40"
               style={{
                 borderColor: errors.firstName ? 'hsl(var(--destructive))' : firstName ? brandColour : `${brandColour}26`,
                 color: '#0F0A1E',
               } as React.CSSProperties}
+              aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+              aria-invalid={!!errors.firstName}
             />
-            {errors.firstName && <p className="text-sm text-destructive mt-1 text-left">{errors.firstName}</p>}
+            {errors.firstName && <p id="firstName-error" className="text-sm text-destructive mt-1 text-left">{errors.firstName}</p>}
           </div>
           <div>
+            <label htmlFor="lastName" className="sr-only">Last name</label>
             <input
+              id="lastName"
               type="text"
               value={lastName}
               onChange={(e) => { setLastName(e.target.value); setErrors((prev) => ({ ...prev, lastName: undefined })); }}
               placeholder="Your last name"
+              autoComplete="family-name"
               className="w-full bg-transparent border-b-2 outline-none text-xl py-4 transition-colors placeholder:opacity-40"
               style={{
                 borderColor: errors.lastName ? 'hsl(var(--destructive))' : lastName ? brandColour : `${brandColour}26`,
                 color: '#0F0A1E',
               } as React.CSSProperties}
+              aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+              aria-invalid={!!errors.lastName}
             />
-            {errors.lastName && <p className="text-sm text-destructive mt-1 text-left">{errors.lastName}</p>}
+            {errors.lastName && <p id="lastName-error" className="text-sm text-destructive mt-1 text-left">{errors.lastName}</p>}
           </div>
           <div>
+            <label htmlFor="email" className="sr-only">Email address</label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => { setEmail(e.target.value); setErrors((prev) => ({ ...prev, email: undefined })); }}
               placeholder="Your best email"
+              autoComplete="email"
               className="w-full bg-transparent border-b-2 outline-none text-xl py-4 transition-colors placeholder:opacity-40"
               style={{
                 borderColor: errors.email ? 'hsl(var(--destructive))' : email ? brandColour : `${brandColour}26`,
                 color: '#0F0A1E',
               } as React.CSSProperties}
+              aria-describedby={errors.email ? 'email-error' : undefined}
+              aria-invalid={!!errors.email}
             />
-            {errors.email && <p className="text-sm text-destructive mt-1 text-left">{errors.email}</p>}
+            {errors.email && <p id="email-error" className="text-sm text-destructive mt-1 text-left">{errors.email}</p>}
           </div>
 
           <motion.button

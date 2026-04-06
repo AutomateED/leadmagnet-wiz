@@ -71,7 +71,7 @@ export default function StartScreen({ config, onStart }: StartScreenProps) {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.96 }}
         >
-          Find Out Now &rarr;
+          Find Out Now <span aria-hidden="true">→</span>
         </motion.button>
       </motion.div>
     </div>
