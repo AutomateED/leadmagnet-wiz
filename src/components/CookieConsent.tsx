@@ -46,15 +46,17 @@ function loadTrackingScripts() {
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const isEmbedded = window.self !== window.top;
 
   useEffect(() => {
+    if (isEmbedded) return;
     const consent = localStorage.getItem(STORAGE_KEY);
     if (consent === 'accepted') {
       loadTrackingScripts();
     } else if (!consent) {
       setVisible(true);
     }
-  }, []);
+  }, [isEmbedded]);
 
   const accept = () => {
     localStorage.setItem(STORAGE_KEY, 'accepted');
@@ -66,6 +68,8 @@ export default function CookieConsent() {
     localStorage.setItem(STORAGE_KEY, 'declined');
     setVisible(false);
   };
+
+  if (isEmbedded) return null;
 
   return (
     <AnimatePresence>
