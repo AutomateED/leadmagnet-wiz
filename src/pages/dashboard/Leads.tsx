@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/select';
 import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface Lead {
   id: string;
@@ -22,6 +23,7 @@ export default function Leads() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterSlug, setFilterSlug] = useState<string>('all');
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!user) return;
@@ -52,6 +54,53 @@ export default function Leads() {
     () => (filterSlug === 'all' ? leads : leads.filter((l) => l.quiz_slug === filterSlug)),
     [leads, filterSlug],
   );
+
+  // Clear selection when filter changes
+  useEffect(() => { setSelected(new Set()); }, [filterSlug]);
+
+  const allSelected = filtered.length > 0 && filtered.every((l) => selected.has(l.id));
+  const someSelected = filtered.some((l) => selected.has(l.id));
+
+  const toggleAll = () => {
+    if (allSelected) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(filtered.map((l) => l.id)));
+    }
+  };
+
+  const toggleOne = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const downloadCSV = () => {
+    const toExport = selected.size > 0
+      ? filtered.filter((l) => selected.has(l.id))
+      : filtered;
+    const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date'];
+    const rows = toExport.map((lead) => [
+      [lead.first_name, lead.last_name].filter(Boolean).join(' ') || '',
+      lead.email,
+      lead.result_type,
+      lead.quiz_slug,
+      lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-GB') : '',
+    ]);
+    const csvContent = [headers, ...rows]
+      .map((row) => row.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `pretaquiz-leads-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    setSelected(new Set());
+  };
 
   const formatDate = (iso: string | null) => {
     if (!iso) return '—';
@@ -85,30 +134,11 @@ export default function Leads() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
-                const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date'];
-                const rows = filtered.map(lead => [
-                  [lead.first_name, lead.last_name].filter(Boolean).join(' ') || '',
-                  lead.email,
-                  lead.result_type,
-                  lead.quiz_slug,
-                  lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-GB') : ''
-                ]);
-                const csvContent = [headers, ...rows]
-                  .map(row => row.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
-                  .join('\n');
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `pretaquiz-leads-${new Date().toISOString().split('T')[0]}.csv`;
-                link.click();
-                URL.revokeObjectURL(url);
-              }}
+              onClick={downloadCSV}
               style={{ borderColor: 'rgba(217,70,239,0.25)', color: '#D946EF' }}
             >
               <Download className="h-4 w-4" />
-              Download CSV
+              {selected.size > 0 ? `Download ${selected.size} selected` : 'Download all'}
             </Button>
           )}
         </div>
@@ -147,6 +177,14 @@ export default function Leads() {
           <table className="w-full text-sm bg-white dark:bg-[#201538]">
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(217,70,239,0.15)' }}>
+                <th className="px-4 py-3 w-10">
+                  <Checkbox
+                    checked={allSelected ? true : someSelected ? 'indeterminate' : false}
+                    onCheckedChange={toggleAll}
+                    aria-label="Select all leads"
+                    className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
+                  />
+                </th>
                 <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Name</th>
                 <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Email</th>
                 <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Result Type</th>
@@ -155,34 +193,50 @@ export default function Leads() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((lead) => (
-                <tr
-                  key={lead.id}
-                  className="transition-colors hover:bg-[rgba(217,70,239,0.04)]"
-                  style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
-                >
-                  <td className="px-5 py-3 text-[#0F0A1E] dark:text-white">
-                    {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
-                  </td>
-                  <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</td>
-                  <td className="px-5 py-3">
-                    {lead.result_type ? (
-                      <span
-                        className="rounded-full px-2.5 py-0.5 text-xs font-medium"
-                        style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
-                      >
-                        {lead.result_type}
-                      </span>
-                    ) : (
-                      <span className="text-[#9A8EAA]">—</span>
-                    )}
-                  </td>
-                  <td className="px-5 py-3">
-                    <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
-                  </td>
-                  <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</td>
-                </tr>
-              ))}
+              {filtered.map((lead) => {
+                const isSelected = selected.has(lead.id);
+                return (
+                  <tr
+                    key={lead.id}
+                    className={`transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-[rgba(217,70,239,0.08)] dark:bg-[rgba(217,70,239,0.12)]'
+                        : 'hover:bg-[rgba(217,70,239,0.04)]'
+                    }`}
+                    style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
+                    onClick={() => toggleOne(lead.id)}
+                  >
+                    <td className="px-4 py-3 w-10" onClick={(e) => e.stopPropagation()}>
+                      <Checkbox
+                        checked={isSelected}
+                        onCheckedChange={() => toggleOne(lead.id)}
+                        aria-label={`Select ${lead.email}`}
+                        className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
+                      />
+                    </td>
+                    <td className="px-5 py-3 text-[#0F0A1E] dark:text-white">
+                      {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
+                    </td>
+                    <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</td>
+                    <td className="px-5 py-3">
+                      {lead.result_type ? (
+                        <span
+                          className="rounded-full px-2.5 py-0.5 text-xs font-medium"
+                          style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
+                        >
+                          {lead.result_type}
+                        </span>
+                      ) : (
+                        <span className="text-[#9A8EAA]">—</span>
+                      )}
+                    </td>
+                    <td className="px-5 py-3">
+                      <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
+                    </td>
+                    <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
