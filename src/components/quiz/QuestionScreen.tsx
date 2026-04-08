@@ -40,8 +40,7 @@ export default function QuestionScreen({
         <button
           onClick={onBack}
           aria-label="Go back to previous question"
-className="fixed top-6 left-4 z-40 flex items-center gap-1 text-sm transition-colors"
-Commit with message fix: add aria-label to quiz back button then tell me when done.
+          className="fixed top-6 left-4 z-40 flex items-center gap-1 text-sm transition-colors"
           style={{ color: '#6B5F80' }}
         >
           <ChevronLeft className="h-4 w-4" aria-hidden="true" />
