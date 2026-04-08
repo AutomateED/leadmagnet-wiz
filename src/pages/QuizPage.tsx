@@ -106,6 +106,7 @@ export default function QuizPage() {
         last_name: lastName,
         email,
         result_type: resultType,
+        answers: quiz.answers,
       })
       .then(({ error: insertError }) => {
         if (insertError) console.error('Lead insert failed:', insertError);
