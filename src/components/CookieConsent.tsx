@@ -45,19 +45,18 @@ function loadTrackingScripts() {
 }
 
 export default function CookieConsent() {
-  const isEmbedded = window.self !== window.top;
   const [visible, setVisible] = useState(false);
-
-  if (isEmbedded) return null;
+  const isEmbedded = window.self !== window.top;
 
   useEffect(() => {
+    if (isEmbedded) return;
     const consent = localStorage.getItem(STORAGE_KEY);
     if (consent === 'accepted') {
       loadTrackingScripts();
     } else if (!consent) {
       setVisible(true);
     }
-  }, []);
+  }, [isEmbedded]);
 
   const accept = () => {
     localStorage.setItem(STORAGE_KEY, 'accepted');
