@@ -4,6 +4,8 @@ import { useAuth } from '@/hooks/useAuth';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
+import { Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface Lead {
   id: string;
@@ -79,6 +81,36 @@ export default function Leads() {
           >
             {filtered.length} lead{filtered.length !== 1 ? 's' : ''}
           </span>
+          {filtered.length > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date'];
+                const rows = filtered.map(lead => [
+                  [lead.first_name, lead.last_name].filter(Boolean).join(' ') || '',
+                  lead.email,
+                  lead.result_type,
+                  lead.quiz_slug,
+                  lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-GB') : ''
+                ]);
+                const csvContent = [headers, ...rows]
+                  .map(row => row.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+                  .join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `pretaquiz-leads-${new Date().toISOString().split('T')[0]}.csv`;
+                link.click();
+                URL.revokeObjectURL(url);
+              }}
+              style={{ borderColor: 'rgba(217,70,239,0.25)', color: '#D946EF' }}
+            >
+              <Download className="h-4 w-4" />
+              Download CSV
+            </Button>
+          )}
         </div>
 
         {slugs.length > 1 && (
