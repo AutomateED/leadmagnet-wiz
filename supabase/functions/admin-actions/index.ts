@@ -1,6 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const ADMIN_EMAIL = 'hello@pretaquiz.com'
+const SITE_URL = 'https://pretaquiz.com'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -24,7 +25,7 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders })
     }
 
-    // Verify admin using getUser instead of getClaims
+    // Verify admin via getUser
     const supabaseAuth = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_ANON_KEY')!,
@@ -51,18 +52,15 @@ Deno.serve(async (req) => {
         const { email, full_name, business_name } = payload
         if (!email) return new Response(JSON.stringify({ error: 'Email is required' }), { status: 400, headers: corsHeaders })
 
-        // Create auth user with a random password (they'll reset it)
-        const tempPassword = crypto.randomUUID()
-        const { data: newUser, error: createErr } = await supabase.auth.admin.createUser({
-          email,
-          password: tempPassword,
-          email_confirm: true,
+        // inviteUserByEmail creates the auth user AND sends the email automatically
+        const { data: inviteData, error: inviteErr } = await supabase.auth.admin.inviteUserByEmail(email, {
+          data: { full_name: full_name || '' },
+          options: { redirectTo: `${SITE_URL}/reset-password` },
         })
-        if (createErr) throw createErr
+        if (inviteErr) throw inviteErr
 
-        const userId = newUser.user.id
+        const userId = inviteData.user.id
 
-        // Create client row
         await supabase.from('clients').insert({
           id: userId,
           email,
@@ -70,7 +68,6 @@ Deno.serve(async (req) => {
           subscription_status: 'active',
         })
 
-        // Create quiz config
         const slug = generateSlug(email)
         await supabase.from('quiz_configs').insert({
           client_id: userId,
@@ -80,12 +77,13 @@ Deno.serve(async (req) => {
           full_name: full_name || '',
           business_name: business_name || '',
           email,
-        })
-
-        // Send password reset so user can set their own password
-        await supabase.auth.admin.generateLink({
-          type: 'recovery',
-          email,
+          brand_colour: '#D946EF',
+          questions: [],
+          result_texts: {},
+          cta_text: 'Book Your Free Discovery Call',
+          cta_url: '',
+          cta_tagline: '',
+          font_family: 'Plus Jakarta Sans',
         })
 
         return new Response(JSON.stringify({ success: true, message: `Access granted to ${email}`, slug }), {
@@ -96,7 +94,10 @@ Deno.serve(async (req) => {
       case 'password_reset': {
         const { email } = payload
         if (!email) return new Response(JSON.stringify({ error: 'Email is required' }), { status: 400, headers: corsHeaders })
-        const { error } = await supabase.auth.admin.generateLink({ type: 'recovery', email })
+        // resetPasswordForEmail sends the email; generateLink does not
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${SITE_URL}/reset-password`,
+        })
         if (error) throw error
         return new Response(JSON.stringify({ success: true, message: `Password reset sent to ${email}` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -106,7 +107,9 @@ Deno.serve(async (req) => {
       case 'resend_invite': {
         const { email } = payload
         if (!email) return new Response(JSON.stringify({ error: 'Email is required' }), { status: 400, headers: corsHeaders })
-        const { error } = await supabase.auth.admin.generateLink({ type: 'recovery', email })
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${SITE_URL}/reset-password`,
+        })
         if (error) throw error
         return new Response(JSON.stringify({ success: true, message: `Invite resent to ${email}` }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -127,12 +130,10 @@ Deno.serve(async (req) => {
         const { client_id, email, reason } = payload
         if (!client_id) return new Response(JSON.stringify({ error: 'client_id is required' }), { status: 400, headers: corsHeaders })
 
-        // Fetch client info for archiving
         const { data: clientData } = await supabase.from('clients').select('*').eq('id', client_id).single()
         const { data: quizData } = await supabase.from('quiz_configs').select('*').eq('client_id', client_id)
         const { data: leadData } = await supabase.from('leads').select('id').eq('client_id', client_id)
 
-        // Archive client
         await supabase.from('archived_clients').insert({
           id: client_id,
           email: email || clientData?.email || '',
@@ -146,7 +147,6 @@ Deno.serve(async (req) => {
           created_at: clientData?.created_at || null,
         })
 
-        // Delete quiz configs, leads, client row, auth user
         await supabase.from('quiz_configs').delete().eq('client_id', client_id)
         await supabase.from('leads').delete().eq('client_id', client_id)
         await supabase.from('clients').delete().eq('id', client_id)
@@ -185,17 +185,13 @@ Deno.serve(async (req) => {
         const { data: arch, error: archErr } = await supabase.from('archived_clients').select('*').eq('id', client_id).single()
         if (archErr || !arch) return new Response(JSON.stringify({ error: 'Archived client not found' }), { status: 404, headers: corsHeaders })
 
-        // Re-create auth user
-        const tempPassword = crypto.randomUUID()
-        const { data: newUser, error: createErr } = await supabase.auth.admin.createUser({
-          email: arch.email,
-          password: tempPassword,
-          email_confirm: true,
+        // inviteUserByEmail creates the user AND sends the email in one step
+        const { data: newUser, error: createErr } = await supabase.auth.admin.inviteUserByEmail(arch.email, {
+          options: { redirectTo: `${SITE_URL}/reset-password` },
         })
         if (createErr) throw createErr
         const newUserId = newUser.user.id
 
-        // Re-create client row
         await supabase.from('clients').insert({
           id: newUserId,
           email: arch.email,
@@ -204,7 +200,6 @@ Deno.serve(async (req) => {
           notes: arch.admin_notes || '',
         })
 
-        // Re-create quiz configs if we have them
         const quizConfigs = arch.quiz_configs as any[]
         if (Array.isArray(quizConfigs)) {
           for (const qc of quizConfigs) {
@@ -216,10 +211,6 @@ Deno.serve(async (req) => {
           }
         }
 
-        // Send password reset
-        await supabase.auth.admin.generateLink({ type: 'recovery', email: arch.email })
-
-        // Remove from archive
         await supabase.from('archived_clients').delete().eq('id', client_id)
 
         return new Response(JSON.stringify({ success: true, message: `Client ${arch.email} restored` }), {
