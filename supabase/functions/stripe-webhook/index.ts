@@ -70,8 +70,9 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Check if user already exists
     const normalizedEmail = email.toLowerCase();
+
+    // Check if client row already exists
     const { data: existingClient } = await supabaseAdmin
       .from("clients")
       .select("id")
@@ -79,23 +80,68 @@ Deno.serve(async (req) => {
       .maybeSingle();
 
     if (existingClient) {
-      // Update subscription status to active if they already exist
+      // Existing user — update status to active
       await supabaseAdmin
         .from("clients")
         .update({ subscription_status: "active" })
         .eq("id", existingClient.id);
 
-      console.log(`User ${email} already exists, updated to active`);
+      // Ensure they have a quiz_configs row (in case it was missing)
+      const { data: existingQuiz } = await supabaseAdmin
+        .from("quiz_configs")
+        .select("id")
+        .eq("client_id", existingClient.id)
+        .maybeSingle();
+
+      if (!existingQuiz) {
+        const randomSuffix = Math.random().toString(36).substring(2, 6);
+        const slug =
+          normalizedEmail.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() +
+          "-" +
+          randomSuffix;
+        await supabaseAdmin.from("quiz_configs").insert({
+          client_id: existingClient.id,
+          slug,
+          quiz_name: "My Quiz",
+          template_type: "custom",
+          brand_colour: "#D946EF",
+          business_name: "",
+          questions: [],
+          result_texts: {},
+          cta_text: "Book Your Free Discovery Call",
+          cta_url: "",
+          cta_tagline: "",
+          font_family: "Plus Jakarta Sans",
+          full_name: name,
+          email: normalizedEmail,
+        });
+        console.log(`Created missing quiz_configs for existing user ${normalizedEmail}`);
+      }
+
+      // Send password reset so they can log back in
+      const { error: resetError } = await supabaseAdmin.auth.resetPasswordForEmail(
+        normalizedEmail,
+        { redirectTo: `${Deno.env.get("SITE_URL") ?? "https://pretaquiz.com"}/reset-password` }
+      );
+      if (resetError) {
+        console.error("Failed to send reset email to existing user:", resetError);
+      } else {
+        console.log(`Sent password reset to existing user ${normalizedEmail}`);
+      }
+
       return new Response(JSON.stringify({ received: true }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Invite new user via magic link
+    // New user — invite via magic link (creates auth user + sends email)
     const { data: inviteData, error: inviteError } =
-      await supabaseAdmin.auth.admin.inviteUserByEmail(email, {
+      await supabaseAdmin.auth.admin.inviteUserByEmail(normalizedEmail, {
         data: { full_name: name },
+        options: {
+          redirectTo: `${Deno.env.get("SITE_URL") ?? "https://pretaquiz.com"}/reset-password`,
+        },
       });
 
     if (inviteError) {
@@ -115,16 +161,17 @@ Deno.serve(async (req) => {
       business_name: "",
       subscription_status: "active",
     });
-
     if (insertError) {
       console.error("Failed to insert client:", insertError);
     }
 
-    // Generate slug from email
+    // Generate slug and insert quiz_configs row
     const randomSuffix = Math.random().toString(36).substring(2, 6);
-    const slug = normalizedEmail.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() + "-" + randomSuffix;
+    const slug =
+      normalizedEmail.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() +
+      "-" +
+      randomSuffix;
 
-    // Insert quiz_configs row
     const { error: quizError } = await supabaseAdmin.from("quiz_configs").insert({
       client_id: userId,
       slug,
@@ -141,12 +188,11 @@ Deno.serve(async (req) => {
       full_name: name,
       email: normalizedEmail,
     });
-
     if (quizError) {
       console.error("Failed to insert quiz_configs:", quizError);
     }
 
-    console.log(`Created user ${email} with id ${userId}`);
+    console.log(`Created new user ${normalizedEmail} with id ${userId}`);
     return new Response(JSON.stringify({ received: true }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
