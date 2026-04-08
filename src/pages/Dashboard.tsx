@@ -6,7 +6,7 @@ import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
 import {
   LayoutDashboard, Palette, HelpCircle, Trophy,
   MousePointerClick, Plug, Eye, Share2, LogOut, ArrowLeft,
-  Users,
+  Users, Sun, Moon,
 } from 'lucide-react';
 
 import MyQuizzes from './dashboard/MyQuizzes';
@@ -39,10 +39,29 @@ interface QuizRow {
   [key: string]: any;
 }
 
+function useDarkMode() {
+  const [dark, setDark] = useState(() => localStorage.getItem('pq-theme') === 'dark');
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.add('dark');
+      localStorage.setItem('pq-theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('pq-theme', 'light');
+    }
+    return () => { root.classList.remove('dark'); };
+  }, [dark]);
+
+  return [dark, () => setDark((d) => !d)] as const;
+}
+
 export default function Dashboard() {
   const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [dark, toggleDark] = useDarkMode();
 
   const [quizzes, setQuizzes] = useState<QuizRow[]>([]);
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
@@ -113,7 +132,7 @@ export default function Dashboard() {
 
   if (authLoading || !user || dataLoading || (isOnSubPage && !config && quizzes.length > 0)) {
     return (
-      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
+      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-[#0F0A1E]">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-transparent" style={{ borderColor: '#D946EF', borderTopColor: 'transparent' }} />
       </div>
     );
@@ -122,15 +141,15 @@ export default function Dashboard() {
   const handleSignOut = async () => { await signOut(); navigate('/login'); };
 
   return (
-    <div className="flex min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
+    <div className="flex min-h-screen bg-white dark:bg-[#0F0A1E]">
       {/* Sidebar — only shown when a quiz is selected and on a sub-page */}
       {selectedQuizId && isOnSubPage && (
-        <aside className="w-60 shrink-0 flex flex-col" style={{ backgroundColor: '#F8F7FF', borderRight: '1px solid rgba(217,70,239,0.15)' }}>
+        <aside className="w-60 shrink-0 flex flex-col bg-[#F8F7FF] dark:bg-[#160E28]" style={{ borderRight: '1px solid rgba(217,70,239,0.15)' }}>
           <div className="px-5 py-6" style={{ borderBottom: '1px solid rgba(217,70,239,0.15)' }}>
             <Link to="/" className="text-[20px] font-bold tracking-tight">
-              <span style={{ color: '#0F0A1E' }}>Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
+              <span className="text-[#0F0A1E] dark:text-white">Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
             </Link>
-            <p className="text-sm font-medium truncate mt-1" style={{ color: '#0F0A1E' }}>
+            <p className="text-sm font-medium truncate mt-1 text-[#0F0A1E] dark:text-white">
               {config?.quizName || 'My Quiz'}
             </p>
           </div>
@@ -138,7 +157,7 @@ export default function Dashboard() {
           {/* Back to list */}
           <button
             onClick={handleBackToList}
-            className="flex items-center gap-2 px-5 py-3 text-xs font-semibold transition-colors hover:bg-white/50"
+            className="flex items-center gap-2 px-5 py-3 text-xs font-semibold transition-colors hover:bg-white/50 dark:hover:bg-white/10"
             style={{ color: '#D946EF', borderBottom: '1px solid rgba(217,70,239,0.10)' }}
           >
             <ArrowLeft className="h-3.5 w-3.5" />
@@ -150,13 +169,11 @@ export default function Dashboard() {
               const active = location.pathname === `/dashboard/${item.path}`;
               return (
                 <Link key={item.path} to={`/dashboard/${item.path}`}
-                  className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                  style={active
-                    ? { backgroundColor: '#F020B0', color: '#FFFFFF' }
-                    : { color: '#6B5F80' }
-                  }
-                  onMouseEnter={(e) => { if (!active) (e.currentTarget.style.backgroundColor = 'rgba(217,70,239,0.08)'); }}
-                  onMouseLeave={(e) => { if (!active) (e.currentTarget.style.backgroundColor = 'transparent'); }}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    active
+                      ? 'bg-[#F020B0] text-white'
+                      : 'text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5'
+                  }`}
                 >
                   <item.icon className="h-4 w-4 shrink-0" />
                   {item.label}
@@ -164,10 +181,18 @@ export default function Dashboard() {
               );
             })}
           </nav>
-          <div className="px-3 py-4" style={{ borderTop: '1px solid rgba(217,70,239,0.15)' }}>
+
+          <div className="px-3 py-4 space-y-1" style={{ borderTop: '1px solid rgba(217,70,239,0.15)' }}>
+            <button
+              onClick={toggleDark}
+              className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium w-full transition-colors text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5"
+              aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {dark ? <Sun className="h-4 w-4 shrink-0" /> : <Moon className="h-4 w-4 shrink-0" />}
+              {dark ? 'Light mode' : 'Dark mode'}
+            </button>
             <button onClick={handleSignOut}
-              className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium w-full transition-colors"
-              style={{ color: '#6B5F80' }}
+              className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium w-full transition-colors text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5"
             >
               <LogOut className="h-4 w-4 shrink-0" />
               Sign out
@@ -185,16 +210,24 @@ export default function Dashboard() {
                 {/* Top bar for list page */}
                 <div className="flex items-center justify-between px-8 py-5" style={{ borderBottom: '1px solid rgba(217,70,239,0.10)' }}>
                   <Link to="/" className="text-[20px] font-bold tracking-tight">
-                    <span style={{ color: '#0F0A1E' }}>Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
+                    <span className="text-[#0F0A1E] dark:text-white">Preta</span><span style={{ color: '#D946EF' }}>Quiz</span>
                   </Link>
-                  <button
-                    onClick={handleSignOut}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
-                    style={{ color: '#6B5F80' }}
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Sign out
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={toggleDark}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5"
+                      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+                    >
+                      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                    </button>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors text-[#6B5F80] dark:text-[#9A8EAA]"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Sign out
+                    </button>
+                  </div>
                 </div>
                 <MyQuizzes quizzes={quizzes} onSelectQuiz={handleSelectQuiz} />
               </>
