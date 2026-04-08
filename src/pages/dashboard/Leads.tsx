@@ -9,7 +9,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Download, Trash2 } from 'lucide-react';
+import { Download, Trash2, ChevronDown, ChevronUp, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
@@ -22,7 +22,11 @@ interface Lead {
   result_type: string | null;
   quiz_slug: string;
   created_at: string | null;
+  answers: Record<string, string> | null;
 }
+
+type SortField = 'name' | 'email' | 'result_type' | 'date';
+type SortDir = 'asc' | 'desc';
 
 export default function Leads() {
   const { user } = useAuth();
@@ -30,8 +34,12 @@ export default function Leads() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterSlug, setFilterSlug] = useState<string>('all');
+  const [filterResult, setFilterResult] = useState<string>('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState(false);
+  const [sortField, setSortField] = useState<SortField>('date');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -58,13 +66,47 @@ export default function Leads() {
     return Array.from(set).sort();
   }, [leads]);
 
-  const filtered = useMemo(
-    () => (filterSlug === 'all' ? leads : leads.filter((l) => l.quiz_slug === filterSlug)),
-    [leads, filterSlug],
-  );
+  const resultTypes = useMemo(() => {
+    const set = new Set(leads.map((l) => l.result_type).filter(Boolean) as string[]);
+    return Array.from(set).sort();
+  }, [leads]);
 
-  // Clear selection when filter changes
-  useEffect(() => { setSelected(new Set()); }, [filterSlug]);
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortField(field);
+      setSortDir(field === 'date' ? 'desc' : 'asc');
+    }
+  };
+
+  const filtered = useMemo(() => {
+    let list = filterSlug === 'all' ? leads : leads.filter((l) => l.quiz_slug === filterSlug);
+    if (filterResult !== 'all') list = list.filter((l) => l.result_type === filterResult);
+
+    return [...list].sort((a, b) => {
+      let aVal = '';
+      let bVal = '';
+      if (sortField === 'name') {
+        aVal = [a.first_name, a.last_name].filter(Boolean).join(' ').toLowerCase();
+        bVal = [b.first_name, b.last_name].filter(Boolean).join(' ').toLowerCase();
+      } else if (sortField === 'email') {
+        aVal = a.email.toLowerCase();
+        bVal = b.email.toLowerCase();
+      } else if (sortField === 'result_type') {
+        aVal = (a.result_type || '').toLowerCase();
+        bVal = (b.result_type || '').toLowerCase();
+      } else {
+        aVal = a.created_at || '';
+        bVal = b.created_at || '';
+      }
+      if (aVal < bVal) return sortDir === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [leads, filterSlug, filterResult, sortField, sortDir]);
+
+  useEffect(() => { setSelected(new Set()); }, [filterSlug, filterResult]);
 
   const allSelected = filtered.length > 0 && filtered.every((l) => selected.has(l.id));
   const someSelected = filtered.some((l) => selected.has(l.id));
@@ -96,7 +138,6 @@ export default function Leads() {
       .eq('client_id', user.id);
 
     if (error) {
-      console.error('Failed to delete leads:', error);
       toast({ title: 'Error', description: 'Failed to delete leads. Please try again.', variant: 'destructive' });
     } else {
       const count = ids.length;
@@ -111,13 +152,16 @@ export default function Leads() {
     const toExport = selected.size > 0
       ? filtered.filter((l) => selected.has(l.id))
       : filtered;
-    const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date'];
+    const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date', 'Answers'];
     const rows = toExport.map((lead) => [
       [lead.first_name, lead.last_name].filter(Boolean).join(' ') || '',
       lead.email,
-      lead.result_type,
+      lead.result_type || '',
       lead.quiz_slug,
       lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-GB') : '',
+      lead.answers
+        ? Object.entries(lead.answers).map(([q, a]) => `${q}:${a}`).join(' | ')
+        : '',
     ]);
     const csvContent = [headers, ...rows]
       .map((row) => row.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
@@ -138,6 +182,25 @@ export default function Leads() {
     return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
   };
 
+  const SortIcon = ({ field }: { field: SortField }) => {
+    if (sortField !== field) return <ArrowUpDown className="h-3.5 w-3.5 opacity-40" />;
+    return sortDir === 'asc'
+      ? <ArrowUp className="h-3.5 w-3.5" />
+      : <ArrowDown className="h-3.5 w-3.5" />;
+  };
+
+  const SortTh = ({ field, children }: { field: SortField; children: React.ReactNode }) => (
+    <th
+      className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white cursor-pointer select-none hover:text-[#D946EF] transition-colors"
+      onClick={() => handleSort(field)}
+    >
+      <span className="inline-flex items-center gap-1.5">
+        {children}
+        <SortIcon field={field} />
+      </span>
+    </th>
+  );
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-16">
@@ -151,8 +214,8 @@ export default function Leads() {
 
   return (
     <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="flex items-center gap-3 flex-wrap">
           <h1 className="text-2xl font-bold text-[#0F0A1E] dark:text-white">Your Leads</h1>
           <span
             className="rounded-full px-3 py-0.5 text-xs font-semibold"
@@ -174,11 +237,7 @@ export default function Leads() {
           {selected.size > 0 && (
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  disabled={deleting}
-                >
+                <Button variant="destructive" size="sm" disabled={deleting}>
                   <Trash2 className="h-4 w-4" />
                   Delete selected
                 </Button>
@@ -186,9 +245,7 @@ export default function Leads() {
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Delete {selected.size} lead{selected.size !== 1 ? 's' : ''}?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This cannot be undone.
-                  </AlertDialogDescription>
+                  <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -204,19 +261,34 @@ export default function Leads() {
           )}
         </div>
 
-        {slugs.length > 1 && (
-          <Select value={filterSlug} onValueChange={setFilterSlug}>
-            <SelectTrigger className="w-[220px]" style={{ borderColor: 'rgba(217,70,239,0.25)' }}>
-              <SelectValue placeholder="All quizzes" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All quizzes</SelectItem>
-              {slugs.map((s) => (
-                <SelectItem key={s} value={s}>{s}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        )}
+        <div className="flex items-center gap-3">
+          {resultTypes.length > 1 && (
+            <Select value={filterResult} onValueChange={setFilterResult}>
+              <SelectTrigger className="w-[200px]" style={{ borderColor: 'rgba(217,70,239,0.25)' }}>
+                <SelectValue placeholder="All results" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All results</SelectItem>
+                {resultTypes.map((r) => (
+                  <SelectItem key={r} value={r}>{r}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          {slugs.length > 1 && (
+            <Select value={filterSlug} onValueChange={setFilterSlug}>
+              <SelectTrigger className="w-[220px]" style={{ borderColor: 'rgba(217,70,239,0.25)' }}>
+                <SelectValue placeholder="All quizzes" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All quizzes</SelectItem>
+                {slugs.map((s) => (
+                  <SelectItem key={s} value={s}>{s}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        </div>
       </div>
 
       {filtered.length === 0 ? (
@@ -246,55 +318,98 @@ export default function Leads() {
                     className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
                   />
                 </th>
-                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Name</th>
-                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Email</th>
-                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Result Type</th>
+                <SortTh field="name">Name</SortTh>
+                <SortTh field="email">Email</SortTh>
+                <SortTh field="result_type">Result</SortTh>
                 <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Quiz</th>
-                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Date</th>
+                <SortTh field="date">Date</SortTh>
+                <th className="w-10" />
               </tr>
             </thead>
             <tbody>
               {filtered.map((lead) => {
                 const isSelected = selected.has(lead.id);
+                const isExpanded = expandedId === lead.id;
+                const hasAnswers = lead.answers && Object.keys(lead.answers).length > 0;
                 return (
-                  <tr
-                    key={lead.id}
-                    className={`transition-colors cursor-pointer ${
-                      isSelected
-                        ? 'bg-[rgba(217,70,239,0.08)] dark:bg-[rgba(217,70,239,0.12)]'
-                        : 'hover:bg-[rgba(217,70,239,0.04)]'
-                    }`}
-                    style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
-                    onClick={() => toggleOne(lead.id)}
-                  >
-                    <td className="px-4 py-3 w-10" onClick={(e) => e.stopPropagation()}>
-                      <Checkbox
-                        checked={isSelected}
-                        onCheckedChange={() => toggleOne(lead.id)}
-                        aria-label={`Select ${lead.email}`}
-                        className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
-                      />
-                    </td>
-                    <td className="px-5 py-3 text-[#0F0A1E] dark:text-white">
-                      {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
-                    </td>
-                    <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</td>
-                    <td className="px-5 py-3">
-                      {lead.result_type ? (
-                        <span
-                          className="rounded-full px-2.5 py-0.5 text-xs font-medium"
-                          style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
-                        >
-                          {lead.result_type}
-                        </span>
-                      ) : (
-                        <span className="text-[#9A8EAA]">—</span>
+                  <tr key={lead.id} className="group">
+                    <td colSpan={7} className="p-0" style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}>
+                      <div
+                        className={`flex items-center transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-[rgba(217,70,239,0.08)] dark:bg-[rgba(217,70,239,0.12)]'
+                            : 'hover:bg-[rgba(217,70,239,0.04)]'
+                        }`}
+                        onClick={() => toggleOne(lead.id)}
+                      >
+                        <div className="px-4 py-3 w-10 shrink-0" onClick={(e) => e.stopPropagation()}>
+                          <Checkbox
+                            checked={isSelected}
+                            onCheckedChange={() => toggleOne(lead.id)}
+                            aria-label={`Select ${lead.email}`}
+                            className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
+                          />
+                        </div>
+                        <div className="px-5 py-3 flex-1 min-w-0 text-[#0F0A1E] dark:text-white">
+                          {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
+                        </div>
+                        <div className="px-5 py-3 flex-1 min-w-0 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</div>
+                        <div className="px-5 py-3 flex-1 min-w-0">
+                          {lead.result_type ? (
+                            <span
+                              className="rounded-full px-2.5 py-0.5 text-xs font-medium"
+                              style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
+                            >
+                              {lead.result_type}
+                            </span>
+                          ) : (
+                            <span className="text-[#9A8EAA]">—</span>
+                          )}
+                        </div>
+                        <div className="px-5 py-3 shrink-0">
+                          <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
+                        </div>
+                        <div className="px-5 py-3 shrink-0 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</div>
+                        <div className="px-3 py-3 w-10 shrink-0">
+                          {hasAnswers && (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setExpandedId(isExpanded ? null : lead.id);
+                              }}
+                              className="p-1 rounded hover:bg-[rgba(217,70,239,0.10)] transition-colors"
+                              aria-label={isExpanded ? 'Hide answers' : 'Show answers'}
+                              title={isExpanded ? 'Hide answers' : 'Show answers'}
+                            >
+                              {isExpanded
+                                ? <ChevronUp className="h-4 w-4 text-[#D946EF]" />
+                                : <ChevronDown className="h-4 w-4 text-[#9A8EAA]" />
+                              }
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      {isExpanded && hasAnswers && (
+                        <div className="px-14 pb-4 pt-1">
+                          <div className="flex flex-wrap gap-2">
+                            {Object.entries(lead.answers!)
+                              .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+                              .map(([question, answer]) => (
+                                <span
+                                  key={question}
+                                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs"
+                                  style={{ backgroundColor: 'rgba(217,70,239,0.08)', color: '#6B5F80' }}
+                                >
+                                  <span className="font-medium text-[#0F0A1E] dark:text-white">{question}</span>
+                                  <span>·</span>
+                                  <span className="text-[#D946EF] font-semibold">{answer}</span>
+                                </span>
+                              ))}
+                          </div>
+                        </div>
                       )}
                     </td>
-                    <td className="px-5 py-3">
-                      <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
-                    </td>
-                    <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</td>
                   </tr>
                 );
               })}
