@@ -248,6 +248,15 @@ export default function Dashboard() {
           )}
         </Routes>
       </main>
+
+      {/* Fixed help button */}
+      <a
+        href="mailto:hello@pretaquiz.com"
+        className="fixed bottom-6 right-6 z-50 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-lg transition-opacity hover:opacity-90"
+        style={{ backgroundColor: '#D946EF' }}
+      >
+        Need help?
+      </a>
     </div>
   );
 }
