@@ -4,9 +4,15 @@ import { useAuth } from '@/hooks/useAuth';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
-import { Download } from 'lucide-react';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Download, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useToast } from '@/hooks/use-toast';
 
 interface Lead {
   id: string;
@@ -20,10 +26,12 @@ interface Lead {
 
 export default function Leads() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterSlug, setFilterSlug] = useState<string>('all');
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -75,6 +83,28 @@ export default function Leads() {
       if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
+  };
+
+  const handleDelete = async () => {
+    if (!user || selected.size === 0) return;
+    setDeleting(true);
+    const ids = Array.from(selected);
+    const { error } = await supabase
+      .from('leads')
+      .delete()
+      .in('id', ids)
+      .eq('client_id', user.id);
+
+    if (error) {
+      console.error('Failed to delete leads:', error);
+      toast({ title: 'Error', description: 'Failed to delete leads. Please try again.', variant: 'destructive' });
+    } else {
+      const count = ids.length;
+      setLeads((prev) => prev.filter((l) => !selected.has(l.id)));
+      setSelected(new Set());
+      toast({ title: `${count} lead${count !== 1 ? 's' : ''} deleted` });
+    }
+    setDeleting(false);
   };
 
   const downloadCSV = () => {
@@ -140,6 +170,37 @@ export default function Leads() {
               <Download className="h-4 w-4" />
               {selected.size > 0 ? `Download ${selected.size} selected` : 'Download all'}
             </Button>
+          )}
+          {selected.size > 0 && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  disabled={deleting}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Delete selected
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete {selected.size} lead{selected.size !== 1 ? 's' : ''}?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDelete}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    Confirm
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           )}
         </div>
 
