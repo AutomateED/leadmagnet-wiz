@@ -69,8 +69,9 @@ export default function CookieConsent() {
     setVisible(false);
   };
 
+  if (isEmbedded) return null;
+
   return (
-    <AnimatePresence>
       {visible && (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
