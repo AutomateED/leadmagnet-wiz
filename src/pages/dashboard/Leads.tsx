@@ -74,7 +74,7 @@ export default function Leads() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold" style={{ color: '#0F0A1E' }}>Your Leads</h1>
+          <h1 className="text-2xl font-bold text-[#0F0A1E] dark:text-white">Your Leads</h1>
           <span
             className="rounded-full px-3 py-0.5 text-xs font-semibold"
             style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: '#D946EF' }}
@@ -130,10 +130,10 @@ export default function Leads() {
 
       {filtered.length === 0 ? (
         <div
-          className="rounded-xl p-12 text-center"
-          style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(217,70,239,0.15)' }}
+          className="rounded-xl p-12 text-center bg-white dark:bg-[#201538]"
+          style={{ border: '1px solid rgba(217,70,239,0.15)' }}
         >
-          <p style={{ color: '#6B5F80' }}>
+          <p className="text-[#6B5F80] dark:text-[#9A8EAA]">
             {leads.length === 0
               ? 'No leads yet. Share your quiz link to get started.'
               : 'No leads match this filter.'}
@@ -144,14 +144,14 @@ export default function Leads() {
           className="rounded-xl overflow-hidden"
           style={{ border: '1px solid rgba(217,70,239,0.15)' }}
         >
-          <table className="w-full text-sm" style={{ backgroundColor: '#FFFFFF' }}>
+          <table className="w-full text-sm bg-white dark:bg-[#201538]">
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(217,70,239,0.15)' }}>
-                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Name</th>
-                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Email</th>
-                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Result Type</th>
-                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Quiz</th>
-                <th className="text-left px-5 py-3 font-semibold" style={{ color: '#0F0A1E' }}>Date</th>
+                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Name</th>
+                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Email</th>
+                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Result Type</th>
+                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Quiz</th>
+                <th className="text-left px-5 py-3 font-semibold text-[#0F0A1E] dark:text-white">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -161,10 +161,10 @@ export default function Leads() {
                   className="transition-colors hover:bg-[rgba(217,70,239,0.04)]"
                   style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
                 >
-                  <td className="px-5 py-3" style={{ color: '#0F0A1E' }}>
+                  <td className="px-5 py-3 text-[#0F0A1E] dark:text-white">
                     {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
                   </td>
-                  <td className="px-5 py-3" style={{ color: '#6B5F80' }}>{lead.email}</td>
+                  <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</td>
                   <td className="px-5 py-3">
                     {lead.result_type ? (
                       <span
@@ -174,13 +174,13 @@ export default function Leads() {
                         {lead.result_type}
                       </span>
                     ) : (
-                      <span style={{ color: '#9A8EAA' }}>—</span>
+                      <span className="text-[#9A8EAA]">—</span>
                     )}
                   </td>
                   <td className="px-5 py-3">
-                    <span className="text-xs font-mono" style={{ color: '#6B5F80' }}>{lead.quiz_slug}</span>
+                    <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
                   </td>
-                  <td className="px-5 py-3" style={{ color: '#6B5F80' }}>{formatDate(lead.created_at)}</td>
+                  <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</td>
                 </tr>
               ))}
             </tbody>
