@@ -65,6 +65,8 @@ function StepList({ steps }: { steps: string[] }) {
 export default function Integrations({ config, onConfigChange, userId, quizId }: IntegrationsProps) {
   const { toast } = useToast();
   const [webhookUrl, setWebhookUrl] = useState(config.webhookUrl || '');
+  const [privacyUrl, setPrivacyUrl] = useState(config.privacyPolicyUrl || '');
+  const [savingPrivacy, setSavingPrivacy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [situation, setSituation] = useState<'direct' | 'bridge'>('direct');
   const [bridgeTool, setBridgeTool] = useState<'zapier' | 'make'>('zapier');
@@ -85,9 +87,41 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
     setSaving(false);
   };
 
+  const handleSavePrivacy = async () => {
+    setSavingPrivacy(true);
+    const { error } = await supabase
+      .from('quiz_configs')
+      .update({ privacy_policy_url: privacyUrl } as any)
+      .eq('id', quizId);
+
+    if (error) {
+      toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
+    } else {
+      onConfigChange((prev) => prev ? { ...prev, privacyPolicyUrl: privacyUrl } : prev);
+      toast({ title: 'Changes saved', description: 'Your privacy policy URL has been updated.' });
+    }
+    setSavingPrivacy(false);
+  };
+
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Lead Delivery</h1>
+      {/* GDPR & Privacy section */}
+      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>GDPR &amp; Privacy</h1>
+      <p className="mb-6" style={{ color: '#6B5F80' }}>
+        Added to your quiz so prospects can read your privacy policy before submitting their details. Required for GDPR compliance.
+      </p>
+
+      <div className="max-w-[600px] mb-12 space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="privacyUrl">Your privacy policy URL</Label>
+          <Input id="privacyUrl" value={privacyUrl} onChange={(e) => setPrivacyUrl(e.target.value)} placeholder="https://yourwebsite.com/privacy" />
+        </div>
+        <Button onClick={handleSavePrivacy} disabled={savingPrivacy} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+          {savingPrivacy ? 'Saving...' : 'Save changes'}
+        </Button>
+      </div>
+
+      <h2 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Lead Delivery</h2>
       <p className="mb-8" style={{ color: '#6B5F80' }}>
         Every time someone completes your quiz, their details can be sent automatically to your CRM or email tool.
       </p>

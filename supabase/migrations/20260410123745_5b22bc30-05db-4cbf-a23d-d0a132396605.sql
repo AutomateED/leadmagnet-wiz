@@ -1,0 +1,1 @@
+ALTER TABLE quiz_configs ADD COLUMN IF NOT EXISTS privacy_policy_url TEXT DEFAULT '';
