@@ -15,6 +15,80 @@ interface MyQuizzesProps {
   onSelectQuiz: (quizId: string) => void;
 }
 
+function EditableQuizName({ quizId, initialName }: { quizId: string; initialName: string }) {
+  const { toast } = useToast();
+  const [name, setName] = useState(initialName);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(initialName);
+  const [saving, setSaving] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const startEdit = () => {
+    setDraft(name);
+    setEditing(true);
+    setTimeout(() => inputRef.current?.select(), 0);
+  };
+
+  const save = async () => {
+    const trimmed = draft.trim();
+    if (!trimmed || trimmed === name) {
+      setEditing(false);
+      return;
+    }
+    setSaving(true);
+    const { error } = await supabase
+      .from('quiz_configs')
+      .update({ quiz_name: trimmed })
+      .eq('id', quizId);
+    setSaving(false);
+    if (error) {
+      toast({ title: 'Could not save quiz name', description: 'Please try again.', variant: 'destructive' });
+    } else {
+      setName(trimmed);
+    }
+    setEditing(false);
+  };
+
+  const cancel = () => {
+    setDraft(name);
+    setEditing(false);
+  };
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-1.5">
+        <input
+          ref={inputRef}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onBlur={save}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') { e.preventDefault(); save(); }
+            if (e.key === 'Escape') { e.preventDefault(); cancel(); }
+          }}
+          maxLength={60}
+          className="text-base font-bold leading-tight bg-transparent border-b-2 outline-none w-full"
+          style={{ color: '#0F0A1E', borderColor: '#D946EF' }}
+          disabled={saving}
+          autoFocus
+        />
+        {saving && (
+          <span className="text-xs whitespace-nowrap" style={{ color: '#9A8EAA' }}>Saving…</span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center gap-1.5 group/name cursor-pointer" onClick={startEdit}>
+      <span className="text-base font-bold leading-tight" style={{ color: '#0F0A1E' }}>
+        {name}
+      </span>
+      <Pencil className="h-3.5 w-3.5 opacity-0 group-hover/name:opacity-60 transition-opacity" style={{ color: '#D946EF' }} />
+    </span>
+  );
+}
+
 export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
   if (quizzes.length === 0) {
     return (
