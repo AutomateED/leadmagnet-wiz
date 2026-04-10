@@ -19,6 +19,7 @@ import Integrations from './dashboard/Integrations';
 import QuizPreview from './dashboard/QuizPreview';
 import ShareQuiz from './dashboard/ShareQuiz';
 import Leads from './dashboard/Leads';
+import AiGuide from './dashboard/AiGuide';
 
 const NAV_ITEMS = [
   { label: 'Overview', path: 'overview', icon: LayoutDashboard },
