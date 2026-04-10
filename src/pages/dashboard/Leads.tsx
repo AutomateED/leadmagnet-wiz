@@ -40,6 +40,7 @@ export default function Leads() {
   const [sortField, setSortField] = useState<SortField>('date');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [quizNames, setQuizNames] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (!user) return;
