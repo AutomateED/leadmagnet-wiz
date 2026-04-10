@@ -139,7 +139,7 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
             <span className="font-semibold" style={{ color: '#0F0A1E' }}>Don't have a privacy policy yet?</span>{' '}
             You'll need one before sharing your quiz with prospects.{' '}
             <a
-              href="TERMLY_AFFILIATE_LINK"
+              href="https://termly.7zqw8y.net/6kGNvE"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-2 font-medium"
