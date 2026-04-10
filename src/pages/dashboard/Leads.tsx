@@ -57,6 +57,21 @@ export default function Leads() {
         setLeads([]);
       } else {
         setLeads((data as Lead[]) || []);
+        const uniqueSlugs = [...new Set((data as Lead[]).map(l => l.quiz_slug).filter(Boolean))];
+        if (uniqueSlugs.length > 0) {
+          const { data: configs } = await supabase
+            .from('quiz_configs')
+            .select('slug, quiz_name')
+            .in('slug', uniqueSlugs)
+            .eq('client_id', user.id);
+          if (configs) {
+            const nameMap: Record<string, string> = {};
+            configs.forEach((c: { slug: string; quiz_name: string | null }) => {
+              nameMap[c.slug] = c.quiz_name || c.slug;
+            });
+            setQuizNames(nameMap);
+          }
+        }
       }
       setLoading(false);
     })();
