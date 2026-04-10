@@ -119,6 +119,23 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
         <Button onClick={handleSavePrivacy} disabled={savingPrivacy} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
           {savingPrivacy ? 'Saving...' : 'Save changes'}
         </Button>
+        <div
+          className="mt-3 rounded-lg px-4 py-3 text-sm leading-relaxed"
+          style={{ backgroundColor: 'rgba(217,70,239,0.06)', border: '1px solid rgba(217,70,239,0.15)', color: '#6B5F80' }}
+        >
+          <span className="font-semibold" style={{ color: '#0F0A1E' }}>Don't have a privacy policy yet?</span>{' '}
+          You'll need one before sharing your quiz with prospects.{' '}
+          <a
+            href="TERMLY_AFFILIATE_LINK"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 font-medium"
+            style={{ color: '#D946EF' }}
+          >
+            Termly
+          </a>
+          {' '}makes it straightforward — you can generate one in minutes, for free.
+        </div>
       </div>
 
       <h2 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Lead Delivery</h2>
