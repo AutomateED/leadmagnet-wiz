@@ -246,6 +246,7 @@ export default function Dashboard() {
               <Route path="preview" element={<QuizPreview slug={slug} config={config} />} />
               <Route path="leads" element={<Leads />} />
               <Route path="share" element={<ShareQuiz slug={slug} />} />
+              <Route path="ai-guide" element={<AiGuide />} />
             </>
           )}
         </Routes>
