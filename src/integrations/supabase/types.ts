@@ -171,6 +171,7 @@ export type Database = {
           full_name: string
           id: string
           logo_url: string | null
+          privacy_policy_url: string | null
           questions: Json
           quiz_name: string
           result_texts: Json
@@ -193,6 +194,7 @@ export type Database = {
           full_name?: string
           id?: string
           logo_url?: string | null
+          privacy_policy_url?: string | null
           questions?: Json
           quiz_name?: string
           result_texts?: Json
@@ -215,6 +217,7 @@ export type Database = {
           full_name?: string
           id?: string
           logo_url?: string | null
+          privacy_policy_url?: string | null
           questions?: Json
           quiz_name?: string
           result_texts?: Json
