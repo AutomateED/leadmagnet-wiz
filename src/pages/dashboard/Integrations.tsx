@@ -65,7 +65,7 @@ function StepList({ steps }: { steps: string[] }) {
 export default function Integrations({ config, onConfigChange, userId, quizId }: IntegrationsProps) {
   const { toast } = useToast();
   const [webhookUrl, setWebhookUrl] = useState(config.webhookUrl || '');
-  const [privacyUrl, setPrivacyUrl] = useState(config.privacyPolicyUrl || '');
+  const [privacyPolicyUrl, setPrivacyPolicyUrl] = useState(config.privacyPolicyUrl || '');
   const [savingPrivacy, setSavingPrivacy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [situation, setSituation] = useState<'direct' | 'bridge'>('direct');
@@ -91,60 +91,79 @@ export default function Integrations({ config, onConfigChange, userId, quizId }:
     setSavingPrivacy(true);
     const { error } = await supabase
       .from('quiz_configs')
-      .update({ privacy_policy_url: privacyUrl } as any)
+      .update({ privacy_policy_url: privacyPolicyUrl })
       .eq('id', quizId);
 
     if (error) {
       toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
     } else {
-      onConfigChange((prev) => prev ? { ...prev, privacyPolicyUrl: privacyUrl } : prev);
-      toast({ title: 'Changes saved', description: 'Your privacy policy URL has been updated.' });
+      onConfigChange((prev) => prev ? { ...prev, privacyPolicyUrl } : prev);
+      toast({ title: 'Changes saved', description: 'Your privacy policy link has been updated.' });
     }
     setSavingPrivacy(false);
   };
 
   return (
     <div className="p-8">
-      {/* GDPR & Privacy section */}
-      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>GDPR &amp; Privacy</h1>
-      <p className="mb-6" style={{ color: '#6B5F80' }}>
-        Added to your quiz so prospects can read your privacy policy before submitting their details. Required for GDPR compliance.
-      </p>
-
-      <div className="max-w-[600px] mb-12 space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="privacyUrl">Your privacy policy URL</Label>
-          <Input id="privacyUrl" value={privacyUrl} onChange={(e) => setPrivacyUrl(e.target.value)} placeholder="https://yourwebsite.com/privacy" />
-        </div>
-        <Button onClick={handleSavePrivacy} disabled={savingPrivacy} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
-          {savingPrivacy ? 'Saving...' : 'Save changes'}
-        </Button>
-        <div
-          className="mt-3 rounded-lg px-4 py-3 text-sm leading-relaxed"
-          style={{ backgroundColor: 'rgba(217,70,239,0.06)', border: '1px solid rgba(217,70,239,0.15)', color: '#6B5F80' }}
-        >
-          <span className="font-semibold" style={{ color: '#0F0A1E' }}>Don't have a privacy policy yet?</span>{' '}
-          You'll need one before sharing your quiz with prospects.{' '}
-          <a
-            href="TERMLY_AFFILIATE_LINK"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline underline-offset-2 font-medium"
-            style={{ color: '#D946EF' }}
-          >
-            Termly
-          </a>
-          {' '}makes it straightforward — you can generate one in minutes, for free.
-        </div>
-      </div>
-
-      <h2 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Lead Delivery</h2>
+      <h1 className="text-2xl font-bold mb-1" style={{ color: '#0F0A1E' }}>Integrations</h1>
       <p className="mb-8" style={{ color: '#6B5F80' }}>
-        Every time someone completes your quiz, their details can be sent automatically to your CRM or email tool.
+        Connect your quiz to your tools and stay compliant.
       </p>
 
       <div className="max-w-[600px] space-y-8">
-        {/* Section 1 — Situation cards */}
+        {/* GDPR & Privacy section */}
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold" style={{ color: '#0F0A1E' }}>GDPR &amp; Privacy</h2>
+            <p className="text-sm mt-1" style={{ color: '#6B5F80' }}>
+              Your quiz collects personal data. Adding your privacy policy URL means prospects can read it before submitting their details — and it's required for GDPR compliance.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="privacyPolicyUrl">Your privacy policy URL</Label>
+            <Input
+              id="privacyPolicyUrl"
+              value={privacyPolicyUrl}
+              onChange={(e) => setPrivacyPolicyUrl(e.target.value)}
+              placeholder="https://yourwebsite.com/privacy"
+              type="url"
+            />
+          </div>
+          <Button onClick={handleSavePrivacy} disabled={savingPrivacy} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+            {savingPrivacy ? 'Saving...' : 'Save'}
+          </Button>
+          <div
+            className="rounded-lg px-4 py-3 text-sm leading-relaxed"
+            style={{ backgroundColor: 'rgba(217,70,239,0.06)', border: '1px solid rgba(217,70,239,0.15)', color: '#6B5F80' }}
+          >
+            <span className="font-semibold" style={{ color: '#0F0A1E' }}>Don't have a privacy policy yet?</span>{' '}
+            You'll need one before sharing your quiz with prospects.{' '}
+            <a
+              href="TERMLY_AFFILIATE_LINK"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 font-medium"
+              style={{ color: '#D946EF' }}
+            >
+              Termly
+            </a>
+            {' '}makes it straightforward — you can generate one in minutes, for free. (affiliate link)
+          </div>
+        </section>
+
+        <hr style={{ borderColor: 'rgba(217,70,239,0.12)' }} />
+
+        {/* Lead Delivery heading */}
+        <section className="space-y-3">
+          <div>
+            <h2 className="text-lg font-semibold" style={{ color: '#0F0A1E' }}>Lead Delivery</h2>
+            <p className="text-sm mt-1" style={{ color: '#6B5F80' }}>
+              Every time someone completes your quiz, their details can be sent automatically to your CRM or email tool.
+            </p>
+          </div>
+        </section>
+
+        {/* Situation cards */}
         <section className="space-y-3">
           <h2 className="text-lg font-semibold" style={{ color: '#0F0A1E' }}>Which situation are you in?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
