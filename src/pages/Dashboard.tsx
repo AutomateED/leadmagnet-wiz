@@ -6,7 +6,7 @@ import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
 import {
   LayoutDashboard, Palette, HelpCircle, Trophy,
   MousePointerClick, Plug, Eye, Share2, LogOut, ArrowLeft,
-  Users, Sun, Moon,
+  Users, Sun, Moon, Sparkles,
 } from 'lucide-react';
 
 import MyQuizzes from './dashboard/MyQuizzes';
