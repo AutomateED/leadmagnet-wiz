@@ -31,6 +31,7 @@ const NAV_ITEMS = [
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
   { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'AI Content Guide', path: 'ai-guide', icon: Sparkles },
 ];
 
 interface QuizRow {
