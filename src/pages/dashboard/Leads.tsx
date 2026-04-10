@@ -348,66 +348,70 @@ export default function Leads() {
                 const isExpanded = expandedId === lead.id;
                 const hasAnswers = lead.answers && Object.keys(lead.answers).length > 0;
                 return (
-                  <tr key={lead.id} className="group">
-                    <td colSpan={7} className="p-0" style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}>
-                      <div
-                        className={`flex items-center transition-colors cursor-pointer ${
-                          isSelected
-                            ? 'bg-[rgba(217,70,239,0.08)] dark:bg-[rgba(217,70,239,0.12)]'
-                            : 'hover:bg-[rgba(217,70,239,0.04)]'
-                        }`}
-                        onClick={() => toggleOne(lead.id)}
-                      >
-                        <div className="px-4 py-3 w-10 shrink-0" onClick={(e) => e.stopPropagation()}>
-                          <Checkbox
-                            checked={isSelected}
-                            onCheckedChange={() => toggleOne(lead.id)}
-                            aria-label={`Select ${lead.email}`}
-                            className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
-                          />
-                        </div>
-                        <div className="px-5 py-3 flex-1 min-w-0 text-[#0F0A1E] dark:text-white">
-                          {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
-                        </div>
-                        <div className="px-5 py-3 flex-1 min-w-0 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</div>
-                        <div className="px-5 py-3 flex-1 min-w-0">
-                          {lead.result_type ? (
-                            <span
-                              className="rounded-full px-2.5 py-0.5 text-xs font-medium"
-                              style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
-                            >
-                              {lead.result_type}
-                            </span>
-                          ) : (
-                            <span className="text-[#9A8EAA]">—</span>
-                          )}
-                        </div>
-                        <div className="px-5 py-3 shrink-0">
-                          <span className="text-xs font-mono text-[#6B5F80] dark:text-[#9A8EAA]">{lead.quiz_slug}</span>
-                        </div>
-                        <div className="px-5 py-3 shrink-0 text-[#6B5F80] dark:text-[#9A8EAA]">{formatDate(lead.created_at)}</div>
-                        <div className="px-3 py-3 w-10 shrink-0">
-                          {hasAnswers && (
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setExpandedId(isExpanded ? null : lead.id);
-                              }}
-                              className="p-1 rounded hover:bg-[rgba(217,70,239,0.10)] transition-colors"
-                              aria-label={isExpanded ? 'Hide answers' : 'Show answers'}
-                              title={isExpanded ? 'Hide answers' : 'Show answers'}
-                            >
-                              {isExpanded
-                                ? <ChevronUp className="h-4 w-4 text-[#D946EF]" />
-                                : <ChevronDown className="h-4 w-4 text-[#9A8EAA]" />
-                              }
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                      {isExpanded && hasAnswers && (
-                        <div className="px-14 pb-4 pt-1">
+                  <React.Fragment key={lead.id}>
+                    <tr
+                      className={`cursor-pointer transition-colors ${
+                        isSelected
+                          ? 'bg-[rgba(217,70,239,0.08)] dark:bg-[rgba(217,70,239,0.12)]'
+                          : 'hover:bg-[rgba(217,70,239,0.04)]'
+                      }`}
+                      onClick={() => toggleOne(lead.id)}
+                      style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}
+                    >
+                      <td className="px-4 py-3 w-10" onClick={(e) => e.stopPropagation()}>
+                        <Checkbox
+                          checked={isSelected}
+                          onCheckedChange={() => toggleOne(lead.id)}
+                          aria-label={`Select ${lead.email}`}
+                          className="border-[#D946EF]/40 data-[state=checked]:bg-[#D946EF] data-[state=checked]:border-[#D946EF]"
+                        />
+                      </td>
+                      <td className="px-5 py-3 text-[#0F0A1E] dark:text-white">
+                        {[lead.first_name, lead.last_name].filter(Boolean).join(' ') || '—'}
+                      </td>
+                      <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA]">{lead.email}</td>
+                      <td className="px-5 py-3">
+                        {lead.result_type ? (
+                          <span
+                            className="rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap"
+                            style={{ backgroundColor: 'rgba(217,70,239,0.10)', color: '#D946EF' }}
+                          >
+                            {lead.result_type}
+                          </span>
+                        ) : (
+                          <span className="text-[#9A8EAA]">—</span>
+                        )}
+                      </td>
+                      <td className="px-5 py-3">
+                        <span className="text-xs text-[#6B5F80] dark:text-[#9A8EAA]">
+                          {quizNames[lead.quiz_slug] || lead.quiz_slug}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3 text-[#6B5F80] dark:text-[#9A8EAA] whitespace-nowrap">
+                        {formatDate(lead.created_at)}
+                      </td>
+                      <td className="px-3 py-3 w-10" onClick={(e) => e.stopPropagation()}>
+                        {hasAnswers && (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpandedId(isExpanded ? null : lead.id);
+                            }}
+                            className="p-1 rounded hover:bg-[rgba(217,70,239,0.10)] transition-colors"
+                            aria-label={isExpanded ? 'Hide answers' : 'Show answers'}
+                          >
+                            {isExpanded
+                              ? <ChevronUp className="h-4 w-4 text-[#D946EF]" />
+                              : <ChevronDown className="h-4 w-4 text-[#9A8EAA]" />
+                            }
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                    {isExpanded && hasAnswers && (
+                      <tr key={`${lead.id}-expanded`} style={{ borderBottom: '1px solid rgba(217,70,239,0.08)' }}>
+                        <td colSpan={7} className="px-14 pb-4 pt-1">
                           <div className="flex flex-wrap gap-2">
                             {Object.entries(lead.answers!)
                               .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
@@ -423,10 +427,10 @@ export default function Leads() {
                                 </span>
                               ))}
                           </div>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </tbody>
