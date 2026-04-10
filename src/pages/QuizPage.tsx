@@ -162,7 +162,7 @@ export default function QuizPage() {
         />
       );
     case 'email':
-      return <EmailGate brandColour={config.brandColour} onSubmit={handleEmailSubmit} />;
+      return <EmailGate brandColour={config.brandColour} privacyPolicyUrl={config.privacyPolicyUrl} onSubmit={handleEmailSubmit} />;
     case 'confirmation': {
       const confirmResult = calculateResult(quiz.answers, config.resultTitles);
       const confirmCopy = config.resultTexts[confirmResult];

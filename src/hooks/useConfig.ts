@@ -19,6 +19,7 @@ export interface QuizConfig {
   ctaUrl: string;
   ctaTagline: string;
   webhookUrl: string;
+  privacyPolicyUrl: string;
   emailjsServiceId: string;
   emailjsTemplateId: string;
   emailjsPublicKey: string;
@@ -63,6 +64,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   ctaUrl: '',
   ctaTagline: "Ready to break through? Let's talk.",
   webhookUrl: '',
+  privacyPolicyUrl: '',
   emailjsServiceId: '',
   emailjsTemplateId: '',
   emailjsPublicKey: '',

@@ -3,14 +3,17 @@ import { motion } from 'framer-motion';
 
 interface EmailGateProps {
   brandColour: string;
+  privacyPolicyUrl?: string;
   onSubmit: (firstName: string, email: string, lastName: string) => void;
 }
 
-export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
+export default function EmailGate({ brandColour, privacyPolicyUrl, onSubmit }: EmailGateProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
+  const [consented, setConsented] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; email?: string }>({});
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,10 +28,15 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (Object.keys(newErrors).length > 0) {
+    if (!consented) {
+      setConsentError(true);
+    }
+
+    if (Object.keys(newErrors).length > 0 || !consented) {
       setErrors(newErrors);
       return;
     }
+    setConsentError(false);
 
     setErrors({});
     onSubmit(firstName.trim(), email.trim(), lastName.trim());
@@ -108,6 +116,42 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
             {errors.email && <p id="email-error" className="text-sm text-destructive mt-1 text-left">{errors.email}</p>}
           </div>
 
+          <div className="flex items-start gap-3 text-left mt-2">
+            <input
+              id="consent"
+              type="checkbox"
+              checked={consented}
+              onChange={(e) => { setConsented(e.target.checked); setConsentError(false); }}
+              className="mt-1 h-4 w-4 shrink-0 cursor-pointer rounded"
+              style={{ accentColor: brandColour }}
+              aria-describedby={consentError ? 'consent-error' : undefined}
+              aria-invalid={consentError}
+            />
+            <label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer" style={{ color: '#4A4060' }}>
+              I agree to receive my quiz results and understand my data will be handled in accordance with{' '}
+              {privacyPolicyUrl ? (
+                <a
+                  href={privacyPolicyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2"
+                  style={{ color: brandColour }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  the privacy policy
+                </a>
+              ) : (
+                <span>the privacy policy</span>
+              )}
+              .
+            </label>
+          </div>
+          {consentError && (
+            <p id="consent-error" className="text-sm text-left mt-1" style={{ color: 'hsl(var(--destructive))' }}>
+              Please tick this box to continue.
+            </p>
+          )}
+
           <motion.button
             type="submit"
             className="mt-4 rounded-full px-10 py-4 text-lg font-semibold tracking-wide transition-all duration-300 hover:shadow-lift active:scale-95"
@@ -118,10 +162,6 @@ export default function EmailGate({ brandColour, onSubmit }: EmailGateProps) {
             Show Me My Results &rarr;
           </motion.button>
         </form>
-
-        <p className="mt-6 text-xs" style={{ color: '#9A8EAA' }}>
-          No spam, ever. Unsubscribe anytime.
-        </p>
       </motion.div>
     </div>
   );

@@ -278,6 +278,7 @@ function mapRowToConfig(row: any): QuizConfig {
     resultTexts: (row.result_texts as any) || DEFAULT_CONFIG.resultTexts,
     ctaText: row.cta_text || '', ctaUrl: row.cta_url || '',
     ctaTagline: row.cta_tagline || '', webhookUrl: row.webhook_url || '',
+    privacyPolicyUrl: row.privacy_policy_url || '',
     emailjsServiceId: ec.serviceId || '', emailjsTemplateId: ec.templateId || '',
     emailjsPublicKey: ec.publicKey || '',
   };
