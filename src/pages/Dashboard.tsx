@@ -6,7 +6,7 @@ import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
 import {
   LayoutDashboard, Palette, HelpCircle, Trophy,
   MousePointerClick, Plug, Eye, Share2, LogOut, ArrowLeft,
-  Users, Sun, Moon,
+  Users, Sun, Moon, Sparkles,
 } from 'lucide-react';
 
 import MyQuizzes from './dashboard/MyQuizzes';
@@ -19,6 +19,7 @@ import Integrations from './dashboard/Integrations';
 import QuizPreview from './dashboard/QuizPreview';
 import ShareQuiz from './dashboard/ShareQuiz';
 import Leads from './dashboard/Leads';
+import AiGuide from './dashboard/AiGuide';
 
 const NAV_ITEMS = [
   { label: 'Overview', path: 'overview', icon: LayoutDashboard },
@@ -30,6 +31,7 @@ const NAV_ITEMS = [
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
   { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'AI Content Guide', path: 'ai-guide', icon: Sparkles },
 ];
 
 interface QuizRow {
@@ -244,6 +246,7 @@ export default function Dashboard() {
               <Route path="preview" element={<QuizPreview slug={slug} config={config} />} />
               <Route path="leads" element={<Leads />} />
               <Route path="share" element={<ShareQuiz slug={slug} />} />
+              <Route path="ai-guide" element={<AiGuide />} />
             </>
           )}
         </Routes>
