@@ -135,9 +135,7 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
             }}
           >
             <div>
-              <h3 className="text-base font-bold leading-tight" style={{ color: '#0F0A1E' }}>
-                {quiz.quiz_name}
-              </h3>
+              <EditableQuizName quizId={quiz.id} initialName={quiz.quiz_name} />
               <p className="text-xs mt-1 truncate" style={{ color: '#9A8EAA' }}>
                 /{quiz.slug}
               </p>
