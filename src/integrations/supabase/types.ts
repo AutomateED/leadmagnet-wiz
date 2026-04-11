@@ -56,6 +56,36 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          content: string
+          created_at: string
+          date: string
+          excerpt: string
+          id: string
+          slug: string
+          title: string
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          date?: string
+          excerpt?: string
+          id?: string
+          slug: string
+          title: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          date?: string
+          excerpt?: string
+          id?: string
+          slug?: string
+          title?: string
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           business_name: string

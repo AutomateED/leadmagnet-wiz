@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
-import { blogPosts } from '@/data/blogPosts';
+import { supabase } from '@/integrations/supabase/client';
+import { blogPosts as staticPosts } from '@/data/blogPosts';
 import Footer from '@/components/Footer';
 
 const C = {
@@ -13,15 +15,48 @@ const C = {
   muted: 'rgba(255,255,255,0.60)',
 };
 
+interface Post {
+  title: string;
+  slug: string;
+  date: string;
+  content: string;
+}
+
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const post = blogPosts.find((p) => p.slug === slug);
+  const [post, setPost] = useState<Post | null | undefined>(undefined); // undefined = loading
+
+  useEffect(() => {
+    if (!slug) { setPost(null); return; }
+
+    supabase
+      .from('blog_posts')
+      .select('title, slug, date, content')
+      .eq('slug', slug)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data) {
+          setPost(data as unknown as Post);
+        } else {
+          // Fallback to static
+          const staticPost = staticPosts.find((p) => p.slug === slug);
+          setPost(staticPost || null);
+        }
+      });
+  }, [slug]);
+
+  if (post === undefined) {
+    return (
+      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: C.pageBg }}>
+        <div className="animate-spin rounded-full h-10 w-10 border-4 border-t-transparent" style={{ borderColor: C.accent, borderTopColor: 'transparent' }} />
+      </div>
+    );
+  }
 
   if (!post) return <Navigate to="/blog" replace />;
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      {/* Nav */}
       <nav className="bg-[#0F0A1E]/95 backdrop-blur-md border-b border-[#2D1A4A]">
         <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold" style={{ color: C.headline }}>
@@ -44,10 +79,7 @@ export default function BlogPost() {
         </h1>
         <p className="text-sm mb-10" style={{ color: C.muted }}>{post.date}</p>
 
-        <article
-          className="prose prose-invert prose-lg max-w-none"
-          style={{ color: C.body }}
-        >
+        <article className="prose prose-invert prose-lg max-w-none" style={{ color: C.body }}>
           <ReactMarkdown
             components={{
               h2: ({ children }) => (
@@ -65,7 +97,6 @@ export default function BlogPost() {
           </ReactMarkdown>
         </article>
 
-        {/* Footer CTA */}
         <div className="mt-16 pt-10 border-t border-[#2D1A4A] text-center">
           <p className="text-xl font-semibold mb-5" style={{ color: C.headline }}>
             Ready to get your quiz live?

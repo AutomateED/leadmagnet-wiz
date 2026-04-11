@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { blogPosts } from '@/data/blogPosts';
+import { supabase } from '@/integrations/supabase/client';
+import { blogPosts as staticPosts } from '@/data/blogPosts';
 import Footer from '@/components/Footer';
 
 const C = {
@@ -14,10 +16,30 @@ const C = {
   muted: 'rgba(255,255,255,0.60)',
 };
 
+interface BlogPost {
+  title: string;
+  slug: string;
+  date: string;
+  excerpt: string;
+}
+
 export default function BlogIndex() {
+  const [posts, setPosts] = useState<BlogPost[]>(staticPosts);
+
+  useEffect(() => {
+    supabase
+      .from('blog_posts')
+      .select('title, slug, date, excerpt')
+      .order('date', { ascending: false })
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setPosts(data as unknown as BlogPost[]);
+        }
+      });
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      {/* Nav */}
       <nav className="bg-[#0F0A1E]/95 backdrop-blur-md border-b border-[#2D1A4A]">
         <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold" style={{ color: C.headline }}>
@@ -39,7 +61,7 @@ export default function BlogIndex() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <article
               key={post.slug}
               className="rounded-xl border p-6 flex flex-col justify-between transition-colors hover:border-[#D946EF]/40"
