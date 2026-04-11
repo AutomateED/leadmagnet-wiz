@@ -170,6 +170,9 @@ function StickyNav({ onCheckout, loading, error }: { onCheckout: () => void; loa
           <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest" style={{ backgroundColor: 'rgba(217,70,239,0.15)', color: '#D946EF', border: '1px solid rgba(217,70,239,0.3)' }}>Beta</span>
         </Link>
         <div className="flex items-center gap-4">
+          <Link to="/blog" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
+            Blog
+          </Link>
           <Link to="/login" className="hidden sm:inline-block text-sm font-medium transition-colors" style={{ color: C.supporting }}>
             Login
           </Link>

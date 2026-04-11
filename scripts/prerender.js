@@ -64,6 +64,20 @@ const pages = [
     description: 'PretaQuiz Data Processing Agreement. How we process personal data on behalf of our clients in compliance with GDPR.',
     h1: 'Data Processing Agreement',
     body: 'Data Processing Agreement for PretaQuiz. This agreement governs how PretaQuiz processes personal data on behalf of coaches and consultants who use the platform, in compliance with GDPR and applicable data protection law.',
+  },
+  {
+    route: '/blog',
+    title: 'The PretaQuiz Blog — Advice for Coaches',
+    description: 'Practical advice for coaches who want warm leads, not tech headaches. Tips on quiz funnels, lead generation, and growing a coaching business.',
+    h1: 'The PretaQuiz Blog',
+    body: 'Practical advice for coaches who want warm leads, not tech headaches. Tips on quiz funnels, lead generation, and growing a coaching business.',
+  },
+  {
+    route: '/blog/quiz-vs-pdf-lead-magnet',
+    title: 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet — PretaQuiz',
+    description: 'The PDF lead magnet had its moment. Here\'s why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
+    h1: 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet',
+    body: 'The PDF lead magnet had its moment. That moment has passed. Here is why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
   }
 ];
 
