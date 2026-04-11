@@ -238,6 +238,11 @@ export default function Admin() {
             </h1>
           </div>
           <div className="flex items-center gap-3">
+            <Link to="/admin/blog">
+              <Button variant="outline" size="sm" style={{ borderColor: C.border, color: C.body }}>
+                Manage Blog
+              </Button>
+            </Link>
             <Link to="/dashboard">
               <Button variant="outline" size="sm" style={{ borderColor: C.border, color: C.body }}>
                 Dashboard

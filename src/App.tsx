@@ -19,6 +19,7 @@ import Privacy from "./pages/Privacy";
 import Dpa from "./pages/Dpa";
 import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
+import AdminBlog from "./pages/AdminBlog";
 import Welcome from "./pages/Welcome";
 import Waitlist from "./pages/Waitlist";
 import BlogIndex from "./pages/BlogIndex";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/dpa" element={<Dpa />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/blog" element={<AdminBlog />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/waitlist" element={<Waitlist />} />
             <Route path="/blog" element={<BlogIndex />} />
