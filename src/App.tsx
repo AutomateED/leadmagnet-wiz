@@ -21,6 +21,8 @@ import Contact from "./pages/Contact";
 import Admin from "./pages/Admin";
 import Welcome from "./pages/Welcome";
 import Waitlist from "./pages/Waitlist";
+import BlogIndex from "./pages/BlogIndex";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +51,8 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/waitlist" element={<Waitlist />} />
+            <Route path="/blog" element={<BlogIndex />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             {/* Redirect old template URLs to get-started */}
             <Route path="/templates/*" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFound />} />
