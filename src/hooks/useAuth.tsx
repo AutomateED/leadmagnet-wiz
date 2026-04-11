@@ -27,6 +27,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => { locationRef.current = location.pathname; }, [location.pathname]);
 
   useEffect(() => {
+    // Get the initial session first
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Then listen for changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
@@ -38,12 +46,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           navigate('/dashboard/overview', { replace: true });
         }
       }
-    });
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
