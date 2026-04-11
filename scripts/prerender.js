@@ -78,6 +78,20 @@ const pages = [
     description: 'The PDF lead magnet had its moment. Here\'s why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
     h1: 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet',
     body: 'The PDF lead magnet had its moment. That moment has passed. Here is why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
+  },
+  {
+    route: '/blog/warm-leads-without-paid-ads',
+    title: 'How Coaches Can Get Warm Leads Without Paid Ads — PretaQuiz',
+    description: 'Most coaches think lead generation means running ads. Here\'s how to turn your existing website traffic into warm, qualified leads — for free.',
+    h1: 'How Coaches Can Get Warm Leads From Their Website Without Paid Ads',
+    body: 'Most coaches think lead generation means running ads. It does not. Here is how to turn your existing website traffic into warm, qualified leads for free.',
+  },
+  {
+    route: '/blog/coaching-website-discovery-calls',
+    title: 'What to Put on Your Coaching Website to Get More Discovery Calls — PretaQuiz',
+    description: 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here\'s what to add and what to cut.',
+    h1: 'What to Put on Your Coaching Website to Get More Discovery Calls',
+    body: 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here is what to add and what to cut to turn more visitors into booked calls.',
   }
 ];
 
