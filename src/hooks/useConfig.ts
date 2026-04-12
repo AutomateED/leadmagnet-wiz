@@ -56,7 +56,7 @@ export const DEFAULT_CONFIG: QuizConfig = {
   email: '',
   logo: '',
   brandColour: '#C9A96E',
-  fontFamily: 'Playfair Display',
+  fontFamily: 'Plus Jakarta Sans',
   questions: [],
   resultTitles: DEFAULT_RESULT_TITLES,
   resultTexts: DEFAULT_RESULTS,

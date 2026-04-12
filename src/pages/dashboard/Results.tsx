@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { QuizConfig } from '@/hooks/useConfig';
 import { DEFAULT_RESULT_TITLES } from '@/hooks/useConfig';
@@ -26,6 +26,12 @@ export default function Results({ config, onConfigChange, userId, quizId }: Resu
   const [texts, setTexts] = useState<Record<string, string>>({ ...config.resultTexts });
   const [savingType, setSavingType] = useState<string | null>(null);
 
+  const localTitlesRef = useRef(localTitles);
+  const textsRef = useRef(texts);
+
+  localTitlesRef.current = localTitles;
+  textsRef.current = texts;
+
   const handleTitleChange = (letter: string, value: string) => {
     setLocalTitles((prev) => ({ ...prev, [letter]: value }));
   };
@@ -35,15 +41,17 @@ export default function Results({ config, onConfigChange, userId, quizId }: Resu
   };
 
   const handleSaveOne = async (letter: string) => {
-    const originalTitle = titles[letter as keyof typeof titles];
-    const newTitle = localTitles[letter];
     setSavingType(letter);
 
-    // Build updated titles
-    const updatedTitles = { ...localTitles };
+    const currentTitles = localTitlesRef.current;
+    const currentTexts = textsRef.current;
+
+    const originalTitle = titles[letter as keyof typeof titles];
+    const newTitle = currentTitles[letter];
+    const updatedTitles = { ...currentTitles };
+    const updatedTexts = { ...currentTexts };
 
     // Build updated texts — if the title changed, re-key the text
-    const updatedTexts = { ...texts };
     if (newTitle !== originalTitle) {
       const textValue = updatedTexts[originalTitle] || '';
       delete updatedTexts[originalTitle];
@@ -113,14 +121,14 @@ export default function Results({ config, onConfigChange, userId, quizId }: Resu
               </div>
 
               <div className="flex items-center justify-between">
-                <Button
-                  size="sm"
-                  onClick={() => handleSaveOne(letter)}
-                  disabled={savingType === letter}
-                  style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
-                >
-                  {savingType === letter ? 'Saving...' : 'Save'}
-                </Button>
+              <Button
+                size="sm"
+                onClick={() => handleSaveOne(letter)}
+                disabled={savingType !== null}
+                style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
+              >
+                {savingType === letter ? 'Saving...' : 'Save'}
+              </Button>
                 <p className="text-xs" style={{ color: '#9A8EAA' }}>{textValue.length} characters</p>
               </div>
             </div>

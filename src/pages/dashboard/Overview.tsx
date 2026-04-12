@@ -77,6 +77,7 @@ const STEPS: Step[] = [
     description: 'Grab your link or embed code and start collecting leads.',
     path: '/dashboard/share',
     check: () => false,
+    optional: true,
   },
 ];
 
@@ -99,8 +100,9 @@ export default function Overview({ config, slug }: OverviewProps) {
       });
   }, [user?.id]);
 
-  const completed = STEPS.filter((s) => s.check(config)).length;
-  const total = STEPS.length;
+  const requiredSteps = STEPS.filter((s) => !s.optional);
+  const completed = requiredSteps.filter((s) => s.check(config)).length;
+  const total = requiredSteps.length;
   const pct = Math.round((completed / total) * 100);
 
   const copyLink = async () => {
