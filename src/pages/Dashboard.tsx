@@ -53,7 +53,6 @@ function useDarkMode() {
       root.classList.remove('dark');
       localStorage.setItem('pq-theme', 'light');
     }
-    return () => { root.classList.remove('dark'); };
   }, [dark]);
 
   return [dark, () => setDark((d) => !d)] as const;
