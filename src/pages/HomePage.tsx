@@ -612,7 +612,7 @@ export default function HomePage() {
               <ul className="space-y-4">
                 {NOT_FOR_YOU.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <Minus className="h-5 w-5 shrink-0 mt-0.5" style={{ color: C.supporting }} />
+                    <X className="h-5 w-5 shrink-0 mt-0.5" style={{ color: C.supporting }} />
                     <span className="leading-relaxed" style={{ color: C.supporting }}>{item}</span>
                   </li>
                 ))}
