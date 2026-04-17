@@ -259,6 +259,26 @@ export default function AdminBlog() {
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
                     <td className="px-4 py-3">
+                      {(() => {
+                        const isLive = p.published !== false;
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => handleTogglePublished(p)}
+                            title={isLive ? 'Click to set as draft' : 'Click to publish'}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full transition-opacity hover:opacity-80"
+                            style={{
+                              backgroundColor: isLive ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)',
+                              color: isLive ? C.green : C.amber,
+                            }}
+                          >
+                            {isLive ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                            {isLive ? 'Live' : 'Draft'}
+                          </button>
+                        );
+                      })()}
+                    </td>
+                    <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         <Button
                           variant="ghost"
