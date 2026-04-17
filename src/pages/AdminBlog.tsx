@@ -312,7 +312,7 @@ export default function AdminBlog() {
                   );
                 })}
                 {posts.length === 0 && (
-                  <tr><td colSpan={4} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
+                  <tr><td colSpan={5} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
                 )}
               </tbody>
             </table>
