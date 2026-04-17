@@ -369,15 +369,34 @@ export default function AdminBlog() {
                 />
               </div>
             </div>
-            <div>
-              <Label className="text-xs" style={{ color: C.muted }}>Date</Label>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="mt-1 w-48"
-                style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
-              />
+            <div className="flex flex-wrap items-end gap-4">
+              <div>
+                <Label className="text-xs" style={{ color: C.muted }}>Date</Label>
+                <Input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="mt-1 w-48"
+                  style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
+                />
+              </div>
+              <div>
+                <Label className="text-xs block" style={{ color: C.muted }}>Status</Label>
+                <button
+                  type="button"
+                  onClick={() => setPublished((v) => !v)}
+                  title={published ? 'Click to set as draft' : 'Click to publish'}
+                  className="mt-1 inline-flex items-center gap-2 h-10 px-4 rounded-md border text-sm font-semibold transition-opacity hover:opacity-80"
+                  style={{
+                    borderColor: C.border,
+                    backgroundColor: published ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)',
+                    color: published ? C.green : C.amber,
+                  }}
+                >
+                  {published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                  {published ? 'Published' : 'Draft'}
+                </button>
+              </div>
             </div>
             <div>
               <Label className="text-xs" style={{ color: C.muted }}>Excerpt</Label>
