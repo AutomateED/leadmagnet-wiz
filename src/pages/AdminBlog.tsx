@@ -27,6 +27,7 @@ const C = {
   muted: 'rgba(255,255,255,0.6)',
   red: '#EF4444',
   green: '#22C55E',
+  amber: '#F59E0B',
 };
 
 interface BlogPostRow {
@@ -36,6 +37,7 @@ interface BlogPostRow {
   date: string;
   excerpt: string;
   content: string;
+  published: boolean;
   created_at: string;
 }
 
