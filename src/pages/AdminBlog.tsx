@@ -41,6 +41,17 @@ interface BlogPostRow {
   created_at: string;
 }
 
+function wordCount(text: string): number {
+  const trimmed = (text || '').trim();
+  if (!trimmed) return 0;
+  return trimmed.split(/\s+/).length;
+}
+
+function readTime(text: string): string {
+  const minutes = Math.max(1, Math.round(wordCount(text) / 200));
+  return `${minutes} min read`;
+}
+
 export default function AdminBlog() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
