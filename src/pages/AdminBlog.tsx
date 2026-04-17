@@ -58,6 +58,7 @@ export default function AdminBlog() {
   const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState('');
+  const [published, setPublished] = useState(true);
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/login');
