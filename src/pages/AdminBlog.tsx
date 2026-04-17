@@ -210,8 +210,17 @@ export default function AdminBlog() {
                 </tr>
               </thead>
               <tbody>
-                {posts.map((p) => (
-                  <tr key={p.id} style={{ borderBottom: `1px solid ${C.border}` }} className="hover:bg-white/5 transition-colors">
+                {posts.map((p) => {
+                  const isEditing = editingId === p.id;
+                  return (
+                  <tr
+                    key={p.id}
+                    style={{
+                      borderBottom: `1px solid ${C.border}`,
+                      backgroundColor: isEditing ? 'rgba(217,70,239,0.08)' : undefined,
+                    }}
+                    className="hover:bg-white/5 transition-colors"
+                  >
                     <td className="px-4 py-3 font-medium" style={{ color: C.white }}>
                       <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: C.white }}>
                         {p.title}
@@ -220,26 +229,38 @@ export default function AdminBlog() {
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
                     <td className="px-4 py-3">
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-7 w-7">
-                            <Trash2 className="h-3.5 w-3.5" style={{ color: C.red }} />
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Delete "{p.title}"?</AlertDialogTitle>
-                            <AlertDialogDescription>This will permanently remove the blog post.</AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => handleDelete(p.id)} style={{ backgroundColor: C.red }}>Delete</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => startEdit(p)}
+                          title="Edit post"
+                        >
+                          <Pencil className="h-3.5 w-3.5" style={{ color: C.accent }} />
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-7 w-7">
+                              <Trash2 className="h-3.5 w-3.5" style={{ color: C.red }} />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Delete "{p.title}"?</AlertDialogTitle>
+                              <AlertDialogDescription>This will permanently remove the blog post.</AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => handleDelete(p.id)} style={{ backgroundColor: C.red }}>Delete</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
                 {posts.length === 0 && (
                   <tr><td colSpan={4} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
                 )}
