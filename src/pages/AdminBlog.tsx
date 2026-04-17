@@ -269,10 +269,30 @@ export default function AdminBlog() {
           )}
         </div>
 
-        <div className="rounded-xl border p-6" style={{ backgroundColor: C.card, borderColor: C.border }}>
-          <div className="flex items-center gap-2 mb-6">
-            <Plus className="h-5 w-5" style={{ color: C.accent }} />
-            <h2 className="text-base font-bold" style={{ color: C.white }}>Add New Post</h2>
+        <div id="post-form" className="rounded-xl border p-6" style={{ backgroundColor: C.card, borderColor: C.border }}>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              {editingId ? (
+                <Pencil className="h-5 w-5" style={{ color: C.accent }} />
+              ) : (
+                <Plus className="h-5 w-5" style={{ color: C.accent }} />
+              )}
+              <h2 className="text-base font-bold" style={{ color: C.white }}>
+                {editingId ? 'Edit Post' : 'Add New Post'}
+              </h2>
+            </div>
+            {editingId && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={resetForm}
+                className="gap-2"
+                style={{ borderColor: C.border, color: C.body }}
+              >
+                <X className="h-4 w-4" /> Cancel edit
+              </Button>
+            )}
           </div>
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
