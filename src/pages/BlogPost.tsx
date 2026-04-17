@@ -7,12 +7,14 @@ import Footer from '@/components/Footer';
 
 const C = {
   pageBg: '#0F0A1E',
+  border: '#2D1A4A',
   accent: '#D946EF',
   cta: '#F020B0',
   headline: '#FFFFFF',
   body: 'rgba(255,255,255,0.85)',
   supporting: 'rgba(255,255,255,0.75)',
   muted: 'rgba(255,255,255,0.60)',
+  amber: '#F59E0B',
 };
 
 interface Post {
@@ -20,6 +22,29 @@ interface Post {
   slug: string;
   date: string;
   content: string;
+  published?: boolean;
+}
+
+function wordCount(text: string): number {
+  const trimmed = (text || '').trim();
+  if (!trimmed) return 0;
+  return trimmed.split(/\s+/).length;
+}
+
+function readTime(text: string): string {
+  const minutes = Math.max(1, Math.round(wordCount(text) / 200));
+  return `${minutes} min read`;
+}
+
+function formatDate(iso: string): string {
+  if (!iso) return '';
+  // Accept "YYYY-MM-DD" or full ISO; avoid TZ shifts by parsing parts.
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const d = m
+    ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
+    : new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export default function BlogPost() {
@@ -31,7 +56,7 @@ export default function BlogPost() {
 
     supabase
       .from('blog_posts')
-      .select('title, slug, date, content')
+      .select('title, slug, date, content, published')
       .eq('slug', slug)
       .maybeSingle()
       .then(({ data }) => {
@@ -55,6 +80,8 @@ export default function BlogPost() {
 
   if (!post) return <Navigate to="/blog" replace />;
 
+  const isDraft = post.published === false;
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <nav className="bg-[#0F0A1E]/95 backdrop-blur-md border-b border-[#2D1A4A]">
@@ -74,10 +101,21 @@ export default function BlogPost() {
           ← Back to Blog
         </Link>
 
+        {isDraft && (
+          <span
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full mb-4"
+            style={{ backgroundColor: 'rgba(245,158,11,0.12)', color: C.amber, border: `1px solid rgba(245,158,11,0.3)` }}
+          >
+            Draft — not publicly visible
+          </span>
+        )}
+
         <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.headline }}>
           {post.title}
         </h1>
-        <p className="text-sm mb-10" style={{ color: C.muted }}>{post.date}</p>
+        <p className="text-sm mb-10" style={{ color: C.muted }}>
+          {formatDate(post.date)} · {readTime(post.content || '')}
+        </p>
 
         <article className="prose prose-invert prose-lg max-w-none" style={{ color: C.body }}>
           <ReactMarkdown
@@ -85,11 +123,55 @@ export default function BlogPost() {
               h2: ({ children }) => (
                 <h2 className="text-2xl font-bold mt-10 mb-4" style={{ color: C.headline }}>{children}</h2>
               ),
+              h3: ({ children }) => (
+                <h3 className="text-xl font-semibold mt-8 mb-3" style={{ color: C.headline }}>{children}</h3>
+              ),
               p: ({ children }) => (
                 <p className="mb-5 leading-relaxed" style={{ color: C.body }}>{children}</p>
               ),
               a: ({ href, children }) => (
                 <a href={href} className="underline underline-offset-2 font-medium" style={{ color: C.accent }} target="_blank" rel="noopener noreferrer">{children}</a>
+              ),
+              ul: ({ children }) => (
+                <ul className="list-none pl-0 mb-5 space-y-2">{children}</ul>
+              ),
+              ol: ({ children }) => (
+                <ol className="list-none pl-0 mb-5 space-y-2">{children}</ol>
+              ),
+              li: ({ children }) => (
+                <li className="flex items-start gap-3 leading-relaxed" style={{ color: C.body }}>
+                  <span
+                    className="inline-block rounded-full flex-shrink-0"
+                    style={{ backgroundColor: C.accent, width: '6px', height: '6px', marginTop: '0.65em' }}
+                    aria-hidden="true"
+                  />
+                  <span className="flex-1">{children}</span>
+                </li>
+              ),
+              strong: ({ children }) => (
+                <strong className="font-semibold" style={{ color: C.headline }}>{children}</strong>
+              ),
+              em: ({ children }) => (
+                <em className="italic" style={{ color: C.supporting }}>{children}</em>
+              ),
+              hr: () => (
+                <hr className="my-12 border-0 border-t" style={{ borderColor: C.border }} />
+              ),
+              blockquote: ({ children }) => (
+                <blockquote
+                  className="my-6 pl-5 italic"
+                  style={{ borderLeft: `3px solid ${C.accent}`, color: C.supporting }}
+                >
+                  {children}
+                </blockquote>
+              ),
+              code: ({ children }) => (
+                <code
+                  className="px-1.5 py-0.5 rounded font-mono text-[0.9em]"
+                  style={{ backgroundColor: 'rgba(217,70,239,0.12)', color: C.accent }}
+                >
+                  {children}
+                </code>
               ),
             }}
           >
