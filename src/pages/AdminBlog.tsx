@@ -160,6 +160,7 @@ export default function AdminBlog() {
       toast({ title: 'Error deleting post', description: error.message, variant: 'destructive' });
     } else {
       toast({ title: 'Post deleted' });
+      if (editingId === id) resetForm();
       loadPosts();
     }
   };
