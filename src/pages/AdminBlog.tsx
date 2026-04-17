@@ -352,7 +352,7 @@ export default function AdminBlog() {
               />
             </div>
             <Button type="submit" disabled={saving} style={{ backgroundColor: C.cta, color: C.white }}>
-              {saving ? 'Saving…' : 'Save Post'}
+              {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
             </Button>
           </form>
         </div>
