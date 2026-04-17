@@ -171,6 +171,23 @@ export default function AdminBlog() {
     }
   };
 
+  const handleTogglePublished = async (p: BlogPostRow) => {
+    const next = !(p.published !== false);
+    // Optimistic update
+    setPosts((prev) => prev.map((x) => (x.id === p.id ? { ...x, published: next } : x)));
+    const { error } = await supabase
+      .from('blog_posts')
+      .update({ published: next } as any)
+      .eq('id', p.id);
+    if (error) {
+      // Revert
+      setPosts((prev) => prev.map((x) => (x.id === p.id ? { ...x, published: !next } : x)));
+      toast({ title: 'Error updating status', description: error.message, variant: 'destructive' });
+    } else {
+      toast({ title: next ? 'Post published' : 'Post set to draft' });
+    }
+  };
+
   if (authLoading || !user || user.email !== ADMIN_EMAIL) {
     return (
       <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: C.bg }}>
