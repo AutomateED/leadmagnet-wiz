@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Trash2, ArrowLeft, Plus, Pencil, X } from 'lucide-react';
+import { Shield, Trash2, ArrowLeft, Plus, Pencil, X, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -27,6 +27,7 @@ const C = {
   muted: 'rgba(255,255,255,0.6)',
   red: '#EF4444',
   green: '#22C55E',
+  amber: '#F59E0B',
 };
 
 interface BlogPostRow {
@@ -36,6 +37,7 @@ interface BlogPostRow {
   date: string;
   excerpt: string;
   content: string;
+  published: boolean;
   created_at: string;
 }
 
@@ -56,6 +58,7 @@ export default function AdminBlog() {
   const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState('');
+  const [published, setPublished] = useState(true);
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/login');
@@ -100,6 +103,7 @@ export default function AdminBlog() {
     setDate(new Date().toISOString().split('T')[0]);
     setExcerpt('');
     setContent('');
+    setPublished(true);
     setEditingId(null);
   };
 
@@ -111,6 +115,7 @@ export default function AdminBlog() {
     setDate(p.date);
     setExcerpt(p.excerpt || '');
     setContent(p.content || '');
+    setPublished(p.published !== false);
     setTimeout(() => {
       document.getElementById('post-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
@@ -127,6 +132,7 @@ export default function AdminBlog() {
       date,
       excerpt: excerpt.trim(),
       content: content.trim(),
+      published,
     };
 
     if (editingId) {
@@ -165,6 +171,23 @@ export default function AdminBlog() {
     }
   };
 
+  const handleTogglePublished = async (p: BlogPostRow) => {
+    const next = !(p.published !== false);
+    // Optimistic update
+    setPosts((prev) => prev.map((x) => (x.id === p.id ? { ...x, published: next } : x)));
+    const { error } = await supabase
+      .from('blog_posts')
+      .update({ published: next } as any)
+      .eq('id', p.id);
+    if (error) {
+      // Revert
+      setPosts((prev) => prev.map((x) => (x.id === p.id ? { ...x, published: !next } : x)));
+      toast({ title: 'Error updating status', description: error.message, variant: 'destructive' });
+    } else {
+      toast({ title: next ? 'Post published' : 'Post set to draft' });
+    }
+  };
+
   if (authLoading || !user || user.email !== ADMIN_EMAIL) {
     return (
       <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: C.bg }}>
@@ -193,8 +216,15 @@ export default function AdminBlog() {
 
       <div className="max-w-[1000px] mx-auto px-6 py-8 space-y-8">
         <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: C.card, borderColor: C.border }}>
-          <div className="px-6 py-4 border-b" style={{ borderColor: C.border }}>
-            <h2 className="text-base font-bold" style={{ color: C.white }}>Published Posts ({posts.length})</h2>
+          <div className="px-6 py-4 border-b flex items-center gap-3" style={{ borderColor: C.border }}>
+            <h2 className="text-base font-bold" style={{ color: C.white }}>Blog Posts</h2>
+            <span className="text-xs flex items-center gap-1.5" style={{ color: C.green }}>
+              <Eye className="h-3 w-3" /> {posts.filter((p) => p.published !== false).length} published
+            </span>
+            <span className="text-xs" style={{ color: C.muted }}>·</span>
+            <span className="text-xs flex items-center gap-1.5" style={{ color: C.amber }}>
+              <EyeOff className="h-3 w-3" /> {posts.filter((p) => p.published === false).length} draft{posts.filter((p) => p.published === false).length === 1 ? '' : 's'}
+            </span>
           </div>
           {loading ? (
             <div className="flex justify-center py-10">
@@ -204,7 +234,7 @@ export default function AdminBlog() {
             <table className="w-full text-sm" style={{ color: C.body }}>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                  {['Title', 'Slug', 'Date', ''].map((h) => (
+                  {['Title', 'Slug', 'Date', 'Status', ''].map((h) => (
                     <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: C.muted }}>{h}</th>
                   ))}
                 </tr>
@@ -228,6 +258,26 @@ export default function AdminBlog() {
                     </td>
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
+                    <td className="px-4 py-3">
+                      {(() => {
+                        const isLive = p.published !== false;
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => handleTogglePublished(p)}
+                            title={isLive ? 'Click to set as draft' : 'Click to publish'}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full transition-opacity hover:opacity-80"
+                            style={{
+                              backgroundColor: isLive ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)',
+                              color: isLive ? C.green : C.amber,
+                            }}
+                          >
+                            {isLive ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+                            {isLive ? 'Live' : 'Draft'}
+                          </button>
+                        );
+                      })()}
+                    </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">
                         <Button
@@ -262,7 +312,7 @@ export default function AdminBlog() {
                   );
                 })}
                 {posts.length === 0 && (
-                  <tr><td colSpan={4} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
+                  <tr><td colSpan={5} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
                 )}
               </tbody>
             </table>
@@ -319,15 +369,34 @@ export default function AdminBlog() {
                 />
               </div>
             </div>
-            <div>
-              <Label className="text-xs" style={{ color: C.muted }}>Date</Label>
-              <Input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="mt-1 w-48"
-                style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
-              />
+            <div className="flex flex-wrap items-end gap-4">
+              <div>
+                <Label className="text-xs" style={{ color: C.muted }}>Date</Label>
+                <Input
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="mt-1 w-48"
+                  style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
+                />
+              </div>
+              <div>
+                <Label className="text-xs block" style={{ color: C.muted }}>Status</Label>
+                <button
+                  type="button"
+                  onClick={() => setPublished((v) => !v)}
+                  title={published ? 'Click to set as draft' : 'Click to publish'}
+                  className="mt-1 inline-flex items-center gap-2 h-10 px-4 rounded-md border text-sm font-semibold transition-opacity hover:opacity-80"
+                  style={{
+                    borderColor: C.border,
+                    backgroundColor: published ? 'rgba(34,197,94,0.12)' : 'rgba(245,158,11,0.12)',
+                    color: published ? C.green : C.amber,
+                  }}
+                >
+                  {published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                  {published ? 'Published' : 'Draft'}
+                </button>
+              </div>
             </div>
             <div>
               <Label className="text-xs" style={{ color: C.muted }}>Excerpt</Label>
