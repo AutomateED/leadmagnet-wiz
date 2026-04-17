@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useNavigate, Routes, Route, useLocation, Link } from 'react-router-dom';
+import { useNavigate, Routes, Route, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { DEFAULT_CONFIG, type QuizConfig } from '@/hooks/useConfig';
@@ -131,6 +131,10 @@ export default function Dashboard() {
     navigate('/dashboard');
   }, [navigate]);
 
+  if (!dataLoading && !authLoading && user && isOnSubPage && quizzes.length === 0) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   if (authLoading || !user || dataLoading || (isOnSubPage && !config && quizzes.length > 0)) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white dark:bg-[#0F0A1E]">
@@ -252,7 +256,7 @@ export default function Dashboard() {
       </main>
 
       {/* Fixed help button */}
-      <a
+      
         href="mailto:hello@pretaquiz.com"
         className="fixed bottom-6 right-6 z-50 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-lg transition-opacity hover:opacity-90"
         style={{ backgroundColor: '#D946EF' }}
