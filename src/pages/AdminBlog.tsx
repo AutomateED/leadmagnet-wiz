@@ -100,25 +100,56 @@ export default function AdminBlog() {
     setDate(new Date().toISOString().split('T')[0]);
     setExcerpt('');
     setContent('');
+    setEditingId(null);
+  };
+
+  const startEdit = (p: BlogPostRow) => {
+    setEditingId(p.id);
+    setTitle(p.title);
+    setSlug(p.slug);
+    setSlugManual(true);
+    setDate(p.date);
+    setExcerpt(p.excerpt || '');
+    setContent(p.content || '');
+    setTimeout(() => {
+      document.getElementById('post-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !slug.trim()) return;
     setSaving(true);
-    const { error } = await supabase.from('blog_posts').insert({
+
+    const payload = {
       title: title.trim(),
       slug: slug.trim(),
       date,
       excerpt: excerpt.trim(),
       content: content.trim(),
-    } as any);
-    if (error) {
-      toast({ title: 'Error saving post', description: error.message, variant: 'destructive' });
+    };
+
+    if (editingId) {
+      const { error } = await supabase
+        .from('blog_posts')
+        .update(payload as any)
+        .eq('id', editingId);
+      if (error) {
+        toast({ title: 'Error updating post', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Post updated!' });
+        resetForm();
+        loadPosts();
+      }
     } else {
-      toast({ title: 'Post saved!' });
-      resetForm();
-      loadPosts();
+      const { error } = await supabase.from('blog_posts').insert(payload as any);
+      if (error) {
+        toast({ title: 'Error saving post', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Post saved!' });
+        resetForm();
+        loadPosts();
+      }
     }
     setSaving(false);
   };
