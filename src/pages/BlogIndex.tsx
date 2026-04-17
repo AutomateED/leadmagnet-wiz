@@ -30,6 +30,7 @@ export default function BlogIndex() {
     supabase
       .from('blog_posts')
       .select('title, slug, date, excerpt')
+      .eq('published', true)
       .order('date', { ascending: false })
       .then(({ data }) => {
         if (data && data.length > 0) {
