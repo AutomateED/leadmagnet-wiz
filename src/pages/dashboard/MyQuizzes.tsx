@@ -152,10 +152,8 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
         ))}
 
         {/* Add a quiz card */}
-        <a
-          href="https://pretaquiz.com/get-started"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/get-started"
           className="rounded-xl p-5 flex flex-col items-center justify-center gap-3 min-h-[180px] transition-colors hover:border-opacity-40 group"
           style={{
             border: '2px dashed rgba(217,70,239,0.3)',
@@ -171,7 +169,7 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
           <span className="text-sm font-semibold" style={{ color: '#D946EF' }}>
             Add a quiz
           </span>
-        </a>
+        </Link>
       </div>
     </div>
   );
