@@ -38,7 +38,6 @@ function readTime(text: string): string {
 
 function formatDate(iso: string): string {
   if (!iso) return '';
-  // Accept "YYYY-MM-DD" or full ISO; avoid TZ shifts by parsing parts.
   const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
   const d = m
     ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]))
@@ -49,7 +48,7 @@ function formatDate(iso: string): string {
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<Post | null | undefined>(undefined); // undefined = loading
+  const [post, setPost] = useState<Post | null | undefined>(undefined);
 
   useEffect(() => {
     if (!slug) { setPost(null); return; }
@@ -63,7 +62,6 @@ export default function BlogPost() {
         if (data) {
           setPost(data as unknown as Post);
         } else {
-          // Fallback to static
           const staticPost = staticPosts.find((p) => p.slug === slug);
           setPost(staticPost || null);
         }
@@ -81,6 +79,9 @@ export default function BlogPost() {
   if (!post) return <Navigate to="/blog" replace />;
 
   const isDraft = post.published === false;
+
+  // Redirect draft posts — don't render content publicly
+  if (isDraft) return <Navigate to="/blog" replace />;
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: C.pageBg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
@@ -100,15 +101,6 @@ export default function BlogPost() {
         <Link to="/blog" className="text-sm font-medium mb-8 inline-block transition-colors hover:underline" style={{ color: C.accent }}>
           ← Back to Blog
         </Link>
-
-        {isDraft && (
-          <span
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full mb-4"
-            style={{ backgroundColor: 'rgba(245,158,11,0.12)', color: C.amber, border: `1px solid rgba(245,158,11,0.3)` }}
-          >
-            Draft — not publicly visible
-          </span>
-        )}
 
         <h1 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: C.headline }}>
           {post.title}
