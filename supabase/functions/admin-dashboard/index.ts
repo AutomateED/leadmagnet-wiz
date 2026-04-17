@@ -24,12 +24,11 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY')!,
       { global: { headers: { Authorization: authHeader } } }
     )
-    const { data: claims, error: claimsErr } = await supabaseAuth.auth.getClaims(authHeader.replace('Bearer ', ''))
-    if (claimsErr || !claims?.claims) {
+    const { data: { user }, error: userErr } = await supabaseAuth.auth.getUser()
+    if (userErr || !user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401, headers: corsHeaders })
     }
-    const userEmail = (claims.claims as any).email
-    if (userEmail !== ADMIN_EMAIL) {
+    if (user.email !== ADMIN_EMAIL) {
       return new Response(JSON.stringify({ error: 'Forbidden' }), { status: 403, headers: corsHeaders })
     }
 
@@ -80,7 +79,6 @@ Deno.serve(async (req) => {
       const questions = quiz?.questions
       const questionsCount = Array.isArray(questions) ? questions.length : 0
 
-      // Setup score: business_name, logo_url, questions.length>0, cta_url, webhook_url
       let setupScore = 0
       if (quiz) {
         if (quiz.business_name?.trim()) setupScore++
@@ -106,14 +104,12 @@ Deno.serve(async (req) => {
       }
     })
 
-    // Stats
     const totalClients = clientRows.length
     const activeClients = clientRows.filter((c: any) => c.subscription_status === 'active').length
     const totalLeads = leads?.length || 0
     const zeroQuestionQuizzes = clientRows.filter((c: any) => c.quiz_slug && c.questions_count === 0).length
     const estRevenue = activeClients * 97
 
-    // Build leads with client info
     const leadsWithClient = (leads || []).map((l: any) => {
       const quiz = (quizConfigs || []).find((q: any) => q.slug === l.quiz_slug)
       const client = quiz ? (clients || []).find((c: any) => c.id === quiz.client_id) : null
