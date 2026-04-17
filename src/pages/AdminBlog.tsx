@@ -422,13 +422,21 @@ export default function AdminBlog() {
               />
             </div>
             <div>
-              <Label className="text-xs" style={{ color: C.muted }}>Content (Markdown)</Label>
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <Label className="text-xs" style={{ color: C.muted }}>Content (Markdown)</Label>
+                <span className="text-xs tabular-nums" style={{ color: C.muted }}>
+                  {wordCount(content)} word{wordCount(content) === 1 ? '' : 's'} · {readTime(content)}
+                </span>
+              </div>
+              <p className="text-[11px] mt-1 mb-2 font-mono" style={{ color: C.muted }}>
+                ## Heading 2 · ### Heading 3 · **bold** · - bullet · 1. numbered · --- divider
+              </p>
               <Textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Write your post in markdown…"
                 rows={16}
-                className="mt-1 font-mono text-sm"
+                className="font-mono text-sm"
                 style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
               />
             </div>
