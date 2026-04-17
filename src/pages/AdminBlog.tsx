@@ -216,8 +216,15 @@ export default function AdminBlog() {
 
       <div className="max-w-[1000px] mx-auto px-6 py-8 space-y-8">
         <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: C.card, borderColor: C.border }}>
-          <div className="px-6 py-4 border-b" style={{ borderColor: C.border }}>
-            <h2 className="text-base font-bold" style={{ color: C.white }}>Published Posts ({posts.length})</h2>
+          <div className="px-6 py-4 border-b flex items-center gap-3" style={{ borderColor: C.border }}>
+            <h2 className="text-base font-bold" style={{ color: C.white }}>Blog Posts</h2>
+            <span className="text-xs flex items-center gap-1.5" style={{ color: C.green }}>
+              <Eye className="h-3 w-3" /> {posts.filter((p) => p.published !== false).length} published
+            </span>
+            <span className="text-xs" style={{ color: C.muted }}>·</span>
+            <span className="text-xs flex items-center gap-1.5" style={{ color: C.amber }}>
+              <EyeOff className="h-3 w-3" /> {posts.filter((p) => p.published === false).length} draft{posts.filter((p) => p.published === false).length === 1 ? '' : 's'}
+            </span>
           </div>
           {loading ? (
             <div className="flex justify-center py-10">
