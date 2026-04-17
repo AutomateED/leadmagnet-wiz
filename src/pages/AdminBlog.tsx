@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Shield, Trash2, ArrowLeft, Plus } from 'lucide-react';
+import { Shield, Trash2, ArrowLeft, Plus, Pencil, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,6 +47,7 @@ export default function AdminBlog() {
   const [posts, setPosts] = useState<BlogPostRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form state
   const [title, setTitle] = useState('');
@@ -99,25 +100,56 @@ export default function AdminBlog() {
     setDate(new Date().toISOString().split('T')[0]);
     setExcerpt('');
     setContent('');
+    setEditingId(null);
+  };
+
+  const startEdit = (p: BlogPostRow) => {
+    setEditingId(p.id);
+    setTitle(p.title);
+    setSlug(p.slug);
+    setSlugManual(true);
+    setDate(p.date);
+    setExcerpt(p.excerpt || '');
+    setContent(p.content || '');
+    setTimeout(() => {
+      document.getElementById('post-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !slug.trim()) return;
     setSaving(true);
-    const { error } = await supabase.from('blog_posts').insert({
+
+    const payload = {
       title: title.trim(),
       slug: slug.trim(),
       date,
       excerpt: excerpt.trim(),
       content: content.trim(),
-    } as any);
-    if (error) {
-      toast({ title: 'Error saving post', description: error.message, variant: 'destructive' });
+    };
+
+    if (editingId) {
+      const { error } = await supabase
+        .from('blog_posts')
+        .update(payload as any)
+        .eq('id', editingId);
+      if (error) {
+        toast({ title: 'Error updating post', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Post updated!' });
+        resetForm();
+        loadPosts();
+      }
     } else {
-      toast({ title: 'Post saved!' });
-      resetForm();
-      loadPosts();
+      const { error } = await supabase.from('blog_posts').insert(payload as any);
+      if (error) {
+        toast({ title: 'Error saving post', description: error.message, variant: 'destructive' });
+      } else {
+        toast({ title: 'Post saved!' });
+        resetForm();
+        loadPosts();
+      }
     }
     setSaving(false);
   };
@@ -128,6 +160,7 @@ export default function AdminBlog() {
       toast({ title: 'Error deleting post', description: error.message, variant: 'destructive' });
     } else {
       toast({ title: 'Post deleted' });
+      if (editingId === id) resetForm();
       loadPosts();
     }
   };
@@ -177,8 +210,17 @@ export default function AdminBlog() {
                 </tr>
               </thead>
               <tbody>
-                {posts.map((p) => (
-                  <tr key={p.id} style={{ borderBottom: `1px solid ${C.border}` }} className="hover:bg-white/5 transition-colors">
+                {posts.map((p) => {
+                  const isEditing = editingId === p.id;
+                  return (
+                  <tr
+                    key={p.id}
+                    style={{
+                      borderBottom: `1px solid ${C.border}`,
+                      backgroundColor: isEditing ? 'rgba(217,70,239,0.08)' : undefined,
+                    }}
+                    className="hover:bg-white/5 transition-colors"
+                  >
                     <td className="px-4 py-3 font-medium" style={{ color: C.white }}>
                       <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: C.white }}>
                         {p.title}
@@ -187,26 +229,38 @@ export default function AdminBlog() {
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
                     <td className="px-4 py-3">
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-7 w-7">
-                            <Trash2 className="h-3.5 w-3.5" style={{ color: C.red }} />
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Delete "{p.title}"?</AlertDialogTitle>
-                            <AlertDialogDescription>This will permanently remove the blog post.</AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => handleDelete(p.id)} style={{ backgroundColor: C.red }}>Delete</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                      <div className="flex items-center gap-1">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => startEdit(p)}
+                          title="Edit post"
+                        >
+                          <Pencil className="h-3.5 w-3.5" style={{ color: C.accent }} />
+                        </Button>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="ghost" size="icon" className="h-7 w-7">
+                              <Trash2 className="h-3.5 w-3.5" style={{ color: C.red }} />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Delete "{p.title}"?</AlertDialogTitle>
+                              <AlertDialogDescription>This will permanently remove the blog post.</AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => handleDelete(p.id)} style={{ backgroundColor: C.red }}>Delete</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
                 {posts.length === 0 && (
                   <tr><td colSpan={4} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
                 )}
@@ -215,10 +269,30 @@ export default function AdminBlog() {
           )}
         </div>
 
-        <div className="rounded-xl border p-6" style={{ backgroundColor: C.card, borderColor: C.border }}>
-          <div className="flex items-center gap-2 mb-6">
-            <Plus className="h-5 w-5" style={{ color: C.accent }} />
-            <h2 className="text-base font-bold" style={{ color: C.white }}>Add New Post</h2>
+        <div id="post-form" className="rounded-xl border p-6" style={{ backgroundColor: C.card, borderColor: C.border }}>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              {editingId ? (
+                <Pencil className="h-5 w-5" style={{ color: C.accent }} />
+              ) : (
+                <Plus className="h-5 w-5" style={{ color: C.accent }} />
+              )}
+              <h2 className="text-base font-bold" style={{ color: C.white }}>
+                {editingId ? 'Edit Post' : 'Add New Post'}
+              </h2>
+            </div>
+            {editingId && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={resetForm}
+                className="gap-2"
+                style={{ borderColor: C.border, color: C.body }}
+              >
+                <X className="h-4 w-4" /> Cancel edit
+              </Button>
+            )}
           </div>
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -278,7 +352,7 @@ export default function AdminBlog() {
               />
             </div>
             <Button type="submit" disabled={saving} style={{ backgroundColor: C.cta, color: C.white }}>
-              {saving ? 'Saving…' : 'Save Post'}
+              {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
             </Button>
           </form>
         </div>
