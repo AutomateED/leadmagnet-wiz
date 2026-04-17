@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,6 @@ import PasswordInput from '@/components/ui/password-input';
 
 export default function Login() {
   const { signIn } = useAuth();
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -23,9 +22,8 @@ export default function Login() {
     if (error) {
       setError(error.message);
       setLoading(false);
-    } else {
-      navigate('/dashboard');
     }
+    // Navigation is handled by useAuth onAuthStateChange (SIGNED_IN → /dashboard/overview)
   };
 
   return (
