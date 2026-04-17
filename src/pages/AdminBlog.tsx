@@ -269,6 +269,7 @@ export default function AdminBlog() {
                     </td>
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
+                    <td className="px-4 py-3 text-xs whitespace-nowrap" style={{ color: C.muted }}>{readTime(p.content || '')}</td>
                     <td className="px-4 py-3">
                       {(() => {
                         const isLive = p.published !== false;
