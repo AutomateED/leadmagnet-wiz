@@ -103,6 +103,7 @@ export default function AdminBlog() {
     setDate(new Date().toISOString().split('T')[0]);
     setExcerpt('');
     setContent('');
+    setPublished(true);
     setEditingId(null);
   };
 
@@ -114,6 +115,7 @@ export default function AdminBlog() {
     setDate(p.date);
     setExcerpt(p.excerpt || '');
     setContent(p.content || '');
+    setPublished(p.published !== false);
     setTimeout(() => {
       document.getElementById('post-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
@@ -130,6 +132,7 @@ export default function AdminBlog() {
       date,
       excerpt: excerpt.trim(),
       content: content.trim(),
+      published,
     };
 
     if (editingId) {
