@@ -41,6 +41,17 @@ interface BlogPostRow {
   created_at: string;
 }
 
+function wordCount(text: string): number {
+  const trimmed = (text || '').trim();
+  if (!trimmed) return 0;
+  return trimmed.split(/\s+/).length;
+}
+
+function readTime(text: string): string {
+  const minutes = Math.max(1, Math.round(wordCount(text) / 200));
+  return `${minutes} min read`;
+}
+
 export default function AdminBlog() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -234,7 +245,7 @@ export default function AdminBlog() {
             <table className="w-full text-sm" style={{ color: C.body }}>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${C.border}` }}>
-                  {['Title', 'Slug', 'Date', 'Status', ''].map((h) => (
+                  {['Title', 'Slug', 'Date', 'Read time', 'Status', ''].map((h) => (
                     <th key={h} className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: C.muted }}>{h}</th>
                   ))}
                 </tr>
@@ -258,6 +269,7 @@ export default function AdminBlog() {
                     </td>
                     <td className="px-4 py-3 text-xs font-mono" style={{ color: C.accent }}>{p.slug}</td>
                     <td className="px-4 py-3 text-xs">{p.date}</td>
+                    <td className="px-4 py-3 text-xs whitespace-nowrap" style={{ color: C.muted }}>{readTime(p.content || '')}</td>
                     <td className="px-4 py-3">
                       {(() => {
                         const isLive = p.published !== false;
@@ -312,7 +324,7 @@ export default function AdminBlog() {
                   );
                 })}
                 {posts.length === 0 && (
-                  <tr><td colSpan={5} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
+                  <tr><td colSpan={6} className="px-4 py-8 text-center" style={{ color: C.muted }}>No posts yet</td></tr>
                 )}
               </tbody>
             </table>
@@ -410,13 +422,21 @@ export default function AdminBlog() {
               />
             </div>
             <div>
-              <Label className="text-xs" style={{ color: C.muted }}>Content (Markdown)</Label>
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <Label className="text-xs" style={{ color: C.muted }}>Content (Markdown)</Label>
+                <span className="text-xs tabular-nums" style={{ color: C.muted }}>
+                  {wordCount(content)} word{wordCount(content) === 1 ? '' : 's'} · {readTime(content)}
+                </span>
+              </div>
+              <p className="text-[11px] mt-1 mb-2 font-mono" style={{ color: C.muted }}>
+                ## Heading 2 · ### Heading 3 · **bold** · - bullet · 1. numbered · --- divider
+              </p>
               <Textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Write your post in markdown…"
                 rows={16}
-                className="mt-1 font-mono text-sm"
+                className="font-mono text-sm"
                 style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
               />
             </div>
