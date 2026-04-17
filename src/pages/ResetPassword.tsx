@@ -19,19 +19,21 @@ export default function ResetPassword() {
 
   useEffect(() => {
     // Listen for the PASSWORD_RECOVERY event from the URL hash tokens
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'PASSWORD_RECOVERY') {
         setIsRecovery(true);
       }
+      // Only mark checking as done once auth state has resolved
       setChecking(false);
     });
 
-    // Also check current session in case the event already fired
+    // Belt-and-braces: if already in a valid session (e.g. page refresh after clicking recovery link)
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
+      if (session?.user) {
         setIsRecovery(true);
+        setChecking(false);
       }
-      setChecking(false);
+      // Don't setChecking(false) here if no session — let onAuthStateChange handle it
     });
 
     return () => subscription.unsubscribe();
