@@ -1,0 +1,58 @@
+name: Canary Lead Test
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # every 6 hours
+  workflow_dispatch:       # also allow manual triggering from the Actions tab
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit canary lead to Supabase
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -e
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://sgllwxhabdhjldhpnnsg.supabase.co/rest/v1/leads" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d '{
+              "client_id": "00000000-0000-0000-0000-000000000001",
+              "quiz_slug": "canary-test",
+              "first_name": "Canary",
+              "last_name": "Bot",
+              "email": "canary+'$(date +%s)'@pretaquiz.com",
+              "result_type": "Canary Result",
+              "answers": {"1": "A", "2": "A", "3": "A"}
+            }')
+          
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n 1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          
+          echo "HTTP Status: $HTTP_CODE"
+          echo "Response Body: $BODY"
+          
+          if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+            echo "❌ Canary lead failed — HTTP $HTTP_CODE"
+            echo "This means a real prospect submitting a quiz would also fail."
+            echo "Check Supabase RLS policies, anon key validity, and leads table."
+            exit 1
+          fi
+          
+          echo "✅ Canary lead submitted successfully"
+
+      - name: Clean up canary leads older than 1 day
+        if: always()
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          # Best-effort cleanup — never fail the workflow on this
+          curl -s -X DELETE \
+            "https://sgllwxhabdhjldhpnnsg.supabase.co/rest/v1/leads?quiz_slug=eq.canary-test&created_at=lt.$(date -u -d '1 day ago' +%Y-%m-%dT%H:%M:%S)" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            || true
