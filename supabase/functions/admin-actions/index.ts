@@ -232,6 +232,7 @@ Deno.serve(async (req) => {
         })
     }
   } catch (err) {
+    Sentry.captureException(err);
     console.error('admin-actions error:', err)
     return new Response(JSON.stringify({ error: err.message || 'Internal error' }), {
       status: 500, headers: corsHeaders
