@@ -306,6 +306,7 @@ export type Database = {
           cta_url: string | null
           font_family: string | null
           logo_url: string | null
+          privacy_policy_url: string | null
           questions: Json | null
           quiz_name: string | null
           result_texts: Json | null
@@ -322,6 +323,7 @@ export type Database = {
           cta_url?: string | null
           font_family?: string | null
           logo_url?: string | null
+          privacy_policy_url?: string | null
           questions?: Json | null
           quiz_name?: string | null
           result_texts?: Json | null
@@ -338,6 +340,7 @@ export type Database = {
           cta_url?: string | null
           font_family?: string | null
           logo_url?: string | null
+          privacy_policy_url?: string | null
           questions?: Json | null
           quiz_name?: string | null
           result_texts?: Json | null
