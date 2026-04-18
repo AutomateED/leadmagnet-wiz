@@ -36,7 +36,13 @@ export default function ResetPassword() {
       // Don't setChecking(false) here if no session — let onAuthStateChange handle it
     });
 
-    return () => subscription.unsubscribe();
+    // Fallback: if PASSWORD_RECOVERY never fires (e.g. token already consumed), stop checking after 3s
+    const timeoutId = setTimeout(() => setChecking(false), 3000);
+
+    return () => {
+      subscription.unsubscribe();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
