@@ -207,6 +207,7 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
+    Sentry.captureException(err);
     console.error("Error processing webhook:", err);
     return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
