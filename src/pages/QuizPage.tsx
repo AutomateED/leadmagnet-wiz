@@ -96,21 +96,48 @@ export default function QuizPage() {
       (window as any).fbq('track', 'Lead');
     }
 
-    // Insert lead into Supabase (fire-and-forget)
-    supabase
-      .from('leads')
-      .insert({
-        client_id: config.clientId || null,
-        quiz_slug: slug!,
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        result_type: resultType,
-        answers: quiz.answers,
-      })
-      .then(({ error: insertError }) => {
-        if (insertError) console.error('Lead insert failed:', insertError);
-      });
+    // Insert lead into Supabase (fire-and-forget, never blocks confirmation)
+    if (!config.clientId) {
+      console.warn('Skipping lead insert: missing clientId for slug', slug);
+    } else {
+      supabase
+        .from('leads')
+        .insert({
+          client_id: config.clientId,
+          quiz_slug: slug!,
+          first_name: firstName,
+          last_name: lastName,
+          email,
+          result_type: resultType,
+          answers: quiz.answers,
+        })
+        .then(({ error: insertError }) => {
+          if (insertError) {
+            console.error('Lead insert failed:', insertError);
+            // Notify server-side via fire-webhook so we have a record of the failure
+            fetch('https://sgllwxhabdhjldhpnnsg.supabase.co/functions/v1/fire-webhook', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                slug: slug!,
+                payload: {
+                  lead_insert_failed: true,
+                  first_name: firstName,
+                  last_name: lastName,
+                  email,
+                  result_type: resultType,
+                  result_copy: resultCopy,
+                  answers: quiz.answers,
+                  quiz_name: config.quizName || config.businessName,
+                  client_name: config.businessName,
+                  timestamp: new Date().toISOString(),
+                  error_message: insertError.message,
+                },
+              }),
+            }).catch(() => {});
+          }
+        });
+    }
 
     // Fire webhook via server-side Edge Function (keeps webhook URL secret)
     fetch('https://sgllwxhabdhjldhpnnsg.supabase.co/functions/v1/fire-webhook', {
