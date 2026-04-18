@@ -1,3 +1,11 @@
+import * as Sentry from "npm:@sentry/deno";
+
+Sentry.init({
+  dsn: Deno.env.get("SENTRY_DSN"),
+  environment: "production",
+  tracesSampleRate: 0.1,
+});
+
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const ADMIN_EMAIL = 'hello@pretaquiz.com'
@@ -224,6 +232,7 @@ Deno.serve(async (req) => {
         })
     }
   } catch (err) {
+    Sentry.captureException(err);
     console.error('admin-actions error:', err)
     return new Response(JSON.stringify({ error: err.message || 'Internal error' }), {
       status: 500, headers: corsHeaders
