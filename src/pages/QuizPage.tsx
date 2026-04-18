@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuizConfig } from '@/hooks/useQuizConfig';
 import { useQuiz } from '@/hooks/useQuiz';
@@ -16,6 +16,7 @@ export default function QuizPage() {
   const { slug } = useParams<{ slug: string }>();
   const { config, loading, error } = useQuizConfig(slug);
   const quiz = useQuiz();
+  const [finalResult, setFinalResult] = useState<string | null>(null);
 
   // Dynamically load selected Google Font
   useEffect(() => {
@@ -87,6 +88,7 @@ export default function QuizPage() {
   const handleEmailSubmit = async (firstName: string, email: string, lastName: string) => {
     // Calculate result directly from answers to avoid race condition with setState
     const resultType = calculateResult(quiz.answers, config.resultTitles);
+    setFinalResult(resultType);
     const resultCopy = config.resultTexts[resultType];
     quiz.submitEmail(firstName, email, lastName);
 
@@ -191,7 +193,7 @@ export default function QuizPage() {
     case 'email':
       return <EmailGate brandColour={config.brandColour} privacyPolicyUrl={config.privacyPolicyUrl} onSubmit={handleEmailSubmit} />;
     case 'confirmation': {
-      const confirmResult = calculateResult(quiz.answers, config.resultTitles);
+      const confirmResult = finalResult ?? calculateResult(quiz.answers, config.resultTitles);
       const confirmCopy = config.resultTexts[confirmResult];
       return <ConfirmationScreen config={config} email={quiz.userData.email} resultType={confirmResult} resultCopy={confirmCopy} />;
     }
