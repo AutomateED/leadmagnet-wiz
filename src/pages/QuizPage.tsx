@@ -16,6 +16,7 @@ export default function QuizPage() {
   const { slug } = useParams<{ slug: string }>();
   const { config, loading, error } = useQuizConfig(slug);
   const quiz = useQuiz();
+  const [finalResult, setFinalResult] = useState<string | null>(null);
 
   // Dynamically load selected Google Font
   useEffect(() => {
