@@ -1,3 +1,11 @@
+import * as Sentry from "npm:@sentry/deno";
+
+Sentry.init({
+  dsn: Deno.env.get("SENTRY_DSN"),
+  environment: "production",
+  tracesSampleRate: 0.1,
+});
+
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const corsHeaders = {
@@ -67,6 +75,7 @@ Deno.serve(async (req) => {
         body: JSON.stringify(payload),
       });
     } catch (webhookErr) {
+      Sentry.captureException(webhookErr);
       console.error("Webhook delivery failed:", webhookErr);
       // Don't fail the response — webhook delivery is best-effort for V1
     }
@@ -76,6 +85,7 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
+    Sentry.captureException(err);
     console.error("Error in fire-webhook:", err);
     return new Response(
       JSON.stringify({ error: "Internal error" }),

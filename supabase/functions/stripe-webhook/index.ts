@@ -1,3 +1,11 @@
+import * as Sentry from "npm:@sentry/deno";
+
+Sentry.init({
+  dsn: Deno.env.get("SENTRY_DSN"),
+  environment: "production",
+  tracesSampleRate: 0.1,
+});
+
 import Stripe from "npm:stripe@17";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -38,6 +46,7 @@ Deno.serve(async (req) => {
     });
     event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret);
   } catch (err) {
+    Sentry.captureException(err);
     console.error("Signature verification failed:", err);
     return new Response(JSON.stringify({ error: "Invalid signature" }), {
       status: 400,
@@ -198,6 +207,7 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
+    Sentry.captureException(err);
     console.error("Error processing webhook:", err);
     return new Response(JSON.stringify({ error: "Internal error" }), {
       status: 500,
