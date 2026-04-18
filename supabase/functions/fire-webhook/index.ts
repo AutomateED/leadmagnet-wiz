@@ -75,6 +75,7 @@ Deno.serve(async (req) => {
         body: JSON.stringify(payload),
       });
     } catch (webhookErr) {
+      Sentry.captureException(webhookErr);
       console.error("Webhook delivery failed:", webhookErr);
       // Don't fail the response — webhook delivery is best-effort for V1
     }
