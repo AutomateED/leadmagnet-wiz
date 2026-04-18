@@ -88,6 +88,7 @@ export default function QuizPage() {
   const handleEmailSubmit = async (firstName: string, email: string, lastName: string) => {
     // Calculate result directly from answers to avoid race condition with setState
     const resultType = calculateResult(quiz.answers, config.resultTitles);
+    setFinalResult(resultType);
     const resultCopy = config.resultTexts[resultType];
     quiz.submitEmail(firstName, email, lastName);
 
