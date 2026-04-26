@@ -60,6 +60,7 @@ export default function AdminBlog() {
   const [posts, setPosts] = useState<BlogPostRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [deploying, setDeploying] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // Form state
@@ -132,9 +133,9 @@ export default function AdminBlog() {
     }, 50);
   };
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !slug.trim()) return;
+  const handleSave = async (e?: React.FormEvent): Promise<boolean> => {
+    if (e) e.preventDefault();
+    if (!title.trim() || !slug.trim()) return false;
     setSaving(true);
 
     const payload = {
@@ -146,6 +147,7 @@ export default function AdminBlog() {
       published,
     };
 
+    let success = false;
     if (editingId) {
       const { error } = await supabase
         .from('blog_posts')
@@ -157,6 +159,7 @@ export default function AdminBlog() {
         toast({ title: 'Post updated!' });
         resetForm();
         loadPosts();
+        success = true;
       }
     } else {
       const { error } = await supabase.from('blog_posts').insert(payload as any);
@@ -166,9 +169,26 @@ export default function AdminBlog() {
         toast({ title: 'Post saved!' });
         resetForm();
         loadPosts();
+        success = true;
       }
     }
     setSaving(false);
+    return success;
+  };
+
+  const handlePublishAndDeploy = async () => {
+    const ok = await handleSave();
+    if (!ok) return;
+    setDeploying(true);
+    try {
+      await fetch('https://api.vercel.com/v1/integrations/deploy/prj_zGytd5NUYuixbFbn3P2wUp9fwvWq/FhS5Mhv0cs', {
+        method: 'POST',
+      });
+      toast({ title: 'Deploy triggered!' });
+    } catch (err: any) {
+      toast({ title: 'Deploy failed', description: err?.message || 'Unknown error', variant: 'destructive' });
+    }
+    setTimeout(() => setDeploying(false), 5000);
   };
 
   const handleDelete = async (id: string) => {
@@ -440,9 +460,19 @@ export default function AdminBlog() {
                 style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
               />
             </div>
-            <Button type="submit" disabled={saving} style={{ backgroundColor: C.cta, color: C.white }}>
-              {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
-            </Button>
+            <div className="flex gap-2 flex-wrap">
+              <Button type="submit" disabled={saving || deploying} style={{ backgroundColor: C.cta, color: C.white }}>
+                {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
+              </Button>
+              <Button
+                type="button"
+                onClick={handlePublishAndDeploy}
+                disabled={saving || deploying}
+                style={{ backgroundColor: C.green, color: C.white }}
+              >
+                {deploying ? 'Deploying…' : 'Publish & Deploy'}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
