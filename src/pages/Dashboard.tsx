@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, Routes, Route, useLocation, Link, Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
@@ -27,11 +27,11 @@ const NAV_ITEMS = [
   { label: 'Questions', path: 'questions', icon: HelpCircle },
   { label: 'Results', path: 'results', icon: Trophy },
   { label: 'CTA Settings', path: 'cta', icon: MousePointerClick },
-  { label: 'Leads', path: 'leads', icon: Users },
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
-  { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'Connect your CRM', path: 'integrations', icon: Plug },
   { label: 'AI Content Guide', path: 'ai-guide', icon: Sparkles },
+  { label: 'Leads', path: 'leads', icon: Users, dividerBefore: true },
 ];
 
 interface QuizRow {
@@ -173,16 +173,29 @@ export default function Dashboard() {
             {NAV_ITEMS.map((item) => {
               const active = location.pathname === `/dashboard/${item.path}`;
               return (
-                <Link key={item.path} to={`/dashboard/${item.path}`}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    active
-                      ? 'bg-[#F020B0] text-white'
-                      : 'text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5'
-                  }`}
-                >
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  {item.label}
-                </Link>
+                <React.Fragment key={item.path}>
+                  {item.dividerBefore && (
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        height: '1px',
+                        backgroundColor: 'rgba(0,0,0,0.08)',
+                        marginTop: '12px',
+                        marginBottom: '12px',
+                      }}
+                    />
+                  )}
+                  <Link to={`/dashboard/${item.path}`}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                      active
+                        ? 'bg-[#F020B0] text-white'
+                        : 'text-[#6B5F80] dark:text-[#9A8EAA] hover:bg-[rgba(217,70,239,0.08)] dark:hover:bg-white/5'
+                    }`}
+                  >
+                    <item.icon className="h-4 w-4 shrink-0" />
+                    {item.label}
+                  </Link>
+                </React.Fragment>
               );
             })}
           </nav>
