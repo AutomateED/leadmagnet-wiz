@@ -168,9 +168,10 @@ export default function Leads() {
     const toExport = selected.size > 0
       ? filtered.filter((l) => selected.has(l.id))
       : filtered;
-    const headers = ['Name', 'Email', 'Result Type', 'Quiz', 'Date', 'Answers'];
+    const headers = ['First Name', 'Last Name', 'Email', 'Result Type', 'Quiz', 'Date', 'Answers'];
     const rows = toExport.map((lead) => [
-      [lead.first_name, lead.last_name].filter(Boolean).join(' ') || '',
+      lead.first_name || '',
+      lead.last_name || '',
       lead.email,
       lead.result_type || '',
       lead.quiz_slug,
