@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Plus, ArrowRight, Pencil } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+
 import { useToast } from '@/hooks/use-toast';
 
 interface QuizRow {
@@ -100,19 +101,18 @@ export default function MyQuizzes({ quizzes, onSelectQuiz }: MyQuizzesProps) {
           <Plus className="h-8 w-8" style={{ color: '#D946EF' }} />
         </div>
         <h2 className="text-2xl font-bold mb-2" style={{ color: '#0F0A1E' }}>
-          You don't have any quizzes yet
+          Your quiz is being set up
         </h2>
         <p className="text-base mb-8 max-w-md" style={{ color: '#6B5F80' }}>
-          Get started with PretaQuiz and create your first lead-generating quiz in minutes.
+          Your quiz is being set up. This usually takes a few seconds.
         </p>
-        <Link
-          to="/get-started"
+        <button
+          onClick={() => window.location.reload()}
           className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-opacity hover:opacity-90"
           style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}
         >
-          Get Started
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+          Refresh
+        </button>
       </div>
     );
   }
