@@ -322,14 +322,31 @@ export default function HomePage() {
             PretaQuiz gives coaches and consultants a branded lead-generation quiz they can make their own. No tech skills. No monthly fees. Live in under an hour.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-10">
-            <button
-              onClick={handleCheckout}
-              disabled={checkoutLoading}
-              className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-              style={{ backgroundColor: C.cta }}
-            >
-              {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz - $97 one-time'}
-            </button>
+            <div className="inline-flex flex-col items-stretch" style={{ gap: '12px' }}>
+              <button
+                onClick={handleCheckout}
+                disabled={checkoutLoading}
+                className="text-lg font-semibold text-white px-8 py-4 rounded-xl transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                style={{ backgroundColor: C.cta }}
+              >
+                {checkoutLoading ? 'Redirecting…' : 'Get PretaQuiz - $97 one-time'}
+              </button>
+              <a
+                href="/quiz/pretaquiz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-medium px-8 py-3 rounded-full transition-colors text-center"
+                style={{
+                  backgroundColor: 'transparent',
+                  color: 'rgba(255,255,255,0.90)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
+              >
+                See it in action
+              </a>
+            </div>
             {checkoutError && (
               <p className="mt-2 text-sm" style={{ color: '#F87171' }}>
                 Something went wrong. Please try again or email hello@pretaquiz.com.
