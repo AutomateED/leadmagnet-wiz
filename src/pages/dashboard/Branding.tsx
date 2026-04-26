@@ -37,8 +37,26 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
   const [brandColour, setBrandColour] = useState(config.brandColour);
   const [logoUrl, setLogoUrl] = useState(config.logo);
   const [fontFamily, setFontFamily] = useState(config.fontFamily || 'Playfair Display');
+  const [privacyPolicyUrl, setPrivacyPolicyUrl] = useState(config.privacyPolicyUrl || '');
+  const [savingPrivacy, setSavingPrivacy] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const handleSavePrivacy = async () => {
+    setSavingPrivacy(true);
+    const { error } = await supabase
+      .from('quiz_configs')
+      .update({ privacy_policy_url: privacyPolicyUrl })
+      .eq('id', quizId);
+
+    if (error) {
+      toast({ title: 'Save failed', description: error.message, variant: 'destructive' });
+    } else {
+      onConfigChange((prev) => prev ? { ...prev, privacyPolicyUrl } : prev);
+      toast({ title: 'Changes saved', description: 'Your privacy policy link has been updated.' });
+    }
+    setSavingPrivacy(false);
+  };
 
   useEffect(() => {
     const id = 'branding-fonts';
@@ -181,6 +199,45 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
         <Button onClick={handleSave} disabled={saving} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
           {saving ? 'Saving...' : 'Save changes'}
         </Button>
+
+        <section className="space-y-3 pt-6" style={{ borderTop: '1px solid rgba(217,70,239,0.12)' }}>
+          <div>
+            <h2 className="text-lg font-semibold" style={{ color: '#0F0A1E' }}>Privacy Policy</h2>
+            <p className="text-sm mt-1" style={{ color: '#6B5F80' }}>
+              Your quiz collects personal data. Adding your privacy policy URL means prospects can read it before submitting their details.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="privacyPolicyUrl">Your privacy policy URL</Label>
+            <Input
+              id="privacyPolicyUrl"
+              value={privacyPolicyUrl}
+              onChange={(e) => setPrivacyPolicyUrl(e.target.value)}
+              placeholder="https://yourwebsite.com/privacy"
+              type="url"
+            />
+          </div>
+          <Button onClick={handleSavePrivacy} disabled={savingPrivacy} style={{ backgroundColor: '#F020B0', color: '#FFFFFF' }}>
+            {savingPrivacy ? 'Saving...' : 'Save'}
+          </Button>
+          <div
+            className="rounded-lg px-4 py-3 text-sm leading-relaxed"
+            style={{ backgroundColor: 'rgba(217,70,239,0.06)', border: '1px solid rgba(217,70,239,0.15)', color: '#6B5F80' }}
+          >
+            <span className="font-semibold" style={{ color: '#0F0A1E' }}>Don't have a privacy policy yet?</span>{' '}
+            You'll need one before sharing your quiz with prospects.{' '}
+            <a
+              href="https://termly.7zqw8y.net/6kGNvE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 font-medium"
+              style={{ color: '#D946EF' }}
+            >
+              Termly
+            </a>
+            {' '}makes it straightforward — you can generate one in minutes, for free. (affiliate link)
+          </div>
+        </section>
       </div>
     </div>
   );
