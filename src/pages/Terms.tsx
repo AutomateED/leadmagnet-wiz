@@ -34,10 +34,16 @@ const Terms = () => (
       <h2 className="text-xl font-semibold mt-8 mb-3">8. Termination</h2>
       <p>We reserve the right to suspend or terminate your account at any time for violation of these Terms. You may delete your account at any time by contacting support.</p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">9. Changes to Terms</h2>
+      <h2 className="text-xl font-semibold mt-8 mb-3">9. Service Continuity &amp; Discontinuation</h2>
+      <p>PretaQuiz is provided as a hosted service. Your one-time payment covers access to the platform, quiz hosting, and lead capture for as long as the Service remains operational.</p>
+      <p>If we decide to discontinue the Service, we will notify you by email at least 90 days before the shutdown date. During that notice period, you will be able to export your quiz configuration and lead data.</p>
+      <p>In the event PretaQuiz is acquired by or transferred to another operator, your account and quiz will transfer to the new operator under the same terms. We will notify you of any such transfer by email.</p>
+      <p>We do not guarantee that the Service will be available indefinitely. We will make reasonable efforts to maintain uptime and provide advance notice of any material changes to the Service, but we are not liable for interruptions or discontinuation beyond the notice period described above.</p>
+
+      <h2 className="text-xl font-semibold mt-8 mb-3">10. Changes to Terms</h2>
       <p>We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the updated Terms.</p>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">10. Contact</h2>
+      <h2 className="text-xl font-semibold mt-8 mb-3">11. Contact</h2>
       <p>For questions about these Terms, please contact us at <a href="mailto:hello@pretaquiz.com" className="text-primary hover:underline">hello@pretaquiz.com</a>.</p>
 
       <div className="mt-12 pt-6 border-t border-border">
