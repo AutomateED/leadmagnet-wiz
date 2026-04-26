@@ -20,6 +20,18 @@ const pages = [
         { '@type': 'WebSite', '@id': 'https://pretaquiz.com/#website', url: 'https://pretaquiz.com', name: 'PretaQuiz', publisher: { '@id': 'https://pretaquiz.com/#organization' } },
         { '@type': 'WebPage', '@id': 'https://pretaquiz.com/#webpage', url: 'https://pretaquiz.com', name: 'PretaQuiz — Your Quiz Funnel, Live in Under an Hour', description: 'A branded lead-generation quiz for coaches, consultants, and service providers. Customise every question and result. Live in under an hour.', isPartOf: { '@id': 'https://pretaquiz.com/#website' } },
         { '@type': 'SoftwareApplication', name: 'PretaQuiz', applicationCategory: 'BusinessApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '97', priceCurrency: 'USD', priceValidUntil: '2027-12-31' }, description: 'Branded quiz funnel for coaches and consultants. Customise questions, results, and branding. Live in under an hour.' },
+        {
+          '@type': 'FAQPage',
+          'mainEntity': [
+            { '@type': 'Question', 'name': 'How much does PretaQuiz cost?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'PretaQuiz costs $97 as a one-time payment. There are no monthly fees, no subscriptions, and no hidden costs.' } },
+            { '@type': 'Question', 'name': 'Do I need tech skills to use PretaQuiz?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'No. PretaQuiz is designed for coaches and consultants with no technical background. You upload your logo, set your brand colour, write your questions and results, and get a live quiz link. No coding required.' } },
+            { '@type': 'Question', 'name': 'How long does it take to set up a quiz on PretaQuiz?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'Most coaches have their branded quiz live in under an hour. You log in, configure your branding, questions, and results, and get a shareable link immediately.' } },
+            { '@type': 'Question', 'name': 'What is a lead magnet quiz?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'A lead magnet quiz is an interactive quiz on your website that captures a visitor name and email in exchange for a personalised result. Unlike a PDF, it qualifies your leads and gives you insight into what each prospect needs before you speak to them.' } },
+            { '@type': 'Question', 'name': 'How does PretaQuiz compare to other quiz builders?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'Most quiz builders charge $29 to $99 per month. PretaQuiz is $97 one-time with no monthly fees. It is purpose-built for coaches and consultants who want a branded quiz on their website without the complexity of tools designed for marketers and agencies.' } },
+            { '@type': 'Question', 'name': 'Can I connect PretaQuiz to my CRM or email tool?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'Yes. PretaQuiz sends lead data to any CRM or email tool that accepts a webhook, including ActiveCampaign, MailChimp, Kit, GoHighLevel, and Zapier. You can also export leads as a CSV from your dashboard.' } },
+            { '@type': 'Question', 'name': 'Is PretaQuiz GDPR compliant?', 'acceptedAnswer': { '@type': 'Answer', 'text': 'Yes. PretaQuiz includes a consent checkbox on the quiz email capture screen, supports linking to your privacy policy, and provides a Data Processing Agreement. Cookie consent is built in and analytics are only loaded after explicit consent.' } }
+          ]
+        }
       ],
     },
   },
@@ -52,13 +64,6 @@ const pages = [
     body: 'Privacy policy for PretaQuiz.',
   },
   {
-    route: '/waitlist',
-    title: 'Join the Waitlist — PretaQuiz',
-    description: 'Be first in line for PretaQuiz. The fastest way to qualify leads online with ready-made quiz funnels for coaches and consultants.',
-    h1: 'Join the PretaQuiz Waitlist',
-    body: 'Be the first to know when PretaQuiz launches. Ready-made quiz funnels for coaches, consultants, and service providers. Sign up to get early access.',
-  },
-  {
     route: '/dpa',
     title: 'Data Processing Agreement — PretaQuiz',
     description: 'PretaQuiz Data Processing Agreement. How we process personal data on behalf of our clients in compliance with GDPR.',
@@ -70,29 +75,50 @@ const pages = [
     title: 'The PretaQuiz Blog — Advice for Coaches',
     description: 'Practical advice for coaches who want warm leads, not tech headaches. Tips on quiz funnels, lead generation, and growing a coaching business.',
     h1: 'The PretaQuiz Blog',
-    body: 'Practical advice for coaches who want warm leads, not tech headaches. Tips on quiz funnels, lead generation, and growing a coaching business.',
+    body: 'Practical advice for coaches who want warm leads, not tech headaches. Tips on quiz funnels, lead generation, and growing a coaching business. Read articles on why quizzes outperform PDFs as lead magnets, how to get warm leads without paid ads, what to put on your coaching website to get more discovery calls, what a lead magnet quiz is and how it works for coaches, and the five online essentials every coach needs to get clients.',
   },
   {
     route: '/blog/quiz-vs-pdf-lead-magnet',
     title: 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet — PretaQuiz',
     description: 'The PDF lead magnet had its moment. Here\'s why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
     h1: 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet',
-    body: 'The PDF lead magnet had its moment. That moment has passed. Here is why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.',
+    body: 'The PDF lead magnet had its moment. That moment has passed. Here is why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself. A PDF is a one-way street. You get an email address but zero insight into who that person is. A quiz asks questions before it gives anything away. By the time a prospect sees their results, you already know what they are struggling with and which of your offers is the right fit. PretaQuiz was built specifically for coaches who want a branded lead-generation quiz without a developer, without a monthly fee, and without spending a week on the tech.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Article', 'headline': 'Why Coaches Need a Quiz Instead of a PDF Lead Magnet', 'author': { '@type': 'Person', 'name': 'Emma Dumel' }, 'datePublished': '2026-04-11', 'publisher': { '@type': 'Organization', 'name': 'PretaQuiz', 'url': 'https://pretaquiz.com' }, 'description': 'The PDF lead magnet had its moment. Here is why coaches who switch to a quiz get warmer leads, better insight into their audience, and a funnel that runs itself.', 'mainEntityOfPage': 'https://pretaquiz.com/blog/quiz-vs-pdf-lead-magnet' },
   },
   {
     route: '/blog/warm-leads-without-paid-ads',
     title: 'How Coaches Can Get Warm Leads Without Paid Ads — PretaQuiz',
     description: 'Most coaches think lead generation means running ads. Here\'s how to turn your existing website traffic into warm, qualified leads — for free.',
     h1: 'How Coaches Can Get Warm Leads From Their Website Without Paid Ads',
-    body: 'Most coaches think lead generation means running ads. It does not. Here is how to turn your existing website traffic into warm, qualified leads for free.',
+    body: 'Most coaches think lead generation means running ads. It does not. Here is how to turn your existing website traffic into warm, qualified leads for free. Your website already gets visitors. The question is whether those visitors leave without you ever knowing they were there. A quiz on your website captures their name, email, and what they need, and sends it to your CRM automatically. PretaQuiz lets coaches set this up in under an hour with no tech skills and no monthly fee.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Article', 'headline': 'How Coaches Can Get Warm Leads From Their Website Without Paid Ads', 'author': { '@type': 'Person', 'name': 'Emma Dumel' }, 'datePublished': '2026-04-11', 'publisher': { '@type': 'Organization', 'name': 'PretaQuiz', 'url': 'https://pretaquiz.com' }, 'description': 'Most coaches think lead generation means running ads. Here is how to turn your existing website traffic into warm, qualified leads for free.', 'mainEntityOfPage': 'https://pretaquiz.com/blog/warm-leads-without-paid-ads' },
   },
   {
     route: '/blog/coaching-website-discovery-calls',
     title: 'What to Put on Your Coaching Website to Get More Discovery Calls — PretaQuiz',
     description: 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here\'s what to add and what to cut.',
     h1: 'What to Put on Your Coaching Website to Get More Discovery Calls',
-    body: 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here is what to add and what to cut to turn more visitors into booked calls.',
-  }
+    body: 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here is what to add and what to cut to turn more visitors into booked calls. Most coaching websites have too much information and not enough conversion. The five things that actually matter are a clear headline, a single call to action, social proof, an interactive lead magnet like a quiz, and a simple booking link. PretaQuiz helps coaches add a branded quiz to their website that qualifies visitors before the first conversation.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Article', 'headline': 'What to Put on Your Coaching Website to Get More Discovery Calls', 'author': { '@type': 'Person', 'name': 'Emma Dumel' }, 'datePublished': '2026-04-11', 'publisher': { '@type': 'Organization', 'name': 'PretaQuiz', 'url': 'https://pretaquiz.com' }, 'description': 'Your coaching website should be doing the qualification work before a prospect ever reaches out. Here is what to add and what to cut.', 'mainEntityOfPage': 'https://pretaquiz.com/blog/coaching-website-discovery-calls' },
+  },
+  {
+    // TODO: Confirm this slug matches the actual URL in Lovable
+    route: '/blog/what-is-lead-magnet-quiz',
+    title: 'What Is a Lead Magnet Quiz and How Does It Work for Coaches? — PretaQuiz',
+    description: 'A lead magnet quiz is an interactive tool that qualifies your leads automatically. Here is exactly how it works for coaches and why it outperforms every other lead magnet.',
+    h1: 'What Is a Lead Magnet Quiz and How Does It Work for Coaches?',
+    body: 'A lead magnet quiz is an interactive quiz on your website that captures a visitor name and email in exchange for a personalised result. Unlike a PDF or checklist, a quiz qualifies your leads by asking questions about their situation before they see their result. For coaches, this means every lead that comes through already has context. You know what they are struggling with, where they are in their journey, and which of your offers is the best fit. PretaQuiz is a branded quiz builder for coaches that costs $97 one-time with no monthly fees. Most coaches have their quiz live in under an hour.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Article', 'headline': 'What Is a Lead Magnet Quiz and How Does It Work for Coaches?', 'author': { '@type': 'Person', 'name': 'Emma Dumel' }, 'datePublished': '2026-04-17', 'publisher': { '@type': 'Organization', 'name': 'PretaQuiz', 'url': 'https://pretaquiz.com' }, 'description': 'A lead magnet quiz is an interactive tool that qualifies your leads automatically. Here is exactly how it works for coaches and why it outperforms every other lead magnet.', 'mainEntityOfPage': 'https://pretaquiz.com/blog/what-is-lead-magnet-quiz' },
+  },
+  {
+    // TODO: Confirm this slug matches the actual URL in Lovable
+    route: '/blog/online-essentials-coaches',
+    title: 'The 5 Online Essentials Every Coach Needs to Get Clients — PretaQuiz',
+    description: 'You don\'t need a complicated funnel or 47 tools to get coaching clients online. Here are the five things that actually matter, and what you can skip.',
+    h1: 'The 5 Online Essentials Every Coach Needs to Get Clients (Without the Tech Overwhelm)',
+    body: 'You do not need a complicated funnel or 47 tools to get coaching clients online. Here are the five things that actually matter and what you can skip. The essentials are a clear offer, a simple website, a lead magnet that qualifies visitors, an email follow-up sequence, and one consistent traffic source. Most coaches overcomplicate this. PretaQuiz handles the lead magnet part. A branded quiz on your website that captures warm leads and sends them to your CRM. $97 one-time. No monthly fees. No tech skills required.',
+    jsonLd: { '@context': 'https://schema.org', '@type': 'Article', 'headline': 'The 5 Online Essentials Every Coach Needs to Get Clients (Without the Tech Overwhelm)', 'author': { '@type': 'Person', 'name': 'Emma Dumel' }, 'datePublished': '2026-04-17', 'publisher': { '@type': 'Organization', 'name': 'PretaQuiz', 'url': 'https://pretaquiz.com' }, 'description': 'You do not need a complicated funnel or 47 tools to get coaching clients online. Here are the five things that actually matter and what you can skip.', 'mainEntityOfPage': 'https://pretaquiz.com/blog/online-essentials-coaches' },
+  },
 ];
 
 for (const page of pages) {
