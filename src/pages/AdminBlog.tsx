@@ -460,9 +460,19 @@ export default function AdminBlog() {
                 style={{ backgroundColor: C.bg, borderColor: C.border, color: C.white }}
               />
             </div>
-            <Button type="submit" disabled={saving} style={{ backgroundColor: C.cta, color: C.white }}>
-              {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
-            </Button>
+            <div className="flex gap-2 flex-wrap">
+              <Button type="submit" disabled={saving || deploying} style={{ backgroundColor: C.cta, color: C.white }}>
+                {saving ? 'Saving…' : editingId ? 'Update Post' : 'Save Post'}
+              </Button>
+              <Button
+                type="button"
+                onClick={handlePublishAndDeploy}
+                disabled={saving || deploying}
+                style={{ backgroundColor: C.green, color: C.white }}
+              >
+                {deploying ? 'Deploying…' : 'Publish & Deploy'}
+              </Button>
+            </div>
           </form>
         </div>
       </div>
