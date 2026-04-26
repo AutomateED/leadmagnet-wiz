@@ -27,11 +27,11 @@ const NAV_ITEMS = [
   { label: 'Questions', path: 'questions', icon: HelpCircle },
   { label: 'Results', path: 'results', icon: Trophy },
   { label: 'CTA Settings', path: 'cta', icon: MousePointerClick },
-  { label: 'Leads', path: 'leads', icon: Users },
   { label: 'Preview', path: 'preview', icon: Eye },
   { label: 'Share', path: 'share', icon: Share2 },
-  { label: 'Integrations', path: 'integrations', icon: Plug },
+  { label: 'Connect your CRM', path: 'integrations', icon: Plug },
   { label: 'AI Content Guide', path: 'ai-guide', icon: Sparkles },
+  { label: 'Leads', path: 'leads', icon: Users, dividerBefore: true },
 ];
 
 interface QuizRow {
