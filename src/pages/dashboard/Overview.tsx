@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Circle, Copy, ArrowRight, Play, Users } from 'lucide-react';
+import { Check, Circle, Copy, ArrowRight, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
@@ -142,21 +142,15 @@ export default function Overview({ config, slug }: OverviewProps) {
       )}
 
       {/* Welcome video */}
-      <div
-        className="mt-6 max-w-[800px] rounded-xl overflow-hidden"
-        style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}
-      >
-        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-            <div
-              className="flex h-14 w-14 items-center justify-center rounded-full"
-              style={{ backgroundColor: 'rgba(217,70,239,0.15)' }}
-            >
-              <Play className="h-6 w-6 ml-0.5" style={{ color: '#D946EF' }} />
-            </div>
-            <p className="text-sm font-semibold" style={{ color: '#0F0A1E' }}>Watch: Set up your quiz in under 5 minutes</p>
-            <span className="text-xs" style={{ color: '#9A8EAA' }}>Video coming soon</span>
-          </div>
+      <div className="mt-6 max-w-[800px] rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}>
+        <div style={{ position: 'relative', paddingBottom: '55.73%', height: 0 }}>
+          <iframe
+            src="https://www.loom.com/embed/7a605f6d4d2d41579d3bb6f614983204"
+            frameBorder={0}
+            allowFullScreen
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            title="Set up your quiz in under 5 minutes"
+          />
         </div>
       </div>
 
