@@ -31,10 +31,19 @@ const queryClient = new QueryClient();
 
 function ChatWidget() {
   const location = useLocation();
-  const isQuizPage = location.pathname.startsWith('/quiz/');
+  const isDashboard = location.pathname.startsWith('/dashboard');
 
   useEffect(() => {
-    if (isQuizPage) return;
+    if (!isDashboard) return;
+
+    const styleId = 'lc-chat-widget-style';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      // Hide widget by default; .lc-chat-visible is added when user clicks "Need help?"
+      style.textContent = `chat-widget { display: none !important; } body.lc-chat-visible chat-widget { display: block !important; }`;
+      document.head.appendChild(style);
+    }
 
     const scriptId = 'lc-chat-widget';
     if (document.getElementById(scriptId)) return;
@@ -45,12 +54,7 @@ function ChatWidget() {
     script.setAttribute('data-resources-url', 'https://beta.leadconnectorhq.com/chat-widget/loader.js');
     script.setAttribute('data-widget-id', '69f8693dcc1c63fa34320786');
     document.body.appendChild(script);
-
-    return () => {
-      const el = document.getElementById(scriptId);
-      if (el) el.remove();
-    };
-  }, [isQuizPage]);
+  }, [isDashboard]);
 
   return null;
 }

@@ -269,13 +269,21 @@ export default function Dashboard() {
       </main>
 
       {/* Fixed help button */}
-      <a
-        href="mailto:hello@pretaquiz.com"
+      <button
+        type="button"
+        onClick={() => {
+          document.body.classList.add('lc-chat-visible');
+          const widget = document.querySelector('chat-widget') as HTMLElement | null;
+          const launcher =
+            (widget?.shadowRoot?.querySelector('[class*="launcher"], button') as HTMLElement | null) ||
+            (document.querySelector('chat-widget button') as HTMLElement | null);
+          launcher?.click();
+        }}
         className="fixed bottom-6 right-6 z-50 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-lg transition-opacity hover:opacity-90"
         style={{ backgroundColor: '#D946EF' }}
       >
         Need help?
-      </a>
+      </button>
     </div>
   );
 }
