@@ -6,6 +6,7 @@ import { QUESTIONS, type Question } from '@/utils/questions';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { PictureInPicture2 } from 'lucide-react';
 
 interface QuestionsProps {
   config: QuizConfig;
@@ -71,6 +72,27 @@ export default function Questions({ config, onConfigChange, userId, quizId }: Qu
       <p className="mb-6" style={{ color: '#6B5F80' }}>
         Edit your quiz questions and answer options. Each answer maps to a result type. The result a prospect gets most often becomes their final result.
       </p>
+
+      <div className="mb-8 max-w-[800px] rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}>
+        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+          <iframe
+            src="https://www.youtube.com/embed/CNhaPFePdqw"
+            frameBorder="0"
+            allowFullScreen
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            title="How to add your questions and answers"
+          />
+        </div>
+      </div>
+
+      <button
+        onClick={() => window.open('https://www.youtube.com/watch?v=CNhaPFePdqw', 'pretaquiz-video', 'width=480,height=270')}
+        className="flex items-center gap-1.5 text-xs font-medium mb-8 transition-colors hover:opacity-80"
+        style={{ color: '#D946EF' }}
+      >
+        <PictureInPicture2 className="h-3.5 w-3.5" />
+        Pop out video
+      </button>
 
       <div className="rounded-lg p-4 mb-8 max-w-[800px]" style={{ backgroundColor: 'rgba(217,70,239,0.08)', borderLeft: '3px solid rgba(217,70,239,0.3)' }}>
         <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#9A8EAA' }}>Answer &rarr; Result mapping</p>
