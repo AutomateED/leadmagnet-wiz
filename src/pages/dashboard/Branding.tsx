@@ -128,6 +128,18 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-8" style={{ color: '#0F0A1E' }}>Branding</h1>
 
+      <div className="max-w-[600px] mb-8 rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}>
+        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+          <iframe
+            src="https://www.youtube.com/embed/NUUEtSOmWf4"
+            frameBorder="0"
+            allowFullScreen
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            title="How to add your branding"
+          />
+        </div>
+      </div>
+
       <div className="max-w-[600px] space-y-6">
         <div className="space-y-2">
           <Label htmlFor="businessName">Business Name</Label>
