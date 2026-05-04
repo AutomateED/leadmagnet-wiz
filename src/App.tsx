@@ -11,7 +11,6 @@ import HomePage from "./pages/HomePage";
 import Setup from "./pages/Setup";
 import QuizPage from "./pages/QuizPage";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
@@ -43,7 +42,6 @@ const App = () => (
             <Route path="/setup" element={<Setup />} />
             <Route path="/quiz/:slug" element={<QuizPage />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dashboard/*" element={<Dashboard />} />
