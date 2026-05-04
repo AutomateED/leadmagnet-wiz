@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, X } from 'lucide-react';
+import { Upload, X, PictureInPicture2 } from 'lucide-react';
 
 const FONT_OPTIONS = [
   { family: 'Playfair Display', label: 'Elegant Serif', fallback: 'serif' },
@@ -139,6 +139,15 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
           />
         </div>
       </div>
+
+      <button
+        onClick={() => window.open('https://www.youtube.com/watch?v=NUUEtSOmWf4', 'pretaquiz-video', 'width=480,height=270')}
+        className="flex items-center gap-1.5 text-xs font-medium mt-2 mb-6 transition-colors hover:opacity-80"
+        style={{ color: '#D946EF' }}
+      >
+        <PictureInPicture2 className="h-3.5 w-3.5" />
+        Pop out video
+      </button>
 
       <div className="max-w-[600px] space-y-6">
         <div className="space-y-2">
