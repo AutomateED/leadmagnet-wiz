@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import * as Sentry from "@sentry/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -27,6 +28,32 @@ import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+function ChatWidget() {
+  const location = useLocation();
+  const isQuizPage = location.pathname.startsWith('/quiz/');
+
+  useEffect(() => {
+    if (isQuizPage) return;
+
+    const scriptId = 'lc-chat-widget';
+    if (document.getElementById(scriptId)) return;
+
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.src = 'https://beta.leadconnectorhq.com/loader.js';
+    script.setAttribute('data-resources-url', 'https://beta.leadconnectorhq.com/chat-widget/loader.js');
+    script.setAttribute('data-widget-id', '69f8693dcc1c63fa34320786');
+    document.body.appendChild(script);
+
+    return () => {
+      const el = document.getElementById(scriptId);
+      if (el) el.remove();
+    };
+  }, [isQuizPage]);
+
+  return null;
+}
 
 const App = () => (
   <Sentry.ErrorBoundary fallback={<p>Something went wrong. Please refresh.</p>}>
@@ -60,6 +87,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
+        <ChatWidget />
         <CookieConsent />
       </BrowserRouter>
       </TooltipProvider>
