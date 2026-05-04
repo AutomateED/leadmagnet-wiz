@@ -128,7 +128,7 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-8" style={{ color: '#0F0A1E' }}>Branding</h1>
 
-      <div className="mb-8 rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}>
+      <div className="mb-8 rounded-xl overflow-hidden w-3/4" style={{ backgroundColor: 'rgba(217,70,239,0.08)' }}>
         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
           <iframe
             src="https://www.youtube.com/embed/NUUEtSOmWf4"
