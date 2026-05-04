@@ -140,6 +140,15 @@ export default function Branding({ config, onConfigChange, userId, quizId }: Bra
         </div>
       </div>
 
+      <button
+        onClick={() => window.open('https://www.youtube.com/watch?v=NUUEtSOmWf4', 'pretaquiz-video', 'width=480,height=270')}
+        className="flex items-center gap-1.5 text-xs font-medium mt-2 mb-6 transition-colors hover:opacity-80"
+        style={{ color: '#D946EF' }}
+      >
+        <PictureInPicture2 className="h-3.5 w-3.5" />
+        Pop out video
+      </button>
+
       <div className="max-w-[600px] space-y-6">
         <div className="space-y-2">
           <Label htmlFor="businessName">Business Name</Label>
